@@ -32,6 +32,7 @@ func FindContactByID(MainData *storage.AllContact, id uint) storage.Contact {
 		if data.Id == id {
 			return data
 			break
+
 		}
 	}
 	return data
