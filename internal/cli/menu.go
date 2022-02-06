@@ -1,8 +1,8 @@
 package cli
 
 import (
-	"TelNote/internal/service/menu/contact"
-	"TelNote/internal/storage"
+	"tel-note/internal/service/menu/contact"
+	"tel-note/internal/storage"
 	"encoding/json"
 	"fmt"
 )

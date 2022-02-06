@@ -1,10 +1,10 @@
 package main
 
 import (
-	"TelNote/internal/cli"
-	"TelNote/internal/service/greeting"
-	"TelNote/internal/service/identity"
-	"TelNote/internal/storage"
+	"tel-note/internal/cli"
+	"tel-note/internal/service/greeting"
+	"tel-note/internal/service/identity"
+	"tel-note/internal/storage"
 )
 
 func main() {

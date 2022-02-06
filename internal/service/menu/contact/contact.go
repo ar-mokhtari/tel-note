@@ -1,7 +1,7 @@
 package contact
 
 import (
-	"TelNote/internal/storage"
+	"tel-note/internal/storage"
 	"strings"
 )
 
