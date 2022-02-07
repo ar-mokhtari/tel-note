@@ -17,7 +17,6 @@ type (
 	}
 )
 
-
 func (MainData *AllContact) AddContact() {
 	var (
 		lastID uint
@@ -33,23 +32,23 @@ func (MainData *AllContact) AddContact() {
 	lastID += 1
 	//append lastID
 
-	println("Please inter your first name:")
+	fmt.Println("Please inter your first name:")
 	fmt.Scanln(&firstName)
 
 	//input and save lastname
-	println("Please inter your last name:")
+	fmt.Println("Please inter your last name:")
 	fmt.Scanln(&lastName)
 
 	//input and save tel
-	println("Please inter your tel:")
+	fmt.Println("Please inter your tel:")
 	fmt.Scanln(&tel)
 
 	//input and save cellphone
-	println("Please inter your cellphone:")
+	fmt.Println("Please inter your cellphone:")
 	fmt.Scanln(&cellphone)
 
 	//input and save description lastID +
-	println("Please inter your description:")
+	fmt.Println("Please inter your description:")
 	fmt.Scanln(&description)
 
 	//marge inputs to create a contact
@@ -57,5 +56,5 @@ func (MainData *AllContact) AddContact() {
 
 	MainData.ContactData = append(MainData.ContactData, result)
 
-	println(">> New record done <<")
+	fmt.Println(">> New record done <<")
 }

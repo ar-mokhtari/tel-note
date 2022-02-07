@@ -1,8 +1,8 @@
 package contact
 
 import (
-	"tel-note/internal/storage"
 	"strings"
+	"tel-note/internal/storage"
 )
 
 func NewContact(MainData *storage.AllContact, firstName, lastName, tel, cellphone, description string) {
@@ -24,17 +24,17 @@ func NewContact(MainData *storage.AllContact, firstName, lastName, tel, cellphon
 	MainData.ContactData = append(MainData.ContactData, *result)
 }
 
-func FindContactByID(MainData *storage.AllContact, id uint) storage.Contact {
+func FindContactByID(MainData *storage.AllContact, id uint) (storage.Contact, bool) {
 	var (
 		data storage.Contact
 	)
 	for _, data := range MainData.ContactData {
 		if data.Id == id {
-			return data
+			return data, true
 			break
 		}
 	}
-	return data
+	return data, false
 }
 
 func FindContactByChar(MainData *storage.AllContact, insertChar string) (storage.AllContact, uint) {

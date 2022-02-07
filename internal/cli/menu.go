@@ -1,10 +1,10 @@
 package cli
 
 import (
-	"tel-note/internal/service/menu/contact"
-	"tel-note/internal/storage"
 	"encoding/json"
 	"fmt"
+	"tel-note/internal/service/menu/contact"
+	"tel-note/internal/storage"
 )
 
 func ShowMenu(MainData *storage.AllContact) {
@@ -27,31 +27,23 @@ func runMenu(MainData *storage.AllContact) {
 		case "N", "n":
 			//todo: “To use function, or to use method, that is the question”
 			var firstName, lastName, tel, cellphone, description string
-
-			println("Please inter your first name:")
+			fmt.Println("Please inter your first name:")
 			fmt.Scanln(&firstName)
-
-			//input and save lastname
-			println("Please inter your last name:")
+			//input lastname
+			fmt.Println("Please inter your last name:")
 			fmt.Scanln(&lastName)
-
-			//input and save tel
-			println("Please inter your tel:")
+			//input tel
+			fmt.Println("Please inter your tel:")
 			fmt.Scanln(&tel)
-
-			//input and save cellphone
-			println("Please inter your cellphone:")
+			//input cellphone
+			fmt.Println("Please inter your cellphone:")
 			fmt.Scanln(&cellphone)
-
-			//input and save description lastID +
-			println("Please inter your description:")
+			//input description lastID +
+			fmt.Println("Please inter your description:")
 			fmt.Scanln(&description)
-
 			contact.NewContact(MainData, firstName, lastName, tel, cellphone, description)
 			//(*storage.AllContact).AddContact(MainData)
-
-			println(">> New record done <<")
-
+			fmt.Println(">> New record done <<")
 			ShowMenu(MainData)
 		case "L", "l":
 			dataJSON, _ := json.MarshalIndent(MainData, "", "  ")
@@ -62,7 +54,12 @@ func runMenu(MainData *storage.AllContact) {
 			var id uint
 			fmt.Println("Please insert your contact ID:")
 			fmt.Scanln(&id)
-			fmt.Println(contact.FindContactByID(MainData, id))
+			result, isFound := contact.FindContactByID(MainData, id)
+			if isFound {
+				fmt.Println(result)
+			} else {
+				fmt.Println("not found")
+			}
 			ShowMenu(MainData)
 		case "FF", "ff":
 			var insertChar string
@@ -73,7 +70,7 @@ func runMenu(MainData *storage.AllContact) {
 			if resultCount == 0 {
 				fmt.Println("not found")
 			} else {
-				fmt.Println(resultCount, "record found")
+				fmt.Println(resultCount, "record(s) found")
 			}
 			ShowMenu(MainData)
 		//something wrong:

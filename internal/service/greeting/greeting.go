@@ -17,14 +17,14 @@ func ReadGreetingNote() (string, string) {
 }
 
 func ChangeGreeting() {
-	println("Do you want to change greeting? (yes or no)")
+	fmt.Println("Do you want to change greeting? (yes or no)")
 	var changeStatus string
 	fmt.Scanln(&changeStatus)
-	if changeStatus == "yes" {
+	if changeStatus == config.OkStatus {
 		var note, desc string
-		println("Enter new greeting note:")
+		fmt.Println("Enter new greeting note:")
 		fmt.Scanln(&note)
-		println("Enter new greeting description:")
+		fmt.Println("Enter new greeting description:")
 		fmt.Scanln(&desc)
 		data := new(config.Greeting)
 		data.General, data.Description = note, desc
@@ -35,7 +35,7 @@ func ChangeGreeting() {
 
 func Greeting() {
 	if identity.IsAdmin {
-		println("Hi Admin ... ")
+		fmt.Println("Hi Admin ... ")
 	}
 	fmt.Println(ReadGreetingNote())
 }
