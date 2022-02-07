@@ -9,7 +9,8 @@ type (
 )
 
 const (
-	Admin Role = iota + 1
+	AdminState  Role = iota + 1
+	AdminString      = "admin"
 	manager
 	basic
 	OkStatus = "yes"

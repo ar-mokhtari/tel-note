@@ -2,6 +2,7 @@ package identity
 
 import (
 	"fmt"
+	"strings"
 	"tel-note/internal/config"
 )
 
@@ -11,7 +12,7 @@ func Identity() {
 	var userStatus string
 	fmt.Println("user or admin?")
 	fmt.Scanln(&userStatus)
-	if userStatus == string(config.Admin) {
+	if strings.ToLower(userStatus) == string(config.AdminString) {
 		IsAdmin = true
 	}
 }
