@@ -3,6 +3,7 @@ package cli
 import (
 	"encoding/json"
 	"fmt"
+	"strconv"
 	"strings"
 	"tel-note/internal/config"
 	"tel-note/internal/service/contact"
@@ -10,15 +11,18 @@ import (
 )
 
 func ShowMenu(MainData *storage.AllContact) {
-	fmt.Println("------------------")
-	fmt.Println("*** Main menu: ***", "Please select:") //todo: Why fmt.Println don't split contents line
-	fmt.Print("'N|n' 	 	new record\n")
-	fmt.Print("'L|n' 	 	list of contact\n")
-	fmt.Print("'F|f' 	 	find one contact by id\n")
-	fmt.Print("'FF|ff' 	find contact, contain some character\n")
-	fmt.Print("'e|E' 		find and edit contact by contact id\n")
-	fmt.Print("'d|D' 		delete contact by id\n")
-	fmt.Println("------------------")
+	fmt.Println("-------------------------------------------------------------")
+	fmt.Println("*** Main menu: ***\n", "Please select:") //todo: Why fmt.Println don't split contents line
+	fmt.Println("-------------------------------------------------------------")
+	fmt.Print("'n|N' 	 	|	new record\n")
+	fmt.Print("'l|L' 	 	|	list of contact\n")
+	fmt.Print("'f|F' 	 	|	find one contact by id\n")
+	fmt.Print("'fc|FC'		|	find contact, contain some character\n")
+	fmt.Print("'e|E' 		|	find and edit contact by contact id\n")
+	fmt.Print("'d|D' 		|	delete contact by id\n")
+	fmt.Print("'dm|DM'		|	delete multi contact by id(s)\n")
+	fmt.Print("'da|DA'		|	delete all contacts\n")
+	fmt.Println("-------------------------------------------------------------")
 	runMenu(MainData)
 }
 
@@ -65,7 +69,7 @@ func runMenu(MainData *storage.AllContact) {
 				fmt.Println("not found")
 			}
 			ShowMenu(MainData)
-		case "FF", "ff":
+		case "FC", "fc":
 			var insertChar string
 			fmt.Println("insert character(s):")
 			fmt.Scanln(&insertChar)
@@ -118,8 +122,54 @@ func runMenu(MainData *storage.AllContact) {
 				fmt.Println("insert your contact id that you want to delete:")
 				fmt.Scanln(&deleteID)
 				status := contact.DeleteContactByID(MainData, deleteID)
-				if status.State {
+				switch status.State {
+				case true:
 					fmt.Printf("contact with id number:  %d deleted.", deleteID)
+				case false:
+					fmt.Println("something wrong")
+				}
+			}
+			ShowMenu(MainData)
+		case "DA", "da":
+			var confirmDel string
+			fmt.Println("*** important, be careful, you are deleting all of contacts ***")
+			fmt.Println("are you sure? (yes or no)")
+			fmt.Scanln(&confirmDel)
+			if strings.ToLower(confirmDel) == config.OkStatus {
+				resultStatus := contact.DeleteAll(MainData)
+				switch resultStatus.State {
+				case true:
+					fmt.Println("All contact deleted")
+				case false:
+					fmt.Println("something wrong")
+				}
+			}
+		case "DM", "dm":
+			var confirmDel string
+			fmt.Println("*** important, be careful, you are deleting contact(s) ***")
+			fmt.Println("do you want to continue? (yes or no)")
+			fmt.Scanln(&confirmDel)
+			if strings.ToLower(confirmDel) == config.OkStatus {
+				var deleteIDS string
+				var status config.ResponseStatus
+				fmt.Println("insert your contact id(s) that you want to delete, separate id's by ',':")
+				fmt.Scanln(&deleteIDS)
+				idPack := strings.Split(deleteIDS, ",")
+				for _, delID := range idPack {
+					uintDelID, _ := strconv.ParseUint(delID, 10, 8)
+					if uint(uintDelID) <= 0 {
+						fmt.Println("not equal kind")
+						break
+					} else {
+						status = contact.DeleteContactByID(MainData, uint(uintDelID))
+					}
+				}
+				switch status.State {
+				case true:
+					fmt.Printf(deleteIDS)
+					fmt.Println("contact(s) deleted.")
+				case false:
+					fmt.Println("something wrong")
 				}
 			}
 			ShowMenu(MainData)

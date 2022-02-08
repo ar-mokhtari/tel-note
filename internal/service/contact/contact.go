@@ -87,3 +87,8 @@ func DeleteContactByID(MainData *storage.AllContact, ID uint) config.ResponseSta
 	}
 	return config.ResponseStatus{State: false}
 }
+
+func DeleteAll(MainData *storage.AllContact) config.ResponseStatus {
+	MainData.ContactData = MainData.ContactData[0:0]
+	return config.ResponseStatus{State: true}
+}
