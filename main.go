@@ -8,7 +8,6 @@ import (
 )
 
 func main() {
-	var MainData = new(storage.AllContact)
 	//To know level of user (admin | normal user)
 	identity.Identity()
 	//If user is admin, maybe want to change greeting note
@@ -17,5 +16,5 @@ func main() {
 	}
 	//Show greeting note and description
 	greeting.Greeting()
-	cli.ShowMenu(MainData)
+	cli.ShowMenu(new(storage.AllContact))
 }

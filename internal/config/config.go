@@ -5,13 +5,17 @@ type (
 		General     string `json:"general,omitempty"`
 		Description string `json:"description,omitempty"`
 	}
-	Role int
+	Role           int
+	ResponseStatus struct {
+		State  bool
+		String string
+	}
 )
 
 const (
-	AdminState  Role = iota + 1
-	AdminString      = "admin"
-	manager
-	basic
-	OkStatus = "yes"
+	AdminState Role = iota + 1
+	Manager
+	Basic
+	AdminString = "admin"
+	OkStatus    = "yes"
 )
