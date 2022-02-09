@@ -16,7 +16,6 @@ type (
 		NationalCode  string
 		Description   string `json:"description,omitempty"`
 	}
-
 	Contact struct {
 		Id uint `json:"id"`
 		*Person
@@ -25,17 +24,14 @@ type (
 		Cellphone   string `json:"cellphone,omitempty"`
 		Description string `json:"description,omitempty"`
 	}
-
 	city struct {
 		id   uint
 		name string
 	}
-
 	sex struct {
 		id   uint8
 		name string
 	}
-
 	jobInfo struct {
 		id                  uint
 		name                string
@@ -43,7 +39,6 @@ type (
 		description         string
 		basicPaymentPerHour uint
 	}
-
 	AllContact struct {
 		ContactData []*Contact
 	}
