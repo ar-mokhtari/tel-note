@@ -1,7 +1,7 @@
 package main
 
 import (
-	"tel-note/internal/cli"
+	"tel-note/cli"
 	"tel-note/internal/service/greeting"
 	"tel-note/internal/service/identity"
 	"tel-note/internal/storage"

@@ -6,7 +6,7 @@ import (
 	"tel-note/internal/storage"
 )
 
-func NewContact(MainData *storage.AllContact, firstName, lastName, tel, cellphone, description string) {
+func NewContact(MainData *storage.AllContact, firstName, lastName, tel, cellphone, description string) *storage.AllContact {
 	var (
 		lastID uint
 	)
@@ -18,11 +18,11 @@ func NewContact(MainData *storage.AllContact, firstName, lastName, tel, cellphon
 		}
 	}
 	lastID += 1
-
 	//marge inputs to create a contact
 	result := &storage.Contact{Id: lastID, FirstName: firstName, LastName: lastName, Tel: tel, Cellphone: cellphone, Description: description}
-
+	//append to pointed storage
 	MainData.ContactData = append(MainData.ContactData, *result)
+	return MainData
 }
 
 func FindContactByID(MainData *storage.AllContact, id uint) (storage.Contact, bool) {
@@ -91,4 +91,11 @@ func DeleteContactByID(MainData *storage.AllContact, ID uint) config.ResponseSta
 func DeleteAll(MainData *storage.AllContact) config.ResponseStatus {
 	MainData.ContactData = MainData.ContactData[0:0]
 	return config.ResponseStatus{State: true}
+}
+
+func FillSimpleDataInMainData(MainData *storage.AllContact) {
+	for index, data := range config.MainDataTest.ContactData {
+		data.Id = uint(index) //uint(index)
+		MainData.ContactData = append(MainData.ContactData, data)
+	}
 }

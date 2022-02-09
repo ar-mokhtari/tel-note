@@ -7,6 +7,7 @@ import (
 	"strings"
 	"tel-note/internal/config"
 	"tel-note/internal/service/contact"
+	"tel-note/internal/service/identity"
 	"tel-note/internal/storage"
 )
 
@@ -23,6 +24,10 @@ func ShowMenu(MainData *storage.AllContact) {
 	fmt.Print("'dm|DM'		|	delete multi contact by id(s)\n")
 	fmt.Print("'da|DA'		|	delete all contacts\n")
 	fmt.Println("-------------------------------------------------------------")
+	if identity.IsAdmin {
+		fmt.Print("'data|DATA'	|	insert some sample's contacts\n")
+		fmt.Println("-------------------------------------------------------------")
+	}
 	runMenu(MainData)
 }
 
@@ -176,6 +181,15 @@ func runMenu(MainData *storage.AllContact) {
 		//something wrong:
 		default:
 			fmt.Println("bad input, please insert character of menu list")
+		}
+		//admin actions only:
+		if identity.IsAdmin {
+			switch userInput {
+
+			case "data", "DATA":
+				contact.FillSimpleDataInMainData(MainData)
+				ShowMenu(MainData)
+			}
 		}
 	}
 }
