@@ -21,7 +21,7 @@ func TestNewContact(t *testing.T) {
 		//slice config to one part
 		want.ContactData = want.ContactData[6:7]
 		//add an id to config sample
-		(want.ContactData)[0].Id = 2
+		(want.ContactData)[0].Id = 1
 		assertCorrectMessage(t, *got, want)
 	})
 }

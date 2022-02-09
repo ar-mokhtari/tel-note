@@ -1,22 +1,55 @@
 package storage
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 type (
+	Person struct {
+		Id            uint   `json:"id"`
+		FirstName     string `json:"first_name,omitempty"`
+		LastName      string `json:"last_name,omitempty"`
+		DOB           time.Time
+		BirthLocation *city
+		Gender        *sex
+		NationalCode  string
+		Description   string `json:"description,omitempty"`
+	}
+
 	Contact struct {
-		Id          uint   `json:"id"`
-		FirstName   string `json:"first_name,omitempty"`
-		LastName    string `json:"last_name,omitempty"`
+		Id uint `json:"id"`
+		*Person
+		*jobInfo
 		Tel         string `json:"tel,omitempty"`
 		Cellphone   string `json:"cellphone,omitempty"`
 		Description string `json:"description,omitempty"`
 	}
 
+	city struct {
+		id   uint
+		name string
+	}
+
+	sex struct {
+		id   uint8
+		name string
+	}
+
+	jobInfo struct {
+		id                  uint
+		name                string
+		location            *city
+		description         string
+		basicPaymentPerHour uint
+	}
+
 	AllContact struct {
-		ContactData []Contact
+		ContactData []*Contact
 	}
 )
 
+// AddContact todo: merge with func the same ("NewContact")
 func (MainData *AllContact) AddContact() {
 	var (
 		lastID uint
@@ -52,7 +85,7 @@ func (MainData *AllContact) AddContact() {
 	fmt.Scanln(&description)
 
 	//marge inputs to create a contact
-	result := Contact{Id: lastID, FirstName: firstName, LastName: lastName, Tel: tel, Cellphone: cellphone, Description: description}
+	result := &Contact{Id: lastID, Person: &Person{FirstName: firstName, LastName: lastName}, Tel: tel, Cellphone: cellphone, Description: description}
 
 	MainData.ContactData = append(MainData.ContactData, result)
 

@@ -36,6 +36,14 @@ func runMenu(MainData *storage.AllContact) {
 		var userInput string
 		fmt.Scanln(&userInput)
 		//fmt.Println(userInput) todo: when negative value inserted, maybe because of define uint for id; The positive value is entered again, why?
+		//admin actions only:
+		if identity.IsAdmin {
+			switch userInput {
+			case "data", "DATA":
+				contact.FillSimpleDataInMainData(MainData)
+				ShowMenu(MainData)
+			}
+		}
 		switch userInput {
 		case "N", "n":
 			//todo: “To use function, or to use method, that is the question”
@@ -61,7 +69,10 @@ func runMenu(MainData *storage.AllContact) {
 		case "L", "l":
 			dataJSON, _ := json.MarshalIndent(MainData, "", "  ")
 			fmt.Println(string(dataJSON))
-			fmt.Println(MainData)
+			for _, data := range MainData.ContactData {
+				fmt.Println(*data)
+				fmt.Println(data.FirstName)
+			}
 			ShowMenu(MainData)
 		case "F", "f":
 			var id uint
@@ -110,7 +121,7 @@ func runMenu(MainData *storage.AllContact) {
 			fmt.Scanln(&cellphone)
 			fmt.Println("new cellphone:")
 			fmt.Scanln(&description)
-			editedContact := storage.Contact{FirstName: firstName, LastName: lastName, Tel: tel, Cellphone: cellphone, Description: description}
+			editedContact := storage.Contact{Person: &storage.Person{FirstName: firstName, LastName: lastName}, Tel: tel, Cellphone: cellphone, Description: description}
 			if state := contact.EditContactByID(MainData, editedContact, insertContactID); state.State != false {
 				fmt.Println("contact edited successful")
 			} else {
@@ -181,15 +192,6 @@ func runMenu(MainData *storage.AllContact) {
 		//something wrong:
 		default:
 			fmt.Println("bad input, please insert character of menu list")
-		}
-		//admin actions only:
-		if identity.IsAdmin {
-			switch userInput {
-
-			case "data", "DATA":
-				contact.FillSimpleDataInMainData(MainData)
-				ShowMenu(MainData)
-			}
 		}
 	}
 }

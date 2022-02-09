@@ -19,9 +19,9 @@ func NewContact(MainData *storage.AllContact, firstName, lastName, tel, cellphon
 	}
 	lastID += 1
 	//marge inputs to create a contact
-	result := &storage.Contact{Id: lastID, FirstName: firstName, LastName: lastName, Tel: tel, Cellphone: cellphone, Description: description}
+	result := &storage.Contact{Id: lastID, Person: &storage.Person{FirstName: firstName, LastName: lastName}, Tel: tel, Cellphone: cellphone, Description: description}
 	//append to pointed storage
-	MainData.ContactData = append(MainData.ContactData, *result)
+	MainData.ContactData = append(MainData.ContactData, result)
 	return MainData
 }
 
@@ -31,7 +31,7 @@ func FindContactByID(MainData *storage.AllContact, id uint) (storage.Contact, bo
 	)
 	for _, data := range MainData.ContactData {
 		if data.Id == id {
-			return data, true
+			return *data, true
 			break
 		}
 	}
@@ -95,7 +95,7 @@ func DeleteAll(MainData *storage.AllContact) config.ResponseStatus {
 
 func FillSimpleDataInMainData(MainData *storage.AllContact) {
 	for index, data := range config.MainDataTest.ContactData {
-		data.Id = uint(index) //uint(index)
-		MainData.ContactData = append(MainData.ContactData, data)
+		data.Id = uint(index)
+		NewContact(MainData, data.FirstName, data.LastName, data.Tel, data.Cellphone, data.Description)
 	}
 }
