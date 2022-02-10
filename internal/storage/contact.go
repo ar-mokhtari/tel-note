@@ -2,20 +2,9 @@ package storage
 
 import (
 	"fmt"
-	"time"
 )
 
 type (
-	Person struct {
-		Id            uint   `json:"id"`
-		FirstName     string `json:"first_name,omitempty"`
-		LastName      string `json:"last_name,omitempty"`
-		DOB           time.Time
-		BirthLocation *city
-		Gender        *sex
-		NationalCode  string
-		Description   string `json:"description,omitempty"`
-	}
 	Contact struct {
 		Id uint `json:"id"`
 		*Person
@@ -23,21 +12,6 @@ type (
 		Tel         string `json:"tel,omitempty"`
 		Cellphone   string `json:"cellphone,omitempty"`
 		Description string `json:"description,omitempty"`
-	}
-	city struct {
-		id   uint
-		name string
-	}
-	sex struct {
-		id   uint8
-		name string
-	}
-	jobInfo struct {
-		id                  uint
-		name                string
-		location            *city
-		description         string
-		basicPaymentPerHour uint
 	}
 	AllContact struct {
 		ContactData []*Contact

@@ -6,12 +6,13 @@ import (
 	"strconv"
 	"strings"
 	"tel-note/internal/config"
+	"tel-note/internal/service/basic_info"
 	"tel-note/internal/service/contact"
 	"tel-note/internal/service/identity"
 	"tel-note/internal/storage"
 )
 
-func ShowMenu(MainData *storage.AllContact) {
+func ShowMenu(MainData *storage.AllContact, MainCity *storage.AllCities) {
 	fmt.Println("-------------------------------------------------------------")
 	fmt.Println("*** Main menu: ***\n", "Please select:") //todo: Why fmt.Println don't split contents line
 	fmt.Println("-------------------------------------------------------------")
@@ -26,12 +27,14 @@ func ShowMenu(MainData *storage.AllContact) {
 	fmt.Println("-------------------------------------------------------------")
 	if identity.IsAdmin {
 		fmt.Print("'data|DATA'	|	insert some sample's contacts\n")
+		fmt.Print("'nc|NC'		|	insert new city\n")
+		fmt.Print("'lc|LC'		|	list of cities\n")
 		fmt.Println("-------------------------------------------------------------")
 	}
-	runMenu(MainData)
+	runMenu(MainData, MainCity)
 }
 
-func runMenu(MainData *storage.AllContact) {
+func runMenu(MainData *storage.AllContact, MainCity *storage.AllCities) {
 	for {
 		var userInput string
 		fmt.Scanln(&userInput)
@@ -41,7 +44,19 @@ func runMenu(MainData *storage.AllContact) {
 			switch userInput {
 			case "data", "DATA":
 				contact.FillSimpleDataInMainData(MainData)
-				ShowMenu(MainData)
+				ShowMenu(MainData, MainCity)
+			case "nc", "NC":
+				var inputCity string
+				fmt.Println("insert city name:")
+				fmt.Scanln(&inputCity)
+				basic_info.NewCity(MainCity, inputCity)
+			case "lc", "LC":
+				dataJSON, _ := json.MarshalIndent(MainCity, "", "  ")
+				fmt.Println(string(dataJSON))
+				for _, data := range MainCity.CityData {
+					fmt.Println(*data)
+				}
+				ShowMenu(MainData, MainCity)
 			}
 		}
 		switch userInput {
@@ -65,7 +80,7 @@ func runMenu(MainData *storage.AllContact) {
 			contact.NewContact(MainData, firstName, lastName, tel, cellphone, description)
 			//(*storage.AllContact).AddContact(MainData)
 			fmt.Println(">> New record done <<")
-			ShowMenu(MainData)
+			ShowMenu(MainData, MainCity)
 		case "L", "l":
 			dataJSON, _ := json.MarshalIndent(MainData, "", "  ")
 			fmt.Println(string(dataJSON))
@@ -73,7 +88,7 @@ func runMenu(MainData *storage.AllContact) {
 				fmt.Println(*data)
 				fmt.Println(data.FirstName)
 			}
-			ShowMenu(MainData)
+			ShowMenu(MainData, MainCity)
 		case "F", "f":
 			var id uint
 			fmt.Println("Please insert your contact ID:")
@@ -84,7 +99,7 @@ func runMenu(MainData *storage.AllContact) {
 			} else {
 				fmt.Println("not found")
 			}
-			ShowMenu(MainData)
+			ShowMenu(MainData, MainCity)
 		case "FC", "fc":
 			var insertChar string
 			fmt.Println("insert character(s):")
@@ -96,7 +111,7 @@ func runMenu(MainData *storage.AllContact) {
 			} else {
 				fmt.Println(resultCount, "record(s) found")
 			}
-			ShowMenu(MainData)
+			ShowMenu(MainData, MainCity)
 		case "E", "e":
 			var (
 				insertContactID                                  uint
@@ -109,7 +124,7 @@ func runMenu(MainData *storage.AllContact) {
 				fmt.Println(result)
 			} else {
 				fmt.Println("not found")
-				ShowMenu(MainData)
+				ShowMenu(MainData, MainCity)
 			}
 			fmt.Println("new first name:")
 			fmt.Scanln(&firstName)
@@ -127,7 +142,7 @@ func runMenu(MainData *storage.AllContact) {
 			} else {
 				println("contact not changed")
 			}
-			ShowMenu(MainData)
+			ShowMenu(MainData, MainCity)
 		case "D", "d":
 			var confirmDel string
 			fmt.Println("*** important, be careful, you are deleting a contact ***")
@@ -145,7 +160,7 @@ func runMenu(MainData *storage.AllContact) {
 					fmt.Println("something wrong")
 				}
 			}
-			ShowMenu(MainData)
+			ShowMenu(MainData, MainCity)
 		case "DA", "da":
 			var confirmDel string
 			fmt.Println("*** important, be careful, you are deleting all of contacts ***")
@@ -188,7 +203,7 @@ func runMenu(MainData *storage.AllContact) {
 					fmt.Println("something wrong")
 				}
 			}
-			ShowMenu(MainData)
+			ShowMenu(MainData, MainCity)
 		//something wrong:
 		default:
 			fmt.Println("bad input, please insert character of menu list")
