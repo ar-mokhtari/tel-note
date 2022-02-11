@@ -1,6 +1,7 @@
 package basic_info
 
 import (
+	"tel-note/internal/config"
 	"tel-note/internal/storage"
 )
 
@@ -17,4 +18,14 @@ func NewCity(MainData *storage.AllCities, CityName string) {
 		Name: CityName,
 	}
 	MainData.CityData = append(MainData.CityData, &result)
+}
+
+func EditCityByID(MainCity *storage.AllCities, ID uint, NewCityName string) config.ResponseStatus {
+	for _, data := range MainCity.CityData {
+		if data.Id == ID {
+			data.Name = NewCityName
+			return config.ResponseStatus{State: true}
+		}
+	}
+	return config.ResponseStatus{State: false}
 }

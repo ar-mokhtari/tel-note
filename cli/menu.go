@@ -29,6 +29,7 @@ func ShowMenu(MainData *storage.AllContact, MainCity *storage.AllCities) {
 		fmt.Print("'data|DATA'	|	insert some sample's contacts\n")
 		fmt.Print("'nc|NC'		|	insert new city\n")
 		fmt.Print("'lc|LC'		|	list of cities\n")
+		fmt.Print("'ec|EC'		|	edit city by id\n")
 		fmt.Println("-------------------------------------------------------------")
 	}
 	runMenu(MainData, MainCity)
@@ -50,11 +51,24 @@ func runMenu(MainData *storage.AllContact, MainCity *storage.AllCities) {
 				fmt.Println("insert city name:")
 				fmt.Scanln(&inputCity)
 				basic_info.NewCity(MainCity, inputCity)
+				ShowMenu(MainData, MainCity)
 			case "lc", "LC":
 				dataJSON, _ := json.MarshalIndent(MainCity, "", "  ")
 				fmt.Println(string(dataJSON))
+				fmt.Println("-------------------------------------------------------------")
 				for _, data := range MainCity.CityData {
-					fmt.Println(*data)
+					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
+				}
+				ShowMenu(MainData, MainCity)
+			case "ec", "EC":
+				var inputID uint
+				var inputName string
+				fmt.Println("insert city id:")
+				fmt.Scanln(&inputID)
+				fmt.Println("insert new city name:")
+				fmt.Scanln(&inputName)
+				if basic_info.EditCityByID(MainCity, inputID, inputName).State {
+					fmt.Println("City changed ...")
 				}
 				ShowMenu(MainData, MainCity)
 			}
