@@ -84,9 +84,9 @@ func runMenu(MainData *storage.AllContact, MainCity *storage.AllCities) {
 		case "L", "l":
 			dataJSON, _ := json.MarshalIndent(MainData, "", "  ")
 			fmt.Println(string(dataJSON))
+			fmt.Println("-------------------------------------------------------------")
 			for _, data := range MainData.ContactData {
-				fmt.Println(*data)
-				fmt.Println(data.FirstName)
+				fmt.Printf("%3v | %-15s | %-35v | %-5v | %-15v | %-5v\n", data.Id, data.FirstName, data.LastName, data.Tel, data.Cellphone, data.Description)
 			}
 			ShowMenu(MainData, MainCity)
 		case "F", "f":

@@ -8,7 +8,7 @@ import (
 
 func main() {
 	//serve port 1212
-	cli.Serv()
+	//cli.Serv()
 	//To know level of user (admin | normal user)
 	cli.Identity()
 	//If user is admin, maybe want to change greeting note

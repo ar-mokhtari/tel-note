@@ -13,7 +13,7 @@ func NewCity(MainData *storage.AllCities, CityName string) {
 		}
 	}
 	result := storage.City{
-		Id:   uint(LastID),
+		Id:   uint(LastID) + 1,
 		Name: CityName,
 	}
 	MainData.CityData = append(MainData.CityData, &result)
