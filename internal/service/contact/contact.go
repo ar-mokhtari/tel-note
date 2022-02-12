@@ -3,21 +3,24 @@ package contact
 import (
 	"strings"
 	"tel-note/internal/config"
+	"tel-note/internal/service/core"
 	"tel-note/internal/storage"
 )
 
-func NewContact(MainData *storage.AllContact, firstName, lastName, tel, cellphone, description string) *storage.AllContact {
+func NewContact(MainData *storage.AllData, firstName, lastName, tel, cellphone, description string) *storage.AllData {
 	var (
 		lastID uint
 	)
 	//define input variable for save to struct
 	//input and save firstname
-	for _, data := range MainData.ContactData {
-		if data.Id > lastID {
-			lastID = data.Id
-		}
-	}
-	lastID += 1
+
+	lastID = core.FindLastIDPlusOne(MainData.ContactData)
+	//for _, data := range MainData.ContactData {
+	//	if data.Id > lastID {
+	//		lastID = data.Id
+	//	}
+	//}
+	//lastID += 1
 	//marge inputs to create a contact
 	result := &storage.Contact{Id: lastID, Person: &storage.Person{FirstName: firstName, LastName: lastName}, Tel: tel, Cellphone: cellphone, Description: description}
 	//append to pointed storage
@@ -25,7 +28,7 @@ func NewContact(MainData *storage.AllContact, firstName, lastName, tel, cellphon
 	return MainData
 }
 
-func FindContactByID(MainData *storage.AllContact, id uint) (storage.Contact, bool) {
+func FindContactByID(MainData *storage.AllData, id uint) (storage.Contact, bool) {
 	var (
 		data storage.Contact
 	)
@@ -38,10 +41,10 @@ func FindContactByID(MainData *storage.AllContact, id uint) (storage.Contact, bo
 	return data, false
 }
 
-func FindContactByChar(MainData *storage.AllContact, insertChar string) (storage.AllContact, uint) {
+func FindContactByChar(MainData *storage.AllData, insertChar string) (storage.AllData, uint) {
 	var (
 		counter    uint
-		resultData storage.AllContact
+		resultData storage.AllData
 	)
 	for _, data := range MainData.ContactData {
 		if strings.Contains(data.FirstName, insertChar) {
@@ -52,7 +55,7 @@ func FindContactByChar(MainData *storage.AllContact, insertChar string) (storage
 	return resultData, counter
 }
 
-func EditContactByID(MainData *storage.AllContact, newData storage.Contact, ID uint) config.ResponseStatus {
+func EditContactByID(MainData *storage.AllData, newData storage.Contact, ID uint) config.ResponseStatus {
 	//todo: is there any function to detect index of an element's slice?
 	for index, data := range MainData.ContactData {
 		if data.Id == ID {
@@ -78,7 +81,7 @@ func EditContactByID(MainData *storage.AllContact, newData storage.Contact, ID u
 	return config.ResponseStatus{String: "not found"}
 }
 
-func DeleteContactByID(MainData *storage.AllContact, ID uint) config.ResponseStatus {
+func DeleteContactByID(MainData *storage.AllData, ID uint) config.ResponseStatus {
 	for index, data := range MainData.ContactData {
 		if data.Id == ID {
 			MainData.ContactData = append(MainData.ContactData[:index], MainData.ContactData[index+1:]...)
@@ -88,12 +91,12 @@ func DeleteContactByID(MainData *storage.AllContact, ID uint) config.ResponseSta
 	return config.ResponseStatus{State: false}
 }
 
-func DeleteAll(MainData *storage.AllContact) config.ResponseStatus {
+func DeleteAll(MainData *storage.AllData) config.ResponseStatus {
 	MainData.ContactData = MainData.ContactData[0:0]
 	return config.ResponseStatus{State: true}
 }
 
-func FillSimpleDataInMainData(MainData *storage.AllContact) {
+func FillSimpleDataInMainData(MainData *storage.AllData) {
 	for index, data := range config.MainDataTest.ContactData {
 		data.Id = uint(index)
 		NewContact(MainData, data.FirstName, data.LastName, data.Tel, data.Cellphone, data.Description)

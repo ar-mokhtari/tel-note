@@ -8,8 +8,8 @@ import (
 )
 
 func TestNewContact(t *testing.T) {
-	MainData := &storage.AllContact{}
-	assertCorrectMessage := func(t testing.TB, got, want *storage.AllContact) {
+	MainData := &storage.AllData{}
+	assertCorrectMessage := func(t testing.TB, got, want *storage.AllData) {
 		t.Helper()
 		if !reflect.DeepEqual(got, want) {
 			t.Errorf("got %p want %p", *got, *want)

@@ -13,13 +13,14 @@ type (
 		Cellphone   string `json:"cellphone,omitempty"`
 		Description string `json:"description,omitempty"`
 	}
-	AllContact struct {
+	AllData struct {
 		ContactData []*Contact
+		CityData    []*City
 	}
 )
 
 // AddContact todo: merge with func the same ("NewContact")
-func (MainData *AllContact) AddContact(firstName, lastName, tel, cellphone, description string) AllContact {
+func (MainData *AllData) AddContact(firstName, lastName, tel, cellphone, description string) AllData {
 	var (
 		lastID uint
 	)

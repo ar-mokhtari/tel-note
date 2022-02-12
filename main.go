@@ -18,5 +18,5 @@ func main() {
 	//Show greeting note and description
 	cli.ShowGreeting()
 	//show contact menu
-	cli.ShowMenu(new(storage.AllContact), new(storage.AllCities))
+	cli.ShowMenu(new(storage.AllData), new(storage.AllCities))
 }

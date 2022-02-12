@@ -1,12 +1,18 @@
 package basic_info
 
 import (
+	"fmt"
+	"github.com/fatih/structs"
 	"tel-note/internal/config"
 	"tel-note/internal/storage"
 )
 
 // NewCity CRUD basic info
 func NewCity(MainData *storage.AllCities, CityName string) {
+
+	names := structs.Names(&storage.Contact{})
+	fmt.Println(names) // ["Foo", "Bar"]
+
 	var LastID uint
 	for _, data := range MainData.CityData {
 		if data.Id > LastID {

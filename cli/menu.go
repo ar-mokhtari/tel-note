@@ -12,11 +12,11 @@ import (
 	"tel-note/internal/storage"
 )
 
-func ShowMenu(MainData *storage.AllContact, MainCity *storage.AllCities) {
+func ShowMenu(MainData *storage.AllData, MainCity *storage.AllCities) {
 	fmt.Println("-------------------------------------------------------------")
 	fmt.Println("*** Main menu: ***\n", "Please select:") //todo: Why fmt.Println don't split contents line
 	fmt.Println("-------------------------------------------------------------")
-	fmt.Print("'n|N' 	 	|	new record\n")
+	fmt.Print("'n|N' 	 	|	newe record\n")
 	fmt.Print("'l|L' 	 	|	list of contact\n")
 	fmt.Print("'f|F' 	 	|	find one contact by id\n")
 	fmt.Print("'fc|FC'		|	find contact, contain some character\n")
@@ -35,7 +35,7 @@ func ShowMenu(MainData *storage.AllContact, MainCity *storage.AllCities) {
 	runMenu(MainData, MainCity)
 }
 
-func runMenu(MainData *storage.AllContact, MainCity *storage.AllCities) {
+func runMenu(MainData *storage.AllData, MainCity *storage.AllCities) {
 	for {
 		var userInput string
 		fmt.Scanln(&userInput)
@@ -50,7 +50,7 @@ func runMenu(MainData *storage.AllContact, MainCity *storage.AllCities) {
 				var inputCity string
 				fmt.Println("insert city name:")
 				fmt.Scanln(&inputCity)
-				basic_info.NewCity(MainCity, inputCity)
+				//basic_info.NewCity(MainCity, inputCity)
 				ShowMenu(MainData, MainCity)
 			case "lc", "LC":
 				dataJSON, _ := json.MarshalIndent(MainCity, "", "  ")
@@ -92,7 +92,7 @@ func runMenu(MainData *storage.AllContact, MainCity *storage.AllCities) {
 			fmt.Println("Please inter your description:")
 			fmt.Scanln(&description)
 			contact.NewContact(MainData, firstName, lastName, tel, cellphone, description)
-			//(*storage.AllContact).AddContact(MainData)
+			//(*storage.AllData).AddContact(MainData)
 			fmt.Println(">> New record done <<")
 			ShowMenu(MainData, MainCity)
 		case "L", "l":

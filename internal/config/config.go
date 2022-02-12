@@ -31,5 +31,5 @@ var (
 	Tom      = storage.Contact{Person: &storage.Person{FirstName: "Tommy", LastName: "Angelo"}, Cellphone: "+39", Description: ""}
 	Frank    = storage.Contact{Person: &storage.Person{FirstName: "Frank", LastName: "Colleti"}, Cellphone: "+39", Description: ""}
 
-	MainDataTest = storage.AllContact{ContactData: []*storage.Contact{&Reza, &Tom, &Frank, &Khorshid, &Omid, &Kianoosh, &Alireza}}
+	MainDataTest = storage.AllData{ContactData: []*storage.Contact{&Reza, &Tom, &Frank, &Khorshid, &Omid, &Kianoosh, &Alireza}}
 )
