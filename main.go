@@ -3,7 +3,6 @@ package main
 import (
 	"tel-note/cli"
 	"tel-note/internal/service/identity"
-	"tel-note/internal/storage"
 )
 
 func main() {
@@ -18,5 +17,5 @@ func main() {
 	//Show greeting note and description
 	cli.ShowGreeting()
 	//show contact menu
-	cli.ShowMenu(new(storage.AllData), new(storage.AllCities))
+	cli.ShowMenu()
 }

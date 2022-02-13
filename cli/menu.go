@@ -12,11 +12,11 @@ import (
 	"tel-note/internal/storage"
 )
 
-func ShowMenu(MainData *storage.AllData, MainCity *storage.AllCities) {
+func ShowMenu() {
 	fmt.Println("-------------------------------------------------------------")
 	fmt.Println("*** Main menu: ***\n", "Please select:") //todo: Why fmt.Println don't split contents line
 	fmt.Println("-------------------------------------------------------------")
-	fmt.Print("'n|N' 	 	|	newe record\n")
+	fmt.Print("'n|N' 	 	|	new record\n")
 	fmt.Print("'l|L' 	 	|	list of contact\n")
 	fmt.Print("'f|F' 	 	|	find one contact by id\n")
 	fmt.Print("'fc|FC'		|	find contact, contain some character\n")
@@ -32,10 +32,10 @@ func ShowMenu(MainData *storage.AllData, MainCity *storage.AllCities) {
 		fmt.Print("'ec|EC'		|	edit city by id\n")
 		fmt.Println("-------------------------------------------------------------")
 	}
-	runMenu(MainData, MainCity)
+	runMenu()
 }
 
-func runMenu(MainData *storage.AllData, MainCity *storage.AllCities) {
+func runMenu() {
 	for {
 		var userInput string
 		fmt.Scanln(&userInput)
@@ -44,22 +44,22 @@ func runMenu(MainData *storage.AllData, MainCity *storage.AllCities) {
 		if identity.IsAdmin {
 			switch userInput {
 			case "data", "DATA":
-				contact.FillSimpleDataInMainData(MainData)
-				ShowMenu(MainData, MainCity)
+				contact.FillSimpleDataInMainData()
+				ShowMenu()
 			case "nc", "NC":
 				var inputCity string
 				fmt.Println("insert city name:")
 				fmt.Scanln(&inputCity)
-				basic_info.NewCity(MainCity, inputCity)
-				ShowMenu(MainData, MainCity)
+				basic_info.NewCity(inputCity)
+				ShowMenu()
 			case "lc", "LC":
-				dataJSON, _ := json.MarshalIndent(MainCity, "", "  ")
+				dataJSON, _ := json.MarshalIndent(*config.MainData, "", "  ")
 				fmt.Println(string(dataJSON))
 				fmt.Println("-------------------------------------------------------------")
-				for _, data := range MainCity.CityData {
+				for _, data := range (*config.MainData).CityData {
 					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 				}
-				ShowMenu(MainData, MainCity)
+				ShowMenu()
 			case "ec", "EC":
 				var inputID uint
 				var inputName string
@@ -67,10 +67,10 @@ func runMenu(MainData *storage.AllData, MainCity *storage.AllCities) {
 				fmt.Scanln(&inputID)
 				fmt.Println("insert new city name:")
 				fmt.Scanln(&inputName)
-				if basic_info.EditCityByID(MainCity, inputID, inputName).State {
+				if basic_info.EditCityByID(inputID, inputName).State {
 					fmt.Println("City changed ...")
 				}
-				ShowMenu(MainData, MainCity)
+				ShowMenu()
 			}
 		}
 		switch userInput {
@@ -91,41 +91,41 @@ func runMenu(MainData *storage.AllData, MainCity *storage.AllCities) {
 			//input description lastID +
 			fmt.Println("Please inter your description:")
 			fmt.Scanln(&description)
-			contact.NewContact(MainData, firstName, lastName, tel, cellphone, description)
+			contact.NewContact(firstName, lastName, tel, cellphone, description)
 			//(*storage.AllData).AddContact(MainData)
 			fmt.Println(">> New record done <<")
-			ShowMenu(MainData, MainCity)
+			ShowMenu()
 		case "L", "l":
-			dataJSON, _ := json.MarshalIndent(MainData, "", "  ")
+			dataJSON, _ := json.MarshalIndent(*config.MainData, "", "  ")
 			fmt.Println(string(dataJSON))
 			fmt.Println("-------------------------------------------------------------")
-			for _, data := range MainData.ContactData {
+			for _, data := range (*config.MainData).ContactData {
 				fmt.Printf("%3v | %-15s | %-35v | %-5v | %-15v | %-5v\n", data.Id, data.FirstName, data.LastName, data.Tel, data.Cellphone, data.Description)
 			}
-			ShowMenu(MainData, MainCity)
+			ShowMenu()
 		case "F", "f":
 			var id uint
 			fmt.Println("Please insert your contact ID:")
 			fmt.Scanln(&id)
-			result, isFound := contact.FindContactByID(MainData, id)
+			result, isFound := contact.FindContactByID(id)
 			if isFound {
 				fmt.Println(result)
 			} else {
 				fmt.Println("not found")
 			}
-			ShowMenu(MainData, MainCity)
+			ShowMenu()
 		case "FC", "fc":
 			var insertChar string
 			fmt.Println("insert character(s):")
 			fmt.Scanln(&insertChar)
-			resultData, resultCount := contact.FindContactByChar(MainData, insertChar)
+			resultData, resultCount := contact.FindContactByChar(insertChar)
 			fmt.Println(resultData)
 			if resultCount == 0 {
 				fmt.Println("not found")
 			} else {
 				fmt.Println(resultCount, "record(s) found")
 			}
-			ShowMenu(MainData, MainCity)
+			ShowMenu()
 		case "E", "e":
 			var (
 				insertContactID                                  uint
@@ -133,12 +133,12 @@ func runMenu(MainData *storage.AllData, MainCity *storage.AllCities) {
 			)
 			fmt.Println("Please insert your contact id you want to edit:")
 			fmt.Scanln(&insertContactID)
-			result, isFound := contact.FindContactByID(MainData, insertContactID)
+			result, isFound := contact.FindContactByID(insertContactID)
 			if isFound {
 				fmt.Println(result)
 			} else {
 				fmt.Println("not found")
-				ShowMenu(MainData, MainCity)
+				ShowMenu()
 			}
 			fmt.Println("new first name:")
 			fmt.Scanln(&firstName)
@@ -151,12 +151,12 @@ func runMenu(MainData *storage.AllData, MainCity *storage.AllCities) {
 			fmt.Println("new cellphone:")
 			fmt.Scanln(&description)
 			editedContact := storage.Contact{Person: &storage.Person{FirstName: firstName, LastName: lastName}, Tel: tel, Cellphone: cellphone, Description: description}
-			if state := contact.EditContactByID(MainData, editedContact, insertContactID); state.State != false {
+			if state := contact.EditContactByID(editedContact, insertContactID); state.State != false {
 				fmt.Println("contact edited successful")
 			} else {
 				println("contact not changed")
 			}
-			ShowMenu(MainData, MainCity)
+			ShowMenu()
 		case "D", "d":
 			var confirmDel string
 			fmt.Println("*** important, be careful, you are deleting a contact ***")
@@ -166,7 +166,7 @@ func runMenu(MainData *storage.AllData, MainCity *storage.AllCities) {
 				var deleteID uint
 				fmt.Println("insert your contact id that you want to delete:")
 				fmt.Scanln(&deleteID)
-				status := contact.DeleteContactByID(MainData, deleteID)
+				status := contact.DeleteContactByID(deleteID)
 				switch status.State {
 				case true:
 					fmt.Printf("contact with id number:  %d deleted.", deleteID)
@@ -174,14 +174,14 @@ func runMenu(MainData *storage.AllData, MainCity *storage.AllCities) {
 					fmt.Println("something wrong")
 				}
 			}
-			ShowMenu(MainData, MainCity)
+			ShowMenu()
 		case "DA", "da":
 			var confirmDel string
 			fmt.Println("*** important, be careful, you are deleting all of contacts ***")
 			fmt.Println("are you sure? (yes or no)")
 			fmt.Scanln(&confirmDel)
 			if strings.ToLower(confirmDel) == config.OkStatus {
-				resultStatus := contact.DeleteAll(MainData)
+				resultStatus := contact.DeleteAll()
 				switch resultStatus.State {
 				case true:
 					fmt.Println("All contact deleted")
@@ -206,7 +206,7 @@ func runMenu(MainData *storage.AllData, MainCity *storage.AllCities) {
 						fmt.Println("not equal kind")
 						break
 					} else {
-						status = contact.DeleteContactByID(MainData, uint(uintDelID))
+						status = contact.DeleteContactByID(uint(uintDelID))
 					}
 				}
 				switch status.State {
@@ -217,7 +217,7 @@ func runMenu(MainData *storage.AllData, MainCity *storage.AllCities) {
 					fmt.Println("something wrong")
 				}
 			}
-			ShowMenu(MainData, MainCity)
+			ShowMenu()
 		//something wrong:
 		default:
 			fmt.Println("bad input, please insert character of menu list")

@@ -6,9 +6,9 @@ import (
 )
 
 // NewCity CRUD basic info
-func NewCity(MainData *storage.AllCities, CityName string) {
+func NewCity(CityName string) {
 	var LastID uint
-	for _, data := range MainData.CityData {
+	for _, data := range (*config.MainData).CityData {
 		if data.Id > LastID {
 			LastID = data.Id
 		}
@@ -17,11 +17,11 @@ func NewCity(MainData *storage.AllCities, CityName string) {
 		Id:   uint(LastID) + 1,
 		Name: CityName,
 	}
-	MainData.CityData = append(MainData.CityData, &result)
+	(*config.MainData).CityData = append((*config.MainData).CityData, &result)
 }
 
-func EditCityByID(MainCity *storage.AllCities, ID uint, NewCityName string) config.ResponseStatus {
-	for _, data := range MainCity.CityData {
+func EditCityByID(ID uint, NewCityName string) config.ResponseStatus {
+	for _, data := range (*config.MainData).CityData {
 		if data.Id == ID {
 			data.Name = NewCityName
 			return config.ResponseStatus{State: true}
