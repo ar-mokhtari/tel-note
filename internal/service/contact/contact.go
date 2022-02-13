@@ -3,7 +3,6 @@ package contact
 import (
 	"strings"
 	"tel-note/internal/config"
-	"tel-note/internal/service/core"
 	"tel-note/internal/storage"
 )
 
@@ -14,13 +13,13 @@ func NewContact(MainData *storage.AllData, firstName, lastName, tel, cellphone, 
 	//define input variable for save to struct
 	//input and save firstname
 
-	lastID = core.FindLastIDPlusOne(MainData.ContactData)
-	//for _, data := range MainData.ContactData {
-	//	if data.Id > lastID {
-	//		lastID = data.Id
-	//	}
-	//}
-	//lastID += 1
+	//lastID = MainData.GetANewCodeID()
+	for _, data := range MainData.ContactData {
+		if data.Id > lastID {
+			lastID = data.Id
+		}
+	}
+	lastID += 1
 	//marge inputs to create a contact
 	result := &storage.Contact{Id: lastID, Person: &storage.Person{FirstName: firstName, LastName: lastName}, Tel: tel, Cellphone: cellphone, Description: description}
 	//append to pointed storage

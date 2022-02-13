@@ -50,7 +50,7 @@ func runMenu(MainData *storage.AllData, MainCity *storage.AllCities) {
 				var inputCity string
 				fmt.Println("insert city name:")
 				fmt.Scanln(&inputCity)
-				//basic_info.NewCity(MainCity, inputCity)
+				basic_info.NewCity(MainCity, inputCity)
 				ShowMenu(MainData, MainCity)
 			case "lc", "LC":
 				dataJSON, _ := json.MarshalIndent(MainCity, "", "  ")

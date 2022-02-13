@@ -13,10 +13,6 @@ type (
 		Cellphone   string `json:"cellphone,omitempty"`
 		Description string `json:"description,omitempty"`
 	}
-	AllData struct {
-		ContactData []*Contact
-		CityData    []*City
-	}
 )
 
 // AddContact todo: merge with func the same ("NewContact")
