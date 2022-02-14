@@ -53,10 +53,10 @@ func runMenu() {
 				basic_info.NewCity(inputCity)
 				ShowMenu()
 			case "lc", "LC":
-				dataJSON, _ := json.MarshalIndent(*config.MainData, "", "  ")
+				dataJSON, _ := json.MarshalIndent(config.MainData, "", "  ")
 				fmt.Println(string(dataJSON))
 				fmt.Println("-------------------------------------------------------------")
-				for _, data := range (*config.MainData).CityData {
+				for _, data := range (config.MainData).CityData {
 					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 				}
 				ShowMenu()
@@ -91,15 +91,15 @@ func runMenu() {
 			//input description lastID +
 			fmt.Println("Please inter your description:")
 			fmt.Scanln(&description)
-			contact.NewContact(firstName, lastName, tel, cellphone, description)
+			contact.NewContact(storage.Contact{Person: &storage.Person{FirstName: firstName, LastName: lastName}, Tel: tel, Cellphone: cellphone, Description: description})
 			//(*storage.AllData).AddContact(MainData)
 			fmt.Println(">> New record done <<")
 			ShowMenu()
 		case "L", "l":
-			dataJSON, _ := json.MarshalIndent(*config.MainData, "", "  ")
+			dataJSON, _ := json.MarshalIndent(config.MainData, "", "  ")
 			fmt.Println(string(dataJSON))
 			fmt.Println("-------------------------------------------------------------")
-			for _, data := range (*config.MainData).ContactData {
+			for _, data := range (config.MainData).ContactData {
 				fmt.Printf("%3v | %-15s | %-35v | %-5v | %-15v | %-5v\n", data.Id, data.FirstName, data.LastName, data.Tel, data.Cellphone, data.Description)
 			}
 			ShowMenu()
