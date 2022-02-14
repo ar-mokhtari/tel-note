@@ -1,4 +1,4 @@
-package basic_info
+package basicInfo
 
 import (
 	"tel-note/internal/config"

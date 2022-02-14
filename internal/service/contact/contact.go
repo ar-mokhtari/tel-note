@@ -94,9 +94,3 @@ func DeleteAll() config.ResponseStatus {
 	(config.MainData).ContactData = (config.MainData).ContactData[0:0]
 	return config.ResponseStatus{State: true}
 }
-
-func FillSimpleDataInMainData() {
-	for _, data := range config.MainDataTest.ContactData {
-		NewContact(*data)
-	}
-}

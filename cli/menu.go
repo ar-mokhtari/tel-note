@@ -6,7 +6,8 @@ import (
 	"strconv"
 	"strings"
 	"tel-note/internal/config"
-	"tel-note/internal/service/basic_info"
+	"tel-note/internal/service/allData"
+	"tel-note/internal/service/basicInfo"
 	"tel-note/internal/service/contact"
 	"tel-note/internal/service/identity"
 	"tel-note/internal/storage"
@@ -31,6 +32,8 @@ func ShowMenu() {
 		fmt.Print("'lc|LC'		|	list of cities\n")
 		fmt.Print("'ec|EC'		|	edit city by id\n")
 		fmt.Println("-------------------------------------------------------------")
+		fmt.Print("'all|ALL'	|	print all data\n")
+		fmt.Println("-------------------------------------------------------------")
 	}
 	runMenu()
 }
@@ -44,13 +47,13 @@ func runMenu() {
 		if identity.IsAdmin {
 			switch userInput {
 			case "data", "DATA":
-				contact.FillSimpleDataInMainData()
+				allData.FillSimpleDataInMainData()
 				ShowMenu()
 			case "nc", "NC":
 				var inputCity string
 				fmt.Println("insert city name:")
 				fmt.Scanln(&inputCity)
-				basic_info.NewCity(inputCity)
+				basicInfo.NewCity(inputCity)
 				ShowMenu()
 			case "lc", "LC":
 				dataJSON, _ := json.MarshalIndent(config.MainData, "", "  ")
@@ -67,8 +70,28 @@ func runMenu() {
 				fmt.Scanln(&inputID)
 				fmt.Println("insert new city name:")
 				fmt.Scanln(&inputName)
-				if basic_info.EditCityByID(inputID, inputName).State {
+				if basicInfo.EditCityByID(inputID, inputName).State {
 					fmt.Println("City changed ...")
+				}
+				ShowMenu()
+			case "all", "ALL":
+				fmt.Println("-------------------------------------------------------------")
+				fmt.Println("Contact Data:")
+				//TODO::: Find a way to loop a struct that contain other struct(s)
+				//e := reflect.ValueOf(&config.MainData).Elem()
+				//for i := 0; i < e.NumField(); i++ {
+				//	varName := e.Type().Field(i).Name
+				//	varType := e.Type().Field(i).Type
+				//	varValue := e.Field(i).Interface()
+				//	fmt.Printf("%v %v %v\n", varName, varType, varValue)
+				//}
+				for _, data := range config.MainData.ContactData {
+					fmt.Printf("%3v | %-15s | %-35v | %-5v | %-15v | %-5v\n", data.Id, data.FirstName, data.LastName, data.Tel, data.Cellphone, data.Description)
+				}
+				fmt.Println("-------------------------------------------------------------")
+				fmt.Println("City Data:")
+				for _, data := range config.MainData.CityData {
+					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 				}
 				ShowMenu()
 			}
