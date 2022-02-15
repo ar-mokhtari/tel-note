@@ -204,6 +204,7 @@ func runMenu() {
 				resultStatus := contact.DeleteAll()
 				fmt.Println(resultStatus.String)
 			}
+			ShowMenu()
 		case "DM", "dm":
 			var confirmDel string
 			fmt.Println("*** important, be careful, you are deleting contact(s) ***")

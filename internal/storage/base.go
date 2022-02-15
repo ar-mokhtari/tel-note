@@ -3,7 +3,6 @@ package storage
 import (
 	"fmt"
 	"strings"
-	"tel-note/internal/config"
 )
 
 type (
@@ -11,9 +10,9 @@ type (
 		AddContact(inputContact Contact) (bool, AllData)
 		FindContactByID(id uint) (Contact, bool)
 		FindContactByChar(insertChar string) (AllData, uint)
-		EditContactByID(newData Contact, ID uint) config.ResponseStatus
-		DeleteContactByID(ID uint) config.ResponseStatus
-		DeleteAll() config.ResponseStatus
+		EditContactByID(newData Contact, ID uint) bool
+		DeleteContactByID(ID uint) bool
+		DeleteAll() bool
 	}
 
 	AllData struct {
@@ -70,43 +69,43 @@ func (MainData *AllData) FindContactByChar(insertChar string) (AllData, uint) {
 	return resultData, counter
 }
 
-func (MainData *AllData) EditContactByID(newData Contact, ID uint) config.ResponseStatus {
+func (MainData *AllData) EditContactByID(newData Contact, ID uint) bool {
 	//todo: is there any function to detect index of an element's slice?
-	for index, data := range (config.MainData).ContactData {
+	for index, data := range MainData.ContactData {
 		if data.Id == ID {
 			//todo: what the hell below ... is there any cleaner way for test "is it not nil?"
 			if newData.FirstName != "" {
-				((config.MainData).ContactData)[index].FirstName = newData.FirstName
+				(MainData.ContactData)[index].FirstName = newData.FirstName
 			}
 			if newData.LastName != "" {
-				((config.MainData).ContactData)[index].LastName = newData.LastName
+				(MainData.ContactData)[index].LastName = newData.LastName
 			}
 			if newData.Description != "" {
-				((config.MainData).ContactData)[index].Description = newData.Description
+				(MainData.ContactData)[index].Description = newData.Description
 			}
 			if newData.Tel != "" {
-				((config.MainData).ContactData)[index].Tel = newData.Tel
+				(MainData.ContactData)[index].Tel = newData.Tel
 			}
 			if newData.Cellphone != "" {
-				((config.MainData).ContactData)[index].Cellphone = newData.Cellphone
+				(MainData.ContactData)[index].Cellphone = newData.Cellphone
 			}
-			return config.ResponseStatus{State: true}
+			return true
 		}
 	}
-	return config.ResponseStatus{String: "not found"}
+	return false
 }
 
-func (MainData *AllData) DeleteContactByID(ID uint) config.ResponseStatus {
+func (MainData *AllData) DeleteContactByID(ID uint) bool {
 	for index, data := range MainData.ContactData {
 		if data.Id == ID {
 			MainData.ContactData = append(MainData.ContactData[:index], MainData.ContactData[index+1:]...)
-			return config.ResponseStatus{State: true}
+			return true
 		}
 	}
-	return config.ResponseStatus{State: false}
+	return false
 }
 
-func (MainData *AllData) DeleteAll() config.ResponseStatus {
+func (MainData *AllData) DeleteAll() bool {
 	MainData.ContactData = MainData.ContactData[0:0]
-	return config.ResponseStatus{State: true}
+	return true
 }

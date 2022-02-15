@@ -28,21 +28,21 @@ func FindContactByChar(insertChar string) (storage.AllData, uint) {
 }
 
 func EditContactByID(newData storage.Contact, ID uint) config.ResponseStatus {
-	if resStatus := (*storage.AllData).EditContactByID(&config.MainData, newData, ID); resStatus.State {
+	if (*storage.AllData).EditContactByID(&config.MainData, newData, ID) {
 		return config.ResponseStatus{State: true}
 	}
 	return config.ResponseStatus{State: true, String: "not found"}
 }
 
 func DeleteContactByID(ID uint) config.ResponseStatus {
-	if resStatus := (*storage.AllData).DeleteContactByID(&config.MainData, ID); resStatus.State {
+	if (*storage.AllData).DeleteContactByID(&config.MainData, ID) {
 		return config.ResponseStatus{State: true}
 	}
 	return config.ResponseStatus{State: false}
 }
 
 func DeleteAll() config.ResponseStatus {
-	if resState := (*storage.AllData).DeleteAll(&config.MainData); resState.State {
+	if (*storage.AllData).DeleteAll(&config.MainData) {
 		return config.ResponseStatus{State: true}
 	}
 	return config.ResponseStatus{State: false}
