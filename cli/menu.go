@@ -10,7 +10,7 @@ import (
 	"tel-note/internal/service/city"
 	"tel-note/internal/service/contact"
 	"tel-note/internal/service/identity"
-	"tel-note/internal/storage"
+	"tel-note/internal/storage/memory"
 )
 
 func ShowMenu() {
@@ -114,7 +114,7 @@ func runMenu() {
 			//input description lastID +
 			fmt.Println("Please inter your description:")
 			fmt.Scanln(&description)
-			contact.NewContact(storage.Contact{Person: &storage.Person{FirstName: firstName, LastName: lastName}, Tel: tel, Cellphone: cellphone, Description: description})
+			contact.NewContact(memory.Contact{Person: &memory.Person{FirstName: firstName, LastName: lastName}, Tel: tel, Cellphone: cellphone, Description: description})
 			//(*storage.AllData).AddContact(MainData)
 			fmt.Println(">> New record done <<")
 			ShowMenu()
@@ -173,7 +173,7 @@ func runMenu() {
 			fmt.Scanln(&cellphone)
 			fmt.Println("new cellphone:")
 			fmt.Scanln(&description)
-			editedContact := storage.Contact{Person: &storage.Person{FirstName: firstName, LastName: lastName}, Tel: tel, Cellphone: cellphone, Description: description}
+			editedContact := memory.Contact{Person: &memory.Person{FirstName: firstName, LastName: lastName}, Tel: tel, Cellphone: cellphone, Description: description}
 			state := contact.EditContactByID(editedContact, insertContactID)
 			fmt.Println(state.String)
 			ShowMenu()

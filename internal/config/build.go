@@ -1,9 +1,11 @@
 package config
 
-import "tel-note/internal/storage"
+import (
+	"tel-note/internal/storage/memory"
+)
 
 var (
-	AllContact = make([]*storage.Contact, 0)
-	AllCity    = make([]*storage.City, 0)
-	MainData   = storage.AllData{ContactData: AllContact, CityData: AllCity}
+	AllContact = make([]*memory.Contact, 0)
+	AllCity    = make([]*memory.City, 0)
+	MainData   = memory.AllData{ContactData: AllContact, CityData: AllCity}
 )

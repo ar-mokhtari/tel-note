@@ -1,4 +1,4 @@
-package storage
+package memory
 
 type (
 	Contact struct {
