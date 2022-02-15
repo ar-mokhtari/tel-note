@@ -5,7 +5,4 @@ type (
 		Id   uint
 		Name string
 	}
-	AllCities struct {
-		CityData []*City
-	}
 )

@@ -7,7 +7,7 @@ import (
 	"strings"
 	"tel-note/internal/config"
 	"tel-note/internal/service/allData"
-	"tel-note/internal/service/basicInfo"
+	"tel-note/internal/service/city"
 	"tel-note/internal/service/contact"
 	"tel-note/internal/service/identity"
 	"tel-note/internal/storage"
@@ -53,7 +53,7 @@ func runMenu() {
 				var inputCity string
 				fmt.Println("insert city name:")
 				fmt.Scanln(&inputCity)
-				basicInfo.NewCity(inputCity)
+				city.NewCity(inputCity)
 				ShowMenu()
 			case "lc", "LC":
 				dataJSON, _ := json.MarshalIndent(config.MainData, "", "  ")
@@ -70,7 +70,7 @@ func runMenu() {
 				fmt.Scanln(&inputID)
 				fmt.Println("insert new city name:")
 				fmt.Scanln(&inputName)
-				if basicInfo.EditCityByID(inputID, inputName).State {
+				if city.EditCityByID(inputID, inputName).State {
 					fmt.Println("City changed ...")
 				}
 				ShowMenu()

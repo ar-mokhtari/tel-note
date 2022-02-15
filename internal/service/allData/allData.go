@@ -2,7 +2,7 @@ package allData
 
 import (
 	"tel-note/internal/config"
-	"tel-note/internal/service/basicInfo"
+	"tel-note/internal/service/city"
 	"tel-note/internal/service/contact"
 )
 
@@ -11,7 +11,7 @@ func FillSimpleDataInMainData() {
 		contact.NewContact(*data)
 	}
 	for _, data := range config.MainDataTest.CityData {
-		basicInfo.NewCity(data.Name)
+		city.NewCity(data.Name)
 	}
 	//Todo: Person and Job also have to add
 }

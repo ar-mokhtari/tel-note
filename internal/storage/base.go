@@ -7,12 +7,16 @@ import (
 
 type (
 	AllDataTool interface {
+		// Contact CRUD basic info
 		AddContact(inputContact Contact) (bool, AllData)
 		FindContactByID(id uint) (Contact, bool)
 		FindContactByChar(insertChar string) (AllData, uint)
 		EditContactByID(newData Contact, ID uint) bool
 		DeleteContactByID(ID uint) bool
 		DeleteAll() bool
+		// City CRUD basic info
+		NewCity(CityName string) bool
+		EditCityByID(ID uint, NewCityName string) bool
 	}
 
 	AllData struct {
@@ -21,6 +25,8 @@ type (
 		jobData     []*jobInfo
 	}
 )
+
+// Contact CRUD basic info
 
 func (MainData *AllData) AddContact(inputContact Contact) (bool, AllData) {
 	var (
@@ -108,4 +114,31 @@ func (MainData *AllData) DeleteContactByID(ID uint) bool {
 func (MainData *AllData) DeleteAll() bool {
 	MainData.ContactData = MainData.ContactData[0:0]
 	return true
+}
+
+// City CRUD basic info
+
+func (MainData *AllData) NewCity(CityName string) bool {
+	var LastID uint
+	for _, data := range MainData.CityData {
+		if data.Id > LastID {
+			LastID = data.Id
+		}
+	}
+	result := City{
+		Id:   uint(LastID) + 1,
+		Name: CityName,
+	}
+	MainData.CityData = append(MainData.CityData, &result)
+	return true
+}
+
+func (MainData *AllData) EditCityByID(ID uint, NewCityName string) bool {
+	for _, data := range MainData.CityData {
+		if data.Id == ID {
+			data.Name = NewCityName
+			return true
+		}
+	}
+	return false
 }
