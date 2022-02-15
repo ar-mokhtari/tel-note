@@ -44,7 +44,7 @@ var (
 	LostHeaven = storage.City{Name: "LostHeaven"}
 
 	//Todo: Person and Job also have to add
-	//  persons variable
+	/*	// persons variable
 
-	// job variable
+	 */ // job variable
 )

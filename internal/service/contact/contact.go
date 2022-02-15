@@ -6,38 +6,20 @@ import (
 	"tel-note/internal/storage"
 )
 
-func NewContact(inputContact storage.Contact) (*storage.AllData, config.ResponseStatus) {
-	var (
-		lastID uint
-	)
-	//define input variable for save to struct
-	//input and save firstname
-
-	//lastID = MainData.GetANewCodeID()
-	for _, data := range (config.MainData).ContactData {
-		if data.Id > lastID {
-			lastID = data.Id
-		}
+//Todo :: some error is here
+func NewContact(inputContact storage.Contact) (config.ResponseStatus, storage.AllData) {
+	var resData storage.AllData
+	if resStatus, resData := (*storage.AllData).AddContact(&config.MainData, inputContact); resStatus == true {
+		return config.ResponseStatus{State: true}, resData
 	}
-	lastID += 1
-	//marge inputs to create a contact
-	result := &storage.Contact{Id: lastID, Person: &storage.Person{FirstName: inputContact.FirstName, LastName: inputContact.LastName}, Tel: inputContact.Tel, Cellphone: inputContact.Cellphone, Description: inputContact.Description}
-	//append to pointed storage
-	(config.MainData).ContactData = append((config.MainData).ContactData, result)
-	return &config.MainData, config.ResponseStatus{State: true}
+	return config.ResponseStatus{State: false}, resData
 }
 
 func FindContactByID(id uint) (storage.Contact, bool) {
-	var (
-		data storage.Contact
-	)
-	for _, data := range (config.MainData).ContactData {
-		if data.Id == id {
-			return *data, true
-			break
-		}
-	}
-	return data, false
+	//if data, state := storage.AllData.FindContactByID(config.MainData, id); state == true {
+	//	return data, true
+	//}
+	return storage.Contact{}, false
 }
 
 func FindContactByChar(insertChar string) (storage.AllData, uint) {
