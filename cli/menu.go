@@ -174,11 +174,8 @@ func runMenu() {
 			fmt.Println("new cellphone:")
 			fmt.Scanln(&description)
 			editedContact := storage.Contact{Person: &storage.Person{FirstName: firstName, LastName: lastName}, Tel: tel, Cellphone: cellphone, Description: description}
-			if state := contact.EditContactByID(editedContact, insertContactID); state.State != false {
-				fmt.Println("contact edited successful")
-			} else {
-				println("contact not changed")
-			}
+			state := contact.EditContactByID(editedContact, insertContactID)
+			fmt.Println(state.String)
 			ShowMenu()
 		case "D", "d":
 			var confirmDel string
@@ -205,12 +202,7 @@ func runMenu() {
 			fmt.Scanln(&confirmDel)
 			if strings.ToLower(confirmDel) == config.OkStatus {
 				resultStatus := contact.DeleteAll()
-				switch resultStatus.State {
-				case true:
-					fmt.Println("All contact deleted")
-				case false:
-					fmt.Println("something wrong")
-				}
+				fmt.Println(resultStatus.String)
 			}
 		case "DM", "dm":
 			var confirmDel string
@@ -230,14 +222,8 @@ func runMenu() {
 						break
 					} else {
 						status = contact.DeleteContactByID(uint(uintDelID))
+						fmt.Println(status.String)
 					}
-				}
-				switch status.State {
-				case true:
-					fmt.Printf(deleteIDS)
-					fmt.Println("contact(s) deleted.")
-				case false:
-					fmt.Println("something wrong")
 				}
 			}
 			ShowMenu()
