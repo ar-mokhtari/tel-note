@@ -1,7 +1,7 @@
 package memory
 
 type (
-	sex struct {
+	Sex struct {
 		Id   uint8
 		Name string
 	}

@@ -8,6 +8,8 @@ const (
 	YES                                = "yes"
 	NO                                 = "no"
 	OK                                 = "ok"
+	Male                               = "male"
+	Female                             = "female"
 	AdminString                        = "admin"
 	NewRecord                          = "N"
 	ListOfContact                      = "L"

@@ -1,7 +1,7 @@
 package memory
 
 type (
-	jobInfo struct {
+	JobInfo struct {
 		Id                  uint
 		Name                string
 		Location            *City

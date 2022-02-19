@@ -9,7 +9,7 @@ type (
 		LastName      string `json:"last_name,omitempty"`
 		DOB           time.Time
 		BirthLocation *City
-		Gender        *sex
+		Gender        *Sex
 		NationalCode  string
 		Description   string `json:"description,omitempty"`
 	}

@@ -15,24 +15,24 @@ import (
 
 func ShowMenu() {
 	fmt.Println("-------------------------------------------------------------")
-	fmt.Println("*** Main menu: ***\n", "Please select:") //todo: Why fmt.Println don't split contents line
+	fmt.Println("*** Main menu: ***\n", "Please select:")
 	fmt.Println("-------------------------------------------------------------")
-	fmt.Print("'N' 	 	|	new record\n")
-	fmt.Print("'L' 	 	|	list of contact\n")
-	fmt.Print("'F' 	 	|	find one contact by id\n")
-	fmt.Print("'FC'		|	find contact, contain some character\n")
-	fmt.Print("'E' 		|	find and edit contact by contact id\n")
-	fmt.Print("'D' 		|	delete contact by id\n")
-	fmt.Print("'DM'		|	delete multi contact by id(s)\n")
-	fmt.Print("'DA'		|	delete all contacts\n")
+	fmt.Print("'N'			|	new record\n")
+	fmt.Print("'L'			|	list of contact\n")
+	fmt.Print("'F'			|	find one contact by id\n")
+	fmt.Print("'FC'			|	find contact, contain some character\n")
+	fmt.Print("'E'			|	find and edit contact by contact id\n")
+	fmt.Print("'D'			|	delete contact by id\n")
+	fmt.Print("'DM'			|	delete multi contact by id(s)\n")
+	fmt.Print("'DA'			|	delete all contacts\n")
 	fmt.Println("-------------------------------------------------------------")
 	if identity.IsAdmin {
-		fmt.Print("'DATA'	|	insert some sample's contacts\n")
-		fmt.Print("'NC'		|	insert new city\n")
-		fmt.Print("'LC'		|	list of cities\n")
-		fmt.Print("'EC'		|	edit city by id\n")
+		fmt.Print("'DATA'			|	insert some sample's contacts\n")
+		fmt.Print("'NC'			|	insert new city\n")
+		fmt.Print("'LC'			|	list of cities\n")
+		fmt.Print("'EC'			|	edit city by id\n")
 		fmt.Println("-------------------------------------------------------------")
-		fmt.Print("'ALL'	|	print all data\n")
+		fmt.Print("'ALL'			|	print all data\n")
 		fmt.Println("-------------------------------------------------------------")
 	}
 	runMenu()
@@ -78,7 +78,7 @@ func runMenu() {
 				fmt.Println("-------------------------------------------------------------")
 				fmt.Println("Contact Data:")
 				//TODO::: Find a way to loop a struct that contain other struct(s)
-				//e := reflect.ValueOf(&config.MainData).Elem()
+				//e := reflect.ValueOf(config.MainData.ContactData).Elem()
 				//for i := 0; i < e.NumField(); i++ {
 				//	varName := e.Type().Field(i).Name
 				//	varType := e.Type().Field(i).Type
@@ -86,11 +86,16 @@ func runMenu() {
 				//	fmt.Printf("%v %v %v\n", varName, varType, varValue)
 				//}
 				for _, data := range config.MainData.ContactData {
-					fmt.Printf("%3v | %-15s | %-35v | %-5v | %-15v | %-5v\n", data.Id, data.FirstName, data.LastName, data.Tel, data.Cellphone, data.Description)
+					fmt.Printf("%3v | %-10s | %-20v | %-2v | %-15v | %-10v | %-15v | %-10v | %-5v \n", data.Id, data.FirstName, data.LastName, data.Tel, data.Cellphone, data.Description, data.JobInfo.Name, data.JobInfo.Id, data.Person.Gender.Id)
 				}
 				fmt.Println("-------------------------------------------------------------")
 				fmt.Println("City Data:")
 				for _, data := range config.MainData.CityData {
+					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
+				}
+				fmt.Println("-------------------------------------------------------------")
+				fmt.Println("Job Data:")
+				for _, data := range config.MainData.JobData {
 					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 				}
 				ShowMenu()
@@ -98,24 +103,49 @@ func runMenu() {
 		}
 		switch userInput {
 		case NewRecord:
-			//todo: “To use function, or to use method, that is the question”
-			var firstName, lastName, tel, cellphone, description string
-			fmt.Println("Please inter your first name:")
+			var (
+				firstName, lastName, tel, cellphone, description, gender string
+				genderID                                                 uint8
+				jobID                                                    uint
+			)
+			fmt.Println("Please inter first name:")
 			fmt.Scanln(&firstName)
 			//input lastname
-			fmt.Println("Please inter your last name:")
+			fmt.Println("Please inter last name:")
 			fmt.Scanln(&lastName)
+			//input gender
+			fmt.Println("Please inter gender: (m/f)")
+			fmt.Scanln(&gender)
+			switch strings.ToLower(gender) {
+			case "f":
+				genderID = 1
+			case "m":
+				genderID = 2
+			}
 			//input tel
-			fmt.Println("Please inter your tel:")
+			fmt.Println("Please inter tel:")
 			fmt.Scanln(&tel)
 			//input cellphone
-			fmt.Println("Please inter your cellphone:")
+			fmt.Println("Please inter cellphone:")
 			fmt.Scanln(&cellphone)
-			//input description lastID +
-			fmt.Println("Please inter your description:")
+			//input description
+			fmt.Println("Please inter description:")
 			fmt.Scanln(&description)
-			contact.NewContact(memory.Contact{Person: &memory.Person{FirstName: firstName, LastName: lastName}, Tel: tel, Cellphone: cellphone, Description: description})
-			//(*storage.AllData).AddContact(MainData)
+			//input job info
+			fmt.Println("Please inter job ID:")
+			fmt.Scanln(&jobID)
+			contact.NewContact(
+				memory.Contact{
+					Person: &memory.Person{
+						FirstName: firstName,
+						LastName:  lastName,
+						Gender:    &memory.Sex{Id: genderID},
+					},
+					Tel:         tel,
+					Cellphone:   cellphone,
+					Description: description,
+					JobInfo:     &memory.JobInfo{Id: jobID},
+				})
 			fmt.Println(">> New record done <<")
 			ShowMenu()
 		case ListOfContact:

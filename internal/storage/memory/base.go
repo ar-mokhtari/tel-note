@@ -17,12 +17,16 @@ type (
 		// City CRUD basic info
 		NewCity(CityName string) bool
 		EditCityByID(ID uint, NewCityName string) bool
+		// JobInfo CRUD basic info
+		NewJob(jobName string) bool
 	}
 
 	AllData struct {
 		ContactData []*Contact
+		JobData     []*JobInfo
+		PersonData  []*Person
 		CityData    []*City
-		jobData     []*jobInfo
+		SexData     []*Sex
 	}
 )
 
@@ -39,7 +43,7 @@ func (MainData *AllData) AddContact(inputContact Contact) (bool, AllData) {
 	}
 	lastID += 1
 	//marge inputs to create a contact
-	result := &Contact{Id: lastID, Person: &Person{FirstName: inputContact.FirstName, LastName: inputContact.LastName}, Tel: inputContact.Tel, Cellphone: inputContact.Cellphone, Description: inputContact.Description}
+	result := &Contact{Id: lastID, Person: &Person{FirstName: inputContact.FirstName, LastName: inputContact.LastName, Gender: &Sex{Id: inputContact.Gender.Id}}, Tel: inputContact.Tel, Cellphone: inputContact.Cellphone, Description: inputContact.Description, JobInfo: &JobInfo{Id: inputContact.JobInfo.Id}}
 
 	MainData.ContactData = append(MainData.ContactData, result)
 
@@ -76,10 +80,9 @@ func (MainData *AllData) FindContactByChar(insertChar string) (AllData, uint) {
 }
 
 func (MainData *AllData) EditContactByID(newData Contact, ID uint) bool {
-	//todo: is there any function to detect index of an element's slice?
 	for index, data := range MainData.ContactData {
 		if data.Id == ID {
-			//todo: what the hell below ... is there any cleaner way for test "is it not nil?"
+			//TODO::: what the hell below ... is there any cleaner way for test "is it not nil?"
 			if newData.FirstName != "" {
 				(MainData.ContactData)[index].FirstName = newData.FirstName
 			}
@@ -141,4 +144,21 @@ func (MainData *AllData) EditCityByID(ID uint, NewCityName string) bool {
 		}
 	}
 	return false
+}
+
+// Job CRUD basic info
+
+func (MainData *AllData) NewJob(jobName string) bool {
+	var LastID uint
+	for _, data := range MainData.JobData {
+		if data.Id > LastID {
+			LastID = data.Id
+		}
+	}
+	result := JobInfo{
+		Id:   uint(LastID) + 1,
+		Name: jobName,
+	}
+	MainData.JobData = append(MainData.JobData, &result)
+	return true
 }

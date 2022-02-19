@@ -4,6 +4,7 @@ import (
 	"tel-note/internal/config"
 	"tel-note/internal/service/city"
 	"tel-note/internal/service/contact"
+	"tel-note/internal/service/jobInfo"
 )
 
 func FillSimpleDataInMainData() {
@@ -13,5 +14,8 @@ func FillSimpleDataInMainData() {
 	for _, data := range config.MainDataTest.CityData {
 		city.NewCity(data.Name)
 	}
-	//Todo: Person and Job also have to add
+	for _, data := range config.MainDataTest.JobData {
+		jobInfo.NewJob(data.Name)
+	}
+
 }
