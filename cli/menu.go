@@ -222,7 +222,7 @@ func runMenu() {
 						fmt.Println("not equal kind")
 						break
 					} else {
-						status = contact.DeleteContactByID(uint(uintDelID))
+						status = *contact.DeleteContactByID(uint(uintDelID))
 						fmt.Println(status.String)
 					}
 				}
