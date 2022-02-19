@@ -9,5 +9,5 @@ func Identity() {
 	var userStatus string
 	fmt.Println("user or admin?")
 	fmt.Scanln(&userStatus)
-	identity.Identity(userStatus)
+	identity.Identity(userStatus, AdminString)
 }
