@@ -1,13 +1,14 @@
-package cli
+package main
 
 // MetaData & Usage
 // A metadata is a data that describes other data in a structured way.
-// In this app we will use contant varriables to describe our hardcoded string data .
+// We will use content variables to describe our hardcoded string data.
 
 const (
 	YES = "yes"
 	NO = "no"
 	OK = "ok"
+	ADMIN_STRING = "admin"
 	NEW_RECORD = "N"
 	LIST_OF_CONTACT = "L"
 	FIND_ONE_CONTACT_BY_ID = "F"
