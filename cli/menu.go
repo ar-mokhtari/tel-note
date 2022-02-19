@@ -17,22 +17,22 @@ func ShowMenu() {
 	fmt.Println("-------------------------------------------------------------")
 	fmt.Println("*** Main menu: ***\n", "Please select:") //todo: Why fmt.Println don't split contents line
 	fmt.Println("-------------------------------------------------------------")
-	fmt.Print("'n|N' 	 	|	new record\n")
-	fmt.Print("'l|L' 	 	|	list of contact\n")
-	fmt.Print("'f|F' 	 	|	find one contact by id\n")
-	fmt.Print("'fc|FC'		|	find contact, contain some character\n")
-	fmt.Print("'e|E' 		|	find and edit contact by contact id\n")
-	fmt.Print("'d|D' 		|	delete contact by id\n")
-	fmt.Print("'dm|DM'		|	delete multi contact by id(s)\n")
-	fmt.Print("'da|DA'		|	delete all contacts\n")
+	fmt.Print("'N' 	 	|	new record\n")
+	fmt.Print("'L' 	 	|	list of contact\n")
+	fmt.Print("'F' 	 	|	find one contact by id\n")
+	fmt.Print("'FC'		|	find contact, contain some character\n")
+	fmt.Print("'E' 		|	find and edit contact by contact id\n")
+	fmt.Print("'D' 		|	delete contact by id\n")
+	fmt.Print("'DM'		|	delete multi contact by id(s)\n")
+	fmt.Print("'DA'		|	delete all contacts\n")
 	fmt.Println("-------------------------------------------------------------")
 	if identity.IsAdmin {
-		fmt.Print("'data|DATA'	|	insert some sample's contacts\n")
-		fmt.Print("'nc|NC'		|	insert new city\n")
-		fmt.Print("'lc|LC'		|	list of cities\n")
-		fmt.Print("'ec|EC'		|	edit city by id\n")
+		fmt.Print("'DATA'	|	insert some sample's contacts\n")
+		fmt.Print("'NC'		|	insert new city\n")
+		fmt.Print("'LC'		|	list of cities\n")
+		fmt.Print("'EC'		|	edit city by id\n")
 		fmt.Println("-------------------------------------------------------------")
-		fmt.Print("'all|ALL'	|	print all data\n")
+		fmt.Print("'ALL'	|	print all data\n")
 		fmt.Println("-------------------------------------------------------------")
 	}
 	runMenu()
@@ -42,20 +42,20 @@ func runMenu() {
 	for {
 		var userInput string
 		fmt.Scanln(&userInput)
-		//fmt.Println(userInput) todo: when negative value inserted, maybe because of define uint for id; The positive value is entered again, why?
 		//admin actions only:
+		userInput = strings.ToUpper(userInput)
 		if identity.IsAdmin {
 			switch userInput {
-			case "data", "DATA":
+			case InsertSomeSamplesContacts:
 				allData.FillSimpleDataInMainData()
 				ShowMenu()
-			case "nc", "NC":
+			case InsertNewCity:
 				var inputCity string
 				fmt.Println("insert city name:")
 				fmt.Scanln(&inputCity)
 				city.NewCity(inputCity)
 				ShowMenu()
-			case "lc", "LC":
+			case ListOfCities:
 				dataJSON, _ := json.MarshalIndent(config.MainData, "", "  ")
 				fmt.Println(string(dataJSON))
 				fmt.Println("-------------------------------------------------------------")
@@ -63,7 +63,7 @@ func runMenu() {
 					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 				}
 				ShowMenu()
-			case "ec", "EC":
+			case EditCityById:
 				var inputID uint
 				var inputName string
 				fmt.Println("insert city id:")
@@ -74,7 +74,7 @@ func runMenu() {
 					fmt.Println("City changed ...")
 				}
 				ShowMenu()
-			case "all", "ALL":
+			case PrintAllData:
 				fmt.Println("-------------------------------------------------------------")
 				fmt.Println("Contact Data:")
 				//TODO::: Find a way to loop a struct that contain other struct(s)
@@ -97,7 +97,7 @@ func runMenu() {
 			}
 		}
 		switch userInput {
-		case "N", "n":
+		case NewRecord:
 			//todo: “To use function, or to use method, that is the question”
 			var firstName, lastName, tel, cellphone, description string
 			fmt.Println("Please inter your first name:")
@@ -118,7 +118,7 @@ func runMenu() {
 			//(*storage.AllData).AddContact(MainData)
 			fmt.Println(">> New record done <<")
 			ShowMenu()
-		case "L", "l":
+		case ListOfContact:
 			dataJSON, _ := json.MarshalIndent(config.MainData, "", "  ")
 			fmt.Println(string(dataJSON))
 			fmt.Println("-------------------------------------------------------------")
@@ -126,7 +126,7 @@ func runMenu() {
 				fmt.Printf("%3v | %-15s | %-35v | %-5v | %-15v | %-5v\n", data.Id, data.FirstName, data.LastName, data.Tel, data.Cellphone, data.Description)
 			}
 			ShowMenu()
-		case "F", "f":
+		case FindOneContactById:
 			var id uint
 			fmt.Println("Please insert your contact ID:")
 			fmt.Scanln(&id)
@@ -137,7 +137,7 @@ func runMenu() {
 				fmt.Println("not found")
 			}
 			ShowMenu()
-		case "FC", "fc":
+		case FindContactContainingSomeCharacter:
 			var insertChar string
 			fmt.Println("insert character(s):")
 			fmt.Scanln(&insertChar)
@@ -149,7 +149,7 @@ func runMenu() {
 				fmt.Println(resultCount, "record(s) found")
 			}
 			ShowMenu()
-		case "E", "e":
+		case FindAndEditContactByContactId:
 			var (
 				insertContactID                                  uint
 				firstName, lastName, tel, cellphone, description string
@@ -177,12 +177,12 @@ func runMenu() {
 			state := contact.EditContactByID(editedContact, insertContactID)
 			fmt.Println(state.String)
 			ShowMenu()
-		case "D", "d":
+		case DeleteContactById:
 			var confirmDel string
 			fmt.Println("*** important, be careful, you are deleting a contact ***")
 			fmt.Println("do you want to continue? (yes or no)")
 			fmt.Scanln(&confirmDel)
-			if strings.ToLower(confirmDel) == config.OkStatus {
+			if strings.ToLower(confirmDel) == OK {
 				var deleteID uint
 				fmt.Println("insert your contact id that you want to delete:")
 				fmt.Scanln(&deleteID)
@@ -195,22 +195,22 @@ func runMenu() {
 				}
 			}
 			ShowMenu()
-		case "DA", "da":
+		case DeleteAllContacts:
 			var confirmDel string
 			fmt.Println("*** important, be careful, you are deleting all of contacts ***")
 			fmt.Println("are you sure? (yes or no)")
 			fmt.Scanln(&confirmDel)
-			if strings.ToLower(confirmDel) == config.OkStatus {
+			if strings.ToLower(confirmDel) == OK {
 				resultStatus := contact.DeleteAll()
 				fmt.Println(resultStatus.String)
 			}
 			ShowMenu()
-		case "DM", "dm":
+		case DeleteMultiContactByIds:
 			var confirmDel string
 			fmt.Println("*** important, be careful, you are deleting contact(s) ***")
 			fmt.Println("do you want to continue? (yes or no)")
 			fmt.Scanln(&confirmDel)
-			if strings.ToLower(confirmDel) == config.OkStatus {
+			if strings.ToLower(confirmDel) == OK {
 				var deleteIDS string
 				var status config.ResponseStatus
 				fmt.Println("insert your contact id(s) that you want to delete, separate id's by ',':")

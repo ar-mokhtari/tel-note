@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 	"strings"
-	"tel-note/internal/config"
 	"tel-note/internal/service/greeting"
 	"tel-note/internal/service/identity"
 )
@@ -21,7 +20,7 @@ func ChangeGreeting() {
 	fmt.Println("Do you want to change greeting? (yes or no)")
 	var changeStatus string
 	fmt.Scanln(&changeStatus)
-	if strings.ToLower(changeStatus) == config.OkStatus {
+	if strings.ToLower(changeStatus) == YES {
 		note := bufio.NewScanner(os.Stdin)
 		desc := bufio.NewScanner(os.Stdin)
 		fmt.Println("Enter new greeting note:")
