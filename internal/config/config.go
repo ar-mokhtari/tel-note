@@ -9,7 +9,6 @@ const (
 	Manager
 	Basic
 	AdminString = "admin"
-	OkStatus    = "yes"
 )
 
 type (
