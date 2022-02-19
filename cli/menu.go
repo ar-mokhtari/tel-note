@@ -44,18 +44,21 @@ func runMenu() {
 		fmt.Scanln(&userInput)
 		//fmt.Println(userInput) todo: when negative value inserted, maybe because of define uint for id; The positive value is entered again, why?
 		//admin actions only:
+		userInput = strings.ToUpper(userInput)
 		if identity.IsAdmin {
+
 			switch userInput {
-			case "data", "DATA":
+			
+			case INSERT_SOME_SAMPLES_CONTACTS:
 				allData.FillSimpleDataInMainData()
 				ShowMenu()
-			case "nc", "NC":
+			case INSERT_NEW_CITY:
 				var inputCity string
 				fmt.Println("insert city name:")
 				fmt.Scanln(&inputCity)
 				city.NewCity(inputCity)
 				ShowMenu()
-			case "lc", "LC":
+			case LIST_OF_CITIES:
 				dataJSON, _ := json.MarshalIndent(config.MainData, "", "  ")
 				fmt.Println(string(dataJSON))
 				fmt.Println("-------------------------------------------------------------")
@@ -63,7 +66,7 @@ func runMenu() {
 					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 				}
 				ShowMenu()
-			case "ec", "EC":
+			case EDIT_CITY_BY_ID:
 				var inputID uint
 				var inputName string
 				fmt.Println("insert city id:")
@@ -74,7 +77,7 @@ func runMenu() {
 					fmt.Println("City changed ...")
 				}
 				ShowMenu()
-			case "all", "ALL":
+			case PRINT_ALL_DATA:
 				fmt.Println("-------------------------------------------------------------")
 				fmt.Println("Contact Data:")
 				//TODO::: Find a way to loop a struct that contain other struct(s)
@@ -97,7 +100,7 @@ func runMenu() {
 			}
 		}
 		switch userInput {
-		case "N", "n":
+		case NEW_RECORD:
 			//todo: “To use function, or to use method, that is the question”
 			var firstName, lastName, tel, cellphone, description string
 			fmt.Println("Please inter your first name:")
@@ -118,7 +121,7 @@ func runMenu() {
 			//(*storage.AllData).AddContact(MainData)
 			fmt.Println(">> New record done <<")
 			ShowMenu()
-		case "L", "l":
+		case LIST_OF_CONTACT:
 			dataJSON, _ := json.MarshalIndent(config.MainData, "", "  ")
 			fmt.Println(string(dataJSON))
 			fmt.Println("-------------------------------------------------------------")
@@ -126,7 +129,7 @@ func runMenu() {
 				fmt.Printf("%3v | %-15s | %-35v | %-5v | %-15v | %-5v\n", data.Id, data.FirstName, data.LastName, data.Tel, data.Cellphone, data.Description)
 			}
 			ShowMenu()
-		case "F", "f":
+		case FIND_ONE_CONTACT_BY_ID:
 			var id uint
 			fmt.Println("Please insert your contact ID:")
 			fmt.Scanln(&id)
@@ -137,7 +140,7 @@ func runMenu() {
 				fmt.Println("not found")
 			}
 			ShowMenu()
-		case "FC", "fc":
+		case FIND_CONTACT_CONTAINING_SOME_CHARACTER:
 			var insertChar string
 			fmt.Println("insert character(s):")
 			fmt.Scanln(&insertChar)
@@ -149,7 +152,7 @@ func runMenu() {
 				fmt.Println(resultCount, "record(s) found")
 			}
 			ShowMenu()
-		case "E", "e":
+		case FIND_AND_EDIT_CONTACT_BY_CONTACT_ID:
 			var (
 				insertContactID                                  uint
 				firstName, lastName, tel, cellphone, description string
@@ -177,7 +180,7 @@ func runMenu() {
 			state := contact.EditContactByID(editedContact, insertContactID)
 			fmt.Println(state.String)
 			ShowMenu()
-		case "D", "d":
+		case DELETE_CONTACT_BY_ID:
 			var confirmDel string
 			fmt.Println("*** important, be careful, you are deleting a contact ***")
 			fmt.Println("do you want to continue? (yes or no)")
@@ -195,7 +198,7 @@ func runMenu() {
 				}
 			}
 			ShowMenu()
-		case "DA", "da":
+		case DELETE_ALL_CONTACTS:
 			var confirmDel string
 			fmt.Println("*** important, be careful, you are deleting all of contacts ***")
 			fmt.Println("are you sure? (yes or no)")
@@ -205,7 +208,7 @@ func runMenu() {
 				fmt.Println(resultStatus.String)
 			}
 			ShowMenu()
-		case "DM", "dm":
+		case DELETE_MULTI_CONTACT_BY_IDS:
 			var confirmDel string
 			fmt.Println("*** important, be careful, you are deleting contact(s) ***")
 			fmt.Println("do you want to continue? (yes or no)")
