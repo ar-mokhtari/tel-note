@@ -11,11 +11,13 @@ var (
 	Reza     = memory.Contact{Person: RezaPerson, Cellphone: "0914", Description: "", JobInfo: &memory.JobInfo{Id: 1}}
 	Tom      = memory.Contact{Person: TomPerson, Cellphone: "+39", Description: "", JobInfo: &memory.JobInfo{Id: 6}}
 	Frank    = memory.Contact{Person: FrankPerson, Cellphone: "+39", Description: "", JobInfo: &memory.JobInfo{Id: 8}}
+	Delaram  = memory.Contact{Person: DelaramPerson, JobInfo: &memory.JobInfo{Id: 4}}
 
 	MainDataTest = memory.AllData{
-		ContactData: []*memory.Contact{&Reza, &Tom, &Frank, &Khorshid, &Omid, &Kianoosh, &Alireza},
+		ContactData: []*memory.Contact{&Reza, &Tom, &Frank, &Khorshid, &Omid, &Kianoosh, &Alireza, &Delaram},
 		CityData:    []*memory.City{&Tehran, &Shiraz, &Tabriz, &Karaj, &Mahabad, &Noshahr, &LostHeaven},
 		JobData:     []*memory.JobInfo{AccountManager, Driver, StoreManager, Developer, SecurityMan, OfficialEmployee, WarehouseWorker, MasterChef},
+		SexData:     []*memory.Sex{Female, Male, Other},
 	}
 
 	// cities variable
@@ -32,10 +34,11 @@ var (
 	AlirezaPerson  = &memory.Person{FirstName: "Alireza", LastName: "Mokhtari Garakani", Gender: Male}
 	KianooshPerson = &memory.Person{FirstName: "Kianoosh", LastName: "Ashayeri Zadeh", Gender: Male}
 	OmidPerson     = &memory.Person{FirstName: "Omid", LastName: "Hekayati", Gender: Male}
-	KhorshidPerson = &memory.Person{FirstName: "Khorshid", LastName: "Mokhtari Garakani", Gender: Male}
+	KhorshidPerson = &memory.Person{FirstName: "Khorshid", LastName: "Mokhtari Garakani", Gender: Female}
 	RezaPerson     = &memory.Person{FirstName: "Reza", LastName: "Aslejedian", Gender: Male}
 	TomPerson      = &memory.Person{FirstName: "Tommy", LastName: "Angelo", Gender: Male}
 	FrankPerson    = &memory.Person{FirstName: "Frank", LastName: "Colleti", Gender: Male}
+	DelaramPerson  = &memory.Person{FirstName: "Delaram", Gender: Female}
 
 	// job variable
 	AccountManager   = &memory.JobInfo{Name: "AccountManager", Location: &LostHeaven, Description: "", BasicPaymentPerHour: 0}

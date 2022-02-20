@@ -19,3 +19,10 @@ func EditCityByID(ID uint, NewCityName string) config.ResponseStatus {
 	}
 	return config.ResponseStatus{State: false}
 }
+
+func DeleteCityByID(ID uint) *config.ResponseStatus {
+	if memory.AllDataTool.DeleteCityByID(&config.MainData, ID) {
+		return &config.ResponseStatus{State: true}
+	}
+	return &config.ResponseStatus{State: false}
+}

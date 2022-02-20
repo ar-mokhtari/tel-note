@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"tel-note/internal/storage/memory"
 )
 
@@ -13,7 +12,6 @@ var (
 
 func Init() *Config {
 	cnf := Config{DB: Database{Memory: memory.AllData{}}}
-	fmt.Println(cnf)
 	//TODO::: How to create an init and connected it to env and config (for select sql|memory and same)
 	//switch cnf.DB {
 	//case Database{Memory}:

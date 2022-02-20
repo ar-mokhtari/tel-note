@@ -5,13 +5,16 @@ package cli
 // We will use content variables to describe our hardcoded string data.
 
 const (
-	YES                                = "yes"
-	NO                                 = "no"
-	OK                                 = "ok"
-	Male                               = "male"
-	Female                             = "female"
-	AdminString                        = "admin"
-	NewRecord                          = "N"
+	//general meta data
+	YES         = "yes"
+	NO          = "no"
+	OK          = "ok"
+	Male        = "male"
+	Female      = "female"
+	AdminString = "admin"
+
+	// contact meta data
+	NewContactRecord                   = "N"
 	ListOfContact                      = "L"
 	FindOneContactById                 = "F"
 	FindContactContainingSomeCharacter = "FC"
@@ -19,9 +22,28 @@ const (
 	DeleteContactById                  = "D"
 	DeleteMultiContactByIds            = "DM"
 	DeleteAllContacts                  = "DA"
-	InsertSomeSamplesContacts          = "DATA"
-	InsertNewCity                      = "NC"
-	ListOfCities                       = "LC"
-	EditCityById                       = "EC"
-	PrintAllData                       = "ALL"
+
+	// insert sample data
+	InsertSomeSamplesContacts = "DATA"
+
+	//city meta data
+	InsertNewCity  = "NC"
+	EditCityById   = "EC"
+	DeleteCityById = "DC"
+	ListOfCities   = "LC"
+
+	//job meta data
+	InsertNewJob  = "NJ"
+	EditJobById   = "EJ"
+	DeleteJobById = "DJ"
+	ListOfJob     = "LJ"
+
+	//base meta data
+	InsertNewSex = "NS"
+	ListOfSex    = "LS"
+	EditSex      = "ES"
+	DeleteSex    = "DS"
+
+	//print all
+	PrintAllData = "ALL"
 )
