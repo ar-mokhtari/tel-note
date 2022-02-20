@@ -6,6 +6,7 @@ import (
 )
 
 func NewContact(inputContact memory.Contact) (*config.ResponseStatus, memory.AllData) {
+	storage.AddContact(inputContact)
 	var resData memory.AllData
 	if resStatus, resData := memory.AllDataTool.AddContact(&config.MainData, inputContact); resStatus {
 		return &config.ResponseStatus{State: true}, resData

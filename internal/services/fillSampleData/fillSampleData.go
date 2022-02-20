@@ -2,10 +2,10 @@ package fillSampleData
 
 import (
 	"tel-note/internal/config"
-	"tel-note/internal/service/base"
-	"tel-note/internal/service/city"
-	"tel-note/internal/service/contact"
-	"tel-note/internal/service/jobInfo"
+	"tel-note/internal/services/base"
+	"tel-note/internal/services/city"
+	"tel-note/internal/services/contact"
+	"tel-note/internal/services/jobInfo"
 )
 
 func FillSimpleDataInMainData() {

@@ -2,7 +2,7 @@ package cli
 
 import (
 	"tel-note/internal/config"
-	"tel-note/internal/service/identity"
+	"tel-note/internal/services/identity"
 )
 
 func RunApp() {

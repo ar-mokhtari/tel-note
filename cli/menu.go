@@ -6,12 +6,12 @@ import (
 	"strconv"
 	"strings"
 	"tel-note/internal/config"
-	"tel-note/internal/service/base"
-	"tel-note/internal/service/city"
-	"tel-note/internal/service/contact"
-	"tel-note/internal/service/fillSampleData"
-	"tel-note/internal/service/identity"
-	"tel-note/internal/service/jobInfo"
+	"tel-note/internal/services/base"
+	"tel-note/internal/services/city"
+	"tel-note/internal/services/contact"
+	"tel-note/internal/services/fillSampleData"
+	"tel-note/internal/services/identity"
+	"tel-note/internal/services/jobInfo"
 	"tel-note/internal/storage/memory"
 )
 

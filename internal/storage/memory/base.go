@@ -1,18 +1,7 @@
 package memory
 
-import (
-	"strings"
-)
-
 type (
 	AllDataTool interface {
-		// Contact methods
-		AddContact(inputContact Contact) (bool, AllData)
-		FindContactByID(id uint) (Contact, bool)
-		FindContactByChar(insertChar string) (AllData, uint)
-		EditContactByID(newData Contact, ID uint) bool
-		DeleteContactByID(ID uint) bool
-		DeleteAll() bool
 		// City methods
 		NewCity(CityName string) bool
 		EditCityByID(ID uint, NewCityName string) bool
@@ -31,127 +20,12 @@ type (
 	}
 
 	AllData struct {
-		ContactData []*Contact
-		JobData     []*JobInfo
-		PersonData  []*Person
-		CityData    []*City
-		SexData     []*Sex
+		JobData    []*JobInfo
+		PersonData []*Person
+		CityData   []*City
+		SexData    []*Sex
 	}
 )
-
-// Contact methods
-
-func (MainData *AllData) AddContact(inputContact Contact) (bool, AllData) {
-	var (
-		lastID uint
-	)
-	for _, data := range MainData.ContactData {
-		if data.Id > lastID {
-			lastID = data.Id
-		}
-	}
-	lastID += 1
-	//find job name by ID to return for end user
-	inputContact.JobInfo.Name = MainData.FindJobById(inputContact.JobInfo.Id)
-	//find gender name by ID to return for end user
-	inputContact.Gender.Name = MainData.FindGenderNameById(inputContact.Gender.Id)
-	//marge inputs to create a contact
-	result := &Contact{
-		Id: lastID,
-		Person: &Person{
-			FirstName: inputContact.FirstName,
-			LastName:  inputContact.LastName,
-			Gender: &Sex{
-				Id:   inputContact.Gender.Id,
-				Name: inputContact.Gender.Name,
-			},
-		},
-		Tel:         inputContact.Tel,
-		Cellphone:   inputContact.Cellphone,
-		Description: inputContact.Description,
-		JobInfo: &JobInfo{
-			Id:   inputContact.JobInfo.Id,
-			Name: inputContact.JobInfo.Name,
-		},
-	}
-	MainData.ContactData = append(MainData.ContactData, result)
-	return true, *MainData
-}
-
-func (MainData *AllData) FindContactByID(id uint) (Contact, bool) {
-	var (
-		data Contact
-	)
-	for _, data := range MainData.ContactData {
-		if data.Id == id {
-			return *data, true
-			break
-		}
-	}
-	return data, false
-}
-
-func (MainData *AllData) FindContactByChar(insertChar string) (AllData, uint) {
-	var (
-		counter    uint
-		resultData AllData
-	)
-	for _, data := range MainData.ContactData {
-		if strings.Contains(data.FirstName, insertChar) {
-			counter += 1
-			resultData.ContactData = append(resultData.ContactData, data)
-		}
-	}
-	return resultData, counter
-}
-
-func (MainData *AllData) EditContactByID(newData Contact, ID uint) bool {
-	for index, data := range MainData.ContactData {
-		if data.Id == ID {
-			//TODO::: what the hell below ... is there any cleaner way for test "is it not nil?"
-			if newData.FirstName != "" {
-				(MainData.ContactData)[index].FirstName = newData.FirstName
-			}
-			if newData.LastName != "" {
-				(MainData.ContactData)[index].LastName = newData.LastName
-			}
-			if newData.Description != "" {
-				(MainData.ContactData)[index].Description = newData.Description
-			}
-			if newData.Tel != "" {
-				(MainData.ContactData)[index].Tel = newData.Tel
-			}
-			if newData.Cellphone != "" {
-				(MainData.ContactData)[index].Cellphone = newData.Cellphone
-			}
-			if newData.Gender.Id != 0 {
-				(MainData.ContactData)[index].Gender.Id = newData.Gender.Id
-				(MainData.ContactData)[index].Gender.Name = MainData.FindGenderNameById(newData.Gender.Id)
-			}
-			if newData.JobInfo.Id != 0 {
-				(MainData.ContactData)[index].JobInfo.Id = newData.JobInfo.Id
-				(MainData.ContactData)[index].JobInfo.Name = MainData.FindJobById(newData.JobInfo.Id)
-			}
-			return true
-		}
-	}
-	return false
-}
-
-func (MainData *AllData) DeleteContactByID(ID uint) bool {
-	for index, data := range MainData.ContactData {
-		if data.Id == ID {
-			MainData.ContactData = append(MainData.ContactData[:index], MainData.ContactData[index+1:]...)
-			return true
-		}
-	}
-	return false
-}
-
-func (MainData *AllData) DeleteAll() bool {
-	MainData.ContactData = MainData.ContactData[0:0]
-	return true
-}
 
 // City methods
 
