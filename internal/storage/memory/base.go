@@ -1,6 +1,12 @@
 package memory
 
 type (
+	AllData struct {
+		JobData  []*JobInfo
+		CityData []*City
+		SexData  []*Sex
+	}
+
 	AllDataTool interface {
 		// City methods
 		NewCity(CityName string) bool
@@ -17,13 +23,6 @@ type (
 		NewSex(sexName string) bool
 		EditSex(ID uint8, newName string) bool
 		DeleteSexByID(ID uint8) bool
-	}
-
-	AllData struct {
-		JobData    []*JobInfo
-		PersonData []*Person
-		CityData   []*City
-		SexData    []*Sex
 	}
 )
 

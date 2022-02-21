@@ -4,11 +4,11 @@ import (
 	"tel-note/internal/storage/memory"
 )
 
-var (
-	AllContact []*memory.Contact
-	AllCity    []*memory.City
-	MainData   memory.AllData
-)
+//var (
+//	AllContact []*memory.Contact
+//	AllCity    []*memory.City
+//	MainData   memory.AllData
+//)
 
 func Init() *Config {
 	cnf := Config{DB: Database{Memory: memory.AllData{}}}

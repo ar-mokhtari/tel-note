@@ -1,3 +1,5 @@
 package contact
 
-var storage *storageContact
+import "tel-note/internal/protocol"
+
+var storage protocol.ContactServices

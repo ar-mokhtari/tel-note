@@ -1,125 +1,103 @@
 package contact
 
 import (
-	"context"
 	"tel-note/internal/protocol"
-	"tel-note/internal/storage/memory"
+	"tel-note/internal/services/person"
 )
 
 type (
-	storageContact struct {
-		contacts *protocol.Contact
+	Storage struct {
+		protocol.ContactStorage
 	}
 )
 
-func (m *storageContact) AddContact(ctx context.Context, inputContact protocol.Contact) bool {
+func (AllContact *Storage) AddContact(inputContact protocol.Contact) (bool, protocol.ContactStorage) {
 	var (
 		lastID uint
 	)
-	for _, data := range m.contacts {
+	for _, data := range *AllContact.Data {
 		if data.Id > lastID {
 			lastID = data.Id
 		}
 	}
 	lastID += 1
 	//find job name by ID to return for end user
-	inputContact.JobInfo.Name = MainData.FindJobById(inputContact.JobInfo.Id)
-	//find gender name by ID to return for end user
-	inputContact.Gender.Name = MainData.FindGenderNameById(inputContact.Gender.Id)
+	//inputContact.JobInfo.Name = MainData.FindJobById(inputContact.JobInfo.Id)
+	////find gender name by ID to return for end user
+	//inputContact.Gender.Name = MainData.FindGenderNameById(inputContact.Gender.Id)
 	//marge inputs to create a contact
-	result := &Contact{
-		Id: lastID,
-		memory.Person: &memory.Person{
-			FirstName: inputContact.FirstName,
-			LastName:  inputContact.LastName,
-			Gender: &memory.Sex{
-				Id:   inputContact.Gender.Id,
-				Name: inputContact.Gender.Name,
-			},
-		},
+	result := &protocol.Contact{
+		Id:          lastID,
+		PersonID:    inputContact.PersonID,
 		Tel:         inputContact.Tel,
 		Cellphone:   inputContact.Cellphone,
 		Description: inputContact.Description,
-		memory.JobInfo: &memory.JobInfo{
-			Id:   inputContact.JobInfo.Id,
-			Name: inputContact.JobInfo.Name,
-		},
+		JobID:       inputContact.JobID,
 	}
-	MainData.contacts = append(MainData.contacts, result)
-	return true, *MainData
+	*AllContact.Data = append(*AllContact.Data, *result)
+	return true, AllContact.ContactStorage
 }
 
-//func (MainData *storage) FindContactByID(id uint) (Contact, bool) {
-//	var (
-//		data Contact
-//	)
-//	for _, data := range MainData.ContactData {
-//		if data.Id == id {
-//			return *data, true
-//			break
-//		}
-//	}
-//	return data, false
-//}
-//
-//func (MainData *storage) FindContactByChar(insertChar string) (memory.AllData, uint) {
-//	var (
-//		counter    uint
-//		resultData memory.AllData
-//	)
-//	for _, data := range MainData.ContactData {
-//		if strings.Contains(data.FirstName, insertChar) {
-//			counter += 1
-//			resultData.ContactData = append(resultData.ContactData, data)
-//		}
-//	}
-//	return resultData, counter
-//}
-//
-//func (MainData *storage) EditContactByID(newData Contact, ID uint) bool {
-//	for index, data := range MainData.ContactData {
-//		if data.Id == ID {
-//			//TODO::: what the hell below ... is there any cleaner way for test "is it not nil?"
-//			if newData.FirstName != "" {
-//				(MainData.ContactData)[index].FirstName = newData.FirstName
-//			}
-//			if newData.LastName != "" {
-//				(MainData.ContactData)[index].LastName = newData.LastName
-//			}
-//			if newData.Description != "" {
-//				(MainData.ContactData)[index].Description = newData.Description
-//			}
-//			if newData.Tel != "" {
-//				(MainData.ContactData)[index].Tel = newData.Tel
-//			}
-//			if newData.Cellphone != "" {
-//				(MainData.ContactData)[index].Cellphone = newData.Cellphone
-//			}
-//			if newData.Gender.Id != 0 {
-//				(MainData.ContactData)[index].Gender.Id = newData.Gender.Id
-//				(MainData.ContactData)[index].Gender.Name = MainData.FindGenderNameById(newData.Gender.Id)
-//			}
-//			if newData.JobInfo.Id != 0 {
-//				(MainData.ContactData)[index].JobInfo.Id = newData.JobInfo.Id
-//				(MainData.ContactData)[index].JobInfo.Name = MainData.FindJobById(newData.JobInfo.Id)
-//			}
-//			return true
-//		}
-//	}
-//	return false
-//}
-//
-//func (MainData *storage) DeleteContactByID(ID uint) bool {
-//	for index, data := range MainData.ContactData {
-//		if data.Id == ID {
-//			MainData.ContactData = append(MainData.ContactData[:index], MainData.ContactData[index+1:]...)
-//			return true
-//		}
-//	}
-//	return false
-//}
-//
-//func (MainData *storage) DeleteAll() bool {
-//	MainData.ContactData = MainData.ContactData[0:0]
-//	return true
-//}
+func (AllContact *Storage) FindContactByID(id uint) (bool, protocol.Contact) {
+	var (
+		data protocol.Contact
+	)
+	for _, data := range *AllContact.Data {
+		if data.Id == id {
+			return true, data
+			break
+		}
+	}
+	return false, data
+}
+
+func (AllContact *Storage) FindContactByChar(insertChar string) (status bool, result protocol.ContactStorage) {
+	if state, res := person.FindPersonByChar(insertChar); state.State {
+		for index, data := range *AllContact.Data {
+			if res[index] == data.Id {
+				*result.Data = append(*result.Data, data)
+			}
+		}
+	}
+	return status, result
+}
+
+func (AllContact *Storage) EditContactByID(newData protocol.Contact, ID uint) bool {
+	for index, data := range *AllContact.Data {
+		if data.Id == ID {
+			//TODO::: what the hell below ... is there any cleaner way for test "is it not nil?"
+			if newData.PersonID != 0 {
+				(*AllContact.Data)[index].PersonID = newData.PersonID
+			}
+			if newData.Description != "" {
+				(*AllContact.Data)[index].Description = newData.Description
+			}
+			if newData.Tel != "" {
+				(*AllContact.Data)[index].Tel = newData.Tel
+			}
+			if newData.Cellphone != "" {
+				(*AllContact.Data)[index].Cellphone = newData.Cellphone
+			}
+			if newData.JobID != 0 {
+				(*AllContact.Data)[index].JobID = newData.JobID
+			}
+			return true
+		}
+	}
+	return false
+}
+
+func (AllContact *Storage) DeleteContactByID(ID uint) bool {
+	for index, data := range *AllContact.Data {
+		if data.Id == ID {
+			*AllContact.Data = append((*AllContact.Data)[:index], (*AllContact.Data)[index+1:]...)
+			return true
+		}
+	}
+	return false
+}
+
+func (AllContact *Storage) DeleteAll() bool {
+	*AllContact.Data = (*AllContact.Data)[0:0]
+	return true
+}
