@@ -15,7 +15,7 @@ func (AllContact *Storage) AddContact(inputContact protocol.Contact) (bool, prot
 	var (
 		lastID uint
 	)
-	for _, data := range *AllContact.Data {
+	for _, data := range AllContact.Data {
 		if data.Id > lastID {
 			lastID = data.Id
 		}
@@ -26,7 +26,7 @@ func (AllContact *Storage) AddContact(inputContact protocol.Contact) (bool, prot
 	////find gender name by ID to return for end user
 	//inputContact.Gender.Name = MainData.FindGenderNameById(inputContact.Gender.Id)
 	//marge inputs to create a contact
-	result := &protocol.Contact{
+	result := protocol.Contact{
 		Id:          lastID,
 		PersonID:    inputContact.PersonID,
 		Tel:         inputContact.Tel,
@@ -34,28 +34,25 @@ func (AllContact *Storage) AddContact(inputContact protocol.Contact) (bool, prot
 		Description: inputContact.Description,
 		JobID:       inputContact.JobID,
 	}
-	*AllContact.Data = append(*AllContact.Data, *result)
+	AllContact.Data = append(AllContact.Data, &result)
 	return true, AllContact.ContactStorage
 }
 
 func (AllContact *Storage) FindContactByID(id uint) (bool, protocol.Contact) {
-	var (
-		data protocol.Contact
-	)
-	for _, data := range *AllContact.Data {
+	for _, data := range AllContact.Data {
 		if data.Id == id {
-			return true, data
+			return true, *data
 			break
 		}
 	}
-	return false, data
+	return false, protocol.Contact{}
 }
 
 func (AllContact *Storage) FindContactByChar(insertChar string) (status bool, result protocol.ContactStorage) {
 	if state, res := person.FindPersonByChar(insertChar); state.State {
-		for index, data := range *AllContact.Data {
+		for index, data := range AllContact.Data {
 			if res[index] == data.Id {
-				*result.Data = append(*result.Data, data)
+				result.Data = append(result.Data, data)
 			}
 		}
 	}
@@ -63,23 +60,23 @@ func (AllContact *Storage) FindContactByChar(insertChar string) (status bool, re
 }
 
 func (AllContact *Storage) EditContactByID(newData protocol.Contact, ID uint) bool {
-	for index, data := range *AllContact.Data {
+	for index, data := range AllContact.Data {
 		if data.Id == ID {
 			//TODO::: what the hell below ... is there any cleaner way for test "is it not nil?"
 			if newData.PersonID != 0 {
-				(*AllContact.Data)[index].PersonID = newData.PersonID
+				(AllContact.Data)[index].PersonID = newData.PersonID
 			}
 			if newData.Description != "" {
-				(*AllContact.Data)[index].Description = newData.Description
+				(AllContact.Data)[index].Description = newData.Description
 			}
 			if newData.Tel != "" {
-				(*AllContact.Data)[index].Tel = newData.Tel
+				(AllContact.Data)[index].Tel = newData.Tel
 			}
 			if newData.Cellphone != "" {
-				(*AllContact.Data)[index].Cellphone = newData.Cellphone
+				(AllContact.Data)[index].Cellphone = newData.Cellphone
 			}
 			if newData.JobID != 0 {
-				(*AllContact.Data)[index].JobID = newData.JobID
+				(AllContact.Data)[index].JobID = newData.JobID
 			}
 			return true
 		}
@@ -88,9 +85,9 @@ func (AllContact *Storage) EditContactByID(newData protocol.Contact, ID uint) bo
 }
 
 func (AllContact *Storage) DeleteContactByID(ID uint) bool {
-	for index, data := range *AllContact.Data {
+	for index, data := range AllContact.Data {
 		if data.Id == ID {
-			*AllContact.Data = append((*AllContact.Data)[:index], (*AllContact.Data)[index+1:]...)
+			AllContact.Data = append((AllContact.Data)[:index], (AllContact.Data)[index+1:]...)
 			return true
 		}
 	}
@@ -98,6 +95,6 @@ func (AllContact *Storage) DeleteContactByID(ID uint) bool {
 }
 
 func (AllContact *Storage) DeleteAll() bool {
-	*AllContact.Data = (*AllContact.Data)[0:0]
+	AllContact.Data = (AllContact.Data)[0:0]
 	return true
 }

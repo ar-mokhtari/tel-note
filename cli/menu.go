@@ -1,10 +1,13 @@
 package cli
 
 import (
+	"encoding/json"
 	"fmt"
 	"strings"
+	"tel-note/internal/config"
 	"tel-note/internal/protocol"
 	"tel-note/internal/services/contact"
+	"tel-note/internal/services/fillSampleData"
 	"tel-note/internal/services/identity"
 )
 
@@ -60,36 +63,36 @@ func runMenu() {
 		userInput = strings.ToUpper(userInput)
 		if identity.IsAdmin {
 			switch userInput {
-			//case InsertSomeSamplesContacts:
-			//	fillSampleData.FillSimpleDataInMainData()
-			//	ShowMenu()
-			//case PrintAllData:
-			//	fmt.Println(separator7)
-			//	fmt.Println("Contact Data:")
-			//	//TODO::: Find a way to loop a struct that contain other struct(s)
-			//	//e := reflect.ValueOf(config.MainData.ContactData).Elem()
-			//	//for i := 0; i < e.NumField(); i++ {
-			//	//	varName := e.Type().Field(i).Name
-			//	//	varType := e.Type().Field(i).Type
-			//	//	varValue := e.Field(i).Interface()
-			//	//	fmt.Printf("%v %v %v\n", varName, varType, varValue)
-			//	//}
-			//	fmt.Printf("%3v | %-10s | %-20v | %-8v | %-15v | %-10v | %-5v | %-20v | %-5v \n", "Id", "FName", "LName", "Tl", "Cellphone", "Desc", "JobID", "JobName", "Gender")
-			//	fmt.Println("")
-			//	for _, data := range config.MainData.ContactData {
-			//		fmt.Printf("%3v | %-10s | %-20v | %-8v | %-15v | %-10v | %-5v | %-20v | %-5v \n", data.Id, data.FirstName, data.LastName, data.Tel, data.Cellphone, data.Description, data.JobInfo.Id, data.JobInfo.Name, data.Person.Gender.Name)
-			//	}
-			//	fmt.Println(separator7)
-			//	fmt.Println("City Data:")
-			//	for _, data := range config.MainData.CityData {
-			//		fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
-			//	}
-			//	fmt.Println(separator7)
-			//	fmt.Println("Job Data:")
-			//	for _, data := range config.MainData.JobData {
-			//		fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
-			//	}
-			//	ShowMenu()
+			case InsertSomeSamplesContacts:
+				fillSampleData.FillSimpleDataInMainData()
+				ShowMenu()
+			case PrintAllData:
+				fmt.Println(separator7)
+				fmt.Println("Contact Data:")
+				//TODO::: Find a way to loop a struct that contain other struct(s)
+				//e := reflect.ValueOf(config.MainData.ContactData).Elem()
+				//for i := 0; i < e.NumField(); i++ {
+				//	varName := e.Type().Field(i).Name
+				//	varType := e.Type().Field(i).Type
+				//	varValue := e.Field(i).Interface()
+				//	fmt.Printf("%v %v %v\n", varName, varType, varValue)
+				//}
+				fmt.Printf("%3v | %-10s | %-20v | %-8v | %-15v | %-10v | %-5v | %-20v  \n", "Id", "PesonID", "Tl", "Cellphone", "Desc", "JobID", "JobName", "Gender")
+				fmt.Println("")
+				for _, data := range config.AllContact {
+					fmt.Printf("%3v | %-10v | %-20v | %-8v | %-15v | %-10v | %-5v | %-20v \n", data.Id, data.PersonID, data.Tel, data.Cellphone, data.Description, data.JobID, "JobInfo.Name", "Gender.Name")
+				}
+				fmt.Println(separator7)
+				fmt.Println("City Data:")
+				for _, data := range config.MainData.CityData {
+					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
+				}
+				fmt.Println(separator7)
+				fmt.Println("Job Data:")
+				for _, data := range config.MainData.JobData {
+					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
+				}
+				ShowMenu()
 			}
 		}
 		switch userInput {
@@ -123,16 +126,16 @@ func runMenu() {
 				})
 			fmt.Println(">> New contact added done <<")
 			ShowMenu()
-		//case ListOfContact:
-		//	dataJSON, _ := json.MarshalIndent(config.MainData, "", "  ")
-		//	fmt.Println(string(dataJSON))
-		//	fmt.Println(separator7)
-		//	fmt.Printf("%3v | %-10s | %-20v | %-8v | %-15v | %-10v | %-5v | %-20v | %-5v \n", "Id", "FName", "LName", "Tl", "Cellphone", "Desc", "JobID", "JobName", "Gender")
-		//	fmt.Println("")
-		//	for _, data := range config.MainData.ContactData {
-		//		fmt.Printf("%3v | %-10s | %-20v | %-8v | %-15v | %-10v | %-5v | %-20v | %-5v \n", data.Id, data.FirstName, data.LastName, data.Tel, data.Cellphone, data.Description, data.JobInfo.Id, data.JobInfo.Name, data.Person.Gender.Name)
-		//	}
-		//	ShowMenu()
+		case ListOfContact:
+			dataJSON, _ := json.MarshalIndent(config.AllContact, "", "  ")
+			fmt.Println(string(dataJSON))
+			fmt.Println(separator7)
+			fmt.Printf("%3v | %-10v | %-20v | %-8v | %-15v | %-10v | %-5v | %-20v \n", "Id", "personID", "Tl", "Cellphone", "Desc", "JobID", "JobName", "Gender")
+			fmt.Println("")
+			for _, data := range config.AllContact {
+				fmt.Printf("%3v | %-10v | %-20v | %-8v | %-15v | %-10v | %-5v | %-20v \n", data.Id, data.PersonID, data.Tel, data.Cellphone, data.Description, data.JobID, "JobName", "Gender.Name")
+			}
+			ShowMenu()
 		//case FindOneContactById:
 		//	var id uint
 		//	fmt.Println("Please insert your contact ID:")
@@ -217,15 +220,15 @@ func runMenu() {
 		//		}
 		//	}
 		//	ShowMenu()
-		//case DeleteAllContacts:
-		//	var confirmDel string
-		//	fmt.Println("*** important, be careful, you are deleting all of contacts ***")
-		//	fmt.Println("are you sure? (yes or no)")
-		//	fmt.Scanln(&confirmDel)
-		//	if strings.ToLower(confirmDel) == YES {
-		//		resultStatus := contact.DeleteAll()
-		//		fmt.Println(resultStatus.String)
-		//	}
+		case DeleteAllContacts:
+			var confirmDel string
+			fmt.Println("*** important, be careful, you are deleting all of contacts ***")
+			fmt.Println("are you sure? (yes or no)")
+			fmt.Scanln(&confirmDel)
+			if strings.ToLower(confirmDel) == YES {
+				resultStatus := contact.DeleteAll()
+				fmt.Println(resultStatus.String)
+			}
 		//	ShowMenu()
 		//case DeleteMultiContactByIds:
 		//	var confirmDel string

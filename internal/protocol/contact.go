@@ -10,7 +10,7 @@ type (
 		Description string
 	}
 	ContactStorage struct {
-		Data *[]Contact
+		Data []*Contact
 	}
 	ContactServices interface {
 		AddContact(inputContact Contact) (bool, ContactStorage)

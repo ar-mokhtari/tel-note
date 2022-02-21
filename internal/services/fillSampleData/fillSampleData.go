@@ -19,7 +19,7 @@ func FillSimpleDataInMainData() {
 		jobInfo.NewJob(data.Name)
 	}
 	//contact have to locate in end list, because it's elements has dependent to upper steps (city/job/...)
-	for _, data := range config.MainDataTest.ContactData {
+	for _, data := range (config.ContactDataTest).Data {
 		contact.NewContact(*data)
 	}
 }
