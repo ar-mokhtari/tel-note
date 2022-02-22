@@ -1,11 +1,12 @@
 package config
 
 import (
+	"tel-note/internal/protocol"
 	"tel-note/internal/storage/memory"
 )
 
 var (
-	AllCity  []*memory.City
+	AllCity  []*protocol.City
 	MainData memory.AllData
 )
 

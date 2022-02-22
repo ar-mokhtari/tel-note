@@ -5,7 +5,7 @@ import (
 	"tel-note/internal/services/base"
 	"tel-note/internal/services/city"
 	"tel-note/internal/services/contact"
-	"tel-note/internal/services/jobInfo"
+	"tel-note/internal/services/job"
 )
 
 func FillSimpleDataInMainData() {
@@ -16,7 +16,7 @@ func FillSimpleDataInMainData() {
 		city.NewCity(data.Name)
 	}
 	for _, data := range config.MainDataTest.JobData {
-		jobInfo.NewJob(data.Name)
+		job.NewJob(data.Name)
 	}
 	//contact have to locate in end list, because it's elements has dependent to upper steps (city/job/...)
 	for _, data := range (config.ContactDataTest).Data {

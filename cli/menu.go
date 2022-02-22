@@ -13,7 +13,7 @@ import (
 	"tel-note/internal/services/fillSampleData"
 	"tel-note/internal/services/globalVars"
 	"tel-note/internal/services/identity"
-	"tel-note/internal/services/jobInfo"
+	"tel-note/internal/services/job"
 )
 
 var (
@@ -303,7 +303,7 @@ func runMenu() {
 			var inputJob string
 			fmt.Println("insert job name:")
 			fmt.Scanln(&inputJob)
-			if jobInfo.NewJob(inputJob).State {
+			if job.NewJob(inputJob).State {
 				fmt.Println("New job added")
 			}
 			ShowMenu()
@@ -314,7 +314,7 @@ func runMenu() {
 			fmt.Scanln(&inputID)
 			fmt.Println("insert new job name:")
 			fmt.Scanln(&inputName)
-			if jobInfo.EditJobInfoByID(inputID, inputName).State {
+			if job.EditJobInfoByID(inputID, inputName).State {
 				fmt.Println("Job changed ...")
 			}
 			ShowMenu()
@@ -327,7 +327,7 @@ func runMenu() {
 				var deleteID uint
 				fmt.Println("insert your job id that you want to delete:")
 				fmt.Scanln(&deleteID)
-				status := jobInfo.DeleteJobByID(deleteID)
+				status := job.DeleteJobByID(deleteID)
 				switch status.State {
 				case true:
 					fmt.Printf("job with id number:  %d deleted.", deleteID)

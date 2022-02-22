@@ -14,7 +14,7 @@ type (
 		Description     string
 	}
 	PersonStorage struct {
-		PersonData *[]Person
+		PersonData []*Person
 	}
 	PersonServices interface {
 		FindPersonByChar(inputChar string) (bool, []uint)

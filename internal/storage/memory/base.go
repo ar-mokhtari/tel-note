@@ -1,9 +1,11 @@
 package memory
 
+import "tel-note/internal/protocol"
+
 type (
 	AllData struct {
-		JobData  []*JobInfo
-		CityData []*City
+		JobData  []*protocol.JobInfo
+		CityData []*protocol.City
 		SexData  []*Sex
 	}
 
@@ -35,7 +37,7 @@ func (MainData *AllData) NewCity(CityName string) bool {
 			LastID = data.Id
 		}
 	}
-	result := City{
+	result := protocol.City{
 		Id:   uint(LastID) + 1,
 		Name: CityName,
 	}
@@ -72,7 +74,7 @@ func (MainData *AllData) NewJob(jobName string) bool {
 			LastID = data.Id
 		}
 	}
-	result := JobInfo{
+	result := protocol.JobInfo{
 		Id:   uint(LastID) + 1,
 		Name: jobName,
 	}

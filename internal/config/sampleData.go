@@ -20,20 +20,20 @@ var (
 		Data: []*protocol.Contact{&Alireza, &Kianoosh, &Omid, &Khorshid, &Reza, &Tom, &Frank, &Delaram},
 	}
 	MainDataTest = memory.AllData{
-		CityData: []*memory.City{&Tehran, &Shiraz, &Tabriz, &Karaj, &Mahabad, &Noshahr, &LostHeaven},
-		JobData:  []*memory.JobInfo{AccountManager, Driver, StoreManager, Developer, SecurityMan, OfficialEmployee, WarehouseWorker, MasterChef},
+		CityData: []*protocol.City{&Tehran, &Shiraz, &Tabriz, &Karaj, &Mahabad, &Noshahr, &LostHeaven},
+		JobData:  []*protocol.JobInfo{AccountManager, Driver, StoreManager, Developer, SecurityMan, OfficialEmployee, WarehouseWorker, MasterChef},
 		SexData:  []*memory.Sex{Female, Male, Other},
 	}
 
 	// cities variable
-	Tehran     = memory.City{Name: "Tehran", AriaCode: "021"}
-	Shiraz     = memory.City{Name: "Shiraz", AriaCode: "061"}
-	Tabriz     = memory.City{Name: "Tabriz", AriaCode: "041"}
-	Karaj      = memory.City{Name: "Karaj", AriaCode: "026"}
-	Mahabad    = memory.City{Name: "Mahabad", AriaCode: "051"}
-	Noshahr    = memory.City{Name: "Noshahr", AriaCode: "011"}
-	LostHeaven = memory.City{Name: "LostHeaven", AriaCode: "+1"}
-	Rasht      = memory.City{Name: "Rasht", AriaCode: "013"}
+	Tehran     = protocol.City{Name: "Tehran", AriaCode: "021"}
+	Shiraz     = protocol.City{Name: "Shiraz", AriaCode: "061"}
+	Tabriz     = protocol.City{Name: "Tabriz", AriaCode: "041"}
+	Karaj      = protocol.City{Name: "Karaj", AriaCode: "026"}
+	Mahabad    = protocol.City{Name: "Mahabad", AriaCode: "051"}
+	Noshahr    = protocol.City{Name: "Noshahr", AriaCode: "011"}
+	LostHeaven = protocol.City{Name: "LostHeaven", AriaCode: "+1"}
+	Rasht      = protocol.City{Name: "Rasht", AriaCode: "013"}
 
 	// Person variable
 	AlirezaPerson  = protocol.Person{FirstName: "Alireza", LastName: "Mokhtari Garakani", GenderID: 0}
@@ -46,14 +46,14 @@ var (
 	DelaramPerson  = protocol.Person{FirstName: "Delaram", GenderID: 1}
 
 	// job variable
-	AccountManager   = &memory.JobInfo{Name: "AccountManager", Location: &LostHeaven, Description: "", BasicPaymentPerHour: 0}
-	Driver           = &memory.JobInfo{Name: "Driver", Location: &LostHeaven, Description: "", BasicPaymentPerHour: 0}
-	StoreManager     = &memory.JobInfo{Name: "StoreManager", Location: &Tabriz, Description: "", BasicPaymentPerHour: 0}
-	Developer        = &memory.JobInfo{Name: "Developer", Location: &Karaj, Description: "", BasicPaymentPerHour: 0}
-	SecurityMan      = &memory.JobInfo{Name: "SecurityMan", Location: &Mahabad, Description: "", BasicPaymentPerHour: 0}
-	OfficialEmployee = &memory.JobInfo{Name: "OfficialEmployee", Location: &Shiraz, Description: "", BasicPaymentPerHour: 0}
-	WarehouseWorker  = &memory.JobInfo{Name: "WarehouseWorker ", Location: &Noshahr, Description: "", BasicPaymentPerHour: 0}
-	MasterChef       = &memory.JobInfo{Name: "MasterChef", Location: &Rasht, Description: "", BasicPaymentPerHour: 0}
+	AccountManager   = &protocol.JobInfo{Name: "AccountManager", Location: &LostHeaven, Description: "", BasicPaymentPerHour: 0}
+	Driver           = &protocol.JobInfo{Name: "Driver", Location: &LostHeaven, Description: "", BasicPaymentPerHour: 0}
+	StoreManager     = &protocol.JobInfo{Name: "StoreManager", Location: &Tabriz, Description: "", BasicPaymentPerHour: 0}
+	Developer        = &protocol.JobInfo{Name: "Developer", Location: &Karaj, Description: "", BasicPaymentPerHour: 0}
+	SecurityMan      = &protocol.JobInfo{Name: "SecurityMan", Location: &Mahabad, Description: "", BasicPaymentPerHour: 0}
+	OfficialEmployee = &protocol.JobInfo{Name: "OfficialEmployee", Location: &Shiraz, Description: "", BasicPaymentPerHour: 0}
+	WarehouseWorker  = &protocol.JobInfo{Name: "WarehouseWorker ", Location: &Noshahr, Description: "", BasicPaymentPerHour: 0}
+	MasterChef       = &protocol.JobInfo{Name: "MasterChef", Location: &Rasht, Description: "", BasicPaymentPerHour: 0}
 
 	// sex variable
 	Male   = &memory.Sex{Id: 1, Name: "Male"}

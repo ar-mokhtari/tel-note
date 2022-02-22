@@ -1,4 +1,4 @@
-package jobInfo
+package job
 
 import (
 	"tel-note/internal/config"
