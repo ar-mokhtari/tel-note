@@ -57,7 +57,7 @@ func (AllContact *StorageMemory) FindContactByChar(insertChar string) (status bo
 	return status, result
 }
 
-func (AllContact *StorageMemory) EditContactByID(newData protocol.Contact, ID uint) bool {
+func (AllContact *StorageMemory) EditContactByID(newData protocol.Contact, ID uint) (bool, protocol.ContactStorage) {
 	for index, data := range AllContact.Data {
 		if data.Id == ID {
 			//TODO::: what the hell below ... is there any cleaner way for test "is it not nil?"
@@ -76,10 +76,10 @@ func (AllContact *StorageMemory) EditContactByID(newData protocol.Contact, ID ui
 			if newData.JobID != 0 {
 				(AllContact.Data)[index].JobID = newData.JobID
 			}
-			return true
+			return true, protocol.ContactStorage(*AllContact)
 		}
 	}
-	return false
+	return false, protocol.ContactStorage{}
 }
 
 func (AllContact *StorageMemory) DeleteContactByID(ID uint) bool {

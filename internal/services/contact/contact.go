@@ -30,7 +30,8 @@ func FindContactByChar(insertChar string) (protocol.ContactStorage, uint) {
 }
 
 func EditContactByID(newData protocol.Contact, ID uint) *config.ResponseStatus {
-	if Storage.EditContactByID(newData, ID) {
+	if state, data := Storage.EditContactByID(newData, ID); state {
+		globalVars.AllContact = data
 		return &config.ResponseStatus{State: true}
 	}
 	return &config.ResponseStatus{State: true, String: "not found"}
