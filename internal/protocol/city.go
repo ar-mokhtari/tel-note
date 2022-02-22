@@ -10,6 +10,11 @@ type (
 		CityData []*City
 	}
 	CityServices interface {
-		NewCity()
+		// City methods
+		FindCityByChar(inputChar string) (status bool, res []uint)
+		FindCityByID(inputID uint) (bool, City)
+		NewCity(inputCity City) bool
+		EditCity(ID uint, newCity City) bool
+		DeleteCity(IDS []uint) (resDel []uint)
 	}
 )

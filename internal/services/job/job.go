@@ -2,27 +2,24 @@ package job
 
 import (
 	"tel-note/internal/config"
-	"tel-note/internal/storage/memory"
+	"tel-note/internal/protocol"
 )
 
-func NewJob(jobName string) config.ResponseStatus {
-	if memory.AllDataTool.NewJob(&config.MainData, jobName) {
+func NewJob(job protocol.Job) config.ResponseStatus {
+	if Storage.NewJob(job) {
 		return config.ResponseStatus{State: true}
 	}
 	return config.ResponseStatus{State: false}
 
 }
 
-func EditJobInfoByID(ID uint, NewJobInfoName string) config.ResponseStatus {
-	if memory.AllDataTool.EditJobByID(&config.MainData, ID, NewJobInfoName) {
+func EditJobInfoByID(ID uint, NewJob protocol.Job) config.ResponseStatus {
+	if Storage.EditJob(ID, NewJob) {
 		return config.ResponseStatus{State: true}
 	}
 	return config.ResponseStatus{State: false}
 }
 
-func DeleteJobByID(ID uint) *config.ResponseStatus {
-	if memory.AllDataTool.DeleteJobByID(&config.MainData, ID) {
-		return &config.ResponseStatus{State: true}
-	}
-	return &config.ResponseStatus{State: false}
+func DeleteJobByID(ID []uint) []uint {
+	return Storage.DeleteJob(ID)
 }

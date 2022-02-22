@@ -12,7 +12,11 @@ type (
 		JobData []*Job
 	}
 	JobServices interface {
-		NewJob(job Job) bool
+		// JobInfo methods
+		FindJobByChar(inputChar string) (status bool, res []uint)
 		FindJobByID(inputID uint) (bool, Job)
+		NewJob(inputJob Job) bool
+		EditJob(ID uint, newJob Job) bool
+		DeleteJob(IDS []uint) (resDel []uint)
 	}
 )

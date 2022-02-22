@@ -2,27 +2,24 @@ package city
 
 import (
 	"tel-note/internal/config"
-	"tel-note/internal/storage/memory"
+	"tel-note/internal/protocol"
 )
 
-func NewCity(CityName string) config.ResponseStatus {
-	if memory.AllDataTool.NewCity(&config.MainData, CityName) {
+func NewCity(city protocol.City) config.ResponseStatus {
+	if Storage.NewCity(city) {
 		return config.ResponseStatus{State: true}
 	}
 	return config.ResponseStatus{State: false}
 
 }
 
-func EditCityByID(ID uint, NewCityName string) config.ResponseStatus {
-	if memory.AllDataTool.EditCityByID(&config.MainData, ID, NewCityName) {
+func EditCityByID(ID uint, NewCity protocol.City) config.ResponseStatus {
+	if Storage.EditCity(ID, NewCity) {
 		return config.ResponseStatus{State: true}
 	}
 	return config.ResponseStatus{State: false}
 }
 
-func DeleteCityByID(ID uint) *config.ResponseStatus {
-	if memory.AllDataTool.DeleteCityByID(&config.MainData, ID) {
-		return &config.ResponseStatus{State: true}
-	}
-	return &config.ResponseStatus{State: false}
+func DeleteCity(IDS []uint) []uint {
+	return Storage.DeleteCity(IDS)
 }

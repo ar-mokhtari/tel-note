@@ -1,7 +1,6 @@
 package cli
 
 import (
-	"tel-note/internal/config"
 	"tel-note/internal/services"
 	"tel-note/internal/services/globalVars"
 	"tel-note/internal/services/identity"
@@ -22,11 +21,10 @@ func RunApp() {
 	//Show greeting note and description
 	ShowGreeting()
 
-	//create global MainData
-	config.Init()
+	//create global variables
+	globalVars.Init()
 
 	//create global services
-	globalVars.Init()
 	services.Init()
 
 	//show contact menu

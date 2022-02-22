@@ -2,4 +2,4 @@ package person
 
 import "tel-note/internal/protocol"
 
-var storage protocol.PersonServices
+var Storage protocol.PersonServices

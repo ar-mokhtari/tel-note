@@ -5,9 +5,9 @@ import (
 	"tel-note/internal/protocol"
 )
 
-type Storage protocol.CityStorage
+type StorageMemory protocol.CityStorage
 
-func (AllCity *Storage) FindCityByChar(inputChar string) (status bool, res []uint) {
+func (AllCity *StorageMemory) FindCityByChar(inputChar string) (status bool, res []uint) {
 	for _, data := range AllCity.CityData {
 		if strings.Contains(data.Name, inputChar) {
 			res = append(res, data.Id)
@@ -17,7 +17,7 @@ func (AllCity *Storage) FindCityByChar(inputChar string) (status bool, res []uin
 	return status, res
 }
 
-func (AllCity *Storage) FindCityByID(inputID uint) (bool, protocol.City) {
+func (AllCity *StorageMemory) FindCityByID(inputID uint) (bool, protocol.City) {
 	for _, data := range AllCity.CityData {
 		if data.Id == inputID {
 			return true, *data
@@ -26,7 +26,7 @@ func (AllCity *Storage) FindCityByID(inputID uint) (bool, protocol.City) {
 	return false, protocol.City{}
 }
 
-func (AllCity *Storage) NewCity(inputCity protocol.City) bool {
+func (AllCity *StorageMemory) NewCity(inputCity protocol.City) bool {
 	var LastID uint
 	for _, data := range AllCity.CityData {
 		if data.Id > LastID {
@@ -43,7 +43,7 @@ func (AllCity *Storage) NewCity(inputCity protocol.City) bool {
 	return true
 }
 
-func (AllCity *Storage) EditCity(ID uint, newCity protocol.City) bool {
+func (AllCity *StorageMemory) EditCity(ID uint, newCity protocol.City) bool {
 	for index, data := range AllCity.CityData {
 		if data.Id == ID {
 			//TODO::: what the hell below ... is there any cleaner way for test "is it not nil?"
@@ -62,7 +62,7 @@ func (AllCity *Storage) EditCity(ID uint, newCity protocol.City) bool {
 	return false
 }
 
-func (AllCity *Storage) DeleteCity(IDS []uint) (resDel []uint) {
+func (AllCity *StorageMemory) DeleteCity(IDS []uint) (resDel []uint) {
 	for index, id := range IDS {
 		for _, data := range AllCity.CityData {
 			if data.Id == id {

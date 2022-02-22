@@ -7,13 +7,13 @@ import (
 	"strings"
 	"tel-note/internal/config"
 	"tel-note/internal/protocol"
-	"tel-note/internal/services/base"
 	"tel-note/internal/services/city"
 	"tel-note/internal/services/contact"
 	"tel-note/internal/services/fillSampleData"
 	"tel-note/internal/services/globalVars"
 	"tel-note/internal/services/identity"
 	"tel-note/internal/services/job"
+	"tel-note/internal/services/sex"
 )
 
 var (
@@ -91,12 +91,12 @@ func runMenu() {
 				}
 				fmt.Println(separator7)
 				fmt.Println("City Data:")
-				for _, data := range config.MainData.CityData {
+				for _, data := range globalVars.AllCity.CityData {
 					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 				}
 				fmt.Println(separator7)
 				fmt.Println("Job Data:")
-				for _, data := range config.MainData.JobData {
+				for _, data := range globalVars.AllJob.JobData {
 					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 				}
 				ShowMenu()
@@ -255,55 +255,74 @@ func runMenu() {
 			}
 			ShowMenu()
 		case InsertNewCity:
-			var inputCity string
+			var inputCity, ariaCode string
 			fmt.Println("insert city name:")
 			fmt.Scanln(&inputCity)
-			if city.NewCity(inputCity).State {
+			fmt.Println("insert aria code:")
+			fmt.Scanln(&ariaCode)
+			if city.NewCity(protocol.City{
+				Name:     inputCity,
+				AriaCode: ariaCode,
+			}).State {
 				fmt.Println("New city added")
 			}
 			ShowMenu()
 		case ListOfCities:
-			dataJSON, _ := json.MarshalIndent(config.MainData.CityData, "", "  ")
+			dataJSON, _ := json.MarshalIndent(globalVars.AllCity.CityData, "", "  ")
 			fmt.Println(string(dataJSON))
 			fmt.Println(separator7)
-			for _, data := range (config.MainData).CityData {
+			for _, data := range globalVars.AllCity.CityData {
 				fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 			}
 			ShowMenu()
 		case EditCityById:
 			var inputID uint
-			var inputName string
+			var inputName, ariaCode string
 			fmt.Println("insert city id:")
 			fmt.Scanln(&inputID)
 			fmt.Println("insert new city name:")
 			fmt.Scanln(&inputName)
-			if city.EditCityByID(inputID, inputName).State {
+			fmt.Println("insert new aria code:")
+			fmt.Scanln(&inputName)
+			if city.EditCityByID(inputID, protocol.City{
+				Name:     inputName,
+				AriaCode: ariaCode,
+			}).State {
 				fmt.Println("City changed ...")
 			}
 			ShowMenu()
 		case DeleteCityById:
 			var confirmDel string
-			fmt.Println("*** important, be careful, you are deleting a city ***")
+			fmt.Println("*** important, be careful, you are deleting city(ies) ***")
 			fmt.Println("do you want to continue? (yes or no)")
 			fmt.Scanln(&confirmDel)
 			if strings.ToLower(confirmDel) == YES {
-				var deleteID uint
-				fmt.Println("insert your city id that you want to delete:")
-				fmt.Scanln(&deleteID)
-				status := city.DeleteCityByID(deleteID)
-				switch status.State {
-				case true:
-					fmt.Printf("city with id number:  %d deleted.", deleteID)
-				case false:
-					fmt.Println("something wrong")
+				var deleteIDS string
+				fmt.Println("insert your city id(s) that you want to delete, for more than one, separate id's by ',':")
+				fmt.Scanln(&deleteIDS)
+				idPack := strings.Split(deleteIDS, ",")
+				var idPackInt []uint
+				for _, i := range idPack {
+					j, err := strconv.Atoi(i)
+					if err != nil {
+						panic(err)
+					}
+					idPackInt = append(idPackInt, uint(j))
 				}
+				resNums := city.DeleteCity(idPackInt)
+				fmt.Printf("%v city(ies) has been deleted", resNums)
 			}
 			ShowMenu()
 		case InsertNewJob:
 			var inputJob string
 			fmt.Println("insert job name:")
 			fmt.Scanln(&inputJob)
-			if job.NewJob(inputJob).State {
+			if job.NewJob(protocol.Job{
+				Name:                inputJob,
+				LocationID:          0,
+				Description:         "",
+				BasicPaymentPerHour: 0,
+			}).State {
 				fmt.Println("New job added")
 			}
 			ShowMenu()
@@ -314,33 +333,42 @@ func runMenu() {
 			fmt.Scanln(&inputID)
 			fmt.Println("insert new job name:")
 			fmt.Scanln(&inputName)
-			if job.EditJobInfoByID(inputID, inputName).State {
+			if job.EditJobInfoByID(inputID, protocol.Job{
+				Name:                inputName,
+				LocationID:          0,
+				Description:         "",
+				BasicPaymentPerHour: 0,
+			}).State {
 				fmt.Println("Job changed ...")
 			}
 			ShowMenu()
 		case DeleteJobById:
 			var confirmDel string
-			fmt.Println("*** important, be careful, you are deleting a job ***")
+			fmt.Println("*** important, be careful, you are deleting job(s) ***")
 			fmt.Println("do you want to continue? (yes or no)")
 			fmt.Scanln(&confirmDel)
 			if strings.ToLower(confirmDel) == YES {
-				var deleteID uint
-				fmt.Println("insert your job id that you want to delete:")
-				fmt.Scanln(&deleteID)
-				status := job.DeleteJobByID(deleteID)
-				switch status.State {
-				case true:
-					fmt.Printf("job with id number:  %d deleted.", deleteID)
-				case false:
-					fmt.Println("something wrong")
+				var deleteIDS string
+				fmt.Println("insert your job id(s) that you want to delete, for more than one, separate id's by ',':")
+				fmt.Scanln(&deleteIDS)
+				idPack := strings.Split(deleteIDS, ",")
+				var idPackInt []uint
+				for _, i := range idPack {
+					j, err := strconv.Atoi(i)
+					if err != nil {
+						panic(err)
+					}
+					idPackInt = append(idPackInt, uint(j))
 				}
+				resNums := job.DeleteJobByID(idPackInt)
+				fmt.Printf("%v city(ies) has been deleted", resNums)
 			}
 			ShowMenu()
 		case ListOfJob:
-			dataJSON, _ := json.MarshalIndent(config.MainData.JobData, "", "  ")
+			dataJSON, _ := json.MarshalIndent(globalVars.AllJob.JobData, "", "  ")
 			fmt.Println(string(dataJSON))
 			fmt.Println(separator7)
-			for _, data := range (config.MainData).JobData {
+			for _, data := range globalVars.AllJob.JobData {
 				fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 			}
 			ShowMenu()
@@ -348,7 +376,7 @@ func runMenu() {
 			var insertName string
 			fmt.Println("Insert sex name")
 			fmt.Scanln(&insertName)
-			if base.NewSex(insertName).State {
+			if sex.NewSex(insertName).State {
 				fmt.Println("New sex info added")
 			}
 			ShowMenu()
@@ -359,7 +387,7 @@ func runMenu() {
 			fmt.Scanln(&insertID)
 			fmt.Println("Insert new name:")
 			fmt.Scanln(&insertName)
-			if base.EditSexNameByID(insertID, insertName).State {
+			if sex.EditSexByID(insertID, insertName).State {
 				fmt.Println("sex info updated")
 			} else {
 				fmt.Println("some thing wrong")
@@ -373,7 +401,7 @@ func runMenu() {
 				var insertID uint8
 				fmt.Println("insert sex id to delete:")
 				fmt.Scanln(&insertID)
-				if base.DeleteSexByID(insertID).State {
+				if sex.DeleteSexByID(insertID).State {
 					fmt.Println("sex info deleted")
 				} else {
 					fmt.Println("some thing wrong")
@@ -381,10 +409,10 @@ func runMenu() {
 			}
 			ShowMenu()
 		case ListOfSex:
-			dataJSON, _ := json.MarshalIndent(config.MainData.SexData, "", "  ")
+			dataJSON, _ := json.MarshalIndent(globalVars.AllSex.SexData, "", "  ")
 			fmt.Println(string(dataJSON))
 			fmt.Println(separator7)
-			for _, data := range (config.MainData).SexData {
+			for _, data := range globalVars.AllSex.SexData {
 				fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 			}
 			ShowMenu()
