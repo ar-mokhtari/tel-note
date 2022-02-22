@@ -10,8 +10,8 @@ import (
 )
 
 func ShowGreeting() {
-	if identity.IsAdmin {
-		fmt.Println("Hi Admin ... ")
+	if identity.IsRegulator {
+		fmt.Println("Hi Regulator ... ")
 	}
 	fmt.Println(greeting.ReadGreetingNote())
 }

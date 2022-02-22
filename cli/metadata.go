@@ -6,12 +6,13 @@ package cli
 
 const (
 	//general meta data
-	YES         = "yes"
-	NO          = "no"
-	OK          = "ok"
-	Male        = "male"
-	Female      = "female"
-	AdminString = "admin"
+	YES             = "yes"
+	NO              = "no"
+	OK              = "ok"
+	Male            = "male"
+	Female          = "female"
+	RegulatorString = "reg"
+	RESET           = "RESET"
 
 	// contact meta data
 	NewContactRecord                   = "N"

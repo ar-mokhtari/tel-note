@@ -8,6 +8,7 @@ import (
 	"tel-note/internal/protocol"
 	"tel-note/internal/services/contact"
 	"tel-note/internal/services/fillSampleData"
+	"tel-note/internal/services/globalVars"
 	"tel-note/internal/services/identity"
 )
 
@@ -44,8 +45,10 @@ func ShowMenu() {
 	fmt.Print("'DS'			|	delete sex by id\n")
 	fmt.Print("'LS'			|	list of sex\n")
 	fmt.Println(separator7)
+	fmt.Print("'RESET'			|	reset program (as new user role)\n")
+	fmt.Println(separator7)
 
-	if identity.IsAdmin {
+	if identity.IsRegulator {
 		fmt.Printf("%-3s %s %3s \n", separator, "Fill sample data", separator)
 		fmt.Print("'DATA'			|	insert some sample's contacts\n")
 		fmt.Printf("%-3s %s %3s \n", separator, "Print All", separator)
@@ -59,9 +62,9 @@ func runMenu() {
 	for {
 		var userInput string
 		fmt.Scanln(&userInput)
-		//admin actions only:
+		//regulator actions only:
 		userInput = strings.ToUpper(userInput)
-		if identity.IsAdmin {
+		if identity.IsRegulator {
 			switch userInput {
 			case InsertSomeSamplesContacts:
 				fillSampleData.FillSimpleDataInMainData()
@@ -77,10 +80,10 @@ func runMenu() {
 				//	varValue := e.Field(i).Interface()
 				//	fmt.Printf("%v %v %v\n", varName, varType, varValue)
 				//}
-				fmt.Printf("%3v | %-10s | %-20v | %-8v | %-15v | %-10v | %-5v | %-20v  \n", "Id", "PesonID", "Tl", "Cellphone", "Desc", "JobID", "JobName", "Gender")
+				fmt.Printf("%3v | %-10s | %-20v | %-15v | %-15v | %-10v | %-5v | %-20v  \n", "Id", "PesonID", "Tl", "Cellphone", "Desc", "JobID", "JobName", "Gender")
 				fmt.Println("")
-				for _, data := range config.AllContact {
-					fmt.Printf("%3v | %-10v | %-20v | %-8v | %-15v | %-10v | %-5v | %-20v \n", data.Id, data.PersonID, data.Tel, data.Cellphone, data.Description, data.JobID, "JobInfo.Name", "Gender.Name")
+				for _, data := range globalVars.AllContact.Data {
+					fmt.Printf("%3v | %-10v | %-20v | %-15v | %-15v | %-10v | %-5v | %-20v \n", data.Id, data.PersonID, data.Tel, data.Cellphone, data.Description, data.JobID, "JobInfo.Name", "Gender.Name")
 				}
 				fmt.Println(separator7)
 				fmt.Println("City Data:")
@@ -127,13 +130,13 @@ func runMenu() {
 			fmt.Println(">> New contact added done <<")
 			ShowMenu()
 		case ListOfContact:
-			dataJSON, _ := json.MarshalIndent(config.AllContact, "", "  ")
+			dataJSON, _ := json.MarshalIndent(globalVars.AllContact, "", "  ")
 			fmt.Println(string(dataJSON))
 			fmt.Println(separator7)
-			fmt.Printf("%3v | %-10v | %-20v | %-8v | %-15v | %-10v | %-5v | %-20v \n", "Id", "personID", "Tl", "Cellphone", "Desc", "JobID", "JobName", "Gender")
+			fmt.Printf("%3v | %-10v | %-20v | %-15v | %-15v | %-10v | %-5v | %-20v \n", "Id", "personID", "Tl", "Cellphone", "Desc", "JobID", "JobName", "Gender")
 			fmt.Println("")
-			for _, data := range config.AllContact {
-				fmt.Printf("%3v | %-10v | %-20v | %-8v | %-15v | %-10v | %-5v | %-20v \n", data.Id, data.PersonID, data.Tel, data.Cellphone, data.Description, data.JobID, "JobName", "Gender.Name")
+			for _, data := range globalVars.AllContact.Data {
+				fmt.Printf("%3v | %-10v | %-20v | %-15v | %-15v | %-10v | %-5v | %-20v \n", data.Id, data.PersonID, data.Tel, data.Cellphone, data.Description, data.JobID, "JobName", "Gender.Name")
 			}
 			ShowMenu()
 		//case FindOneContactById:
@@ -388,6 +391,8 @@ func runMenu() {
 		//	}
 		//	ShowMenu()
 		//something wrong:
+		case RESET:
+			RunApp()
 		default:
 			fmt.Println("bad input, please insert character of menu list")
 		}

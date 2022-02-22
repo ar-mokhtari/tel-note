@@ -6,12 +6,10 @@ import (
 )
 
 type (
-	Storage struct {
-		protocol.ContactStorage
-	}
+	StorageMemory protocol.ContactStorage
 )
 
-func (AllContact *Storage) AddContact(inputContact protocol.Contact) (bool, protocol.ContactStorage) {
+func (AllContact *StorageMemory) AddContact(inputContact protocol.Contact) (bool, protocol.ContactStorage) {
 	var (
 		lastID uint
 	)
@@ -35,10 +33,10 @@ func (AllContact *Storage) AddContact(inputContact protocol.Contact) (bool, prot
 		JobID:       inputContact.JobID,
 	}
 	AllContact.Data = append(AllContact.Data, &result)
-	return true, AllContact.ContactStorage
+	return true, protocol.ContactStorage(*AllContact)
 }
 
-func (AllContact *Storage) FindContactByID(id uint) (bool, protocol.Contact) {
+func (AllContact *StorageMemory) FindContactByID(id uint) (bool, protocol.Contact) {
 	for _, data := range AllContact.Data {
 		if data.Id == id {
 			return true, *data
@@ -48,7 +46,7 @@ func (AllContact *Storage) FindContactByID(id uint) (bool, protocol.Contact) {
 	return false, protocol.Contact{}
 }
 
-func (AllContact *Storage) FindContactByChar(insertChar string) (status bool, result protocol.ContactStorage) {
+func (AllContact *StorageMemory) FindContactByChar(insertChar string) (status bool, result protocol.ContactStorage) {
 	if state, res := person.FindPersonByChar(insertChar); state.State {
 		for index, data := range AllContact.Data {
 			if res[index] == data.Id {
@@ -59,7 +57,7 @@ func (AllContact *Storage) FindContactByChar(insertChar string) (status bool, re
 	return status, result
 }
 
-func (AllContact *Storage) EditContactByID(newData protocol.Contact, ID uint) bool {
+func (AllContact *StorageMemory) EditContactByID(newData protocol.Contact, ID uint) bool {
 	for index, data := range AllContact.Data {
 		if data.Id == ID {
 			//TODO::: what the hell below ... is there any cleaner way for test "is it not nil?"
@@ -84,7 +82,7 @@ func (AllContact *Storage) EditContactByID(newData protocol.Contact, ID uint) bo
 	return false
 }
 
-func (AllContact *Storage) DeleteContactByID(ID uint) bool {
+func (AllContact *StorageMemory) DeleteContactByID(ID uint) bool {
 	for index, data := range AllContact.Data {
 		if data.Id == ID {
 			AllContact.Data = append((AllContact.Data)[:index], (AllContact.Data)[index+1:]...)
@@ -94,7 +92,7 @@ func (AllContact *Storage) DeleteContactByID(ID uint) bool {
 	return false
 }
 
-func (AllContact *Storage) DeleteAll() bool {
+func (AllContact *StorageMemory) DeleteAll() bool {
 	AllContact.Data = (AllContact.Data)[0:0]
 	return true
 }

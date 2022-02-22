@@ -4,10 +4,12 @@ import (
 	"strings"
 )
 
-var IsAdmin bool
+var IsRegulator bool
 
-func Identity(userStatus, AdminString string) {
-	if strings.ToLower(userStatus) == AdminString {
-		IsAdmin = true
+func Identity(userStatus, RegulatorString string) {
+	if strings.ToLower(userStatus) == RegulatorString {
+		IsRegulator = true
+	} else {
+		IsRegulator = false
 	}
 }

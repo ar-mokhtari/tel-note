@@ -7,7 +7,7 @@ import (
 
 func Identity() {
 	var userStatus string
-	fmt.Println("user or admin?")
+	fmt.Println("user or regulator? (notInputAnyThing/reg)")
 	fmt.Scanln(&userStatus)
-	identity.Identity(userStatus, AdminString)
+	identity.Identity(userStatus, RegulatorString)
 }

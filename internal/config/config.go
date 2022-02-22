@@ -5,10 +5,10 @@ import (
 )
 
 const (
-	Admin Role = iota + 10
+	Regulator Role = iota + 10
 	Manager
 	Basic
-	AdminString = "admin"
+	RegulatorString = "regulator"
 )
 
 type (

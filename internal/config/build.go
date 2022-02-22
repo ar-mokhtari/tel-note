@@ -1,14 +1,12 @@
 package config
 
 import (
-	"tel-note/internal/protocol"
 	"tel-note/internal/storage/memory"
 )
 
 var (
-	AllContact []*protocol.Contact
-	AllCity    []*memory.City
-	MainData   memory.AllData
+	AllCity  []*memory.City
+	MainData memory.AllData
 )
 
 func Init() *Config {
