@@ -5,7 +5,9 @@ import (
 )
 
 func Init() {
-	//init services
+	//init contact services
 	var storageObject contact.StorageMemory
 	contact.Storage = &storageObject
+	//init person services
+
 }

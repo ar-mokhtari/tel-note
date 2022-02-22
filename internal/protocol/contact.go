@@ -16,7 +16,7 @@ type (
 		AddContact(inputContact Contact) (bool, ContactStorage)
 		FindContactByID(id uint) (bool, Contact)
 		FindContactByChar(insertChar string) (status bool, result ContactStorage)
-		EditContactByID(newData Contact, ID uint) (bool, ContactStorage)
+		EditContactByID(newData Contact, ID uint) bool
 		DeleteContactByID(ID uint) bool
 		DeleteAll() bool
 	}

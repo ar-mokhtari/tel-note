@@ -3,8 +3,13 @@ package globalVars
 import "tel-note/internal/protocol"
 
 //init global variable
-var AllContact protocol.ContactStorage
+var (
+	AllContact protocol.ContactStorage
+	AllPerson  protocol.PersonStorage
+)
 
 func Init() {
-	AllContact = protocol.ContactStorage{}
+	AllContact, AllPerson =
+		protocol.ContactStorage{},
+		protocol.PersonStorage{}
 }
