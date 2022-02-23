@@ -17,16 +17,17 @@ func TestNewContact(t *testing.T) {
 	t.Run("fill new contact", func(t *testing.T) {
 		contactTest := protocol.Contact{
 			PersonID:    1,
-			JobID:       1,
+			JobID:       5,
 			Tel:         "",
-			Cellphone:   "",
-			Description: "",
+			Cellphone:   "09121234567",
+			Description: "none",
 		}
 		//TODO::: ADD PERSON AND JOB TEST FIRST (FOR PersonID and JobID)
-		_, got := Storage.AddContact(contactTest)
+		Init()
+		_, got := storage.AddContact(contactTest)
 		want := config.ContactDataTest
 		//slice config to one part
-		want.Data = (want.Data)[6:7]
+		want.Data = (want.Data)[0:1]
 		//add an id to config sample
 		(want.Data)[0].Id = 1
 		assertCorrectMessage(t, got, want)
