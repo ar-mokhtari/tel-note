@@ -187,6 +187,7 @@ func runMenu() {
 			fmt.Scanln(&insertContactID)
 			isFound, result := contact.FindContactByID(insertContactID)
 			if isFound.State {
+				//TODO::: CleanPrintingFoundedResult
 				fmt.Println(result)
 			} else {
 				fmt.Println("not found")
