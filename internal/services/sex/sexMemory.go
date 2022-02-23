@@ -6,20 +6,20 @@ import (
 
 type storageMemory protocol.SexStorage
 
-func (AllSex *storageMemory) NewSex(inputSex string) bool {
+func (AllSex *storageMemory) NewSex(inputSex string) (bool, protocol.SexStorage) {
 	var LastID uint8
 	for _, data := range AllSex.SexData {
 		if data.Id > LastID {
 			LastID = data.Id
 		}
 	}
-	LastID = +1
+	LastID += 1
 	result := protocol.Sex{
 		Id:   LastID,
 		Name: inputSex,
 	}
 	AllSex.SexData = append(AllSex.SexData, &result)
-	return true
+	return true, protocol.SexStorage(*AllSex)
 }
 
 func (AllSex *storageMemory) EditSex(ID uint8, newSex string) bool {
@@ -43,4 +43,13 @@ func (AllSex *storageMemory) DeleteSex(ID uint8) bool {
 		}
 	}
 	return false
+}
+
+func (AllSex *storageMemory) FindSexByID(ID uint8) (bool, protocol.Sex) {
+	for _, data := range AllSex.SexData {
+		if data.Id == ID {
+			return true, *data
+		}
+	}
+	return false, protocol.Sex{}
 }

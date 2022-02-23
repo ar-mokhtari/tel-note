@@ -9,8 +9,9 @@ type (
 		SexData []*Sex
 	}
 	SexServices interface {
-		NewSex(inputSex string) bool
+		NewSex(inputSex string) (bool, SexStorage)
 		EditSex(ID uint8, newSex string) bool
 		DeleteSex(ID uint8) bool
+		FindSexByID(ID uint8) (bool, Sex)
 	}
 )

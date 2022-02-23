@@ -26,21 +26,21 @@ func (AllCity *storageMemory) FindCityByID(inputID uint) (bool, protocol.City) {
 	return false, protocol.City{}
 }
 
-func (AllCity *storageMemory) NewCity(inputCity protocol.City) bool {
+func (AllCity *storageMemory) NewCity(inputCity protocol.City) (bool, protocol.CityStorage) {
 	var LastID uint
 	for _, data := range AllCity.CityData {
 		if data.Id > LastID {
 			LastID = data.Id
 		}
 	}
-	LastID = +1
+	LastID += 1
 	result := protocol.City{
 		Id:       LastID,
 		Name:     inputCity.Name,
 		AriaCode: inputCity.AriaCode,
 	}
 	AllCity.CityData = append(AllCity.CityData, &result)
-	return true
+	return true, protocol.CityStorage(*AllCity)
 }
 
 func (AllCity *storageMemory) EditCity(ID uint, newCity protocol.City) bool {

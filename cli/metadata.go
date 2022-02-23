@@ -14,6 +14,8 @@ const (
 	RegulatorString = "reg"
 	RESET           = "RESET"
 
+	//TODO::: + string(rune(iota)) (for generate unique routes)
+
 	// contact meta data
 	NewContactRecord                   = "N"
 	ListOfContact                      = "L"
@@ -39,7 +41,7 @@ const (
 	DeleteJobById = "DJ"
 	ListOfJob     = "LJ"
 
-	//base meta data
+	//sex meta data
 	InsertNewSex = "NS"
 	ListOfSex    = "LS"
 	EditSex      = "ES"

@@ -13,6 +13,7 @@ import (
 	"tel-note/internal/services/globalVars"
 	"tel-note/internal/services/identity"
 	"tel-note/internal/services/job"
+	"tel-note/internal/services/person"
 	"tel-note/internal/services/sex"
 )
 
@@ -43,7 +44,7 @@ func ShowMenu() {
 	fmt.Print("'LJ'			|	list of job(s)\n")
 	fmt.Print("'EJ'			|	edit job by id\n")
 	fmt.Print("'DJ'			|	delete job by id\n")
-	fmt.Printf("%-3s %s %3s \n", separator, "Base Menu", separator)
+	fmt.Printf("%-3s %s %3s \n", separator, "sex Menu", separator)
 	fmt.Print("'NS'			|	insert new sex\n")
 	fmt.Print("'ES'			|	edit sex by id\n")
 	fmt.Print("'DS'			|	delete sex by id\n")
@@ -63,6 +64,7 @@ func ShowMenu() {
 }
 
 func runMenu() {
+	//TODO::: CompleteAllEntityFeature(Person|Job|Sex|City|Contact)
 	for {
 		var userInput string
 		fmt.Scanln(&userInput)
@@ -76,18 +78,17 @@ func runMenu() {
 			case PrintAllData:
 				fmt.Println(separator7)
 				fmt.Println("Contact Data:")
-				//TODO::: Find a way to loop a struct that contain other struct(s)
-				//e := reflect.ValueOf(config.MainData.ContactData).Elem()
-				//for i := 0; i < e.NumField(); i++ {
-				//	varName := e.Type().Field(i).Name
-				//	varType := e.Type().Field(i).Type
-				//	varValue := e.Field(i).Interface()
-				//	fmt.Printf("%v %v %v\n", varName, varType, varValue)
-				//}
-				fmt.Printf("%3v | %-10s | %-20v | %-15v | %-15v | %-10v | %-5v | %-20v  \n", "Id", "PesonID", "Tl", "Cellphone", "Desc", "JobID", "JobName", "Gender")
+				fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-v | %-12v | %-3v  \n",
+					"Id", "PID", "PersonName", "PersonFamily", "JID", "JobName", "Gender", "Cellphone", "LoID", "jobCity", "Desc")
 				fmt.Println("")
 				for _, data := range globalVars.AllContact.Data {
-					fmt.Printf("%3v | %-10v | %-20v | %-15v | %-15v | %-10v | %-5v | %-20v \n", data.Id, data.PersonID, data.Tel, data.Cellphone, data.Description, data.JobID, "JobInfo.Name", "Gender.Name")
+					_, person := person.FindPersonByID(data.PersonID)
+					genderID := person.GenderID
+					gender, _ := sex.FindSexByID(uint8(genderID))
+					_, job := job.FindJobByID(data.JobID)
+					_, city := city.FindCityByID(job.LocationID)
+					fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-4v | %-12v | %-3v  \n",
+						data.Id, data.PersonID, person.FirstName, person.LastName, data.JobID, job.Name, gender.Name, data.Cellphone, job.LocationID, city.Name, data.Description)
 				}
 				fmt.Println(separator7)
 				fmt.Println("City Data:")
@@ -99,6 +100,16 @@ func runMenu() {
 				for _, data := range globalVars.AllJob.JobData {
 					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 				}
+				fmt.Println(separator7)
+				fmt.Println("sex Data:")
+				for _, data := range globalVars.AllSex.SexData {
+					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
+				}
+				fmt.Println(separator7)
+				fmt.Println("person Data:")
+				for _, data := range globalVars.AllPerson.PersonData {
+					fmt.Printf("%3v | %-15s \t %30s \n", data.Id, data.FirstName, data.LastName)
+				}
 				ShowMenu()
 			}
 		}
@@ -109,7 +120,7 @@ func runMenu() {
 				jobID, personID             uint
 			)
 			//input person
-			fmt.Println("Please inter first name:")
+			fmt.Println("Please inter personID:")
 			fmt.Scanln(&personID)
 			//input tel
 			fmt.Println("Please inter tel:")
@@ -133,6 +144,7 @@ func runMenu() {
 				})
 			fmt.Println(">> New contact added done <<")
 			ShowMenu()
+			//TODO::: ArrangeOutputTable
 		case ListOfContact:
 			dataJSON, _ := json.MarshalIndent(globalVars.AllContact, "", "  ")
 			fmt.Println(string(dataJSON))
@@ -170,7 +182,6 @@ func runMenu() {
 			var (
 				insertContactID, jobID, personID uint
 				tel, cellphone, description      string
-				genderID                         uint8
 			)
 			fmt.Println("Please insert your contact id you want to edit:")
 			fmt.Scanln(&insertContactID)
@@ -183,8 +194,6 @@ func runMenu() {
 			}
 			fmt.Println("new person ID:")
 			fmt.Scanln(&personID)
-			fmt.Println("new genderID:")
-			fmt.Scanln(&genderID)
 			fmt.Println("new tel:")
 			fmt.Scanln(&tel)
 			fmt.Println("new cellphone:")
@@ -424,3 +433,5 @@ func runMenu() {
 		}
 	}
 }
+
+//TODO::: TalkToOmidHekayatiAboutSendDataInputValidationToClientForToCheckBeforeRequestToServer(LikeYII2)

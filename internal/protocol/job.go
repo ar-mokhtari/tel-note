@@ -15,7 +15,7 @@ type (
 		// JobInfo methods
 		FindJobByChar(inputChar string) (status bool, res []uint)
 		FindJobByID(inputID uint) (bool, Job)
-		NewJob(inputJob Job) bool
+		NewJob(inputJob Job) (bool, JobStorage)
 		EditJob(ID uint, newJob Job) bool
 		DeleteJob(IDS []uint) (resDel []uint)
 	}

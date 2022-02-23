@@ -15,14 +15,19 @@ var (
 	Frank    = protocol.Contact{PersonID: 7, Cellphone: "+39", Description: "", JobID: 8}
 	Delaram  = protocol.Contact{PersonID: 8, JobID: 4}
 
+	//----------- Test Vars -----------------
 	ContactDataTest = protocol.ContactStorage{
 		Data: []*protocol.Contact{&Alireza, &Kianoosh, &Omid, &Khorshid, &Reza, &Tom, &Frank, &Delaram},
 	}
-	JobDataTest = []*protocol.Job{AccountManager, Driver, StoreManager, Developer, SecurityMan, OfficialEmployee, WarehouseWorker, MasterChef}
+	JobDataTest = []*protocol.Job{
+		AccountManager, Driver, StoreManager, Developer, SecurityMan, OfficialEmployee, WarehouseWorker, MasterChef}
 
 	CityDataTest = []*protocol.City{&Tehran, &Shiraz, &Tabriz, &Karaj, &Mahabad, &Noshahr, &LostHeaven}
 
 	SexDataTest = []*protocol.Sex{Female, Male, Other}
+
+	PersonDataTest = []*protocol.Person{&AlirezaPerson, &KianooshPerson, &OmidPerson, &KhorshidPerson, &RezaPerson, &TomPerson, &FrankPerson, &DelaramPerson}
+	//----------- Test Vars -----------------
 
 	// cities variable
 	Tehran     = protocol.City{Name: "Tehran", AriaCode: "021"}
@@ -35,13 +40,13 @@ var (
 	Rasht      = protocol.City{Name: "Rasht", AriaCode: "013"}
 
 	// Person variable
-	AlirezaPerson  = protocol.Person{FirstName: "Alireza", LastName: "Mokhtari Garakani", GenderID: 0}
-	KianooshPerson = protocol.Person{FirstName: "Kianoosh", LastName: "Ashayeri Zadeh", GenderID: 0}
-	OmidPerson     = protocol.Person{FirstName: "Omid", LastName: "Hekayati", GenderID: 0}
+	AlirezaPerson  = protocol.Person{FirstName: "Alireza", LastName: "Mokhtari Garakani", GenderID: 2}
+	KianooshPerson = protocol.Person{FirstName: "Kianoosh", LastName: "Ashayeri Zadeh", GenderID: 2}
+	OmidPerson     = protocol.Person{FirstName: "Omid", LastName: "Hekayati", GenderID: 2}
 	KhorshidPerson = protocol.Person{FirstName: "Khorshid", LastName: "Mokhtari Garakani", GenderID: 1}
-	RezaPerson     = protocol.Person{FirstName: "Reza", LastName: "Aslejedian", GenderID: 0}
-	TomPerson      = protocol.Person{FirstName: "Tommy", LastName: "Angelo", GenderID: 0}
-	FrankPerson    = protocol.Person{FirstName: "Frank", LastName: "Colleti", GenderID: 0}
+	RezaPerson     = protocol.Person{FirstName: "Reza", LastName: "Aslejedian", GenderID: 2}
+	TomPerson      = protocol.Person{FirstName: "Tommy", LastName: "Angelo", GenderID: 2}
+	FrankPerson    = protocol.Person{FirstName: "Frank", LastName: "Colleti", GenderID: 2}
 	DelaramPerson  = protocol.Person{FirstName: "Delaram", GenderID: 1}
 
 	// job variable
@@ -55,7 +60,7 @@ var (
 	MasterChef       = &protocol.Job{Name: "MasterChef", LocationID: 7, Description: "", BasicPaymentPerHour: 0}
 
 	// sex variable
-	Male   = &protocol.Sex{Id: 1, Name: "Male"}
-	Female = &protocol.Sex{Id: 2, Name: "Female"}
+	Female = &protocol.Sex{Id: 1, Name: "Female"}
+	Male   = &protocol.Sex{Id: 2, Name: "Male"}
 	Other  = &protocol.Sex{Id: 3, Name: "Other"}
 )

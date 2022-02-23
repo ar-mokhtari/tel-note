@@ -26,14 +26,14 @@ func (AllPerson *storageMemory) FindPersonByID(inputID uint) (bool, protocol.Per
 	return false, protocol.Person{}
 }
 
-func (AllPerson *storageMemory) NewPerson(inputPerson protocol.Person) bool {
+func (AllPerson *storageMemory) NewPerson(inputPerson protocol.Person) (bool, protocol.PersonStorage) {
 	var LastID uint
 	for _, data := range AllPerson.PersonData {
 		if data.Id > LastID {
 			LastID = data.Id
 		}
 	}
-	LastID = +1
+	LastID += 1
 	result := protocol.Person{
 		Id:              LastID,
 		FirstName:       inputPerson.FirstName,
@@ -45,7 +45,7 @@ func (AllPerson *storageMemory) NewPerson(inputPerson protocol.Person) bool {
 		Description:     inputPerson.Description,
 	}
 	AllPerson.PersonData = append(AllPerson.PersonData, &result)
-	return true
+	return true, protocol.PersonStorage(*AllPerson)
 }
 
 func (AllPerson *storageMemory) EditPerson(ID uint, newPerson protocol.Person) bool {
@@ -61,7 +61,7 @@ func (AllPerson *storageMemory) EditPerson(ID uint, newPerson protocol.Person) b
 			if newPerson.Description != "" {
 				(AllPerson.PersonData)[index].Description = newPerson.Description
 			}
-			if (newPerson.DOB).IsZero() {
+			if !(newPerson.DOB).IsZero() {
 				(AllPerson.PersonData)[index].DOB = newPerson.DOB
 			}
 			if newPerson.BirthLocationID != 0 {

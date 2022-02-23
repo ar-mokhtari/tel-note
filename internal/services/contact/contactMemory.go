@@ -2,6 +2,7 @@ package contact
 
 import (
 	"tel-note/internal/protocol"
+	"tel-note/internal/services/globalVars"
 	"tel-note/internal/services/person"
 )
 
@@ -86,6 +87,8 @@ func (AllContact *storageMemory) DeleteContactByID(ID uint) bool {
 	for index, data := range AllContact.Data {
 		if data.Id == ID {
 			AllContact.Data = append((AllContact.Data)[:index], (AllContact.Data)[index+1:]...)
+			//TODO::: BadSolution,HandelMultiDeleteInServiceOrStorageNotInClient
+			globalVars.AllContact.Data = AllContact.Data
 			return true
 		}
 	}
@@ -93,6 +96,7 @@ func (AllContact *storageMemory) DeleteContactByID(ID uint) bool {
 }
 
 func (AllContact *storageMemory) DeleteAll() bool {
+	//TODO::: VariableInSystemIsDuplicate1.global[Contact]2.MethodsReceivers, ResolveConfusing + Debug
 	AllContact.Data = (AllContact.Data)[0:0]
 	return true
 }

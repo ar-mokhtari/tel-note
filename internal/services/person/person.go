@@ -3,7 +3,10 @@ package person
 import (
 	"tel-note/internal/config"
 	"tel-note/internal/protocol"
+	"tel-note/internal/services/globalVars"
 )
+
+var inputTargetData struct{}
 
 func FindPersonByChar(inputChar string) (state config.ResponseStatus, result []uint) {
 	if status, res := storage.FindPersonByChar(inputChar); status {
@@ -19,8 +22,8 @@ func FindPersonByID(ID uint) (state config.ResponseStatus, result protocol.Perso
 	return config.ResponseStatus{State: false}, protocol.Person{}
 }
 
-func NewPerson(person protocol.Person) config.ResponseStatus {
-	if storage.NewPerson(person) {
+func NewPerson(person protocol.Person) (status config.ResponseStatus) {
+	if status.State, globalVars.AllPerson = storage.NewPerson(person); status.State {
 		return config.ResponseStatus{State: true}
 	}
 	return config.ResponseStatus{State: false}

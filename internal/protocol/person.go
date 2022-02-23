@@ -19,7 +19,7 @@ type (
 	PersonServices interface {
 		FindPersonByChar(inputChar string) (bool, []uint)
 		FindPersonByID(inputID uint) (status bool, res Person)
-		NewPerson(person Person) bool
+		NewPerson(person Person) (bool, PersonStorage)
 		EditPerson(ID uint, newPerson Person) bool
 		DeletePerson(IDS []uint) (resDel []uint)
 	}
