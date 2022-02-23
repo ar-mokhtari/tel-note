@@ -8,7 +8,7 @@ import (
 )
 
 func NewContact(inputContact protocol.Contact) (status config.ResponseStatus, resData protocol.ContactStorage) {
-	if status.State, globalVars.AllContact = Storage.AddContact(inputContact); status.State {
+	if status.State, globalVars.AllContact = storage.AddContact(inputContact); status.State {
 		return config.ResponseStatus{State: true}, resData
 	}
 	return config.ResponseStatus{State: false}, protocol.ContactStorage{}
@@ -16,35 +16,35 @@ func NewContact(inputContact protocol.Contact) (status config.ResponseStatus, re
 }
 
 func FindContactByID(id uint) (config.ResponseStatus, protocol.Contact) {
-	if state, data := Storage.FindContactByID(id); state {
+	if state, data := storage.FindContactByID(id); state {
 		return config.ResponseStatus{State: true}, data
 	}
 	return config.ResponseStatus{State: false}, protocol.Contact{}
 }
 
 func FindContactByChar(insertChar string) (protocol.ContactStorage, uint) {
-	if resultData, data := Storage.FindContactByChar(insertChar); resultData {
+	if resultData, data := storage.FindContactByChar(insertChar); resultData {
 		return data, uint(unsafe.Sizeof(data))
 	}
 	return protocol.ContactStorage{}, 0
 }
 
 func EditContactByID(newData protocol.Contact, ID uint) *config.ResponseStatus {
-	if Storage.EditContactByID(newData, ID) {
+	if storage.EditContactByID(newData, ID) {
 		return &config.ResponseStatus{State: true}
 	}
 	return &config.ResponseStatus{State: true, String: "not found"}
 }
 
 func DeleteContactByID(ID uint) *config.ResponseStatus {
-	if Storage.DeleteContactByID(ID) {
+	if storage.DeleteContactByID(ID) {
 		return &config.ResponseStatus{State: true}
 	}
 	return &config.ResponseStatus{State: false}
 }
 
 func DeleteAll() *config.ResponseStatus {
-	if Storage.DeleteAll() {
+	if storage.DeleteAll() {
 		return &config.ResponseStatus{State: true}
 	}
 	return &config.ResponseStatus{State: false}

@@ -5,9 +5,9 @@ import (
 	"tel-note/internal/protocol"
 )
 
-type StorageMemory protocol.PersonStorage
+type storageMemory protocol.PersonStorage
 
-func (AllPerson *StorageMemory) FindPersonByChar(inputChar string) (status bool, res []uint) {
+func (AllPerson *storageMemory) FindPersonByChar(inputChar string) (status bool, res []uint) {
 	for _, data := range AllPerson.PersonData {
 		if strings.Contains(data.FirstName, inputChar) {
 			res = append(res, data.Id)
@@ -17,7 +17,7 @@ func (AllPerson *StorageMemory) FindPersonByChar(inputChar string) (status bool,
 	return status, res
 }
 
-func (AllPerson *StorageMemory) FindPersonByID(inputID uint) (bool, protocol.Person) {
+func (AllPerson *storageMemory) FindPersonByID(inputID uint) (bool, protocol.Person) {
 	for _, data := range AllPerson.PersonData {
 		if data.Id == inputID {
 			return true, *data
@@ -26,7 +26,7 @@ func (AllPerson *StorageMemory) FindPersonByID(inputID uint) (bool, protocol.Per
 	return false, protocol.Person{}
 }
 
-func (AllPerson *StorageMemory) NewPerson(inputPerson protocol.Person) bool {
+func (AllPerson *storageMemory) NewPerson(inputPerson protocol.Person) bool {
 	var LastID uint
 	for _, data := range AllPerson.PersonData {
 		if data.Id > LastID {
@@ -48,7 +48,7 @@ func (AllPerson *StorageMemory) NewPerson(inputPerson protocol.Person) bool {
 	return true
 }
 
-func (AllPerson *StorageMemory) EditPerson(ID uint, newPerson protocol.Person) bool {
+func (AllPerson *storageMemory) EditPerson(ID uint, newPerson protocol.Person) bool {
 	for index, data := range AllPerson.PersonData {
 		if data.Id == ID {
 			//TODO::: what the hell below ... is there any cleaner way for test "is it not nil?"
@@ -79,7 +79,7 @@ func (AllPerson *StorageMemory) EditPerson(ID uint, newPerson protocol.Person) b
 	return false
 }
 
-func (AllPerson *StorageMemory) DeletePerson(IDS []uint) (resDel []uint) {
+func (AllPerson *storageMemory) DeletePerson(IDS []uint) (resDel []uint) {
 	for index, id := range IDS {
 		for _, data := range AllPerson.PersonData {
 			if data.Id == id {

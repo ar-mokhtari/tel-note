@@ -6,7 +6,7 @@ import (
 )
 
 func NewCity(city protocol.City) config.ResponseStatus {
-	if Storage.NewCity(city) {
+	if storage.NewCity(city) {
 		return config.ResponseStatus{State: true}
 	}
 	return config.ResponseStatus{State: false}
@@ -14,12 +14,12 @@ func NewCity(city protocol.City) config.ResponseStatus {
 }
 
 func EditCityByID(ID uint, NewCity protocol.City) config.ResponseStatus {
-	if Storage.EditCity(ID, NewCity) {
+	if storage.EditCity(ID, NewCity) {
 		return config.ResponseStatus{State: true}
 	}
 	return config.ResponseStatus{State: false}
 }
 
 func DeleteCity(IDS []uint) []uint {
-	return Storage.DeleteCity(IDS)
+	return storage.DeleteCity(IDS)
 }

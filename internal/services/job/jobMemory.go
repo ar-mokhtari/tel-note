@@ -5,9 +5,9 @@ import (
 	"tel-note/internal/protocol"
 )
 
-type StorageMemory protocol.JobStorage
+type storageMemory protocol.JobStorage
 
-func (AllJob *StorageMemory) FindJobByChar(inputChar string) (status bool, res []uint) {
+func (AllJob *storageMemory) FindJobByChar(inputChar string) (status bool, res []uint) {
 	for _, data := range AllJob.JobData {
 		if strings.Contains(data.Name, inputChar) {
 			res = append(res, data.Id)
@@ -17,7 +17,7 @@ func (AllJob *StorageMemory) FindJobByChar(inputChar string) (status bool, res [
 	return status, res
 }
 
-func (AllJob *StorageMemory) FindJobByID(inputID uint) (bool, protocol.Job) {
+func (AllJob *storageMemory) FindJobByID(inputID uint) (bool, protocol.Job) {
 	for _, data := range AllJob.JobData {
 		if data.Id == inputID {
 			return true, *data
@@ -26,7 +26,7 @@ func (AllJob *StorageMemory) FindJobByID(inputID uint) (bool, protocol.Job) {
 	return false, protocol.Job{}
 }
 
-func (AllJob *StorageMemory) NewJob(inputJob protocol.Job) bool {
+func (AllJob *storageMemory) NewJob(inputJob protocol.Job) bool {
 	var LastID uint
 	for _, data := range AllJob.JobData {
 		if data.Id > LastID {
@@ -45,7 +45,7 @@ func (AllJob *StorageMemory) NewJob(inputJob protocol.Job) bool {
 	return true
 }
 
-func (AllJob *StorageMemory) EditJob(ID uint, newJob protocol.Job) bool {
+func (AllJob *storageMemory) EditJob(ID uint, newJob protocol.Job) bool {
 	for index, data := range AllJob.JobData {
 		if data.Id == ID {
 			//TODO::: what the hell below ... is there any cleaner way for test "is it not nil?"
@@ -67,7 +67,7 @@ func (AllJob *StorageMemory) EditJob(ID uint, newJob protocol.Job) bool {
 	return false
 }
 
-func (AllJob *StorageMemory) DeleteJob(IDS []uint) (resDel []uint) {
+func (AllJob *storageMemory) DeleteJob(IDS []uint) (resDel []uint) {
 	for index, id := range IDS {
 		for _, data := range AllJob.JobData {
 			if data.Id == id {

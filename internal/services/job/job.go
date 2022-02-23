@@ -6,7 +6,7 @@ import (
 )
 
 func NewJob(job protocol.Job) config.ResponseStatus {
-	if Storage.NewJob(job) {
+	if storage.NewJob(job) {
 		return config.ResponseStatus{State: true}
 	}
 	return config.ResponseStatus{State: false}
@@ -14,12 +14,12 @@ func NewJob(job protocol.Job) config.ResponseStatus {
 }
 
 func EditJobInfoByID(ID uint, NewJob protocol.Job) config.ResponseStatus {
-	if Storage.EditJob(ID, NewJob) {
+	if storage.EditJob(ID, NewJob) {
 		return config.ResponseStatus{State: true}
 	}
 	return config.ResponseStatus{State: false}
 }
 
 func DeleteJobByID(ID []uint) []uint {
-	return Storage.DeleteJob(ID)
+	return storage.DeleteJob(ID)
 }

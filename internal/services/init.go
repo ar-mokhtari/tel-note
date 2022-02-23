@@ -10,22 +10,17 @@ import (
 
 func Init() {
 	//init sex services
-	var sexObject sex.StorageMemory
-	sex.Storage = &sexObject
+	sex.Init()
 
 	//init city services
-	var cityObject city.StorageMemory
-	city.Storage = &cityObject
+	city.Init()
 
 	//init job services
-	var jobObject job.StorageMemory
-	job.Storage = &jobObject
+	job.Init()
 
 	//init person services
-	var personObject person.StorageMemory
-	person.Storage = &personObject
+	person.Init()
 
 	//init contact services
-	var contactObject contact.StorageMemory
-	contact.Storage = &contactObject
+	contact.Init()
 }
