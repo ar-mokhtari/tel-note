@@ -5,16 +5,15 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
-	"tel-note/internal/config"
-	"tel-note/internal/protocol"
-	"tel-note/internal/services/city"
-	"tel-note/internal/services/contact"
-	"tel-note/internal/services/fillSampleData"
-	"tel-note/internal/services/globalVars"
-	"tel-note/internal/services/identity"
-	"tel-note/internal/services/job"
-	"tel-note/internal/services/person"
-	"tel-note/internal/services/sex"
+	"tel-note/protocol"
+	"tel-note/services/city"
+	"tel-note/services/contact"
+	"tel-note/services/fillSampleData"
+	"tel-note/services/globalVars"
+	"tel-note/services/identity"
+	"tel-note/services/job"
+	"tel-note/services/person"
+	"tel-note/services/sex"
 )
 
 var (
@@ -248,7 +247,7 @@ func runMenu() {
 			fmt.Scanln(&confirmDel)
 			if strings.ToLower(confirmDel) == YES {
 				var deleteIDS string
-				var status config.ResponseStatus
+				var status protocol.ResponseStatus
 				fmt.Println("insert your contact id(s) that you want to delete, separate id's by ',':")
 				fmt.Scanln(&deleteIDS)
 				idPack := strings.Split(deleteIDS, ",")

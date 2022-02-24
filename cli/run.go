@@ -1,8 +1,8 @@
 package cli
 
 import (
-	"tel-note/internal/services"
-	"tel-note/internal/services/globalVars"
+	"tel-note/services"
+	"tel-note/services/globalVars"
 )
 
 func RunApp() {

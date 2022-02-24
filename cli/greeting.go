@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 	"strings"
-	"tel-note/internal/services/greeting"
-	"tel-note/internal/services/identity"
+	"tel-note/services/greeting"
+	"tel-note/services/identity"
 )
 
 func ShowGreeting() {

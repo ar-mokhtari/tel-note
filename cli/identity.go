@@ -2,7 +2,7 @@ package cli
 
 import (
 	"fmt"
-	"tel-note/internal/services/identity"
+	"tel-note/services/identity"
 )
 
 func Identity() {
