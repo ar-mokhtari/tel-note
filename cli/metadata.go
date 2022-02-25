@@ -35,6 +35,16 @@ const (
 	DeleteCityById = "DC"
 	ListOfCities   = "LC"
 
+	//city meta data
+	NewPerson                         = "NP"
+	ListOfPerson                      = "LP"
+	FindOnePersonById                 = "FP"
+	FindPersonContainingSomeCharacter = "FPC"
+	FindAndEditPersonByPersonId       = "EP"
+	DeletePersonById                  = "DP"
+	DeleteMultiPersonByIds            = "DMP"
+	DeleteAllPersons                  = "DAP"
+
 	//job meta data
 	InsertNewJob  = "NJ"
 	EditJobById   = "EJ"

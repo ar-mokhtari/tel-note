@@ -1,8 +1,10 @@
 package cli
 
 import (
+	"bufio"
 	"encoding/json"
 	"fmt"
+	"os"
 	"strconv"
 	"strings"
 	"tel-note/protocol"
@@ -14,49 +16,60 @@ import (
 	"tel-note/services/job"
 	"tel-note/services/person"
 	"tel-note/services/sex"
+	"time"
 )
 
 var (
 	separator  = strings.Repeat("-", 20)
 	separator7 = strings.Repeat(separator, 7)
+	scanner    = bufio.NewScanner(os.Stdin)
 )
 
 func ShowMenu() {
 	fmt.Println(separator7)
 	fmt.Println("*** Main menu: ***\n", "Please select:")
 	fmt.Printf("%-3s %s %3s \n", separator, "Contact Menu", separator)
-	fmt.Print("'N'			|	new record\n")
-	fmt.Print("'L'			|	list of contact\n")
-	fmt.Print("'F'			|	find one contact by id\n")
-	fmt.Print("'FC'			|	find contact, contain some character\n")
-	fmt.Print("'E'			|	find and edit contact by contact id\n")
-	fmt.Print("'D'			|	delete contact by id\n")
-	fmt.Print("'DM'			|	delete multi contact by id(s)\n")
-	fmt.Print("'DA'			|	delete all contacts\n")
+	fmt.Print(NewContactRecord, "			|	new record\n")
+	fmt.Print(ListOfContact, "			|	list of contact\n")
+	fmt.Print(FindOneContactById, "			|	find one contact by id\n")
+	fmt.Print(FindContactContainingSomeCharacter, "			|	find contact, contain some character\n")
+	fmt.Print(FindAndEditContactByContactId, "			|	find and edit contact by contact id\n")
+	fmt.Print(DeleteContactById, "			|	delete contact by id\n")
+	fmt.Print(DeleteMultiContactByIds, "			|	delete multi contact by id(s)\n")
+	fmt.Print(DeleteAllContacts, "			|	delete all contacts\n")
+	fmt.Printf("%-3s %s %3s \n", separator, "person Menu", separator)
+	fmt.Print(NewPerson, "			|	new person\n")
+	fmt.Print(ListOfPerson, "			|	list of person(s)\n")
+	fmt.Print(FindOnePersonById, "			|	find one person by id\n")
+	fmt.Print(FindPersonContainingSomeCharacter, "			|	find person, contain some character\n")
+	fmt.Print(FindAndEditPersonByPersonId, "			|	find and edit person by contact id\n")
+	fmt.Print(DeletePersonById, "			|	delete person by id\n")
+	fmt.Print(DeleteMultiPersonByIds, "			|	delete multi person by id(s)\n")
+	fmt.Print(DeleteAllPersons, "			|	delete all person\n")
 	fmt.Printf("%-3s %s %3s \n", separator, "City Menu", separator)
-	fmt.Print("'NC'			|	insert new city\n")
-	fmt.Print("'LC'			|	list of city(ies)\n")
-	fmt.Print("'EC'			|	edit city by id\n")
-	fmt.Print("'DC'			|	delete city by id\n")
+	fmt.Print(InsertNewCity, "			|	insert new city\n")
+	fmt.Print(ListOfCities, "			|	list of city(ies)\n")
+	fmt.Print(EditCityById, "			|	edit city by id\n")
+	fmt.Print(DeleteCityById, "			|	delete city by id\n")
 	fmt.Printf("%-3s %s %3s \n", separator, "Job Menu", separator)
-	fmt.Print("'NJ'			|	insert new job\n")
-	fmt.Print("'LJ'			|	list of job(s)\n")
-	fmt.Print("'EJ'			|	edit job by id\n")
-	fmt.Print("'DJ'			|	delete job by id\n")
+	fmt.Print(InsertNewJob, "			|	insert new job\n")
+	fmt.Print(ListOfJob, "			|	list of job(s)\n")
+	fmt.Print(EditJobById, "			|	edit job by id\n")
+	fmt.Print(DeleteJobById, "			|	delete job by id\n")
 	fmt.Printf("%-3s %s %3s \n", separator, "sex Menu", separator)
-	fmt.Print("'NS'			|	insert new sex\n")
-	fmt.Print("'ES'			|	edit sex by id\n")
-	fmt.Print("'DS'			|	delete sex by id\n")
-	fmt.Print("'LS'			|	list of sex\n")
+	fmt.Print(InsertNewSex, "			|	insert new sex\n")
+	fmt.Print(EditSex, "			|	edit sex by id\n")
+	fmt.Print(DeleteSex, "			|	delete sex by id\n")
+	fmt.Print(ListOfSex, "			|	list of sex\n")
 	fmt.Println(separator7)
-	fmt.Print("'RESET'			|	reset program (as new user role)\n")
+	fmt.Print(RESET, "			|	reset program (as new user role)\n")
 	fmt.Println(separator7)
 
 	if identity.IsRegulator {
 		fmt.Printf("%-3s %s %3s \n", separator, "Fill sample data", separator)
-		fmt.Print("'DATA'			|	insert some sample's contacts\n")
+		fmt.Print(InsertSomeSamplesContacts, "			|	insert some sample's contacts\n")
 		fmt.Printf("%-3s %s %3s \n", separator, "Print All", separator)
-		fmt.Print("'ALL'			|	print all data\n")
+		fmt.Print(PrintAllData, "			|	print all data\n")
 		fmt.Println(separator7)
 	}
 	runMenu()
@@ -115,8 +128,8 @@ func runMenu() {
 		switch userInput {
 		case NewContactRecord:
 			var (
-				tel, cellphone, description string
-				jobID, personID             uint
+				tel, cellphone  string
+				jobID, personID uint
 			)
 			//input person
 			fmt.Println("Please inter personID:")
@@ -129,7 +142,7 @@ func runMenu() {
 			fmt.Scanln(&cellphone)
 			//input description
 			fmt.Println("Please inter description:")
-			fmt.Scanln(&description)
+			scanner.Scan()
 			//input job info
 			fmt.Println("Please inter job ID:")
 			fmt.Scanln(&jobID)
@@ -138,7 +151,7 @@ func runMenu() {
 					PersonID:    personID,
 					Tel:         tel,
 					Cellphone:   cellphone,
-					Description: description,
+					Description: scanner.Text(),
 					JobID:       jobID,
 				})
 			fmt.Println(">> New contact added done <<")
@@ -180,7 +193,7 @@ func runMenu() {
 		case FindAndEditContactByContactId:
 			var (
 				insertContactID, jobID, personID uint
-				tel, cellphone, description      string
+				tel, cellphone                   string
 			)
 			fmt.Println("Please insert your contact id you want to edit:")
 			fmt.Scanln(&insertContactID)
@@ -201,13 +214,13 @@ func runMenu() {
 			fmt.Println("new job id:")
 			fmt.Scanln(&jobID)
 			fmt.Println("new description:")
-			fmt.Scanln(&description)
+			scanner.Scan()
 			editedContact := protocol.Contact{
 				PersonID:    personID,
 				Tel:         tel,
 				Cellphone:   cellphone,
 				JobID:       jobID,
-				Description: description,
+				Description: scanner.Text(),
 			}
 			state := contact.EditContactByID(editedContact, insertContactID)
 			fmt.Println(state.String)
@@ -263,6 +276,68 @@ func runMenu() {
 				}
 			}
 			ShowMenu()
+		case NewPerson:
+			var (
+				FirstName       string
+				LastName        string
+				DOB             string
+				BirthLocationID uint
+				GenderID        uint
+				NationalCode    string
+				description     string
+			)
+			fmt.Println("insert new FirstName")
+			scanner.Scan()
+			FirstName = scanner.Text()
+			fmt.Println("insert new LastName")
+			scanner.Scan()
+			LastName = scanner.Text()
+			fmt.Println("insert new DOB (format:  20060102)")
+			fmt.Scanln(&DOB)
+			dboTime, _ := time.Parse("20060102", DOB)
+			fmt.Println("insert new BirthLocationID")
+			fmt.Scanln(&BirthLocationID)
+			fmt.Println("insert new GenderID")
+			fmt.Scanln(&GenderID)
+			fmt.Println("insert new NationalCode")
+			fmt.Scanln(&NationalCode)
+			fmt.Println("insert new Description")
+			scanner.Scan()
+			description = scanner.Text()
+			if person.NewPerson(protocol.Person{
+				FirstName:       FirstName,
+				LastName:        LastName,
+				DOB:             dboTime,
+				BirthLocationID: BirthLocationID,
+				GenderID:        GenderID,
+				NationalCode:    NationalCode,
+				Description:     description,
+			}).State {
+				fmt.Println("New person added")
+			}
+			//some code
+			ShowMenu()
+		case ListOfPerson:
+			//some code
+			ShowMenu()
+		case FindOnePersonById:
+			//some code
+			ShowMenu()
+		case FindPersonContainingSomeCharacter:
+			//some code
+			ShowMenu()
+		case FindAndEditPersonByPersonId:
+			//some code
+			ShowMenu()
+		case DeletePersonById:
+			//some code
+			ShowMenu()
+		case DeleteMultiPersonByIds:
+			//some code
+			ShowMenu()
+		case DeleteAllPersons:
+			//some code
+			ShowMenu()
 		case InsertNewCity:
 			var inputCity, ariaCode string
 			fmt.Println("insert city name:")
@@ -292,7 +367,7 @@ func runMenu() {
 			fmt.Println("insert new city name:")
 			fmt.Scanln(&inputName)
 			fmt.Println("insert new aria code:")
-			fmt.Scanln(&inputName)
+			fmt.Scanln(&ariaCode)
 			if city.EditCityByID(inputID, protocol.City{
 				Name:     inputName,
 				AriaCode: ariaCode,
