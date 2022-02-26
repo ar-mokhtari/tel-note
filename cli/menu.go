@@ -37,7 +37,7 @@ func ShowMenu() {
 	fmt.Print(DeleteContactById, "			|	delete contact by id\n")
 	fmt.Print(DeleteMultiContactByIds, "			|	delete multi contact by id(s)\n")
 	fmt.Print(DeleteAllContacts, "			|	delete all contacts\n")
-	fmt.Printf("%-3s %s %3s \n", separator, "person Menu", separator)
+	fmt.Printf("%-3s %s %3s \n", separator, "Person Menu", separator)
 	fmt.Print(NewPerson, "			|	new person\n")
 	fmt.Print(ListOfPerson, "			|	list of person(s)\n")
 	fmt.Print(FindOnePersonById, "			|	find one person by id\n")
@@ -56,7 +56,7 @@ func ShowMenu() {
 	fmt.Print(ListOfJob, "			|	list of job(s)\n")
 	fmt.Print(EditJobById, "			|	edit job by id\n")
 	fmt.Print(DeleteJobById, "			|	delete job by id\n")
-	fmt.Printf("%-3s %s %3s \n", separator, "sex Menu", separator)
+	fmt.Printf("%-3s %s %3s \n", separator, "Sex Menu", separator)
 	fmt.Print(InsertNewSex, "			|	insert new sex\n")
 	fmt.Print(EditSex, "			|	edit sex by id\n")
 	fmt.Print(DeleteSex, "			|	delete sex by id\n")
@@ -134,6 +134,9 @@ func runMenu() {
 			//input person
 			fmt.Println("Please inter personID:")
 			fmt.Scanln(&personID)
+			//input job info
+			fmt.Println("Please inter job ID:")
+			fmt.Scanln(&jobID)
 			//input tel
 			fmt.Println("Please inter tel:")
 			fmt.Scanln(&tel)
@@ -143,28 +146,30 @@ func runMenu() {
 			//input description
 			fmt.Println("Please inter description:")
 			scanner.Scan()
-			//input job info
-			fmt.Println("Please inter job ID:")
-			fmt.Scanln(&jobID)
 			contact.NewContact(
 				protocol.Contact{
 					PersonID:    personID,
+					JobID:       jobID,
 					Tel:         tel,
 					Cellphone:   cellphone,
 					Description: scanner.Text(),
-					JobID:       jobID,
 				})
 			fmt.Println(">> New contact added done <<")
 			ShowMenu()
-			//TODO::: ArrangeOutputTable
 		case ListOfContact:
-			dataJSON, _ := json.MarshalIndent(globalVars.AllContact, "", "  ")
-			fmt.Println(string(dataJSON))
 			fmt.Println(separator7)
-			fmt.Printf("%3v | %-10v | %-20v | %-15v | %-15v | %-10v | %-5v | %-20v \n", "Id", "personID", "Tl", "Cellphone", "Desc", "JobID", "JobName", "Gender")
+			fmt.Println("Contact Data:")
+			fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-v | %-12v | %-3v  \n",
+				"Id", "PID", "PersonName", "PersonFamily", "JID", "JobName", "Gender", "Cellphone", "LoID", "jobCity", "Desc")
 			fmt.Println("")
 			for _, data := range globalVars.AllContact.Data {
-				fmt.Printf("%3v | %-10v | %-20v | %-15v | %-15v | %-10v | %-5v | %-20v \n", data.Id, data.PersonID, data.Tel, data.Cellphone, data.Description, data.JobID, "JobName", "Gender.Name")
+				_, person := person.FindPersonByID(data.PersonID)
+				genderID := person.GenderID
+				gender, _ := sex.FindSexByID(uint8(genderID))
+				_, job := job.FindJobByID(data.JobID)
+				_, city := city.FindCityByID(job.LocationID)
+				fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-4v | %-12v | %-3v  \n",
+					data.Id, data.PersonID, person.FirstName, person.LastName, data.JobID, job.Name, gender.Name, data.Cellphone, job.LocationID, city.Name, data.Description)
 			}
 			ShowMenu()
 		case FindOneContactById:
@@ -173,7 +178,18 @@ func runMenu() {
 			fmt.Scanln(&id)
 			isFound, result := contact.FindContactByID(id)
 			if isFound.State {
-				fmt.Println(result)
+				fmt.Println(separator7)
+				fmt.Println("Contact Data:")
+				fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-v | %-12v | %-3v  \n",
+					"Id", "PID", "PersonName", "PersonFamily", "JID", "JobName", "Gender", "Cellphone", "LoID", "jobCity", "Desc")
+				fmt.Println("")
+				_, person := person.FindPersonByID(result.PersonID)
+				genderID := person.GenderID
+				gender, _ := sex.FindSexByID(uint8(genderID))
+				_, job := job.FindJobByID(result.JobID)
+				_, city := city.FindCityByID(job.LocationID)
+				fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-4v | %-12v | %-3v  \n",
+					result.Id, result.PersonID, person.FirstName, person.LastName, result.JobID, job.Name, gender.Name, result.Cellphone, job.LocationID, city.Name, result.Description)
 			} else {
 				fmt.Println("not found")
 			}
@@ -199,8 +215,18 @@ func runMenu() {
 			fmt.Scanln(&insertContactID)
 			isFound, result := contact.FindContactByID(insertContactID)
 			if isFound.State {
-				//TODO::: CleanPrintingFoundedResult
-				fmt.Println(result)
+				fmt.Println(separator7)
+				fmt.Println("Contact Data:")
+				fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-v | %-12v | %-3v  \n",
+					"Id", "PID", "PersonName", "PersonFamily", "JID", "JobName", "Gender", "Cellphone", "LoID", "jobCity", "Desc")
+				fmt.Println("")
+				_, person := person.FindPersonByID(result.PersonID)
+				genderID := person.GenderID
+				gender, _ := sex.FindSexByID(uint8(genderID))
+				_, job := job.FindJobByID(result.JobID)
+				_, city := city.FindCityByID(job.LocationID)
+				fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-4v | %-12v | %-3v  \n",
+					result.Id, result.PersonID, person.FirstName, person.LastName, result.JobID, job.Name, gender.Name, result.Cellphone, job.LocationID, city.Name, result.Description)
 			} else {
 				fmt.Println("not found")
 				ShowMenu()
@@ -217,13 +243,15 @@ func runMenu() {
 			scanner.Scan()
 			editedContact := protocol.Contact{
 				PersonID:    personID,
+				JobID:       jobID,
 				Tel:         tel,
 				Cellphone:   cellphone,
-				JobID:       jobID,
 				Description: scanner.Text(),
 			}
 			state := contact.EditContactByID(editedContact, insertContactID)
-			fmt.Println(state.String)
+			if state.State {
+				fmt.Printf("contact no %v updated", insertContactID)
+			}
 			ShowMenu()
 		case DeleteContactById:
 			var confirmDel string
@@ -294,7 +322,7 @@ func runMenu() {
 			LastName = scanner.Text()
 			fmt.Println("insert new DOB (format:  20060102)")
 			fmt.Scanln(&DOB)
-			dboTime, _ := time.Parse("20060102", DOB)
+			dboTime, _ := time.Parse("YYYYMMDD", DOB)
 			fmt.Println("insert new BirthLocationID")
 			fmt.Scanln(&BirthLocationID)
 			fmt.Println("insert new GenderID")
@@ -318,10 +346,35 @@ func runMenu() {
 			//some code
 			ShowMenu()
 		case ListOfPerson:
-			//some code
+			fmt.Println(separator7)
+			fmt.Println("Person Data:")
+			fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
+				"Id", "PersonName", "PersonFamily", "Gender", "BLoID", "jobCity", "DOB", "Desc")
+			fmt.Println("")
+			for _, data := range globalVars.AllPerson.PersonData {
+				genderID := data.GenderID
+				gender, _ := sex.FindSexByID(uint8(genderID))
+				_, city := city.FindCityByID(data.BirthLocationID)
+				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
+					data.Id, data.FirstName, data.LastName, gender.Name, data.BirthLocationID, city.Name, (data.DOB).String()[0:10], data.Description)
+			}
 			ShowMenu()
 		case FindOnePersonById:
-			//some code
+			var personID uint
+			fmt.Println("insert person id")
+			fmt.Scanln(&personID)
+			if status, data := person.FindPersonByID(personID); status.State {
+				fmt.Println(separator7)
+				fmt.Println("Person Data:")
+				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-v | %-12v | %-3v  \n",
+					"Id", "PersonName", "PersonFamily", "Gender", "BLoID", "jobCity", "Desc")
+				fmt.Println("")
+				genderID := data.GenderID
+				gender, _ := sex.FindSexByID(uint8(genderID))
+				_, city := city.FindCityByID(data.BirthLocationID)
+				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-4v | %-12v | %-3v  \n",
+					data.Id, data.FirstName, data.LastName, gender.Name, data.BirthLocationID, city.Name, data.Description)
+			}
 			ShowMenu()
 		case FindPersonContainingSomeCharacter:
 			//some code
@@ -341,7 +394,8 @@ func runMenu() {
 		case InsertNewCity:
 			var inputCity, ariaCode string
 			fmt.Println("insert city name:")
-			fmt.Scanln(&inputCity)
+			scanner.Scan()
+			inputCity = scanner.Text()
 			fmt.Println("insert aria code:")
 			fmt.Scanln(&ariaCode)
 			if city.NewCity(protocol.City{
@@ -365,7 +419,8 @@ func runMenu() {
 			fmt.Println("insert city id:")
 			fmt.Scanln(&inputID)
 			fmt.Println("insert new city name:")
-			fmt.Scanln(&inputName)
+			scanner.Scan()
+			inputName = scanner.Text()
 			fmt.Println("insert new aria code:")
 			fmt.Scanln(&ariaCode)
 			if city.EditCityByID(inputID, protocol.City{
@@ -398,30 +453,60 @@ func runMenu() {
 			}
 			ShowMenu()
 		case InsertNewJob:
-			var inputJob string
-			fmt.Println("insert job name:")
-			fmt.Scanln(&inputJob)
+			var (
+				Name                string
+				LocationID          uint64
+				Description         string
+				BasicPaymentPerHour uint64
+			)
+			fmt.Println("insert new Name")
+			scanner.Scan()
+			Name = scanner.Text()
+			fmt.Println("insert new LocationID")
+			scanner.Scan()
+			LocationID, _ = strconv.ParseUint(scanner.Text(), 10, 8)
+			fmt.Println("insert new Description")
+			scanner.Scan()
+			Description = scanner.Text()
+			fmt.Println("insert new BasicPaymentPerHour")
+			scanner.Scan()
+			BasicPaymentPerHour, _ = strconv.ParseUint(scanner.Text(), 10, 8)
 			if job.NewJob(protocol.Job{
-				Name:                inputJob,
-				LocationID:          0,
-				Description:         "",
-				BasicPaymentPerHour: 0,
+				Name:                Name,
+				LocationID:          uint(LocationID),
+				Description:         Description,
+				BasicPaymentPerHour: uint(BasicPaymentPerHour),
 			}).State {
 				fmt.Println("New job added")
 			}
 			ShowMenu()
 		case EditJobById:
-			var inputID uint
-			var inputName string
+			var (
+				inputID             uint
+				Name                string
+				LocationID          uint64
+				Description         string
+				BasicPaymentPerHour uint64
+			)
 			fmt.Println("insert job id:")
 			fmt.Scanln(&inputID)
-			fmt.Println("insert new job name:")
-			fmt.Scanln(&inputName)
+			fmt.Println("insert new Name")
+			scanner.Scan()
+			Name = scanner.Text()
+			fmt.Println("insert new LocationID")
+			scanner.Scan()
+			LocationID, _ = strconv.ParseUint(scanner.Text(), 10, 8)
+			fmt.Println("insert new Description")
+			scanner.Scan()
+			Description = scanner.Text()
+			fmt.Println("insert new BasicPaymentPerHour")
+			scanner.Scan()
+			BasicPaymentPerHour, _ = strconv.ParseUint(scanner.Text(), 10, 8)
 			if job.EditJobInfoByID(inputID, protocol.Job{
-				Name:                inputName,
-				LocationID:          0,
-				Description:         "",
-				BasicPaymentPerHour: 0,
+				Name:                Name,
+				LocationID:          uint(LocationID),
+				Description:         Description,
+				BasicPaymentPerHour: uint(BasicPaymentPerHour),
 			}).State {
 				fmt.Println("Job changed ...")
 			}
@@ -460,7 +545,11 @@ func runMenu() {
 			var insertName string
 			fmt.Println("Insert sex name")
 			fmt.Scanln(&insertName)
-			if sex.NewSex(insertName).State {
+			if sex.NewSex(
+				protocol.Sex{
+					Name: insertName,
+				},
+			).State {
 				fmt.Println("New sex info added")
 			}
 			ShowMenu()
@@ -471,7 +560,10 @@ func runMenu() {
 			fmt.Scanln(&insertID)
 			fmt.Println("Insert new name:")
 			fmt.Scanln(&insertName)
-			if sex.EditSexByID(insertID, insertName).State {
+			if sex.EditSexByID(protocol.Sex{
+				Id:   insertID,
+				Name: insertName,
+			}).State {
 				fmt.Println("sex info updated")
 			} else {
 				fmt.Println("some thing wrong")

@@ -4,8 +4,8 @@ import (
 	"tel-note/protocol"
 )
 
-func EditSexByID(ID uint8, NewSexName string) protocol.ResponseStatus {
-	if storage.EditSex(ID, NewSexName) {
+func EditSexByID(NewSex protocol.Sex) protocol.ResponseStatus {
+	if storage.EditSex(NewSex) {
 		return protocol.ResponseStatus{State: true}
 	}
 	return protocol.ResponseStatus{State: false}

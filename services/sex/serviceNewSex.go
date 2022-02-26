@@ -5,7 +5,7 @@ import (
 	"tel-note/services/globalVars"
 )
 
-func NewSex(SexName string) (status protocol.ResponseStatus) {
+func NewSex(SexName protocol.Sex) (status protocol.ResponseStatus) {
 	if status.State, globalVars.AllSex = storage.NewSex(SexName); status.State {
 		return protocol.ResponseStatus{State: true}
 	}

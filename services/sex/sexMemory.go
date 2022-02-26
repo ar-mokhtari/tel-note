@@ -6,7 +6,7 @@ import (
 
 type storageMemory protocol.SexStorage
 
-func (AllSex *storageMemory) NewSex(inputSex string) (bool, protocol.SexStorage) {
+func (AllSex *storageMemory) NewSex(inputSex protocol.Sex) (bool, protocol.SexStorage) {
 	var LastID uint8
 	for _, data := range AllSex.SexData {
 		if data.Id > LastID {
@@ -16,18 +16,19 @@ func (AllSex *storageMemory) NewSex(inputSex string) (bool, protocol.SexStorage)
 	LastID += 1
 	result := protocol.Sex{
 		Id:   LastID,
-		Name: inputSex,
+		Name: inputSex.Name,
 	}
 	AllSex.SexData = append(AllSex.SexData, &result)
 	return true, protocol.SexStorage(*AllSex)
 }
 
-func (AllSex *storageMemory) EditSex(ID uint8, newSex string) bool {
+//TODO::: ForEditStrategy,AllEntity(ies)CanInputProtocolArgumentWithIdentityFieldAndDon'tNeedThisFieldSeparately
+func (AllSex *storageMemory) EditSex(newSex protocol.Sex) bool {
 	for index, data := range AllSex.SexData {
-		if data.Id == ID {
+		if data.Id == newSex.Id {
 			//TODO::: what the hell below ... is there any cleaner way for test "is it not nil?"
-			if newSex != "" {
-				(AllSex.SexData)[index].Name = newSex
+			if newSex.Name != "" {
+				(AllSex.SexData)[index].Name = newSex.Name
 			}
 			return true
 		}

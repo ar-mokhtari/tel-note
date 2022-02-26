@@ -7,7 +7,7 @@ type (
 		Id              uint
 		FirstName       string
 		LastName        string
-		DOB             time.Time
+		DOB, _          time.Time
 		BirthLocationID uint
 		GenderID        uint
 		NationalCode    string

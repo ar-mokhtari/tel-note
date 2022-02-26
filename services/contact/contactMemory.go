@@ -49,9 +49,13 @@ func (AllContact *storageMemory) FindContactByID(id uint) (bool, protocol.Contac
 
 func (AllContact *storageMemory) FindContactByChar(insertChar string) (status bool, result protocol.ContactStorage) {
 	if state, res := person.FindPersonByChar(insertChar); state.State {
-		for index, data := range AllContact.Data {
-			if res[index] == data.Id {
+		edfjl
+		sldfj
+		for _, data := range AllContact.Data {
+			if res[0] == data.PersonID {
+				status = true
 				result.Data = append(result.Data, data)
+				res = res[1:]
 			}
 		}
 	}

@@ -11,7 +11,7 @@ import (
 
 func FillSimpleDataInMainData() {
 	for _, data := range env.SexDataTest {
-		sex.NewSex(data.Name)
+		sex.NewSex(*data)
 	}
 	for _, data := range env.PersonDataTest {
 		person.NewPerson(*data)

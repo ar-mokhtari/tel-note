@@ -9,7 +9,7 @@ type storageMemory protocol.PersonStorage
 
 func (AllPerson *storageMemory) FindPersonByChar(inputChar string) (status bool, res []uint) {
 	for _, data := range AllPerson.PersonData {
-		if strings.Contains(data.FirstName, inputChar) {
+		if strings.Contains(strings.ToLower(data.FirstName), strings.ToLower(inputChar)) {
 			res = append(res, data.Id)
 			status = true
 		}
