@@ -2,12 +2,11 @@ package contact
 
 import (
 	"tel-note/protocol"
-	"unsafe"
 )
 
 func FindContactByChar(insertChar string) (protocol.ContactStorage, uint) {
 	if resultData, data := storage.FindContactByChar(insertChar); resultData {
-		return data, uint(unsafe.Sizeof(data))
+		return data, uint(len(data.Data)) /*uint(unsafe.Sizeof(data.Data))*/
 	}
 	return protocol.ContactStorage{}, 0
 }

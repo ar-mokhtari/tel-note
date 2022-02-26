@@ -199,11 +199,24 @@ func runMenu() {
 			fmt.Println("insert character(s):")
 			fmt.Scanln(&insertChar)
 			resultData, resultCount := contact.FindContactByChar(insertChar)
-			fmt.Println(resultData)
 			if resultCount == 0 {
 				fmt.Println("not found")
 			} else {
 				fmt.Println(resultCount, "record(s) found")
+				fmt.Println(separator7)
+				fmt.Println("Contact Data:")
+				fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-v | %-12v | %-3v  \n",
+					"Id", "PID", "PersonName", "PersonFamily", "JID", "JobName", "Gender", "Cellphone", "LoID", "jobCity", "Desc")
+				fmt.Println("")
+				for _, data := range resultData.Data {
+					_, person := person.FindPersonByID(data.PersonID)
+					genderID := person.GenderID
+					gender, _ := sex.FindSexByID(uint8(genderID))
+					_, job := job.FindJobByID(data.JobID)
+					_, city := city.FindCityByID(job.LocationID)
+					fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-4v | %-12v | %-3v  \n",
+						data.Id, data.PersonID, person.FirstName, person.LastName, data.JobID, job.Name, gender.Name, data.Cellphone, job.LocationID, city.Name, data.Description)
+				}
 			}
 			ShowMenu()
 		case FindAndEditContactByContactId:
