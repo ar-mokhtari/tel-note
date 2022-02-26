@@ -7,13 +7,13 @@ import (
 
 type storageMemory protocol.PersonStorage
 
-func (AllPerson *storageMemory) FindPersonByChar(inputChar string) (status bool, res []uint) {
+func (AllPerson *storageMemory) FindPersonByChar(inputChar string) (status bool, res protocol.PersonStorage) {
 	for _, data := range AllPerson.PersonData {
 		if strings.Contains(
 			strings.ToLower(data.FirstName+data.LastName),
 			strings.ToLower(inputChar),
 		) {
-			res = append(res, data.Id)
+			res.PersonData = append(res.PersonData, data)
 			status = true
 		}
 	}

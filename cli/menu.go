@@ -335,7 +335,7 @@ func runMenu() {
 			LastName = scanner.Text()
 			fmt.Println("insert new DOB (format:  20060102)")
 			fmt.Scanln(&DOB)
-			dboTime, _ := time.Parse("YYYYMMDD", DOB)
+			dboTime, _ := time.Parse("20060102", DOB)
 			fmt.Println("insert new BirthLocationID")
 			fmt.Scanln(&BirthLocationID)
 			fmt.Println("insert new GenderID")
@@ -379,21 +379,94 @@ func runMenu() {
 			if status, data := person.FindPersonByID(personID); status.State {
 				fmt.Println(separator7)
 				fmt.Println("Person Data:")
-				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-v | %-12v | %-3v  \n",
-					"Id", "PersonName", "PersonFamily", "Gender", "BLoID", "jobCity", "Desc")
+				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
+					"Id", "PersonName", "PersonFamily", "Gender", "BLoID", "jobCity", "DOB", "Desc")
 				fmt.Println("")
 				genderID := data.GenderID
 				gender, _ := sex.FindSexByID(uint8(genderID))
 				_, city := city.FindCityByID(data.BirthLocationID)
-				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-4v | %-12v | %-3v  \n",
-					data.Id, data.FirstName, data.LastName, gender.Name, data.BirthLocationID, city.Name, data.Description)
+				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
+					data.Id, data.FirstName, data.LastName, gender.Name, data.BirthLocationID, city.Name, (data.DOB).String()[0:10], data.Description)
+			} else {
+				fmt.Println("not found")
 			}
 			ShowMenu()
 		case FindPersonContainingSomeCharacter:
-			//some code
+			fmt.Println("insert character")
+			scanner.Scan()
+			if state, data := person.FindPersonByChar(scanner.Text()); state.State {
+				fmt.Println(separator7)
+				fmt.Println(len(data.PersonData), "record(s) found")
+				fmt.Println("Person Data:")
+				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
+					"Id", "PersonName", "PersonFamily", "Gender", "BLoID", "jobCity", "DOB", "Desc")
+				fmt.Println("")
+				for _, personData := range data.PersonData {
+					genderID := personData.GenderID
+					gender, _ := sex.FindSexByID(uint8(genderID))
+					_, city := city.FindCityByID(personData.BirthLocationID)
+					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
+						personData.Id, personData.FirstName, personData.LastName, gender.Name, personData.BirthLocationID, city.Name, (personData.DOB).String()[0:10], personData.Description)
+				}
+			}
 			ShowMenu()
 		case FindAndEditPersonByPersonId:
-			//some code
+			fmt.Println("insert person id to (find and) edit")
+			var personID uint
+			fmt.Scanln(&personID)
+			if status, data := person.FindPersonByID(personID); status.State {
+				fmt.Println(separator7)
+				fmt.Println("Person Data:")
+				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
+					"Id", "PersonName", "PersonFamily", "Gender", "BLoID", "jobCity", "DOB", "Desc")
+				fmt.Println("")
+				genderID := data.GenderID
+				gender, _ := sex.FindSexByID(uint8(genderID))
+				_, city := city.FindCityByID(data.BirthLocationID)
+				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-4v | %-12v | %-13v |  %-3v  \n",
+					data.Id, data.FirstName, data.LastName, gender.Name, data.BirthLocationID, city.Name, (data.DOB).String()[0:10], data.Description)
+				fmt.Println("insert FirstName")
+				scanner.Scan()
+				FirstName := scanner.Text()
+				fmt.Println("insert LastName")
+				scanner.Scan()
+				LastName := scanner.Text()
+				fmt.Println("insert DOB")
+				scanner.Scan()
+				DOB := scanner.Text()
+				dboTime, _ := time.Parse("20060102", DOB)
+				fmt.Println("insert BirthLocationID")
+				scanner.Scan()
+				BirthLocationID := scanner.Text()
+				BirthLocationIDUINT, _ := strconv.ParseUint(BirthLocationID, 10, 8)
+				fmt.Println("insert GenderID")
+				scanner.Scan()
+				GenderID := scanner.Text()
+				GenderIDUINT, _ := strconv.ParseUint(GenderID, 10, 8)
+				fmt.Println("insert NationalCode")
+				scanner.Scan()
+				NationalCode := scanner.Text()
+				fmt.Println("insert Description")
+				scanner.Scan()
+				Description := scanner.Text()
+				newPerson := protocol.Person{
+					Id:              personID,
+					FirstName:       FirstName,
+					LastName:        LastName,
+					DOB:             dboTime,
+					BirthLocationID: uint(BirthLocationIDUINT),
+					GenderID:        uint(GenderIDUINT),
+					NationalCode:    NationalCode,
+					Description:     Description,
+				}
+				if person.EditPerson(newPerson.Id, newPerson).State {
+					fmt.Printf("person no %v edited", personID)
+				} else {
+					fmt.Println("some thing wrong")
+				}
+				ShowMenu()
+			}
+			fmt.Println("not found")
 			ShowMenu()
 		case DeletePersonById:
 			//some code

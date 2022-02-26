@@ -22,7 +22,6 @@ func TestNewContact(t *testing.T) {
 			Cellphone:   "09121234567",
 			Description: "none",
 		}
-		//TODO::: ADD PERSON AND JOB TEST FIRST (FOR PersonID and JobID)
 		Init()
 		_, got := storage.AddContact(contactTest)
 		want := env.ContactDataTest

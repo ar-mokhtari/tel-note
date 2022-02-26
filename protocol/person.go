@@ -7,7 +7,7 @@ type (
 		Id              uint
 		FirstName       string
 		LastName        string
-		DOB, _          time.Time
+		DOB             time.Time
 		BirthLocationID uint
 		GenderID        uint
 		NationalCode    string
@@ -17,7 +17,7 @@ type (
 		PersonData []*Person
 	}
 	PersonServices interface {
-		FindPersonByChar(inputChar string) (bool, []uint)
+		FindPersonByChar(inputChar string) (bool, PersonStorage)
 		FindPersonByID(inputID uint) (status bool, res Person)
 		NewPerson(person Person) (bool, PersonStorage)
 		EditPerson(ID uint, newPerson Person) bool
