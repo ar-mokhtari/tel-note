@@ -6,7 +6,7 @@ import (
 )
 
 func NewSex(SexName protocol.Sex) (status protocol.ResponseStatus) {
-	if status.State, globalVars.AllSex = storage.NewSex(SexName); status.State {
+	if status.State, globalVars.SexStore = storage.NewSex(SexName); status.State {
 		return protocol.ResponseStatus{State: true}
 	}
 	return protocol.ResponseStatus{State: false}

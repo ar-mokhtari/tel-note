@@ -76,7 +76,7 @@ func ShowMenu() {
 }
 
 func runMenu() {
-	//TODO::: CompleteAllEntityFeature(Person|Job|Sex|City|Contact)
+	//TODO: CompleteAllEntityFeature(Person|Job|Sex|City|Contact)
 	for {
 		var userInput string
 		fmt.Scanln(&userInput)
@@ -93,7 +93,7 @@ func runMenu() {
 				fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-v | %-12v | %-3v  \n",
 					"Id", "PID", "PersonName", "PersonFamily", "JID", "JobName", "Gender", "Cellphone", "LoID", "jobCity", "Desc")
 				fmt.Println("")
-				for _, data := range globalVars.AllContact.Data {
+				for _, data := range globalVars.ContactStore.Data {
 					_, person := person.FindPersonByID(data.PersonID)
 					genderID := person.GenderID
 					gender, _ := sex.FindSexByID(uint8(genderID))
@@ -104,22 +104,22 @@ func runMenu() {
 				}
 				fmt.Println(separator7)
 				fmt.Println("City Data:")
-				for _, data := range globalVars.AllCity.CityData {
+				for _, data := range globalVars.CityStore.CityData {
 					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 				}
 				fmt.Println(separator7)
 				fmt.Println("Job Data:")
-				for _, data := range globalVars.AllJob.JobData {
+				for _, data := range globalVars.JobStore.JobData {
 					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 				}
 				fmt.Println(separator7)
 				fmt.Println("sex Data:")
-				for _, data := range globalVars.AllSex.SexData {
+				for _, data := range globalVars.SexStore.SexData {
 					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 				}
 				fmt.Println(separator7)
 				fmt.Println("person Data:")
-				for _, data := range globalVars.AllPerson.PersonData {
+				for _, data := range globalVars.PersonStore.PersonData {
 					fmt.Printf("%3v | %-15s \t %30s \n", data.Id, data.FirstName, data.LastName)
 				}
 				ShowMenu()
@@ -162,7 +162,7 @@ func runMenu() {
 			fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-v | %-12v | %-3v  \n",
 				"Id", "PID", "PersonName", "PersonFamily", "JID", "JobName", "Gender", "Cellphone", "LoID", "jobCity", "Desc")
 			fmt.Println("")
-			for _, data := range globalVars.AllContact.Data {
+			for _, data := range globalVars.ContactStore.Data {
 				_, person := person.FindPersonByID(data.PersonID)
 				genderID := person.GenderID
 				gender, _ := sex.FindSexByID(uint8(genderID))
@@ -364,7 +364,10 @@ func runMenu() {
 			fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
 				"Id", "PersonName", "PersonFamily", "Gender", "BLoID", "jobCity", "DOB", "Desc")
 			fmt.Println("")
-			for _, data := range globalVars.AllPerson.PersonData {
+			//TODO::: decide to:
+			//create a method called "GetPersons" to responds updated data live
+			//use a global variable and after every event have to updated it
+			for _, data := range person.GetPersons().PersonData /*globalVars.PersonStore.PersonData*/ {
 				genderID := data.GenderID
 				gender, _ := sex.FindSexByID(uint8(genderID))
 				_, city := city.FindCityByID(data.BirthLocationID)
@@ -469,7 +472,26 @@ func runMenu() {
 			fmt.Println("not found")
 			ShowMenu()
 		case DeletePersonById:
-			//some code
+			var confirmDel string
+			fmt.Println("*** important, be careful, you are deleting person(s) ***")
+			fmt.Println("do you want to continue? (yes or no)")
+			fmt.Scanln(&confirmDel)
+			if strings.ToLower(confirmDel) == YES {
+				var deleteIDS string
+				fmt.Println("insert your person id(s) that you want to delete, separate id's by ',':")
+				fmt.Scanln(&deleteIDS)
+				idPack := strings.Split(deleteIDS, ",")
+				var idPackInt []uint
+				for _, i := range idPack {
+					j, err := strconv.Atoi(i)
+					if err != nil {
+						panic(err)
+					}
+					idPackInt = append(idPackInt, uint(j))
+				}
+				resNums := person.DeletePerson(idPackInt)
+				fmt.Printf("%v person(s) has been deleted", resNums)
+			}
 			ShowMenu()
 		case DeleteMultiPersonByIds:
 			//some code
@@ -492,10 +514,10 @@ func runMenu() {
 			}
 			ShowMenu()
 		case ListOfCities:
-			dataJSON, _ := json.MarshalIndent(globalVars.AllCity.CityData, "", "  ")
+			dataJSON, _ := json.MarshalIndent(globalVars.CityStore.CityData, "", "  ")
 			fmt.Println(string(dataJSON))
 			fmt.Println(separator7)
-			for _, data := range globalVars.AllCity.CityData {
+			for _, data := range globalVars.CityStore.CityData {
 				fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 			}
 			ShowMenu()
@@ -620,10 +642,10 @@ func runMenu() {
 			}
 			ShowMenu()
 		case ListOfJob:
-			dataJSON, _ := json.MarshalIndent(globalVars.AllJob.JobData, "", "  ")
+			dataJSON, _ := json.MarshalIndent(globalVars.JobStore.JobData, "", "  ")
 			fmt.Println(string(dataJSON))
 			fmt.Println(separator7)
-			for _, data := range globalVars.AllJob.JobData {
+			for _, data := range globalVars.JobStore.JobData {
 				fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 			}
 			ShowMenu()
@@ -671,10 +693,10 @@ func runMenu() {
 			}
 			ShowMenu()
 		case ListOfSex:
-			dataJSON, _ := json.MarshalIndent(globalVars.AllSex.SexData, "", "  ")
+			dataJSON, _ := json.MarshalIndent(globalVars.SexStore.SexData, "", "  ")
 			fmt.Println(string(dataJSON))
 			fmt.Println(separator7)
-			for _, data := range globalVars.AllSex.SexData {
+			for _, data := range globalVars.SexStore.SexData {
 				fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 			}
 			ShowMenu()

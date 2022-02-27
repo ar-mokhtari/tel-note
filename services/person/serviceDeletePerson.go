@@ -1,5 +1,5 @@
 package person
 
 func DeletePerson(IDS []uint) []uint {
-	return DeletePerson(IDS)
+	return storage.DeletePerson(IDS)
 }

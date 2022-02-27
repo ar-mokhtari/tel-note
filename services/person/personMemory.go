@@ -3,9 +3,14 @@ package person
 import (
 	"strings"
 	"tel-note/protocol"
+	"tel-note/services/globalVars"
 )
 
 type storageMemory protocol.PersonStorage
+
+func (AllPerson *storageMemory) GetPersons() protocol.PersonStorage {
+	return protocol.PersonStorage(*AllPerson)
+}
 
 func (AllPerson *storageMemory) FindPersonByChar(inputChar string) (status bool, res protocol.PersonStorage) {
 	for _, data := range AllPerson.PersonData {
@@ -83,13 +88,14 @@ func (AllPerson *storageMemory) EditPerson(ID uint, newPerson protocol.Person) b
 }
 
 func (AllPerson *storageMemory) DeletePerson(IDS []uint) (resDel []uint) {
-	for index, id := range IDS {
-		for _, data := range AllPerson.PersonData {
+	for _, id := range IDS {
+		for index, data := range AllPerson.PersonData {
 			if data.Id == id {
 				AllPerson.PersonData = append((AllPerson.PersonData)[:index], (AllPerson.PersonData)[index+1:]...)
 				resDel = append(resDel, id)
 			}
 		}
 	}
+	globalVars.PersonStore.PersonData = AllPerson.PersonData
 	return resDel
 }

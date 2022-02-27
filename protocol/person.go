@@ -17,6 +17,7 @@ type (
 		PersonData []*Person
 	}
 	PersonServices interface {
+		GetPersons() PersonStorage
 		FindPersonByChar(inputChar string) (bool, PersonStorage)
 		FindPersonByID(inputID uint) (status bool, res Person)
 		NewPerson(person Person) (bool, PersonStorage)

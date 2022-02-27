@@ -6,7 +6,7 @@ import (
 )
 
 func NewContact(inputContact protocol.Contact) (status protocol.ResponseStatus, resData protocol.ContactStorage) {
-	if status.State, globalVars.AllContact = storage.AddContact(inputContact); status.State {
+	if status.State, globalVars.ContactStore = storage.AddContact(inputContact); status.State {
 		return protocol.ResponseStatus{State: true}, resData
 	}
 	return protocol.ResponseStatus{State: false}, protocol.ContactStorage{}

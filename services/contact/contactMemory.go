@@ -20,11 +20,6 @@ func (AllContact *storageMemory) AddContact(inputContact protocol.Contact) (bool
 		}
 	}
 	lastID += 1
-	//find job name by ID to return for end user
-	//inputContact.JobInfo.Name = MainData.FindJobById(inputContact.JobInfo.Id)
-	////find gender name by ID to return for end user
-	//inputContact.Gender.Name = MainData.FindGenderNameById(inputContact.Gender.Id)
-	//marge inputs to create a contact
 	result := protocol.Contact{
 		Id:          lastID,
 		PersonID:    inputContact.PersonID,
@@ -41,7 +36,6 @@ func (AllContact *storageMemory) FindContactByID(id uint) (bool, protocol.Contac
 	for _, data := range AllContact.Data {
 		if data.Id == id {
 			return true, *data
-			break
 		}
 	}
 	return false, protocol.Contact{}
@@ -66,7 +60,7 @@ func (AllContact *storageMemory) FindContactByChar(insertChar string) (status bo
 func (AllContact *storageMemory) EditContactByID(newData protocol.Contact, ID uint) bool {
 	for index, data := range AllContact.Data {
 		if data.Id == ID {
-			//TODO::: what the hell below ... is there any cleaner way for test "is it not nil?"
+			//TODO:: what the hell below ... is there any cleaner way for test "is it not nil?"
 			if newData.PersonID != 0 {
 				(AllContact.Data)[index].PersonID = newData.PersonID
 			}
@@ -92,8 +86,8 @@ func (AllContact *storageMemory) DeleteContactByID(ID uint) bool {
 	for index, data := range AllContact.Data {
 		if data.Id == ID {
 			AllContact.Data = append((AllContact.Data)[:index], (AllContact.Data)[index+1:]...)
-			//TODO::: BadSolution,HandelMultiDeleteInServiceOrStorageNotInClient
-			globalVars.AllContact.Data = AllContact.Data
+			//TODO: BadSolution,HandelMultiDeleteInServiceOrStorageNotInClient
+			globalVars.ContactStore.Data = AllContact.Data
 			return true
 		}
 	}
@@ -101,7 +95,6 @@ func (AllContact *storageMemory) DeleteContactByID(ID uint) bool {
 }
 
 func (AllContact *storageMemory) DeleteAll() bool {
-	//TODO::: VariableInSystemIsDuplicate1.global[Contact]2.MethodsReceivers, ResolveConfusing + Debug
 	AllContact.Data = (AllContact.Data)[0:0]
 	return true
 }

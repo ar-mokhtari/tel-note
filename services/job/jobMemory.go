@@ -68,8 +68,8 @@ func (AllJob *storageMemory) EditJob(ID uint, newJob protocol.Job) bool {
 }
 
 func (AllJob *storageMemory) DeleteJob(IDS []uint) (resDel []uint) {
-	for index, id := range IDS {
-		for _, data := range AllJob.JobData {
+	for _, id := range IDS {
+		for index, data := range AllJob.JobData {
 			if data.Id == id {
 				AllJob.JobData = append((AllJob.JobData)[:index], (AllJob.JobData)[index+1:]...)
 				resDel = append(resDel, id)

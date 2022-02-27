@@ -4,19 +4,19 @@ import "tel-note/protocol"
 
 //init global variable
 var (
-	AllSex     protocol.SexStorage
-	AllContact protocol.ContactStorage
-	AllPerson  protocol.PersonStorage
-	AllCity    protocol.CityStorage
-	AllJob     protocol.JobStorage
+	SexStore     protocol.SexStorage
+	ContactStore protocol.ContactStorage
+	PersonStore  protocol.PersonStorage
+	CityStore    protocol.CityStorage
+	JobStore     protocol.JobStorage
 )
 
 func Init() {
-	AllSex,
-		AllContact,
-		AllPerson,
-		AllCity,
-		AllJob =
+	SexStore,
+		ContactStore,
+		PersonStore,
+		CityStore,
+		JobStore =
 		protocol.SexStorage{},
 		protocol.ContactStorage{},
 		protocol.PersonStorage{},

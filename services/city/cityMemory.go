@@ -46,7 +46,7 @@ func (AllCity *storageMemory) NewCity(inputCity protocol.City) (bool, protocol.C
 func (AllCity *storageMemory) EditCity(ID uint, newCity protocol.City) bool {
 	for index, data := range AllCity.CityData {
 		if data.Id == ID {
-			//TODO::: what the hell below ... is there any cleaner way for test "is it not nil?"
+			//TODO:: what the hell below ... is there any cleaner way for test "is it not nil?"
 			if newCity.Name != "" {
 				(AllCity.CityData)[index].Name = newCity.Name
 			}
@@ -63,8 +63,8 @@ func (AllCity *storageMemory) EditCity(ID uint, newCity protocol.City) bool {
 }
 
 func (AllCity *storageMemory) DeleteCity(IDS []uint) (resDel []uint) {
-	for index, id := range IDS {
-		for _, data := range AllCity.CityData {
+	for _, id := range IDS {
+		for index, data := range AllCity.CityData {
 			if data.Id == id {
 				AllCity.CityData = append((AllCity.CityData)[:index], (AllCity.CityData)[index+1:]...)
 				resDel = append(resDel, id)
