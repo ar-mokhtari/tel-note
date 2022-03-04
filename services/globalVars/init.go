@@ -11,15 +11,5 @@ var (
 	JobStore     protocol.JobStorage
 )
 
-func Init() {
-	SexStore,
-		ContactStore,
-		PersonStore,
-		CityStore,
-		JobStore =
-		protocol.SexStorage{},
-		protocol.ContactStorage{},
-		protocol.PersonStorage{},
-		protocol.CityStorage{},
-		protocol.JobStorage{}
-}
+//TODO:::How about to use map
+var CityMapStore = make(map[uint][]*protocol.City)

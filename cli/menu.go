@@ -104,8 +104,8 @@ func runMenu() {
 				}
 				fmt.Println(separator7)
 				fmt.Println("City Data:")
-				for _, data := range globalVars.CityStore.CityData {
-					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
+				for index, data := range globalVars.CityMapStore {
+					fmt.Printf("%3v | %-15v \n", index, data)
 				}
 				fmt.Println(separator7)
 				fmt.Println("Job Data:")

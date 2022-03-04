@@ -2,7 +2,6 @@ package cli
 
 import (
 	"tel-note/services"
-	"tel-note/services/globalVars"
 )
 
 func RunApp() {
@@ -14,9 +13,6 @@ func RunApp() {
 
 	//Show greeting note and description
 	ShowGreeting()
-
-	//create|allocate global variables
-	globalVars.Init()
 
 	//create global services
 	services.Init()
