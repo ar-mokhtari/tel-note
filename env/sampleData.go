@@ -28,6 +28,15 @@ var (
 	SexDataTest = []*protocol.Sex{Female, Male, Other}
 
 	PersonDataTest = []*protocol.Person{&AlirezaPerson, &KianooshPerson, &OmidPerson, &KhorshidPerson, &RezaPerson, &TomPerson, &FrankPerson, &DelaramPerson}
+
+	CustomersDataTest = protocol.CustomerStorage{Data: map[uint]*protocol.Customer{
+		0: &AlirezaCust,
+		1: &KianooshCust,
+		2: &KhorshidCust,
+		3: &RezaCust,
+		4: &FrankCust,
+	}}
+
 	//----------- Test Vars -----------------
 
 	// cities variable
@@ -64,4 +73,12 @@ var (
 	Female = &protocol.Sex{Id: 1, Name: "Female"}
 	Male   = &protocol.Sex{Id: 2, Name: "Male"}
 	Other  = &protocol.Sex{Id: 3, Name: "Other"}
+
+	// customer variable
+	AlirezaCust  = protocol.Customer{PersonID: 1, Description: "first"}
+	KianooshCust = protocol.Customer{PersonID: 2, Description: "second"}
+	OmidCust     = protocol.Customer{PersonID: 3, Description: "important"}
+	KhorshidCust = protocol.Customer{PersonID: 4, Description: "power"}
+	RezaCust     = protocol.Customer{PersonID: 5, Description: "none"}
+	FrankCust    = protocol.Customer{PersonID: 7, Description: "---"}
 )

@@ -4,6 +4,7 @@ import (
 	"tel-note/env"
 	"tel-note/services/city"
 	"tel-note/services/contact"
+	"tel-note/services/customer"
 	"tel-note/services/job"
 	"tel-note/services/person"
 	"tel-note/services/sex"
@@ -21,6 +22,9 @@ func FillSimpleDataInMainData() {
 	}
 	for _, data := range env.JobDataTest {
 		job.NewJob(*data)
+	}
+	for _, data := range env.CustomersDataTest.Data {
+		customer.AddCustomer(*data)
 	}
 	//contact have to locate in end list, because it's elements has dependent to upper steps (city/job/...)
 	for _, data := range (env.ContactDataTest).Data {

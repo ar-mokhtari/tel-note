@@ -14,7 +14,7 @@ type (
 		FindCityByChar(inputChar string) (status bool, res []uint)
 		FindCityByID(inputID uint) (bool, City)
 		NewCity(inputCity City) (bool, CityStorage)
-		EditCity(ID uint, newCity City) (bool bool, _ CityStorage)
+		EditCity(ID uint, newCity City) bool
 		DeleteCity(IDS []uint) (resDel []uint)
 	}
 )

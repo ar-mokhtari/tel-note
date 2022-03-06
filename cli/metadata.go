@@ -29,13 +29,17 @@ const (
 	// insert sample data
 	InsertSomeSamplesContacts = "DATA"
 
-	//city meta data
-	InsertNewCity  = "NC"
-	EditCityById   = "EC"
-	DeleteCityById = "DC"
-	ListOfCities   = "LC"
+	//Customer meta data
+	NewCustomer                         = "NCU"
+	ListOfCustomer                      = "LCU"
+	FindOneCustomerById                 = "FCU"
+	FindCustomerContainingSomeCharacter = "FCUC"
+	FindAndEditCustomerByCustomerId     = "ECU"
+	DeleteCustomerById                  = "DCU"
+	DeleteMultiCustomerByIds            = "DMCU"
+	DeleteAllCustomers                  = "DACU"
 
-	//city meta data
+	//person meta data
 	NewPerson                         = "NP"
 	ListOfPerson                      = "LP"
 	FindOnePersonById                 = "FP"
@@ -44,6 +48,12 @@ const (
 	DeletePersonById                  = "DP"
 	DeleteMultiPersonByIds            = "DMP"
 	DeleteAllPersons                  = "DAP"
+
+	//city meta data
+	InsertNewCity  = "NC"
+	EditCityById   = "EC"
+	DeleteCityById = "DC"
+	ListOfCities   = "LC"
 
 	//job meta data
 	InsertNewJob  = "NJ"

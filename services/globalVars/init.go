@@ -12,4 +12,4 @@ var (
 )
 
 //TODO:::How about to use map
-var CityMapStore = make(map[uint][]*protocol.City)
+var CustomerMapStore = make(map[uint]*protocol.Customer)

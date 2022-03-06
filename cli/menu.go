@@ -10,6 +10,7 @@ import (
 	"tel-note/protocol"
 	"tel-note/services/city"
 	"tel-note/services/contact"
+	"tel-note/services/customer"
 	"tel-note/services/fillSampleData"
 	"tel-note/services/globalVars"
 	"tel-note/services/identity"
@@ -28,6 +29,7 @@ var (
 func ShowMenu() {
 	fmt.Println(separator7)
 	fmt.Println("*** Main menu: ***\n", "Please select:")
+	//Contact Menu
 	fmt.Printf("%-3s %s %3s \n", separator, "Contact Menu", separator)
 	fmt.Print(NewContactRecord, "			|	new record\n")
 	fmt.Print(ListOfContact, "			|	list of contact\n")
@@ -37,25 +39,39 @@ func ShowMenu() {
 	fmt.Print(DeleteContactById, "			|	delete contact by id\n")
 	fmt.Print(DeleteMultiContactByIds, "			|	delete multi contact by id(s)\n")
 	fmt.Print(DeleteAllContacts, "			|	delete all contacts\n")
+	//Customer Menu
+	fmt.Printf("%-3s %s %3s \n", separator, "Customer Menu", separator)
+	fmt.Print(NewCustomer, "			|	new Customer\n")
+	fmt.Print(ListOfCustomer, "			|	list of Customer(s)\n")
+	fmt.Print(FindOneCustomerById, "			|	find one Customer by id\n")
+	fmt.Print(FindCustomerContainingSomeCharacter, "			|	find Customer, contain some character\n")
+	fmt.Print(FindAndEditCustomerByCustomerId, "			|	find and edit customer by customer id\n")
+	fmt.Print(DeleteCustomerById, "			|	delete Customer by id\n")
+	fmt.Print(DeleteMultiCustomerByIds, "			|	delete multi Customer by id(s)\n")
+	fmt.Print(DeleteAllCustomers, "			|	delete all Customer\n")
+	//Person Menu
 	fmt.Printf("%-3s %s %3s \n", separator, "Person Menu", separator)
 	fmt.Print(NewPerson, "			|	new person\n")
 	fmt.Print(ListOfPerson, "			|	list of person(s)\n")
 	fmt.Print(FindOnePersonById, "			|	find one person by id\n")
 	fmt.Print(FindPersonContainingSomeCharacter, "			|	find person, contain some character\n")
-	fmt.Print(FindAndEditPersonByPersonId, "			|	find and edit person by contact id\n")
+	fmt.Print(FindAndEditPersonByPersonId, "			|	find and edit person by person id\n")
 	fmt.Print(DeletePersonById, "			|	delete person by id\n")
 	fmt.Print(DeleteMultiPersonByIds, "			|	delete multi person by id(s)\n")
 	fmt.Print(DeleteAllPersons, "			|	delete all person\n")
+	//City Menu
 	fmt.Printf("%-3s %s %3s \n", separator, "City Menu", separator)
 	fmt.Print(InsertNewCity, "			|	insert new city\n")
 	fmt.Print(ListOfCities, "			|	list of city(ies)\n")
 	fmt.Print(EditCityById, "			|	edit city by id\n")
 	fmt.Print(DeleteCityById, "			|	delete city by id\n")
+	//Job Menu
 	fmt.Printf("%-3s %s %3s \n", separator, "Job Menu", separator)
 	fmt.Print(InsertNewJob, "			|	insert new job\n")
 	fmt.Print(ListOfJob, "			|	list of job(s)\n")
 	fmt.Print(EditJobById, "			|	edit job by id\n")
 	fmt.Print(DeleteJobById, "			|	delete job by id\n")
+	//Sex Menu
 	fmt.Printf("%-3s %s %3s \n", separator, "Sex Menu", separator)
 	fmt.Print(InsertNewSex, "			|	insert new sex\n")
 	fmt.Print(EditSex, "			|	edit sex by id\n")
@@ -64,7 +80,7 @@ func ShowMenu() {
 	fmt.Println(separator7)
 	fmt.Print(RESET, "			|	reset program (as new user role)\n")
 	fmt.Println(separator7)
-
+	//regulator menu
 	if identity.IsRegulator {
 		fmt.Printf("%-3s %s %3s \n", separator, "Fill sample data", separator)
 		fmt.Print(InsertSomeSamplesContacts, "			|	insert some sample's contacts\n")
@@ -104,8 +120,8 @@ func runMenu() {
 				}
 				fmt.Println(separator7)
 				fmt.Println("City Data:")
-				for index, data := range globalVars.CityMapStore {
-					fmt.Printf("%3v | %-15v \n", index, data)
+				for _, data := range globalVars.CityStore.CityData {
+					fmt.Printf("%3v | %-15v \n", data.Id, data.Name)
 				}
 				fmt.Println(separator7)
 				fmt.Println("Job Data:")
@@ -121,6 +137,16 @@ func runMenu() {
 				fmt.Println("person Data:")
 				for _, data := range globalVars.PersonStore.PersonData {
 					fmt.Printf("%3v | %-15s \t %30s \n", data.Id, data.FirstName, data.LastName)
+				}
+				fmt.Println(separator7)
+				fmt.Println("Customer Data:")
+				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-25v | %-25v |  %-23v  \n",
+					"Id", "Customername", "CustomerFamily", "PID", "Creat@", "Update@", "Desc")
+				fmt.Println()
+				for ID, data := range globalVars.CustomerMapStore {
+					_, person := person.FindPersonByID(data.PersonID)
+					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-25v | %-25v | %-23v \n",
+						ID, person.FirstName, person.LastName, data.PersonID, (data.CreateAt).String()[0:19], (data.UpdatedAt).String()[0:19], data.Description)
 				}
 				ShowMenu()
 			}
@@ -317,6 +343,44 @@ func runMenu() {
 				}
 			}
 			ShowMenu()
+		case NewCustomer:
+			var (
+				personID uint
+			)
+			fmt.Println("insert person id")
+			fmt.Scanln(&personID)
+			fmt.Println("insert customer description")
+			scanner.Scan()
+			desc := scanner.Text()
+			customer.AddCustomer(protocol.Customer{
+				PersonID:    personID,
+				Description: desc,
+			})
+			ShowMenu()
+		case ListOfCustomer:
+			fmt.Println(separator7)
+			fmt.Println("Customer Data:")
+			fmt.Printf("%3v | %-15s | %-20v | %-8v | %-25v | %-25v |  %-23v  \n",
+				"Id", "Customername", "CustomerFamily", "PID", "Creat@", "Update@", "Desc")
+			fmt.Println()
+			for ID, data := range globalVars.CustomerMapStore {
+				_, person := person.FindPersonByID(data.PersonID)
+				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-25v | %-25v | %-23v \n",
+					ID, person.FirstName, person.LastName, data.PersonID, (data.CreateAt).String()[0:19], (data.UpdatedAt).String()[0:19], data.Description)
+			}
+			ShowMenu()
+		case FindOneCustomerById:
+			//some code
+		case FindCustomerContainingSomeCharacter:
+			//some code
+		case FindAndEditCustomerByCustomerId:
+			//some code
+		case DeleteCustomerById:
+			//some code
+		case DeleteMultiCustomerByIds:
+			//some code
+		case DeleteAllCustomers:
+			//some code
 		case NewPerson:
 			var (
 				FirstName       string

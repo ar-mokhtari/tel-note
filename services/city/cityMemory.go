@@ -3,7 +3,6 @@ package city
 import (
 	"strings"
 	"tel-note/protocol"
-	"tel-note/services/globalVars"
 )
 
 type storageMemory protocol.CityStorage
@@ -41,11 +40,10 @@ func (AllCity *storageMemory) NewCity(inputCity protocol.City) (bool, protocol.C
 		AriaCode: inputCity.AriaCode,
 	}
 	AllCity.CityData = append(AllCity.CityData, &result)
-	globalVars.CityMapStore[LastID] = append(globalVars.CityMapStore[LastID], &inputCity)
 	return true, protocol.CityStorage(*AllCity)
 }
 
-func (AllCity *storageMemory) EditCity(ID uint, newCity protocol.City) (bool bool, _ protocol.CityStorage) {
+func (AllCity *storageMemory) EditCity(ID uint, newCity protocol.City) bool {
 	for index, data := range AllCity.CityData {
 		if data.Id == ID {
 			//TODO:: what the hell below ... is there any cleaner way for test "is it not nil?"
@@ -58,10 +56,10 @@ func (AllCity *storageMemory) EditCity(ID uint, newCity protocol.City) (bool boo
 			if newCity.AriaCode != "" {
 				(AllCity.CityData)[index].AriaCode = newCity.AriaCode
 			}
-			return true, protocol.CityStorage(*AllCity)
+			return true
 		}
 	}
-	return false, protocol.CityStorage(*AllCity)
+	return false
 }
 
 func (AllCity *storageMemory) DeleteCity(IDS []uint) (resDel []uint) {
