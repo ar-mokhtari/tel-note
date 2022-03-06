@@ -13,7 +13,6 @@ type (
 		Data map[uint]*Customer
 	}
 	CustomerServices interface {
-		GetCustomers() CustomerStorage
 		NewCustomer(newCustomer Customer)
 		EditCustomer(id uint, EditedCustomer Customer)
 		DeleteCustomerById(id uint)
