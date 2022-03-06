@@ -24,3 +24,19 @@ func (AllCustomers storageMemory) NewCustomer(newCustomer protocol.Customer) {
 	globalVars.CustomerMapStore[LastID] = &newCustomer
 	//AllCustomers.Data[LastID] = &newCustomer
 }
+
+func (AllCustomers storageMemory) EditCustomer(id uint, EditedCustomer protocol.Customer) {
+	if EditedCustomer.PersonID != 0 {
+		globalVars.CustomerMapStore[id].PersonID = EditedCustomer.PersonID
+	}
+	if EditedCustomer.Description != "" {
+		globalVars.CustomerMapStore[id].Description = EditedCustomer.Description
+	}
+	if EditedCustomer.PersonID != 0 || EditedCustomer.Description != "" {
+		globalVars.CustomerMapStore[id].UpdatedAt = time.Now()
+	}
+}
+
+func (AllCustomers storageMemory) DeleteCustomerById(id uint) {
+	delete(globalVars.CustomerMapStore, id)
+}

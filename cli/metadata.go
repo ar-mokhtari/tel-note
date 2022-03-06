@@ -30,14 +30,12 @@ const (
 	InsertSomeSamplesContacts = "DATA"
 
 	//Customer meta data
-	NewCustomer                         = "NCU"
-	ListOfCustomer                      = "LCU"
-	FindOneCustomerById                 = "FCU"
-	FindCustomerContainingSomeCharacter = "FCUC"
-	FindAndEditCustomerByCustomerId     = "ECU"
-	DeleteCustomerById                  = "DCU"
-	DeleteMultiCustomerByIds            = "DMCU"
-	DeleteAllCustomers                  = "DACU"
+	NewCustomer              = "NCU"
+	ListOfCustomer           = "LCU"
+	EditCustomerByCustomerId = "ECU"
+	DeleteCustomerById       = "DCU"
+	DeleteMultiCustomerByIds = "DMCU"
+	DeleteAllCustomers       = "DACU"
 
 	//person meta data
 	NewPerson                         = "NP"

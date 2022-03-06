@@ -43,9 +43,6 @@ func ShowMenu() {
 	fmt.Printf("%-3s %s %3s \n", separator, "Customer Menu", separator)
 	fmt.Print(NewCustomer, "			|	new Customer\n")
 	fmt.Print(ListOfCustomer, "			|	list of Customer(s)\n")
-	fmt.Print(FindOneCustomerById, "			|	find one Customer by id\n")
-	fmt.Print(FindCustomerContainingSomeCharacter, "			|	find Customer, contain some character\n")
-	fmt.Print(FindAndEditCustomerByCustomerId, "			|	find and edit customer by customer id\n")
 	fmt.Print(DeleteCustomerById, "			|	delete Customer by id\n")
 	fmt.Print(DeleteMultiCustomerByIds, "			|	delete multi Customer by id(s)\n")
 	fmt.Print(DeleteAllCustomers, "			|	delete all Customer\n")
@@ -369,18 +366,46 @@ func runMenu() {
 					ID, person.FirstName, person.LastName, data.PersonID, (data.CreateAt).String()[0:19], (data.UpdatedAt).String()[0:19], data.Description)
 			}
 			ShowMenu()
-		case FindOneCustomerById:
-			//some code
-		case FindCustomerContainingSomeCharacter:
-			//some code
-		case FindAndEditCustomerByCustomerId:
-			//some code
+		case EditCustomerByCustomerId:
+			var customerID, personID uint
+			var description string
+			fmt.Println("insert customer id")
+			fmt.Scanln(&customerID)
+			fmt.Println("insert new person id")
+			fmt.Scanln(&personID)
+			fmt.Println("insert new description")
+			fmt.Scanln(&description)
+			customer.EditCustomer(customerID, protocol.Customer{
+				PersonID:    personID,
+				Description: description,
+			})
+			ShowMenu()
 		case DeleteCustomerById:
-			//some code
-		case DeleteMultiCustomerByIds:
-			//some code
+			var confirmDel string
+			fmt.Println("*** important, be careful, you are deleting customer(s) ***")
+			fmt.Println("do you want to continue? (yes or no)")
+			fmt.Scanln(&confirmDel)
+			if strings.ToLower(confirmDel) == YES {
+				var deleteIDS string
+				fmt.Println("insert your customer id(s) that you want to delete, separate id's by ',':")
+				fmt.Scanln(&deleteIDS)
+				idPack := strings.Split(deleteIDS, ",")
+				var idPackInt []uint
+				for _, i := range idPack {
+					j, err := strconv.Atoi(i)
+					if err != nil {
+						panic(err)
+					}
+					idPackInt = append(idPackInt, uint(j))
+					customer.DeleteCustomerById(uint(j))
+				}
+				fmt.Printf("%v customer(s) has been deleted", idPackInt)
+			}
+			ShowMenu()
 		case DeleteAllCustomers:
-			//some code
+			globalVars.CustomerMapStore = nil
+			fmt.Println("all customers deleted")
+			ShowMenu()
 		case NewPerson:
 			var (
 				FirstName       string
@@ -507,6 +532,27 @@ func runMenu() {
 				BirthLocationID := scanner.Text()
 				BirthLocationIDUINT, _ := strconv.ParseUint(BirthLocationID, 10, 8)
 				fmt.Println("insert GenderID")
+				var confirmDel string
+				fmt.Println("*** important, be careful, you are deleting person(s) ***")
+				fmt.Println("do you want to continue? (yes or no)")
+				fmt.Scanln(&confirmDel)
+				if strings.ToLower(confirmDel) == YES {
+					var deleteIDS string
+					fmt.Println("insert your person id(s) that you want to delete, separate id's by ',':")
+					fmt.Scanln(&deleteIDS)
+					idPack := strings.Split(deleteIDS, ",")
+					var idPackInt []uint
+					for _, i := range idPack {
+						j, err := strconv.Atoi(i)
+						if err != nil {
+							panic(err)
+						}
+						idPackInt = append(idPackInt, uint(j))
+					}
+					resNums := person.DeletePerson(idPackInt)
+					fmt.Printf("%v person(s) has been deleted", resNums)
+				}
+				ShowMenu()
 				scanner.Scan()
 				GenderID := scanner.Text()
 				GenderIDUINT, _ := strconv.ParseUint(GenderID, 10, 8)

@@ -3,6 +3,7 @@
     - Date and time
     - Check national id(s)
     - Insert and update city(ies) and its property(ies)
+    - ...
 # Send sms for different service(s)
 # Send email for different service(s)
 # Listen and export business data to applicant(s) [b2c]

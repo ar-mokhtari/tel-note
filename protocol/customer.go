@@ -15,5 +15,7 @@ type (
 	CustomerServices interface {
 		GetCustomers() CustomerStorage
 		NewCustomer(newCustomer Customer)
+		EditCustomer(id uint, EditedCustomer Customer)
+		DeleteCustomerById(id uint)
 	}
 )

@@ -18,16 +18,55 @@ var (
 
 	//----------- Test Vars -----------------
 	ContactDataTest = protocol.ContactStorage{
-		Data: []*protocol.Contact{&Alireza, &Kianoosh, &Omid, &Khorshid, &Reza, &Tom, &Frank, &Delaram},
+		Data: []*protocol.Contact{
+			&Alireza,
+			&Kianoosh,
+			&Omid,
+			&Khorshid,
+			&Reza,
+			&Tom,
+			&Frank,
+			&Delaram,
+		},
 	}
 	JobDataTest = []*protocol.Job{
-		AccountManager, Driver, StoreManager, Developer, SecurityMan, OfficialEmployee, WarehouseWorker, MasterChef}
+		AccountManager,
+		Driver,
+		StoreManager,
+		Developer,
+		SecurityMan,
+		OfficialEmployee,
+		WarehouseWorker,
+		MasterChef,
+	}
 
-	CityDataTest = []*protocol.City{&Tehran, &Shiraz, &Tabriz, &Karaj, &Mahabad, &Noshahr, &LostHeaven, &Rasht}
+	CityDataTest = []*protocol.City{
+		&Tehran,
+		&Shiraz,
+		&Tabriz,
+		&Karaj,
+		&Mahabad,
+		&Noshahr,
+		&LostHeaven,
+		&Rasht,
+	}
 
-	SexDataTest = []*protocol.Sex{Female, Male, Other}
+	SexDataTest = []*protocol.Sex{
+		Female,
+		Male,
+		Other,
+	}
 
-	PersonDataTest = []*protocol.Person{&AlirezaPerson, &KianooshPerson, &OmidPerson, &KhorshidPerson, &RezaPerson, &TomPerson, &FrankPerson, &DelaramPerson}
+	PersonDataTest = []*protocol.Person{
+		&AlirezaPerson,
+		&KianooshPerson,
+		&OmidPerson,
+		&KhorshidPerson,
+		&RezaPerson,
+		&TomPerson,
+		&FrankPerson,
+		&DelaramPerson,
+	}
 
 	CustomersDataTest = protocol.CustomerStorage{Data: map[uint]*protocol.Customer{
 		0: &AlirezaCust,
@@ -50,14 +89,37 @@ var (
 	Rasht      = protocol.City{Name: "Rasht", AriaCode: "013"}
 
 	// Person variable
-	AlirezaPerson  = protocol.Person{FirstName: "Alireza", LastName: "Mokhtari Garakani", GenderID: 2, BirthLocationID: 5, DOB: time.Unix(295345600, 0)}
-	KianooshPerson = protocol.Person{FirstName: "Kianoosh", LastName: "Ashayeri Zadeh", GenderID: 2, BirthLocationID: 2, DOB: time.Unix(922000000, 0)}
-	OmidPerson     = protocol.Person{FirstName: "Omid", LastName: "Hekayati", GenderID: 2, BirthLocationID: 1, DOB: time.Unix(332000000, 0)}
-	KhorshidPerson = protocol.Person{FirstName: "Khorshid", LastName: "Mokhtari Garakani", GenderID: 1, BirthLocationID: 7, DOB: time.Unix(1430592000, 0)}
-	RezaPerson     = protocol.Person{FirstName: "Reza", LastName: "Aslejedian", GenderID: 2, BirthLocationID: 8, DOB: time.Unix(995000000, 0)}
-	TomPerson      = protocol.Person{FirstName: "Tommy", LastName: "Angelo", GenderID: 2, BirthLocationID: 4, DOB: time.Unix(230000000, 0)}
-	FrankPerson    = protocol.Person{FirstName: "Frank", LastName: "Colleti", GenderID: 2, BirthLocationID: 3, DOB: time.Unix(180000000, 0)}
-	DelaramPerson  = protocol.Person{FirstName: "Delaram", GenderID: 1, BirthLocationID: 1}
+	AlirezaPerson = protocol.Person{
+		FirstName: "Alireza",
+		LastName:  "Mokhtari Garakani",
+		GenderID:  2, BirthLocationID: 5, DOB: time.Unix(295345600, 0)}
+	KianooshPerson = protocol.Person{
+		FirstName: "Kianoosh",
+		LastName:  "Ashayeri Zadeh",
+		GenderID:  2, BirthLocationID: 2, DOB: time.Unix(922000000, 0)}
+	OmidPerson = protocol.Person{
+		FirstName: "Omid",
+		LastName:  "Hekayati",
+		GenderID:  2, BirthLocationID: 1, DOB: time.Unix(332000000, 0)}
+	KhorshidPerson = protocol.Person{
+		FirstName: "Khorshid",
+		LastName:  "Mokhtari Garakani",
+		GenderID:  1, BirthLocationID: 7, DOB: time.Unix(1430592000, 0)}
+	RezaPerson = protocol.Person{
+		FirstName: "Reza",
+		LastName:  "Aslejedian",
+		GenderID:  2, BirthLocationID: 8, DOB: time.Unix(995000000, 0)}
+	TomPerson = protocol.Person{
+		FirstName: "Tommy",
+		LastName:  "Angelo",
+		GenderID:  2, BirthLocationID: 4, DOB: time.Unix(230000000, 0)}
+	FrankPerson = protocol.Person{
+		FirstName: "Frank",
+		LastName:  "Colleti",
+		GenderID:  2, BirthLocationID: 3, DOB: time.Unix(180000000, 0)}
+	DelaramPerson = protocol.Person{
+		FirstName: "Delaram",
+		GenderID:  1, BirthLocationID: 1}
 
 	// job variable
 	AccountManager   = &protocol.Job{Name: "AccountManager", LocationID: 2, Description: "", BasicPaymentPerHour: 0}
