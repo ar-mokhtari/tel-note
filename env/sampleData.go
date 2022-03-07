@@ -143,4 +143,17 @@ var (
 	KhorshidCust = protocol.Customer{PersonID: 4, Description: "power"}
 	RezaCust     = protocol.Customer{PersonID: 5, Description: "none"}
 	FrankCust    = protocol.Customer{PersonID: 7, Description: "---"}
+
+	CustomerGroup = protocol.CustomerGroupStorage{
+		&protocol.CustomerGroup{GroupID: 1, GroupName: "Real Customers"},
+		&protocol.CustomerGroup{GroupID: 2, GroupName: "Legal Customers"},
+	}
+
+	CustomerRelation = protocol.CustomerGRelationStorage{
+		&protocol.CustomerGroupRelation{CustomerID: 1, GroupID: 2},
+		&protocol.CustomerGroupRelation{CustomerID: 3, GroupID: 2},
+		&protocol.CustomerGroupRelation{CustomerID: 5, GroupID: 2},
+		&protocol.CustomerGroupRelation{CustomerID: 2, GroupID: 1},
+		&protocol.CustomerGroupRelation{CustomerID: 4, GroupID: 1},
+	}
 )

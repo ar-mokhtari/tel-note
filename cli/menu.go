@@ -40,6 +40,12 @@ func ShowMenu() {
 	fmt.Print(DeleteMultiContactByIds, "			|	delete multi contact by id(s)\n")
 	fmt.Print(DeleteAllContacts, "			|	delete all contacts\n")
 	//Customer Menu
+	fmt.Printf("%-3s %s %3s \n", separator, "Customer group Menu", separator)
+	fmt.Print(NewCustomerGroup, "			|	new Customer group\n")
+	fmt.Print(NewCustomerGRelation, "			|	new customer group relation\n")
+	fmt.Print(CustomerGroupList, "			|	customer group list\n")
+	fmt.Print(CustomerGroupRelationList, "			|	customer relation group list\n")
+	fmt.Print(FindCustomerByGroupID, "			|	find customer(s) by group id\n")
 	fmt.Printf("%-3s %s %3s \n", separator, "Customer Menu", separator)
 	fmt.Print(NewCustomer, "			|	new Customer\n")
 	fmt.Print(ListOfCustomer, "			|	list of Customer(s)\n")
@@ -134,6 +140,25 @@ func runMenu() {
 				fmt.Println("person Data:")
 				for _, data := range globalVars.PersonStore.PersonData {
 					fmt.Printf("%3v | %-15s \t %30s \n", data.Id, data.FirstName, data.LastName)
+				}
+				fmt.Println(separator7)
+				fmt.Println("Customer group Data:")
+				fmt.Printf("%3v | %-15s   \n", "Id", "Groupname")
+				fmt.Println()
+				for _, group := range customer.GetCustomerGroup() {
+					fmt.Printf("%3v | %-25s  \n",
+						group.GroupID, group.GroupName)
+				}
+				fmt.Println(separator7)
+				fmt.Println("Customer group relation Data:")
+				fmt.Printf("%3v | %-25s | %-13v | %-45s   \n", "Id", "Groupname", "CustomerID", "FullName")
+				fmt.Println()
+				for _, relation := range customer.GetCustomerGroupRelation() {
+					customerObject := customer.FindCustomerByID(relation.CustomerID)
+					_, personObject := person.FindPersonByID(customerObject.PersonID)
+					groupObject := customer.FindGroupByID(relation.GroupID)
+					fmt.Printf("%3v | %-25s | %-13v | %-45s \n",
+						relation.ID, groupObject.GroupName, relation.CustomerID, personObject.FirstName+" "+personObject.LastName)
 				}
 				fmt.Println(separator7)
 				fmt.Println("Customer Data:")
@@ -338,6 +363,60 @@ func runMenu() {
 						fmt.Println(status.String)
 					}
 				}
+			}
+			ShowMenu()
+		case NewCustomerGroup:
+			var groupName string
+			fmt.Println("insert group name:")
+			scanner.Scan()
+			groupName = scanner.Text()
+			customer.NewGroup(groupName)
+			ShowMenu()
+		case NewCustomerGRelation:
+			var customerID, groupID uint
+			fmt.Println("insert customerID:")
+			fmt.Scanln(&customerID)
+			fmt.Println("insert groupID:")
+			fmt.Scanln(&groupID)
+			customer.NewRelation(customerID, groupID)
+			ShowMenu()
+		case CustomerGroupList:
+			fmt.Println(separator7)
+			fmt.Println("Customer group Data:")
+			fmt.Printf("%3v | %-15s   \n", "Id", "Groupname")
+			fmt.Println()
+			for _, group := range customer.GetCustomerGroup() {
+				fmt.Printf("%3v | %-25s  \n",
+					group.GroupID, group.GroupName)
+			}
+			ShowMenu()
+		case CustomerGroupRelationList:
+			fmt.Println(separator7)
+			fmt.Println("Customer group relation Data:")
+			fmt.Printf("%3v | %-25s | %-13v | %-45s   \n", "Id", "Groupname", "CustomerID", "FullName")
+			fmt.Println()
+			for _, relation := range customer.GetCustomerGroupRelation() {
+				customerObject := customer.FindCustomerByID(relation.CustomerID)
+				_, personObject := person.FindPersonByID(customerObject.PersonID)
+				groupObject := customer.FindGroupByID(relation.GroupID)
+				fmt.Printf("%3v | %-25s | %-13v | %-45s \n",
+					relation.ID, groupObject.GroupName, relation.CustomerID, personObject.FirstName+" "+personObject.LastName)
+			}
+			ShowMenu()
+		case FindCustomerByGroupID:
+			var groupID uint
+			fmt.Println("insert group id:")
+			fmt.Scanln(&groupID)
+			fmt.Println(separator7)
+			fmt.Println("Customer Data:")
+			fmt.Println(">>> ", customer.FindGroupByID(groupID).GroupName, " <<<")
+			fmt.Printf("%3v | %-15s | %-20v | %-8v | %-25v | %-25v |  %-23v  \n",
+				"CID", "Customername", "CustomerFamily", "PID", "Creat@", "Update@", "Desc")
+			fmt.Println()
+			for ID, data := range customer.FindCustomerByGroupID(groupID).Data {
+				_, person := person.FindPersonByID(data.PersonID)
+				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-25v | %-25v | %-23v \n",
+					ID, person.FirstName, person.LastName, data.PersonID, (data.CreateAt).String()[0:19], (data.UpdatedAt).String()[0:19], data.Description)
 			}
 			ShowMenu()
 		case NewCustomer:

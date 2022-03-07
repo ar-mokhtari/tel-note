@@ -4,6 +4,7 @@ import (
 	"strings"
 	"tel-note/protocol"
 	"tel-note/services/globalVars"
+	"time"
 )
 
 type storageMemory protocol.PersonStorage
@@ -51,6 +52,7 @@ func (AllPerson *storageMemory) NewPerson(inputPerson protocol.Person) (bool, pr
 		GenderID:        inputPerson.GenderID,
 		NationalCode:    inputPerson.NationalCode,
 		Description:     inputPerson.Description,
+		CreateAt:        time.Now(),
 	}
 	AllPerson.PersonData = append(AllPerson.PersonData, &result)
 	return true, protocol.PersonStorage(*AllPerson)
@@ -80,6 +82,15 @@ func (AllPerson *storageMemory) EditPerson(ID uint, newPerson protocol.Person) b
 			}
 			if newPerson.GenderID != 0 {
 				(AllPerson.PersonData)[index].GenderID = newPerson.GenderID
+			}
+			if newPerson.FirstName != "" ||
+				newPerson.LastName != "" ||
+				newPerson.Description != "" ||
+				!(newPerson.DOB).IsZero() ||
+				newPerson.BirthLocationID != 0 ||
+				newPerson.NationalCode != "" ||
+				newPerson.GenderID != 0 {
+				(AllPerson.PersonData)[index].UpdateAt = time.Now()
 			}
 			return true
 		}

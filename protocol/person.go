@@ -12,6 +12,9 @@ type (
 		GenderID        uint
 		NationalCode    string
 		Description     string
+		Address         string
+		CreateAt        time.Time
+		UpdateAt        time.Time
 	}
 	PersonStorage struct {
 		PersonData []*Person

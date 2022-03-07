@@ -2,5 +2,9 @@ package customer
 
 func Init() {
 	var customerObject storageMemory
-	storage = &customerObject
+	var customerGroupObject group
+	var customerGRelationObject relation
+	storageCustomer = &customerObject
+	storageGroup = &customerGroupObject
+	storageRelation = &customerGRelationObject
 }
