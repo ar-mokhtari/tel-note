@@ -23,7 +23,8 @@ func TestNewContact(t *testing.T) {
 			Description: "none",
 		}
 		Init()
-		_, got := storage.AddContact(contactTest)
+		storage.AddContact(contactTest)
+		got := storage.GetContacts()
 		want := env.ContactDataTest
 		//slice env to one part
 		want.Data = (want.Data)[0:1]
