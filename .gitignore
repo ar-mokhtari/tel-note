@@ -16,4 +16,4 @@
 
 *.idea
 
-/env/apis/
+/env/apis/metadata.go
