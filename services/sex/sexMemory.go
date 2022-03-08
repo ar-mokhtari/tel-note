@@ -6,7 +6,11 @@ import (
 
 type storageMemory protocol.SexStorage
 
-func (AllSex *storageMemory) NewSex(inputSex protocol.Sex) (bool, protocol.SexStorage) {
+func (AllSex *storageMemory) GetSex() protocol.SexStorage {
+	return protocol.SexStorage(*AllSex)
+}
+
+func (AllSex *storageMemory) NewSex(inputSex protocol.Sex) bool {
 	var LastID uint8
 	for _, data := range AllSex.SexData {
 		if data.Id > LastID {
@@ -19,7 +23,7 @@ func (AllSex *storageMemory) NewSex(inputSex protocol.Sex) (bool, protocol.SexSt
 		Name: inputSex.Name,
 	}
 	AllSex.SexData = append(AllSex.SexData, &result)
-	return true, protocol.SexStorage(*AllSex)
+	return true
 }
 
 //TODO::: ForEditStrategy,AllEntity(ies)CanInputProtocolArgumentWithIdentityFieldAndDon'tNeedThisFieldSeparately

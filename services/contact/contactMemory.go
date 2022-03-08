@@ -2,7 +2,6 @@ package contact
 
 import (
 	"tel-note/protocol"
-	"tel-note/services/globalVars"
 	"tel-note/services/person"
 )
 
@@ -10,7 +9,11 @@ type (
 	storageMemory protocol.ContactStorage
 )
 
-func (AllContact *storageMemory) AddContact(inputContact protocol.Contact) (bool, protocol.ContactStorage) {
+func (AllContact *storageMemory) GetContacts() protocol.ContactStorage {
+	return protocol.ContactStorage(*AllContact)
+}
+
+func (AllContact *storageMemory) AddContact(inputContact protocol.Contact) bool {
 	var (
 		lastID uint
 	)
@@ -29,7 +32,7 @@ func (AllContact *storageMemory) AddContact(inputContact protocol.Contact) (bool
 		JobID:       inputContact.JobID,
 	}
 	AllContact.Data = append(AllContact.Data, &result)
-	return true, protocol.ContactStorage(*AllContact)
+	return true
 }
 
 func (AllContact *storageMemory) FindContactByID(id uint) (bool, protocol.Contact) {
@@ -87,7 +90,6 @@ func (AllContact *storageMemory) DeleteContactByID(ID uint) bool {
 		if data.Id == ID {
 			AllContact.Data = append((AllContact.Data)[:index], (AllContact.Data)[index+1:]...)
 			//TODO: BadSolution,HandelMultiDeleteInServiceOrStorageNotInClient
-			globalVars.ContactStore.Data = AllContact.Data
 			return true
 		}
 	}

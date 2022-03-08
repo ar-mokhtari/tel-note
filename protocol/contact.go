@@ -13,7 +13,8 @@ type (
 		Data []*Contact
 	}
 	ContactServices interface {
-		AddContact(inputContact Contact) (bool, ContactStorage)
+		GetContacts() ContactStorage
+		AddContact(inputContact Contact) bool
 		FindContactByID(id uint) (bool, Contact)
 		FindContactByChar(insertChar string) (status bool, result ContactStorage)
 		EditContactByID(newData Contact, ID uint) bool

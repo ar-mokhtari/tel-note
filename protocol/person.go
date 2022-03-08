@@ -23,7 +23,7 @@ type (
 		GetPersons() PersonStorage
 		FindPersonByChar(inputChar string) (bool, PersonStorage)
 		FindPersonByID(inputID uint) (status bool, res Person)
-		NewPerson(person Person) (bool, PersonStorage)
+		NewPerson(person Person) bool
 		EditPerson(ID uint, newPerson Person) bool
 		DeletePerson(IDS []uint) (resDel []uint)
 	}

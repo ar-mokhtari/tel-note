@@ -3,7 +3,6 @@ package person
 import (
 	"strings"
 	"tel-note/protocol"
-	"tel-note/services/globalVars"
 	"time"
 )
 
@@ -35,7 +34,7 @@ func (AllPerson *storageMemory) FindPersonByID(inputID uint) (bool, protocol.Per
 	return false, protocol.Person{}
 }
 
-func (AllPerson *storageMemory) NewPerson(inputPerson protocol.Person) (bool, protocol.PersonStorage) {
+func (AllPerson *storageMemory) NewPerson(inputPerson protocol.Person) bool {
 	var LastID uint
 	for _, data := range AllPerson.PersonData {
 		if data.Id > LastID {
@@ -55,7 +54,7 @@ func (AllPerson *storageMemory) NewPerson(inputPerson protocol.Person) (bool, pr
 		CreateAt:        time.Now(),
 	}
 	AllPerson.PersonData = append(AllPerson.PersonData, &result)
-	return true, protocol.PersonStorage(*AllPerson)
+	return true
 }
 
 func (AllPerson *storageMemory) EditPerson(ID uint, newPerson protocol.Person) bool {
@@ -107,6 +106,5 @@ func (AllPerson *storageMemory) DeletePerson(IDS []uint) (resDel []uint) {
 			}
 		}
 	}
-	globalVars.PersonStore.PersonData = AllPerson.PersonData
 	return resDel
 }

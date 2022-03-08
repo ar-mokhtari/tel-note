@@ -7,6 +7,10 @@ import (
 
 type storageMemory protocol.CityStorage
 
+func (AllCity *storageMemory) GetCities() protocol.CityStorage {
+	return protocol.CityStorage(*AllCity)
+}
+
 func (AllCity *storageMemory) FindCityByChar(inputChar string) (status bool, res []uint) {
 	for _, data := range AllCity.CityData {
 		if strings.Contains(data.Name, inputChar) {
@@ -26,7 +30,7 @@ func (AllCity *storageMemory) FindCityByID(inputID uint) (bool, protocol.City) {
 	return false, protocol.City{}
 }
 
-func (AllCity *storageMemory) NewCity(inputCity protocol.City) (bool, protocol.CityStorage) {
+func (AllCity *storageMemory) NewCity(inputCity protocol.City) bool {
 	var LastID uint
 	for _, data := range AllCity.CityData {
 		if data.Id > LastID {
@@ -40,7 +44,7 @@ func (AllCity *storageMemory) NewCity(inputCity protocol.City) (bool, protocol.C
 		AriaCode: inputCity.AriaCode,
 	}
 	AllCity.CityData = append(AllCity.CityData, &result)
-	return true, protocol.CityStorage(*AllCity)
+	return true
 }
 
 func (AllCity *storageMemory) EditCity(ID uint, newCity protocol.City) bool {
@@ -62,7 +66,7 @@ func (AllCity *storageMemory) EditCity(ID uint, newCity protocol.City) bool {
 	return false
 }
 
-func (AllCity *storageMemory) DeleteCity(IDS []uint) (resDel []uint) {
+func (AllCity *storageMemory) DeleteCityByID(IDS []uint) (resDel []uint) {
 	for _, id := range IDS {
 		for index, data := range AllCity.CityData {
 			if data.Id == id {

@@ -7,6 +7,10 @@ import (
 
 type storageMemory protocol.JobStorage
 
+func (AllJob *storageMemory) GetJobs() protocol.JobStorage {
+	return protocol.JobStorage(*AllJob)
+}
+
 func (AllJob *storageMemory) FindJobByChar(inputChar string) (status bool, res []uint) {
 	for _, data := range AllJob.JobData {
 		if strings.Contains(data.Name, inputChar) {
@@ -26,7 +30,7 @@ func (AllJob *storageMemory) FindJobByID(inputID uint) (bool, protocol.Job) {
 	return false, protocol.Job{}
 }
 
-func (AllJob *storageMemory) NewJob(inputJob protocol.Job) (bool, protocol.JobStorage) {
+func (AllJob *storageMemory) NewJob(inputJob protocol.Job) bool {
 	var LastID uint
 	for _, data := range AllJob.JobData {
 		if data.Id > LastID {
@@ -42,7 +46,7 @@ func (AllJob *storageMemory) NewJob(inputJob protocol.Job) (bool, protocol.JobSt
 		BasicPaymentPerHour: inputJob.BasicPaymentPerHour,
 	}
 	AllJob.JobData = append(AllJob.JobData, &result)
-	return true, protocol.JobStorage(*AllJob)
+	return true
 }
 
 func (AllJob *storageMemory) EditJob(ID uint, newJob protocol.Job) bool {
