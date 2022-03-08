@@ -66,6 +66,10 @@ func ShowMenu() {
 	fmt.Print(DeleteAllPersons, "			|	delete all person\n")
 	//country menu
 	fmt.Printf("%-3s %s %3s \n", separator, "Country menu", separator)
+	fmt.Print(AddCountry, "			|	new country\n")
+	fmt.Print(EditCountry, "			|	edit country\n")
+	fmt.Print(DeleteCountry, "			|	delete country(ies)\n")
+	fmt.Print(FindCountryByChar, "			|	find country by char\n")
 	fmt.Print(CountriesList, "			|	list of countries data\n")
 	//City Menu
 	fmt.Printf("%-3s %s %3s \n", separator, "City Menu", separator)
@@ -133,12 +137,12 @@ func runMenu() {
 				}
 				fmt.Println(separator7)
 				fmt.Println("Top 10 Country Data:")
-				fmt.Printf("%3v | %-45s | %-20v | %-20v | %-25v   \n",
-					"Id", "CountryName", "ShortName", "PrePhoneCode", "CapitalID")
+				fmt.Printf("%3v | %-45s | %-8v | %-10v | %-12v | %-19v | %-19v \n",
+					"Id", "CountryName", "ShName", "PrePhone", "CapID", "create@", "updated@")
 				fmt.Println()
 				for _, data := range country.GetCountry()[:10] {
-					fmt.Printf("%3v | %-45s | %-20v | %-20v | %-25v \n",
-						data.ID, data.Name, data.ShortName, data.PrePhoneCode, data.CapitalID)
+					fmt.Printf("%3v | %-45s | %-8v | %-10v | %-12v | %-19v | %-19v \n",
+						data.ID, data.Name, data.ShortName, data.PrePhoneCode, data.CapitalID, (data.CreatedAt).String()[0:16], (data.UpdatedAt).String()[0:16])
 				}
 				fmt.Println(separator7)
 				fmt.Println("Job Data:")
@@ -763,15 +767,97 @@ func runMenu() {
 				fmt.Printf("%v city(ies) has been deleted", resNums)
 			}
 			ShowMenu()
+		case AddCountry:
+			var newCountryName string
+			fmt.Println("insert new country name")
+			scanner.Scan()
+			newCountryName = scanner.Text()
+			var newShortName string
+			fmt.Println("insert new country newShortName")
+			fmt.Scanln(&newShortName)
+			var prePhoneCode uint
+			fmt.Println("insert new country prePhoneCode")
+			fmt.Scanln(&prePhoneCode)
+			var capitalID uint
+			fmt.Println("insert new country capitalID")
+			fmt.Scanln(&capitalID)
+			country.NewCountry(protocol.Country{
+				Name:         newCountryName,
+				ShortName:    newShortName,
+				PrePhoneCode: prePhoneCode,
+				CapitalID:    capitalID,
+			})
+			ShowMenu()
+		case EditCountry:
+			var countryID uint
+			fmt.Println("insert country id")
+			fmt.Scanln(&countryID)
+			var newCountryName string
+			fmt.Println("insert new country name")
+			scanner.Scan()
+			newCountryName = scanner.Text()
+			var newShortName string
+			fmt.Println("insert new country newShortName")
+			fmt.Scanln(&newShortName)
+			var prePhoneCode uint
+			fmt.Println("insert new country prePhoneCode")
+			fmt.Scanln(&prePhoneCode)
+			var capitalID uint
+			fmt.Println("insert new country capitalID")
+			fmt.Scanln(&capitalID)
+			country.EditCountry(protocol.Country{
+				ID:           countryID,
+				Name:         newCountryName,
+				ShortName:    newShortName,
+				PrePhoneCode: prePhoneCode,
+				CapitalID:    capitalID,
+			})
+			ShowMenu()
+		case DeleteCountry:
+			var confirmDel string
+			fmt.Println("*** important, be careful, you are deleting country(ies) ***")
+			fmt.Println("do you want to continue? (yes or no)")
+			fmt.Scanln(&confirmDel)
+			if strings.ToLower(confirmDel) == YES {
+				var deleteIDS string
+				fmt.Println("insert your country id(s) that you want to delete, for more than one, separate id's by ',':")
+				fmt.Scanln(&deleteIDS)
+				idPack := strings.Split(deleteIDS, ",")
+				var idPackInt []uint
+				for _, i := range idPack {
+					j, err := strconv.Atoi(i)
+					if err != nil {
+						panic(err)
+					}
+					idPackInt = append(idPackInt, uint(j))
+				}
+				resNums := country.DeleteCountry(idPackInt)
+				fmt.Printf("%v country(ies) has been deleted", resNums)
+			}
+			ShowMenu()
+		case FindCountryByChar:
+			println("insert character")
+			scanner.Scan()
+			insertChar := scanner.Text()
+			fmt.Println(separator7)
+			fmt.Println("Country Data:")
+			fmt.Printf("%3v | %-45s | %-8v | %-10v | %-12v | %-19v  | %-19v   \n",
+				"Id", "CountryName", "ShName", "PrePhone", "CapID", "create@", "updated@")
+			fmt.Println()
+			for _, data := range country.FindCountryByChar(insertChar) {
+				fmt.Printf("%3v | %-45s | %-8v | %-10v | %-12v | %-19v  | %-19v   \n",
+					data.ID, data.Name, data.ShortName, data.PrePhoneCode, data.CapitalID, (data.CreatedAt).String()[0:16], (data.UpdatedAt).String()[0:16])
+			}
+			ShowMenu()
 		case CountriesList:
 			fmt.Println(separator7)
 			fmt.Println("Country Data:")
-			fmt.Printf("%3v | %-45s | %-20v | %-20v | %-25v   \n",
-				"Id", "CountryName", "ShortName", "PrePhoneCode", "CapitalID")
+			fmt.Printf("%3v | %-45s | %-8v | %-10v | %-12v | %-19v  | %-19v   \n",
+				"Id", "CountryName", "ShName", "PrePhone", "CapID", "create@", "updated@")
 			fmt.Println()
 			for _, data := range country.GetCountry() {
-				fmt.Printf("%3v | %-45s | %-20v | %-20v | %-25v \n",
-					data.ID, data.Name, data.ShortName, data.PrePhoneCode, data.CapitalID)
+				fmt.Printf("%3v | %-45s | %-8v | %-10v | %-12v | %-19v  | %-19v   \n",
+					data.ID, data.Name, data.ShortName, data.PrePhoneCode, data.CapitalID, (data.CreatedAt).String()[0:16], (data.UpdatedAt).String()[0:16])
 			}
 			ShowMenu()
 		case InsertNewJob:
@@ -852,7 +938,7 @@ func runMenu() {
 					idPackInt = append(idPackInt, uint(j))
 				}
 				resNums := job.DeleteJobByID(idPackInt)
-				fmt.Printf("%v city(ies) has been deleted", resNums)
+				fmt.Printf("%v job(s) has been deleted", resNums)
 			}
 			ShowMenu()
 		case ListOfJob:

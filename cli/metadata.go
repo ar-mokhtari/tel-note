@@ -59,7 +59,11 @@ const (
 	ListOfCities   = "LC"
 
 	//countries meta data
-	CountriesList = "COUL"
+	AddCountry        = "ACOU"
+	EditCountry       = "ECOU"
+	DeleteCountry     = "DCOU"
+	FindCountryByChar = "FCOUBC"
+	CountriesList     = "COUL"
 
 	//job meta data
 	InsertNewJob  = "NJ"
