@@ -58,6 +58,9 @@ const (
 	DeleteCityById = "DC"
 	ListOfCities   = "LC"
 
+	//countries meta data
+	CountriesList = "COUL"
+
 	//job meta data
 	InsertNewJob  = "NJ"
 	EditJobById   = "EJ"
@@ -72,7 +75,4 @@ const (
 
 	//print all
 	PrintAllData = "ALL"
-
-	//get countries with api
-	GetCountries = "GC"
 )

@@ -1,6 +1,7 @@
 package country
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -10,9 +11,13 @@ import (
 	"tel-note/protocol"
 )
 
-type storageCountry protocol.CityStorage
+type storageCountry protocol.CountryStorage
 
-func (AllCountries storageCountry) GetCountry() protocol.CountryStorage {
+func (AllCountries *storageCountry) GetCountry() protocol.CountryStorage {
+	return protocol.CountryStorage(*AllCountries)
+}
+
+func (AllCountries *storageCountry) CallCountry() {
 	client := &http.Client{}
 	req, _ := http.NewRequest("GET", apis.UniversalTutorialURL, nil)
 	req.Header.Set("Accept", "application/json")
@@ -26,6 +31,26 @@ func (AllCountries storageCountry) GetCountry() protocol.CountryStorage {
 	if readErr != nil {
 		log.Fatalln(readErr)
 	}
-	fmt.Println(string(responseData))
-	return protocol.CountryStorage{}
+	var AllResult protocol.CountryStorage
+	json.Unmarshal(responseData, &AllResult)
+	for _, country := range AllResult {
+		storageService.NewCountry(*country)
+	}
+}
+
+func (AllCountries *storageCountry) NewCountry(newCountry protocol.Country) {
+	var LastID uint
+	for _, country := range *AllCountries {
+		if country.ID > LastID {
+			LastID = country.ID
+		}
+	}
+	LastID += 1
+	*AllCountries = append(*AllCountries, &protocol.Country{
+		ID:           LastID,
+		Name:         newCountry.Name,
+		CapitalID:    newCountry.CapitalID,
+		ShortName:    newCountry.ShortName,
+		PrePhoneCode: newCountry.PrePhoneCode,
+	})
 }

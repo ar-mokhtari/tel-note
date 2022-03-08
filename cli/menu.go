@@ -64,6 +64,9 @@ func ShowMenu() {
 	fmt.Print(DeletePersonById, "			|	delete person by id\n")
 	fmt.Print(DeleteMultiPersonByIds, "			|	delete multi person by id(s)\n")
 	fmt.Print(DeleteAllPersons, "			|	delete all person\n")
+	//country menu
+	fmt.Printf("%-3s %s %3s \n", separator, "Country menu", separator)
+	fmt.Print(CountriesList, "			|	list of countries data\n")
 	//City Menu
 	fmt.Printf("%-3s %s %3s \n", separator, "City Menu", separator)
 	fmt.Print(InsertNewCity, "			|	insert new city\n")
@@ -91,9 +94,6 @@ func ShowMenu() {
 		fmt.Print(InsertSomeSamplesContacts, "			|	insert some sample's contacts\n")
 		fmt.Printf("%-3s %s %3s \n", separator, "Print All", separator)
 		fmt.Print(PrintAllData, "			|	print all data\n")
-		fmt.Println(separator7)
-		fmt.Printf("%-3s %s %3s \n", separator, "Call country API", separator)
-		fmt.Print(GetCountries, "			|	call all countries data\n")
 		fmt.Println(separator7)
 	}
 	runMenu()
@@ -130,6 +130,15 @@ func runMenu() {
 				fmt.Println("City Data:")
 				for _, data := range city.GetCities().CityData {
 					fmt.Printf("%3v | %-15v \n", data.Id, data.Name)
+				}
+				fmt.Println(separator7)
+				fmt.Println("Top 10 Country Data:")
+				fmt.Printf("%3v | %-45s | %-20v | %-20v | %-25v   \n",
+					"Id", "CountryName", "ShortName", "PrePhoneCode", "CapitalID")
+				fmt.Println()
+				for _, data := range country.GetCountry()[:10] {
+					fmt.Printf("%3v | %-45s | %-20v | %-20v | %-25v \n",
+						data.ID, data.Name, data.ShortName, data.PrePhoneCode, data.CapitalID)
 				}
 				fmt.Println(separator7)
 				fmt.Println("Job Data:")
@@ -175,9 +184,6 @@ func runMenu() {
 					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-25v | %-25v | %-23v \n",
 						ID, person.FirstName, person.LastName, data.PersonID, (data.CreateAt).String()[0:19], (data.UpdatedAt).String()[0:19], data.Description)
 				}
-				ShowMenu()
-			case GetCountries:
-				country.GetCountries()
 				ShowMenu()
 			}
 		}
@@ -755,6 +761,17 @@ func runMenu() {
 				}
 				resNums := city.DeleteCity(idPackInt)
 				fmt.Printf("%v city(ies) has been deleted", resNums)
+			}
+			ShowMenu()
+		case CountriesList:
+			fmt.Println(separator7)
+			fmt.Println("Country Data:")
+			fmt.Printf("%3v | %-45s | %-20v | %-20v | %-25v   \n",
+				"Id", "CountryName", "ShortName", "PrePhoneCode", "CapitalID")
+			fmt.Println()
+			for _, data := range country.GetCountry() {
+				fmt.Printf("%3v | %-45s | %-20v | %-20v | %-25v \n",
+					data.ID, data.Name, data.ShortName, data.PrePhoneCode, data.CapitalID)
 			}
 			ShowMenu()
 		case InsertNewJob:
