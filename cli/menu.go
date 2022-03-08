@@ -10,6 +10,7 @@ import (
 	"tel-note/protocol"
 	"tel-note/services/city"
 	"tel-note/services/contact"
+	"tel-note/services/country"
 	"tel-note/services/customer"
 	"tel-note/services/fillSampleData"
 	"tel-note/services/globalVars"
@@ -91,6 +92,9 @@ func ShowMenu() {
 		fmt.Printf("%-3s %s %3s \n", separator, "Print All", separator)
 		fmt.Print(PrintAllData, "			|	print all data\n")
 		fmt.Println(separator7)
+		fmt.Printf("%-3s %s %3s \n", separator, "Call country API", separator)
+		fmt.Print(GetCountries, "			|	call all countries data\n")
+		fmt.Println(separator7)
 	}
 	runMenu()
 }
@@ -171,6 +175,9 @@ func runMenu() {
 					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-25v | %-25v | %-23v \n",
 						ID, person.FirstName, person.LastName, data.PersonID, (data.CreateAt).String()[0:19], (data.UpdatedAt).String()[0:19], data.Description)
 				}
+				ShowMenu()
+			case GetCountries:
+				country.GetCountries()
 				ShowMenu()
 			}
 		}

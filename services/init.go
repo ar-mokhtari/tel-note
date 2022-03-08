@@ -3,6 +3,7 @@ package services
 import (
 	"tel-note/services/city"
 	"tel-note/services/contact"
+	"tel-note/services/country"
 	"tel-note/services/customer"
 	"tel-note/services/job"
 	"tel-note/services/person"
@@ -15,6 +16,9 @@ func Init() {
 
 	//init city services
 	city.Init()
+
+	//init country services
+	country.Init()
 
 	//init job services
 	job.Init()

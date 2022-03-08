@@ -72,4 +72,7 @@ const (
 
 	//print all
 	PrintAllData = "ALL"
+
+	//get countries with api
+	GetCountries = "GC"
 )
