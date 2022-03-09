@@ -3,9 +3,20 @@ package cli
 // MetaData & Usage
 // A metadata is a data that describes other data in a structured way.
 // We will use content variables to describe our hardcoded string data.
+//TODO::: + string(rune(iota)) (for generate unique routes)
 
 const (
-	//general meta data
+	// YES general meta data
+	// NewContactRecord contact meta data
+	// InsertSomeSamplesContacts insert sample data
+	// NewCustomerGroup Customer meta data
+	// NewPerson person meta data
+	// InsertNewCity city meta data
+	// AddCountry countries meta data
+	// InsertNewJob job meta data
+	// InsertNewSex sex meta data
+	// PrintAllData
+
 	YES             = "yes"
 	NO              = "no"
 	OK              = "ok"
@@ -14,9 +25,6 @@ const (
 	RegulatorString = "reg"
 	RESET           = "RESET"
 
-	//TODO::: + string(rune(iota)) (for generate unique routes)
-
-	// contact meta data
 	NewContactRecord                   = "N"
 	ListOfContact                      = "L"
 	FindOneContactById                 = "F"
@@ -26,10 +34,8 @@ const (
 	DeleteMultiContactByIds            = "DM"
 	DeleteAllContacts                  = "DA"
 
-	// insert sample data
 	InsertSomeSamplesContacts = "DATA"
 
-	//Customer meta data
 	NewCustomerGroup          = "NCUG"
 	NewCustomerGRelation      = "NCUGR"
 	CustomerGroupList         = "CUGL"
@@ -42,7 +48,6 @@ const (
 	DeleteMultiCustomerByIds  = "DMCU"
 	DeleteAllCustomers        = "DACU"
 
-	//person meta data
 	NewPerson                         = "NP"
 	ListOfPerson                      = "LP"
 	FindOnePersonById                 = "FP"
@@ -52,31 +57,26 @@ const (
 	DeleteMultiPersonByIds            = "DMP"
 	DeleteAllPersons                  = "DAP"
 
-	//city meta data
 	InsertNewCity  = "NC"
 	EditCityById   = "EC"
 	DeleteCityById = "DC"
 	ListOfCities   = "LC"
 
-	//countries meta data
 	AddCountry        = "ACOU"
 	EditCountry       = "ECOU"
 	DeleteCountry     = "DCOU"
 	FindCountryByChar = "FCOUBC"
 	CountriesList     = "COUL"
 
-	//job meta data
 	InsertNewJob  = "NJ"
 	EditJobById   = "EJ"
 	DeleteJobById = "DJ"
 	ListOfJob     = "LJ"
 
-	//sex meta data
 	InsertNewSex = "NS"
 	ListOfSex    = "LS"
 	EditSex      = "ES"
 	DeleteSex    = "DS"
 
-	//print all
 	PrintAllData = "ALL"
 )

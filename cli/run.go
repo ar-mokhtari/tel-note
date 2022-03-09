@@ -1,9 +1,5 @@
 package cli
 
-import (
-	"tel-note/services"
-)
-
 func RunApp() {
 	//serve port 1212
 	//cli.Serv()
@@ -13,9 +9,6 @@ func RunApp() {
 
 	//Show greeting note and description
 	ShowGreeting()
-
-	//create global services
-	services.Init()
 
 	//show contact menu
 	ShowMenu()
