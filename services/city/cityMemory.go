@@ -90,7 +90,7 @@ func (AllCity *storageMemory) DeleteCityByID(IDS []uint) (resDel []uint) {
 	return resDel
 }
 
-func (AllCity *storageMemory) CallTimeDistanceTwoCities(cityNoOne, cityNoTwo protocol.City) []string {
+func (AllCity *storageMemory) CallTimeDistanceTwoCities(cityNoOne, cityNoTwo protocol.City) ([]string, bool) {
 	tr := &http.Transport{
 		MaxIdleConns:       10,
 		IdleConnTimeout:    30 * time.Second,
@@ -116,8 +116,14 @@ func (AllCity *storageMemory) CallTimeDistanceTwoCities(cityNoOne, cityNoTwo pro
 	}
 	var AllResult neshan.DistanceMatrix
 	json.Unmarshal(responseData, &AllResult)
-	return []string{
-		AllResult.Rows[0].Elements[0].Duration.Text,
-		AllResult.Rows[0].Elements[0].Distance.Text,
+	switch AllResult.Rows == nil {
+	case true:
+		return []string{}, false
+	case false:
+		return []string{
+			AllResult.Rows[0].Elements[0].Duration.Text,
+			AllResult.Rows[0].Elements[0].Distance.Text,
+		}, true
 	}
+	return []string{}, false
 }

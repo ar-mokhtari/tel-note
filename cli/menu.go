@@ -786,9 +786,13 @@ func runMenu() {
 			firstStatus, dataFirstCity := city.FindCityByID(firstCityCode)
 			secondStatus, dataSecondCity := city.FindCityByID(secondCityCode)
 			if firstStatus.State && secondStatus.State {
-				result := city.CallDistanceTimeTwoCities(dataFirstCity, dataSecondCity)
-				fmt.Println(result[0])
-				fmt.Println(result[1])
+				result, state := city.CallDistanceTimeTwoCities(dataFirstCity, dataSecondCity)
+				if state.State {
+					fmt.Println(result[0])
+					fmt.Println(result[1])
+				} else {
+					fmt.Println("method send nothing")
+				}
 			} else {
 				fmt.Println("not found")
 			}
