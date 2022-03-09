@@ -49,6 +49,8 @@ var (
 		&Noshahr,
 		&LostHeaven,
 		&Rasht,
+		&Abadan,
+		&Kish,
 	}
 
 	SexDataTest = []*protocol.Sex{
@@ -79,14 +81,16 @@ var (
 	//----------- Test Vars -----------------
 
 	// cities variable
-	Tehran     = protocol.City{Name: "Tehran", AriaCode: "021"}
-	Shiraz     = protocol.City{Name: "Shiraz", AriaCode: "061"}
-	Tabriz     = protocol.City{Name: "Tabriz", AriaCode: "041"}
-	Karaj      = protocol.City{Name: "Karaj", AriaCode: "026"}
-	Mahabad    = protocol.City{Name: "Mahabad", AriaCode: "051"}
-	Noshahr    = protocol.City{Name: "Noshahr", AriaCode: "011"}
+	Tehran     = protocol.City{Name: "Tehran", AriaCode: "021", Lat: 35.696733, Lng: 51.2097354}
+	Shiraz     = protocol.City{Name: "Shiraz", AriaCode: "061", Lat: 29.6655016, Lng: 52.3929325}
+	Tabriz     = protocol.City{Name: "Tabriz", AriaCode: "041", Lat: 38.0802852, Lng: 46.1536431}
+	Karaj      = protocol.City{Name: "Karaj", AriaCode: "026", Lat: 35.8109689, Lng: 50.8772975}
+	Mahabad    = protocol.City{Name: "Mahabad", AriaCode: "051", Lat: 36.7659726, Lng: 45.6948439}
+	Noshahr    = protocol.City{Name: "Noshahr", AriaCode: "011", Lat: 36.6502418, Lng: 51.4693375}
 	LostHeaven = protocol.City{Name: "LostHeaven", AriaCode: "+1"}
-	Rasht      = protocol.City{Name: "Rasht", AriaCode: "013"}
+	Rasht      = protocol.City{Name: "Rasht", AriaCode: "013", Lat: 37.244096, Lng: 49.5163231}
+	Abadan     = protocol.City{Name: "Abadan", AriaCode: "0631", Lat: 30.3902492, Lng: 48.1193191}
+	Kish       = protocol.City{Name: "Kish", AriaCode: "0764442", Lat: 26.5360317, Lng: 53.9043458}
 
 	// Person variable
 	AlirezaPerson = protocol.Person{

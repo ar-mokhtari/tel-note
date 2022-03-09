@@ -57,10 +57,11 @@ const (
 	DeleteMultiPersonByIds            = "DMP"
 	DeleteAllPersons                  = "DAP"
 
-	InsertNewCity  = "NC"
-	EditCityById   = "EC"
-	DeleteCityById = "DC"
-	ListOfCities   = "LC"
+	InsertNewCity             = "NC"
+	EditCityById              = "EC"
+	DeleteCityById            = "DC"
+	ListOfCities              = "LC"
+	CallDistanceTimeTwoCities = "CDTTC"
 
 	AddCountry        = "ACOU"
 	EditCountry       = "ECOU"

@@ -77,6 +77,7 @@ func ShowMenu() {
 	fmt.Print(ListOfCities, "			|	list of city(ies)\n")
 	fmt.Print(EditCityById, "			|	edit city by id\n")
 	fmt.Print(DeleteCityById, "			|	delete city by id\n")
+	fmt.Print(CallDistanceTimeTwoCities, "			|	find distance/time online traffic two cities\n")
 	//Job Menu
 	fmt.Printf("%-3s %s %3s \n", separator, "Job Menu", separator)
 	fmt.Print(InsertNewJob, "			|	insert new job\n")
@@ -140,9 +141,11 @@ func runMenu() {
 				fmt.Printf("%3v | %-45s | %-8v | %-10v | %-12v | %-19v | %-19v \n",
 					"Id", "CountryName", "ShName", "PrePhone", "CapID", "create@", "updated@")
 				fmt.Println()
-				for _, data := range country.GetCountry()[:10] {
-					fmt.Printf("%3v | %-45s | %-8v | %-10v | %-12v | %-19v | %-19v \n",
-						data.ID, data.Name, data.ShortName, data.PrePhoneCode, data.CapitalID, (data.CreatedAt).String()[0:16], (data.UpdatedAt).String()[0:16])
+				if country.GetCountry() != nil {
+					for _, data := range country.GetCountry()[:10] {
+						fmt.Printf("%3v | %-45s | %-8v | %-10v | %-12v | %-19v | %-19v \n",
+							data.ID, data.Name, data.ShortName, data.PrePhoneCode, data.CapitalID, (data.CreatedAt).String()[0:16], (data.UpdatedAt).String()[0:16])
+					}
 				}
 				fmt.Println(separator7)
 				fmt.Println("Job Data:")
@@ -708,14 +711,21 @@ func runMenu() {
 			ShowMenu()
 		case InsertNewCity:
 			var inputCity, ariaCode string
+			var lat, lng float64
 			fmt.Println("insert city name:")
 			scanner.Scan()
 			inputCity = scanner.Text()
 			fmt.Println("insert aria code:")
 			fmt.Scanln(&ariaCode)
+			fmt.Println("insert lat:")
+			fmt.Scanln(&lat)
+			fmt.Println("insert lng:")
+			fmt.Scanln(&lng)
 			if city.NewCity(protocol.City{
 				Name:     inputCity,
 				AriaCode: ariaCode,
+				Lat:      lat,
+				Lng:      lng,
 			}).State {
 				fmt.Println("New city added")
 			}
@@ -765,6 +775,22 @@ func runMenu() {
 				}
 				resNums := city.DeleteCity(idPackInt)
 				fmt.Printf("%v city(ies) has been deleted", resNums)
+			}
+			ShowMenu()
+		case CallDistanceTimeTwoCities:
+			var firstCityCode, secondCityCode uint
+			fmt.Println("insert first city id:")
+			fmt.Scanln(&firstCityCode)
+			fmt.Println("insert second city id:")
+			fmt.Scanln(&secondCityCode)
+			firstStatus, dataFirstCity := city.FindCityByID(firstCityCode)
+			secondStatus, dataSecondCity := city.FindCityByID(secondCityCode)
+			if firstStatus.State && secondStatus.State {
+				result := city.CallDistanceTimeTwoCities(dataFirstCity, dataSecondCity)
+				fmt.Println(result[0])
+				fmt.Println(result[1])
+			} else {
+				fmt.Println("not found")
 			}
 			ShowMenu()
 		case AddCountry:
@@ -855,9 +881,11 @@ func runMenu() {
 			fmt.Printf("%3v | %-45s | %-8v | %-10v | %-12v | %-19v  | %-19v   \n",
 				"Id", "CountryName", "ShName", "PrePhone", "CapID", "create@", "updated@")
 			fmt.Println()
-			for _, data := range country.GetCountry() {
-				fmt.Printf("%3v | %-45s | %-8v | %-10v | %-12v | %-19v  | %-19v   \n",
-					data.ID, data.Name, data.ShortName, data.PrePhoneCode, data.CapitalID, (data.CreatedAt).String()[0:16], (data.UpdatedAt).String()[0:16])
+			if country.GetCountry() != nil {
+				for _, data := range country.GetCountry() {
+					fmt.Printf("%3v | %-45s | %-8v | %-10v | %-12v | %-19v  | %-19v   \n",
+						data.ID, data.Name, data.ShortName, data.PrePhoneCode, data.CapitalID, (data.CreatedAt).String()[0:16], (data.UpdatedAt).String()[0:16])
+				}
 			}
 			ShowMenu()
 		case InsertNewJob:

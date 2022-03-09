@@ -1,8 +1,18 @@
 package city
 
 import (
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"log"
+	"net/http"
+	"net/url"
+	"os"
 	"strings"
+	"tel-note/SDK/neshan"
+	"tel-note/env/apis"
 	"tel-note/protocol"
+	"time"
 )
 
 type storageMemory protocol.CityStorage
@@ -42,6 +52,8 @@ func (AllCity *storageMemory) NewCity(inputCity protocol.City) bool {
 		Id:       LastID,
 		Name:     inputCity.Name,
 		AriaCode: inputCity.AriaCode,
+		Lat:      inputCity.Lat,
+		Lng:      inputCity.Lng,
 	}
 	AllCity.CityData = append(AllCity.CityData, &result)
 	return true
@@ -76,4 +88,36 @@ func (AllCity *storageMemory) DeleteCityByID(IDS []uint) (resDel []uint) {
 		}
 	}
 	return resDel
+}
+
+func (AllCity *storageMemory) CallTimeDistanceTwoCities(cityNoOne, cityNoTwo protocol.City) []string {
+	tr := &http.Transport{
+		MaxIdleConns:       10,
+		IdleConnTimeout:    30 * time.Second,
+		DisableCompression: true,
+	}
+	client := &http.Client{Transport: tr}
+	urlParams := url.Values{}
+	urlParams.Add("type", "car")
+	urlParams.Add("origins", fmt.Sprintf("%f,%f", cityNoOne.Lat, cityNoOne.Lng))
+	urlParams.Add("destinations", fmt.Sprintf("%f,%f", cityNoTwo.Lat, cityNoTwo.Lng))
+	req, _ := http.NewRequest("GET", apis.NeshanURL, nil)
+	req.URL.RawQuery = urlParams.Encode()
+	req.Header.Set("Api-Key", apis.NeshanAPIKey)
+	response, callErr := client.Do(req)
+	if callErr != nil {
+		fmt.Println(callErr.Error())
+		os.Exit(1)
+	}
+	defer response.Body.Close()
+	responseData, readErr := ioutil.ReadAll(response.Body)
+	if readErr != nil {
+		log.Fatalln(readErr)
+	}
+	var AllResult neshan.DistanceMatrix
+	json.Unmarshal(responseData, &AllResult)
+	return []string{
+		AllResult.Rows[0].Elements[0].Duration.Text,
+		AllResult.Rows[0].Elements[0].Distance.Text,
+	}
 }

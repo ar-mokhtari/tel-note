@@ -20,7 +20,12 @@ func (AllCountries *storageCountry) GetCountry() protocol.CountryStorage {
 }
 
 func (AllCountries *storageCountry) CallCountry() {
-	client := &http.Client{}
+	tr := &http.Transport{
+		MaxIdleConns:       10,
+		IdleConnTimeout:    30 * time.Second,
+		DisableCompression: true,
+	}
+	client := &http.Client{Transport: tr}
 	req, _ := http.NewRequest("GET", apis.UniversalTutorialURL, nil)
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("Authorization", apis.UniversalTutorialAPIKey)
@@ -29,6 +34,7 @@ func (AllCountries *storageCountry) CallCountry() {
 		fmt.Println(callErr.Error())
 		os.Exit(1)
 	}
+	defer response.Body.Close()
 	responseData, readErr := ioutil.ReadAll(response.Body)
 	if readErr != nil {
 		log.Fatalln(readErr)
