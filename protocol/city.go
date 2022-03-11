@@ -19,6 +19,6 @@ type (
 		NewCity(inputCity City) bool
 		EditCity(ID uint, newCity City) bool
 		DeleteCityByID(IDS []uint) (resDel []uint)
-		CallTimeDistanceTwoCities(cityNoOne, cityNoTwo City) ([]string, bool)
+		CallTimeDistanceTwoCities(cityNoOne, cityNoTwo City) ([]uint, bool)
 	}
 )

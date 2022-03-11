@@ -7,11 +7,11 @@ type (
 			Elements []struct {
 				Status   string `json:"status,omitempty"`
 				Duration struct {
-					Value int    `json:"value,omitempty"`
+					Value uint   `json:"value,omitempty"`
 					Text  string `json:"text,omitempty"`
 				} `json:"duration"`
 				Distance struct {
-					Value int    `json:"value,omitempty"`
+					Value uint   `json:"value,omitempty"`
 					Text  string `json:"text,omitempty"`
 				} `json:"distance"`
 			} `json:"elements,omitempty"`

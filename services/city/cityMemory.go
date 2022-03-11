@@ -90,7 +90,7 @@ func (AllCity *storageMemory) DeleteCityByID(IDS []uint) (resDel []uint) {
 	return resDel
 }
 
-func (AllCity *storageMemory) CallTimeDistanceTwoCities(cityNoOne, cityNoTwo protocol.City) ([]string, bool) {
+func (AllCity *storageMemory) CallTimeDistanceTwoCities(cityNoOne, cityNoTwo protocol.City) ([]uint, bool) {
 	tr := &http.Transport{
 		MaxIdleConns:       10,
 		IdleConnTimeout:    30 * time.Second,
@@ -118,12 +118,12 @@ func (AllCity *storageMemory) CallTimeDistanceTwoCities(cityNoOne, cityNoTwo pro
 	json.Unmarshal(responseData, &AllResult)
 	switch AllResult.Rows == nil {
 	case true:
-		return []string{}, false
+		return []uint{}, false
 	case false:
-		return []string{
-			AllResult.Rows[0].Elements[0].Duration.Text,
-			AllResult.Rows[0].Elements[0].Distance.Text,
+		return []uint{
+			AllResult.Rows[0].Elements[0].Duration.Value,
+			AllResult.Rows[0].Elements[0].Distance.Value,
 		}, true
 	}
-	return []string{}, false
+	return []uint{}, false
 }
