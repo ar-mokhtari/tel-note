@@ -3,16 +3,10 @@ package city
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"log"
-	"net/http"
-	"net/url"
-	"os"
 	"strings"
 	"tel-note/SDK/neshan"
-	"tel-note/env/apis"
 	"tel-note/protocol"
-	"time"
+	"tel-note/services/general"
 )
 
 type storageMemory protocol.CityStorage
@@ -91,29 +85,19 @@ func (AllCity *storageMemory) DeleteCityByID(IDS []uint) (resDel []uint) {
 }
 
 func (AllCity *storageMemory) CallTimeDistanceTwoCities(cityNoOne, cityNoTwo protocol.City) ([]uint, bool) {
-	tr := &http.Transport{
-		MaxIdleConns:       10,
-		IdleConnTimeout:    30 * time.Second,
-		DisableCompression: true,
+	MapParams := map[string]string{
+		"type":         "car",
+		"origins":      fmt.Sprintf("%f,%f", cityNoOne.Lat, cityNoOne.Lng),
+		"destinations": fmt.Sprintf("%f,%f", cityNoTwo.Lat, cityNoTwo.Lng),
 	}
-	client := &http.Client{Transport: tr}
-	urlParams := url.Values{}
-	urlParams.Add("type", "car")
-	urlParams.Add("origins", fmt.Sprintf("%f,%f", cityNoOne.Lat, cityNoOne.Lng))
-	urlParams.Add("destinations", fmt.Sprintf("%f,%f", cityNoTwo.Lat, cityNoTwo.Lng))
-	req, _ := http.NewRequest("GET", apis.NeshanURL, nil)
-	req.URL.RawQuery = urlParams.Encode()
-	req.Header.Set("Api-Key", apis.NeshanAPIKey)
-	response, callErr := client.Do(req)
-	if callErr != nil {
-		fmt.Println(callErr.Error())
-		os.Exit(1)
+	MapHeaders := map[string]string{
+		"Api-Key": neshan.ApiKey,
 	}
-	defer response.Body.Close()
-	responseData, readErr := ioutil.ReadAll(response.Body)
-	if readErr != nil {
-		log.Fatalln(readErr)
-	}
+	responseData := general.CallGetAPIs(
+		neshan.DistanceMatrixURL,
+		MapParams,
+		MapHeaders,
+	)
 	var AllResult neshan.DistanceMatrix
 	json.Unmarshal(responseData, &AllResult)
 	switch AllResult.Rows == nil {

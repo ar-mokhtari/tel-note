@@ -2,14 +2,10 @@ package country
 
 import (
 	"encoding/json"
-	"fmt"
-	"io/ioutil"
-	"log"
-	"net/http"
-	"os"
 	"strings"
-	"tel-note/env/apis"
+	"tel-note/SDK/Universal"
 	"tel-note/protocol"
+	"tel-note/services/general"
 	"time"
 )
 
@@ -20,25 +16,34 @@ func (AllCountries *storageCountry) GetCountry() protocol.CountryStorage {
 }
 
 func (AllCountries *storageCountry) CallCountry() {
-	tr := &http.Transport{
-		MaxIdleConns:       10,
-		IdleConnTimeout:    30 * time.Second,
-		DisableCompression: true,
+	//generate new token
+	MapTokenHeaders := map[string]string{
+		"Accept":     "application/json",
+		"api-token":  Universal.UniversaltutorialToken,
+		"user-email": Universal.Email,
 	}
-	client := &http.Client{Transport: tr}
-	req, _ := http.NewRequest("GET", apis.UniversalTutorialURL, nil)
-	req.Header.Set("Accept", "application/json")
-	req.Header.Set("Authorization", apis.UniversalTutorialAPIKey)
-	response, callErr := client.Do(req)
-	if callErr != nil {
-		fmt.Println(callErr.Error())
-		os.Exit(1)
+	responseTokenData := general.CallGetAPIs(
+		Universal.GetTokenURL,
+		map[string]string{},
+		MapTokenHeaders,
+	)
+	//var token struct {
+	//	authToken string `json:"auth_token"`
+	//}
+	token := map[string]string{
+		"auth_token": "",
 	}
-	defer response.Body.Close()
-	responseData, readErr := ioutil.ReadAll(response.Body)
-	if readErr != nil {
-		log.Fatalln(readErr)
+	json.Unmarshal(responseTokenData, &token)
+	//call api with new token
+	MapHeaders := map[string]string{
+		"Accept":        "application/json",
+		"Authorization": "Bearer " + string(token["auth_token"]),
 	}
+	responseData := general.CallGetAPIs(
+		Universal.GetCountryURL,
+		map[string]string{},
+		MapHeaders,
+	)
 	var AllResult protocol.CountryStorage
 	json.Unmarshal(responseData, &AllResult)
 	for _, country := range AllResult {
