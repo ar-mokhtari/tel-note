@@ -13,6 +13,7 @@ import (
 	"tel-note/services/country"
 	"tel-note/services/customer"
 	"tel-note/services/fillSampleData"
+	"tel-note/services/general"
 	"tel-note/services/globalVars"
 	"tel-note/services/identity"
 	"tel-note/services/job"
@@ -99,6 +100,8 @@ func ShowMenu() {
 		fmt.Print(InsertSomeSamplesContacts, "			|	insert some sample's contacts\n")
 		fmt.Printf("%-3s %s %3s \n", separator, "Print All", separator)
 		fmt.Print(PrintAllData, "			|	print all data\n")
+		fmt.Printf("%-3s %s %3s \n", separator, "CheckIranNationalCode", separator)
+		fmt.Print(CheckIranNationalCode, "			|	check iran national code\n")
 		fmt.Println(separator7)
 	}
 	runMenu()
@@ -190,6 +193,17 @@ func runMenu() {
 					_, person := person.FindPersonByID(data.PersonID)
 					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-25v | %-25v | %-23v \n",
 						ID, person.FirstName, person.LastName, data.PersonID, (data.CreateAt).String()[0:19], (data.UpdatedAt).String()[0:19], data.Description)
+				}
+				ShowMenu()
+			case CheckIranNationalCode:
+				var nationalCode string
+				fmt.Println("insert new NationalCode")
+				fmt.Scanln(&nationalCode)
+				if !general.CheckIranNationalCode(nationalCode) {
+					fmt.Println("Invalid national code")
+					ShowMenu()
+				} else {
+					fmt.Printf("OK")
 				}
 				ShowMenu()
 			}
@@ -531,6 +545,10 @@ func runMenu() {
 			fmt.Scanln(&GenderID)
 			fmt.Println("insert new NationalCode")
 			fmt.Scanln(&NationalCode)
+			if !general.CheckIranNationalCode(NationalCode) {
+				fmt.Println("Invalid national code")
+				ShowMenu()
+			}
 			fmt.Println("insert new Description")
 			scanner.Scan()
 			description = scanner.Text()

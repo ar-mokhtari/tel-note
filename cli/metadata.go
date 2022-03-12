@@ -17,13 +17,14 @@ const (
 	// InsertNewSex sex meta data
 	// PrintAllData
 
-	YES             = "yes"
-	NO              = "no"
-	OK              = "ok"
-	Male            = "male"
-	Female          = "female"
-	RegulatorString = "reg"
-	RESET           = "RESET"
+	YES                   = "yes"
+	NO                    = "no"
+	OK                    = "ok"
+	Male                  = "male"
+	Female                = "female"
+	RegulatorString       = "reg"
+	RESET                 = "RESET"
+	CheckIranNationalCode = "ICNC"
 
 	NewContactRecord                   = "N"
 	ListOfContact                      = "L"
