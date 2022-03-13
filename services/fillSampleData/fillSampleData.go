@@ -1,11 +1,15 @@
 package fillSampleData
 
 import (
+	"fmt"
+	"strconv"
 	"tel-note/env"
+	"tel-note/protocol"
 	"tel-note/services/city"
 	"tel-note/services/contact"
 	"tel-note/services/country"
 	"tel-note/services/customer"
+	"tel-note/services/general"
 	"tel-note/services/job"
 	"tel-note/services/person"
 	"tel-note/services/sex"
@@ -15,8 +19,20 @@ func FillSimpleDataInMainData() {
 	for _, data := range env.SexDataTest {
 		sex.NewSex(*data)
 	}
-	for _, data := range env.CityDataTest {
-		city.NewCity(*data)
+	//for _, data := range env.CityDataTest {
+	//	city.NewCity(*data)
+	//}
+	fmt.Println("importing cities ...")
+	cities, _ := general.GetDataFromExcel("././env/IranCities.csv", true)
+	for _, cityPack := range cities {
+		lat, _ := strconv.ParseFloat(cityPack[6], 64)
+		lng, _ := strconv.ParseFloat(cityPack[7], 64)
+		city.NewCity(protocol.City{
+			Name:     cityPack[3],
+			AriaCode: "",
+			Lat:      lat,
+			Lng:      lng,
+		})
 	}
 	for _, data := range env.JobDataTest {
 		job.NewJob(*data)
@@ -38,5 +54,7 @@ func FillSimpleDataInMainData() {
 		contact.NewContact(*data)
 	}
 	//call api test for fill countries
+	fmt.Println("" +
+		"importing countries ...")
 	country.CallCountry()
 }

@@ -2,11 +2,12 @@ package protocol
 
 type (
 	City struct {
-		Id       uint
-		Name     string
-		AriaCode string
-		Lat      float64
-		Lng      float64
+		Id          uint
+		Name        string
+		EnglishName string
+		AriaCode    string
+		Lat         float64
+		Lng         float64
 	}
 	CityStorage struct {
 		CityData []*City

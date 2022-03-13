@@ -43,11 +43,12 @@ func (AllCity *storageMemory) NewCity(inputCity protocol.City) bool {
 	}
 	LastID += 1
 	result := protocol.City{
-		Id:       LastID,
-		Name:     inputCity.Name,
-		AriaCode: inputCity.AriaCode,
-		Lat:      inputCity.Lat,
-		Lng:      inputCity.Lng,
+		Id:          LastID,
+		Name:        inputCity.Name,
+		EnglishName: inputCity.EnglishName,
+		AriaCode:    inputCity.AriaCode,
+		Lat:         inputCity.Lat,
+		Lng:         inputCity.Lng,
 	}
 	AllCity.CityData = append(AllCity.CityData, &result)
 	return true
@@ -60,11 +61,17 @@ func (AllCity *storageMemory) EditCity(ID uint, newCity protocol.City) bool {
 			if newCity.Name != "" {
 				(AllCity.CityData)[index].Name = newCity.Name
 			}
-			if newCity.Name != "" {
-				(AllCity.CityData)[index].Name = newCity.Name
+			if newCity.EnglishName != "" {
+				(AllCity.CityData)[index].EnglishName = newCity.EnglishName
 			}
 			if newCity.AriaCode != "" {
 				(AllCity.CityData)[index].AriaCode = newCity.AriaCode
+			}
+			if newCity.Lat != 0.0 {
+				(AllCity.CityData)[index].Lat = newCity.Lat
+			}
+			if newCity.Lng != 0.0 {
+				(AllCity.CityData)[index].Lng = newCity.Lng
 			}
 			return true
 		}

@@ -135,8 +135,8 @@ func runMenu() {
 						data.Id, data.PersonID, person.FirstName, person.LastName, data.JobID, job.Name, gender.Name, data.Cellphone, job.LocationID, city.Name, data.Description)
 				}
 				fmt.Println(separator7)
-				fmt.Println("City Data:")
-				for _, data := range city.GetCities().CityData {
+				fmt.Println("Top 10 City Data:")
+				for _, data := range city.GetCities().CityData[:10] {
 					fmt.Printf("%3v | %-15v \n", data.Id, data.Name)
 				}
 				fmt.Println(separator7)
