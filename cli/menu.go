@@ -806,8 +806,12 @@ func runMenu() {
 			if firstStatus.State && secondStatus.State {
 				result, state := city.CallDistanceTimeTwoCities(dataFirstCity, dataSecondCity)
 				if state.State {
-					fmt.Printf("Time duration with online traffic is: %v hours\n", result[0]/3600)
-					fmt.Println(result[1])
+					fmt.Printf(
+						"Time duration with online traffic is: %v hours ", result[0]/3600)
+					if minutes := result[0] % 3600; minutes != 0 {
+						fmt.Printf("and %v min", minutes/60)
+					}
+					fmt.Printf("\nDistance is: %v km\n", result[1]/1000)
 				} else {
 					fmt.Println("method send nothing")
 				}

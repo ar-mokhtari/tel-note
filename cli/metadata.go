@@ -6,17 +6,6 @@ package cli
 //TODO::: + string(rune(iota)) (for generate unique routes)
 
 const (
-	// YES general meta data
-	// NewContactRecord contact meta data
-	// InsertSomeSamplesContacts insert sample data
-	// NewCustomerGroup Customer meta data
-	// NewPerson person meta data
-	// InsertNewCity city meta data
-	// AddCountry countries meta data
-	// InsertNewJob job meta data
-	// InsertNewSex sex meta data
-	// PrintAllData
-
 	YES                   = "yes"
 	NO                    = "no"
 	OK                    = "ok"
