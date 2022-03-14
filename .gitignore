@@ -16,4 +16,10 @@
 
 *.idea
 
+# external entity(ies)
 /SDK/*
+
+# build file(s)
+main
+telnote
+/bin/

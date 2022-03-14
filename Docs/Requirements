@@ -1,6 +1,7 @@
-# Identification, Authentication, Authorization
+# Identification, Authentication, Authorization to control user services
 # Create Validation service
-# Convert data from external source line csv file
+# Import data from external source csv file
+# Export data to csv file
 # Call Some Api(s) [b2b]
     - Date and time
     - Check national id(s)

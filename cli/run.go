@@ -1,15 +1,26 @@
 package cli
 
+import (
+	"fmt"
+	"tel-note/config"
+)
+
 func RunApp() {
-	//serve port 1212
-	//cli.Serv()
+	if config.RunAppType == "serv" {
+		//serve port 1212
+		Serv()
+	} else {
 
-	//To know level of user (regulator | normal user)
-	Identity()
+		//To know level of user (regulator | normal user)
+		Identity()
 
-	//Show greeting note and description
-	ShowGreeting()
+		//Show greeting note and description
+		ShowGreeting()
 
-	//show contact menu
-	ShowMenu()
+		//show contact menu
+		fmt.Println(ShowMenu())
+
+		//run menu
+		RunMenu()
+	}
 }

@@ -11,6 +11,8 @@ const (
 	OK                    = "ok"
 	Male                  = "male"
 	Female                = "female"
+	ShowMenuList          = "/"
+	ShowMenuWarn          = "To see menu, insert ('/') then enter"
 	RegulatorString       = "reg"
 	RESET                 = "RESET"
 	CheckIranNationalCode = "ICNC"
