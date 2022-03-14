@@ -1,4 +1,4 @@
-<h1 style="alignment: center"> tel-note </h1>
+<h1 align="center" style="alignment: center"> Tel-Note </h1>
 
 <h6> tel-note is a structure and syntax practise with Go-lang. we are beginner in go and this practise seems to have bad implement or structure, please give us tips🙏
 </h6>
@@ -7,8 +7,13 @@
 <h3> please notice us if you have any other idea ...
 </h3>
 <ul>
-<li>neatland@gmail.com</li``>  
-<li>telegram @ar_mokhtari</li>  
+<li>  
+<a href="mailto:neatland@gmail.com"><img alt="Gmail" title="Alireza Mokhtari G Gmail" src="https://camo.githubusercontent.com/571384769c09e0c66b45e39b5be70f68f552db3e2b2311bc2064f0d4a9f5983b/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f476d61696c2d4431343833363f7374796c653d666f722d7468652d6261646765266c6f676f3d676d61696c266c6f676f436f6c6f723d7768697465" data-canonical-src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&amp;logo=gmail&amp;logoColor=white" style="max-width: 100%;"></a>
+</li>
+
+<li>
+<a href="https://t.me/ar_mokhtari" rel="nofollow"><img alt="Telegram" title="Alireza Mokhtari G Telegram" src="https://camo.githubusercontent.com/cf4ed981404024c1adfc79d5575c4edf1836c4fe36b24b03383ece888cef7e29/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f54656c656772616d2d3243413545303f7374796c653d666f722d7468652d6261646765266c6f676f3d74656c656772616d266c6f676f436f6c6f723d7768697465" data-canonical-src="https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&amp;logo=telegram&amp;logoColor=white" style="max-width: 100%;"></a>
+</li>
 </ul>
 
 <strong></strong>
