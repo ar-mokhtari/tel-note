@@ -1,10 +1,14 @@
 package general
 
 import (
+	"regexp"
 	"strconv"
 )
 
 func CheckIranNationalCode(inputChar string) bool {
+	if match, _ := regexp.MatchString("^[\\d]{10}$", inputChar); !match {
+		return match
+	}
 	var lenInputChar int
 	if lenInputChar = len(inputChar); lenInputChar != 10 {
 		return false
