@@ -15,7 +15,7 @@ func (AllCountries *storageCountry) GetCountry() protocol.CountryStorage {
 	return protocol.CountryStorage(*AllCountries)
 }
 
-func (AllCountries *storageCountry) CallCountry() {
+func (AllCountries *storageCountry) CallCountry() protocol.CountryStorage {
 	//generate new token
 	MapTokenHeaders := map[string]string{
 		"Accept":     "application/json",
@@ -46,9 +46,7 @@ func (AllCountries *storageCountry) CallCountry() {
 	)
 	var AllResult protocol.CountryStorage
 	json.Unmarshal(responseData, &AllResult)
-	for _, country := range AllResult {
-		storageService.NewCountry(*country)
-	}
+	return AllResult
 }
 
 func (AllCountries *storageCountry) NewCountry(newCountry protocol.Country) {

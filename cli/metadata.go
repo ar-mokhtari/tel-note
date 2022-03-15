@@ -26,7 +26,7 @@ const (
 	DeleteMultiContactByIds            = "DM"
 	DeleteAllContacts                  = "DA"
 
-	InsertSomeSamplesContacts = "DATA"
+	InsertSomeSamplesData = "DATA"
 
 	NewCustomerGroup          = "NCUG"
 	NewCustomerGRelation      = "NCUGR"

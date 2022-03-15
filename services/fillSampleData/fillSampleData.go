@@ -15,7 +15,7 @@ import (
 	"tel-note/services/sex"
 )
 
-func FillSimpleDataInMainData() {
+func FillSimpleDataInMainData() bool {
 	for _, data := range env.SexDataTest {
 		sex.NewSex(*data)
 	}
@@ -56,5 +56,9 @@ func FillSimpleDataInMainData() {
 	//call api test for fill countries
 	fmt.Println("" +
 		"importing countries ...")
-	country.CallCountry()
+	countries := country.CallCountry()
+	for _, data := range countries {
+		country.NewCountry(*data)
+	}
+	return true
 }

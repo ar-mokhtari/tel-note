@@ -15,7 +15,7 @@ type (
 	CountryStorage  []*Country
 	CountryServices interface {
 		GetCountry() CountryStorage
-		CallCountry()
+		CallCountry() CountryStorage
 		NewCountry(newCountry Country)
 		EditCountry(editedCountry Country)
 		DeleteCountry(IDS []uint) uint

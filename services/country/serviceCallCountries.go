@@ -1,5 +1,7 @@
 package country
 
-func CallCountry() {
-	storageService.CallCountry()
+import "tel-note/protocol"
+
+func CallCountry() protocol.CountryStorage {
+	return storageService.CallCountry()
 }

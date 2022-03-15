@@ -29,86 +29,16 @@ var (
 )
 
 func ShowMenu() (output string) {
-	result := fmt.Sprint(
-		fmt.Sprintln(separator7),
-		fmt.Sprintln("*** Main menu: ***\n", "Please select:"),
-		//Contact Menu
-		fmt.Sprintf("%-3s %s %3s \n", separator, "Contact Menu", separator),
-		fmt.Sprint(NewContactRecord, "			|	new record\n"),
-		fmt.Sprint(ListOfContact, "			|	list of contact\n"),
-		fmt.Sprint(FindOneContactById, "			|	find one contact by id\n"),
-		fmt.Sprint(FindContactContainingSomeCharacter, "			|	find contact, contain some character\n"),
-		fmt.Sprint(FindAndEditContactByContactId, "			|	find and edit contact by contact id\n"),
-		fmt.Sprint(DeleteContactById, "			|	delete contact by id\n"),
-		fmt.Sprint(DeleteMultiContactByIds, "			|	delete multi contact by id(s)\n"),
-		fmt.Sprint(DeleteAllContacts, "			|	delete all contacts\n"),
-		//Customer Menu
-		fmt.Sprintf("%-3s %s %3s \n", separator, "Customer group Menu", separator),
-		fmt.Sprint(NewCustomerGroup, "			|	new Customer group\n"),
-		fmt.Sprint(NewCustomerGRelation, "			|	new customer group relation\n"),
-		fmt.Sprint(CustomerGroupList, "			|	customer group list\n"),
-		fmt.Sprint(CustomerGroupRelationList, "			|	customer relation group list\n"),
-		fmt.Sprint(FindCustomerByGroupID, "			|	find customer(s) by group id\n"),
-		fmt.Sprintf("%-3s %s %3s \n", separator, "Customer Menu", separator),
-		fmt.Sprint(NewCustomer, "			|	new Customer\n"),
-		fmt.Sprint(EditCustomerByCustomerId, "			|	edit customer by id\n"),
-		fmt.Sprint(ListOfCustomer, "			|	list of Customer(s)\n"),
-		fmt.Sprint(DeleteCustomerById, "			|	delete Customer by id\n"),
-		fmt.Sprint(DeleteMultiCustomerByIds, "			|	delete multi Customer by id(s)\n"),
-		fmt.Sprint(DeleteAllCustomers, "			|	delete all Customer\n"),
-		//Person Menu
-		fmt.Sprintf("%-3s %s %3s \n", separator, "Person Menu", separator),
-		fmt.Sprint(NewPerson, "			|	new person\n"),
-		fmt.Sprint(ListOfPerson, "			|	list of person(s)\n"),
-		fmt.Sprint(FindOnePersonById, "			|	find one person by id\n"),
-		fmt.Sprint(FindPersonContainingSomeCharacter, "			|	find person, contain some character\n"),
-		fmt.Sprint(FindAndEditPersonByPersonId, "			|	find and edit person by person id\n"),
-		fmt.Sprint(DeletePersonById, "			|	delete person by id\n"),
-		fmt.Sprint(DeleteMultiPersonByIds, "			|	delete multi person by id(s)\n"),
-		fmt.Sprint(DeleteAllPersons, "			|	delete all person\n"),
-		//country menu
-		fmt.Sprintf("%-3s %s %3s \n", separator, "Country menu", separator),
-		fmt.Sprint(AddCountry, "			|	new country\n"),
-		fmt.Sprint(EditCountry, "			|	edit country\n"),
-		fmt.Sprint(DeleteCountry, "			|	delete country(ies)\n"),
-		fmt.Sprint(FindCountryByChar, "			|	find country by char\n"),
-		fmt.Sprint(CountriesList, "			|	list of countries data\n"),
-		//City Menu
-		fmt.Sprintf("%-3s %s %3s \n", separator, "City Menu", separator),
-		fmt.Sprint(InsertNewCity, "			|	insert new city\n"),
-		fmt.Sprint(ListOfCities, "			|	list of city(ies)\n"),
-		fmt.Sprint(EditCityById, "			|	edit city by id\n"),
-		fmt.Sprint(DeleteCityById, "			|	delete city by id\n"),
-		fmt.Sprint(CallDistanceTimeTwoCities, "			|	find distance/time online traffic two cities\n"),
-		//Job Menu
-		fmt.Sprintf("%-3s %s %3s \n", separator, "Job Menu", separator),
-		fmt.Sprint(InsertNewJob, "			|	insert new job\n"),
-		fmt.Sprint(ListOfJob, "			|	list of job(s)\n"),
-		fmt.Sprint(EditJobById, "			|	edit job by id\n"),
-		fmt.Sprint(DeleteJobById, "			|	delete job by id\n"),
-		//Sex Menu
-		fmt.Sprintf("%-3s %s %3s \n", separator, "Sex Menu", separator),
-		fmt.Sprint(InsertNewSex, "			|	insert new sex\n"),
-		fmt.Sprint(EditSex, "			|	edit sex by id\n"),
-		fmt.Sprint(DeleteSex, "			|	delete sex by id\n"),
-		fmt.Sprint(ListOfSex, "			|	list of sex\n"),
-		fmt.Sprintln(separator7),
-		fmt.Sprint(RESET, "			|	reset program (as new user role)\n"),
-		fmt.Sprintln(separator7))
-	//regulator menu
-	if identity.IsRegulator {
-		result = result + fmt.Sprint(
-			fmt.Sprintf("%-3s %s %3s \n", separator, "Fill sample data", separator),
-			fmt.Sprint(InsertSomeSamplesContacts, "			|	insert some sample's contacts\n"),
-			fmt.Sprintf("%-3s %s %3s \n", separator, "Sprint All", separator),
-			fmt.Sprint(PrintAllData, "			|	Sprint all data\n"),
-			fmt.Sprintf("%-3s %s %3s \n", separator, "CheckIranNationalCode", separator),
-			fmt.Sprint(CheckIranNationalCode, "			|	check iran national code\n"),
-			fmt.Sprintln(separator7),
-		)
-
+	output += fmt.Sprintln(separator7)
+	output += fmt.Sprintln("*** Main menu: ***\n", "Please select:")
+	for _, data := range GlobalMenu.Group {
+		output += fmt.Sprintf("%-3s %s %3s \n", separator, data.GroupName, separator)
+		for _, detail := range data.Row {
+			output += fmt.Sprintf("%s			|	%s\n", detail.Title, detail.Description)
+		}
 	}
-	return result
+	output += fmt.Sprintln(separator7)
+	return output
 }
 
 func RunMenu() {
@@ -122,7 +52,7 @@ func RunMenu() {
 		switch identity.IsRegulator {
 		case true:
 			switch userInput {
-			case InsertSomeSamplesContacts:
+			case InsertSomeSamplesData:
 				fillSampleData.FillSimpleDataInMainData()
 				fmt.Println(ShowMenuWarn)
 			case PrintAllData:
