@@ -7,13 +7,13 @@ import (
 
 var (
 	//  contact variables:
-	Alireza  = protocol.Contact{PersonID: 1, Cellphone: []protocol.CellPhone{{CellPhone: "09121234567", Description: ""}, {CellPhone: "09121", Description: "Home"}}, Description: "none", JobID: 5}
-	Kianoosh = protocol.Contact{PersonID: 2, Cellphone: []protocol.CellPhone{{CellPhone: "0916", Description: "manager"}, {CellPhone: "09161", Description: "office"}}, Description: "", JobID: 4}
-	Omid     = protocol.Contact{PersonID: 3, Cellphone: []protocol.CellPhone{{CellPhone: "0916", Description: ""}}, Description: "", JobID: 3}
-	Khorshid = protocol.Contact{PersonID: 4, Cellphone: []protocol.CellPhone{{CellPhone: "0912", Description: ""}}, Description: "", JobID: 2}
-	Reza     = protocol.Contact{PersonID: 5, Cellphone: []protocol.CellPhone{{CellPhone: "0914", Description: ""}}, Description: "", JobID: 1}
-	Tom      = protocol.Contact{PersonID: 6, Cellphone: []protocol.CellPhone{{CellPhone: "+1", Description: ""}}, Description: "", JobID: 6}
-	Frank    = protocol.Contact{PersonID: 7, Cellphone: []protocol.CellPhone{{CellPhone: "+1", Description: ""}}, Description: "", JobID: 8}
+	Alireza  = protocol.Contact{PersonID: 1, CellphoneCollection: []protocol.CellPhone{{CellPhone: "09121234567", Description: ""}, {CellPhone: "09121", Description: "Home"}}, Description: "none", JobID: 5}
+	Kianoosh = protocol.Contact{PersonID: 2, CellphoneCollection: []protocol.CellPhone{{CellPhone: "0916", Description: "manager"}, {CellPhone: "09161", Description: "office"}}, Description: "", JobID: 4}
+	Omid     = protocol.Contact{PersonID: 3, CellphoneCollection: []protocol.CellPhone{{CellPhone: "0916", Description: ""}}, Description: "", JobID: 3}
+	Khorshid = protocol.Contact{PersonID: 4, CellphoneCollection: []protocol.CellPhone{{CellPhone: "0912", Description: ""}}, Description: "", JobID: 2}
+	Reza     = protocol.Contact{PersonID: 5, CellphoneCollection: []protocol.CellPhone{{CellPhone: "0914", Description: ""}}, Description: "", JobID: 1}
+	Tom      = protocol.Contact{PersonID: 6, CellphoneCollection: []protocol.CellPhone{{CellPhone: "+1", Description: ""}}, Description: "", JobID: 6}
+	Frank    = protocol.Contact{PersonID: 7, CellphoneCollection: []protocol.CellPhone{{CellPhone: "+1", Description: ""}}, Description: "", JobID: 8}
 	Delaram  = protocol.Contact{PersonID: 8, JobID: 4}
 
 	//----------- Test Vars -----------------

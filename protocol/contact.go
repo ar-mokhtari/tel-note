@@ -6,13 +6,13 @@ type (
 		Description string
 	}
 	Contact struct {
-		Id          uint
-		PersonID    uint
-		JobID       uint
-		Tel         string
-		Cellphone   []CellPhone
-		Address     string
-		Description string
+		Id                  uint
+		PersonID            uint
+		JobID               uint
+		Tel                 string
+		CellphoneCollection []CellPhone
+		Address             string
+		Description         string
 	}
 	ContactStorage struct {
 		ContactData []*Contact

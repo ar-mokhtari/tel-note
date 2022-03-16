@@ -48,7 +48,7 @@ func RunMenu() {
 		fmt.Scanln(&userInput)
 		//regulator actions only:
 		userInput = strings.ToUpper(userInput)
-		var notSelected bool = false
+		var notSelected = false
 		switch identity.IsRegulator {
 		case true:
 			switch userInput {
@@ -67,11 +67,11 @@ func RunMenu() {
 					gender, _ := sex.FindSexByID(uint8(genderID))
 					_, job := job.FindJobByID(data.JobID)
 					_, city := city.FindCityByID(job.LocationID)
-					if data.Cellphone == nil {
-						data.Cellphone = append(data.Cellphone, protocol.CellPhone{})
+					if data.CellphoneCollection == nil {
+						data.CellphoneCollection = append(data.CellphoneCollection, protocol.CellPhone{})
 					}
 					fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-4v | %-12v | %-3v  \n",
-						data.Id, data.PersonID, person.FirstName, person.LastName, data.JobID, job.Name, gender.Name, data.Cellphone[0].CellPhone, job.LocationID, city.Name, data.Description)
+						data.Id, data.PersonID, person.FirstName, person.LastName, data.JobID, job.Name, gender.Name, data.CellphoneCollection[0].CellPhone, job.LocationID, city.Name, data.Description)
 				}
 				fmt.Println(separator7)
 				fmt.Println("Top 10 City Data:")
@@ -190,11 +190,11 @@ func RunMenu() {
 				scanner.Scan()
 				contact.NewContact(
 					protocol.Contact{
-						PersonID:    personID,
-						JobID:       jobID,
-						Tel:         tel,
-						Cellphone:   cellPack,
-						Description: scanner.Text(),
+						PersonID:            personID,
+						JobID:               jobID,
+						Tel:                 tel,
+						CellphoneCollection: cellPack,
+						Description:         scanner.Text(),
 					})
 				fmt.Println(">> New contact added done <<")
 				fmt.Println(ShowMenuWarn)
@@ -210,11 +210,11 @@ func RunMenu() {
 					gender, _ := sex.FindSexByID(uint8(genderID))
 					_, job := job.FindJobByID(data.JobID)
 					_, city := city.FindCityByID(job.LocationID)
-					if data.Cellphone == nil {
-						data.Cellphone = append(data.Cellphone, protocol.CellPhone{})
+					if data.CellphoneCollection == nil {
+						data.CellphoneCollection = append(data.CellphoneCollection, protocol.CellPhone{})
 					}
 					fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-4v | %-12v | %-3v  \n",
-						data.Id, data.PersonID, person.FirstName, person.LastName, data.JobID, job.Name, gender.Name, (data.Cellphone)[0].CellPhone, job.LocationID, city.Name, data.Description)
+						data.Id, data.PersonID, person.FirstName, person.LastName, data.JobID, job.Name, gender.Name, (data.CellphoneCollection)[0].CellPhone, job.LocationID, city.Name, data.Description)
 				}
 				fmt.Println(ShowMenuWarn)
 			case FindOneContactById:
@@ -234,7 +234,7 @@ func RunMenu() {
 					_, job := job.FindJobByID(result.JobID)
 					_, city := city.FindCityByID(job.LocationID)
 					fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-4v | %-12v | %-3v  \n",
-						result.Id, result.PersonID, person.FirstName, person.LastName, result.JobID, job.Name, gender.Name, result.Cellphone, job.LocationID, city.Name, result.Description)
+						result.Id, result.PersonID, person.FirstName, person.LastName, result.JobID, job.Name, gender.Name, result.CellphoneCollection, job.LocationID, city.Name, result.Description)
 				} else {
 					fmt.Println("not found")
 				}
@@ -260,7 +260,7 @@ func RunMenu() {
 						_, job := job.FindJobByID(data.JobID)
 						_, city := city.FindCityByID(job.LocationID)
 						fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-4v | %-12v | %-3v  \n",
-							data.Id, data.PersonID, person.FirstName, person.LastName, data.JobID, job.Name, gender.Name, data.Cellphone, job.LocationID, city.Name, data.Description)
+							data.Id, data.PersonID, person.FirstName, person.LastName, data.JobID, job.Name, gender.Name, data.CellphoneCollection, job.LocationID, city.Name, data.Description)
 					}
 				}
 				fmt.Println(ShowMenuWarn)
@@ -284,7 +284,7 @@ func RunMenu() {
 					_, job := job.FindJobByID(result.JobID)
 					_, city := city.FindCityByID(job.LocationID)
 					fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-4v | %-12v | %-3v  \n",
-						result.Id, result.PersonID, person.FirstName, person.LastName, result.JobID, job.Name, gender.Name, result.Cellphone, job.LocationID, city.Name, result.Description)
+						result.Id, result.PersonID, person.FirstName, person.LastName, result.JobID, job.Name, gender.Name, result.CellphoneCollection, job.LocationID, city.Name, result.Description)
 				} else {
 					fmt.Println("not found")
 					fmt.Println(ShowMenuWarn)
@@ -314,11 +314,11 @@ func RunMenu() {
 				fmt.Println("new description:")
 				scanner.Scan()
 				editedContact := protocol.Contact{
-					PersonID:    personID,
-					JobID:       jobID,
-					Tel:         tel,
-					Cellphone:   cellPack,
-					Description: scanner.Text(),
+					PersonID:            personID,
+					JobID:               jobID,
+					Tel:                 tel,
+					CellphoneCollection: cellPack,
+					Description:         scanner.Text(),
 				}
 				state := contact.EditContactByID(editedContact, insertContactID)
 				if state.State {
