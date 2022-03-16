@@ -7,18 +7,18 @@ import (
 
 var (
 	//  contact variables:
-	Alireza  = protocol.Contact{PersonID: 1, Cellphone: "09121234567", Description: "none", JobID: 5}
-	Kianoosh = protocol.Contact{PersonID: 2, Cellphone: "0916", Description: "", JobID: 4}
-	Omid     = protocol.Contact{PersonID: 3, Cellphone: "0916", Description: "", JobID: 3}
-	Khorshid = protocol.Contact{PersonID: 4, Cellphone: "0912", Description: "", JobID: 2}
-	Reza     = protocol.Contact{PersonID: 5, Cellphone: "0914", Description: "", JobID: 1}
-	Tom      = protocol.Contact{PersonID: 6, Cellphone: "+39", Description: "", JobID: 6}
-	Frank    = protocol.Contact{PersonID: 7, Cellphone: "+39", Description: "", JobID: 8}
+	Alireza  = protocol.Contact{PersonID: 1, Cellphone: []protocol.CellPhone{{CellPhone: "09121234567", Description: ""}, {CellPhone: "09121", Description: "Home"}}, Description: "none", JobID: 5}
+	Kianoosh = protocol.Contact{PersonID: 2, Cellphone: []protocol.CellPhone{{CellPhone: "0916", Description: "manager"}, {CellPhone: "09161", Description: "office"}}, Description: "", JobID: 4}
+	Omid     = protocol.Contact{PersonID: 3, Cellphone: []protocol.CellPhone{{CellPhone: "0916", Description: ""}}, Description: "", JobID: 3}
+	Khorshid = protocol.Contact{PersonID: 4, Cellphone: []protocol.CellPhone{{CellPhone: "0912", Description: ""}}, Description: "", JobID: 2}
+	Reza     = protocol.Contact{PersonID: 5, Cellphone: []protocol.CellPhone{{CellPhone: "0914", Description: ""}}, Description: "", JobID: 1}
+	Tom      = protocol.Contact{PersonID: 6, Cellphone: []protocol.CellPhone{{CellPhone: "+1", Description: ""}}, Description: "", JobID: 6}
+	Frank    = protocol.Contact{PersonID: 7, Cellphone: []protocol.CellPhone{{CellPhone: "+1", Description: ""}}, Description: "", JobID: 8}
 	Delaram  = protocol.Contact{PersonID: 8, JobID: 4}
 
 	//----------- Test Vars -----------------
 	ContactDataTest = protocol.ContactStorage{
-		Data: []*protocol.Contact{
+		ContactData: []*protocol.Contact{
 			&Alireza,
 			&Kianoosh,
 			&Omid,

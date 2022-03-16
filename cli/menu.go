@@ -61,14 +61,17 @@ func RunMenu() {
 				fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-v | %-12v | %-3v  \n",
 					"Id", "PID", "PersonName", "PersonFamily", "JID", "JobName", "Gender", "Cellphone", "LoID", "jobCity", "Desc")
 				fmt.Println("")
-				for _, data := range contact.GetContacts().Data {
+				for _, data := range contact.GetContacts().ContactData {
 					_, person := person.FindPersonByID(data.PersonID)
 					genderID := person.GenderID
 					gender, _ := sex.FindSexByID(uint8(genderID))
 					_, job := job.FindJobByID(data.JobID)
 					_, city := city.FindCityByID(job.LocationID)
+					if data.Cellphone == nil {
+						data.Cellphone = append(data.Cellphone, protocol.CellPhone{})
+					}
 					fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-4v | %-12v | %-3v  \n",
-						data.Id, data.PersonID, person.FirstName, person.LastName, data.JobID, job.Name, gender.Name, data.Cellphone, job.LocationID, city.Name, data.Description)
+						data.Id, data.PersonID, person.FirstName, person.LastName, data.JobID, job.Name, gender.Name, data.Cellphone[0].CellPhone, job.LocationID, city.Name, data.Description)
 				}
 				fmt.Println(separator7)
 				fmt.Println("Top 10 City Data:")
@@ -165,8 +168,23 @@ func RunMenu() {
 				fmt.Println("Please inter tel:")
 				fmt.Scanln(&tel)
 				//input cellphone
-				fmt.Println("Please inter cellphone:")
+				fmt.Println("Please inter cellphone: ")
+				fmt.Println("sample format: 'cellphone1,description1,cellphone2,description2,...'")
 				fmt.Scanln(&cellphone)
+				var cellPack []protocol.CellPhone
+				if len(cellphone)%2 != 0 {
+					cellPhoneCollection := strings.Split(cellphone, ",")
+					var tempCell protocol.CellPhone
+					for index, data := range cellPhoneCollection {
+						if (index+1)%2 != 0 {
+							tempCell.CellPhone = data
+						} else {
+							tempCell.Description = data
+							cellPack = append(cellPack, tempCell)
+							tempCell = protocol.CellPhone{}
+						}
+					}
+				}
 				//input description
 				fmt.Println("Please inter description:")
 				scanner.Scan()
@@ -175,7 +193,7 @@ func RunMenu() {
 						PersonID:    personID,
 						JobID:       jobID,
 						Tel:         tel,
-						Cellphone:   cellphone,
+						Cellphone:   cellPack,
 						Description: scanner.Text(),
 					})
 				fmt.Println(">> New contact added done <<")
@@ -186,14 +204,17 @@ func RunMenu() {
 				fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-v | %-12v | %-3v  \n",
 					"Id", "PID", "PersonName", "PersonFamily", "JID", "JobName", "Gender", "Cellphone", "LoID", "jobCity", "Desc")
 				fmt.Println("")
-				for _, data := range contact.GetContacts().Data {
+				for _, data := range contact.GetContacts().ContactData {
 					_, person := person.FindPersonByID(data.PersonID)
 					genderID := person.GenderID
 					gender, _ := sex.FindSexByID(uint8(genderID))
 					_, job := job.FindJobByID(data.JobID)
 					_, city := city.FindCityByID(job.LocationID)
+					if data.Cellphone == nil {
+						data.Cellphone = append(data.Cellphone, protocol.CellPhone{})
+					}
 					fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-4v | %-12v | %-3v  \n",
-						data.Id, data.PersonID, person.FirstName, person.LastName, data.JobID, job.Name, gender.Name, data.Cellphone, job.LocationID, city.Name, data.Description)
+						data.Id, data.PersonID, person.FirstName, person.LastName, data.JobID, job.Name, gender.Name, (data.Cellphone)[0].CellPhone, job.LocationID, city.Name, data.Description)
 				}
 				fmt.Println(ShowMenuWarn)
 			case FindOneContactById:
@@ -232,7 +253,7 @@ func RunMenu() {
 					fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-v | %-12v | %-3v  \n",
 						"Id", "PID", "PersonName", "PersonFamily", "JID", "JobName", "Gender", "Cellphone", "LoID", "jobCity", "Desc")
 					fmt.Println("")
-					for _, data := range resultData.Data {
+					for _, data := range resultData.ContactData {
 						_, person := person.FindPersonByID(data.PersonID)
 						genderID := person.GenderID
 						gender, _ := sex.FindSexByID(uint8(genderID))
@@ -274,6 +295,20 @@ func RunMenu() {
 				fmt.Scanln(&tel)
 				fmt.Println("new cellphone:")
 				fmt.Scanln(&cellphone)
+				var cellPack []protocol.CellPhone
+				if len(cellphone)%2 != 0 {
+					cellPhoneCollection := strings.Split(cellphone, ",")
+					var tempCell protocol.CellPhone
+					for index, data := range cellPhoneCollection {
+						if (index + 1%2) != 0 {
+							tempCell.CellPhone = data
+						} else {
+							tempCell.Description = data
+							cellPack = append(cellPack, tempCell)
+							tempCell = protocol.CellPhone{}
+						}
+					}
+				}
 				fmt.Println("new job id:")
 				fmt.Scanln(&jobID)
 				fmt.Println("new description:")
@@ -282,7 +317,7 @@ func RunMenu() {
 					PersonID:    personID,
 					JobID:       jobID,
 					Tel:         tel,
-					Cellphone:   cellphone,
+					Cellphone:   cellPack,
 					Description: scanner.Text(),
 				}
 				state := contact.EditContactByID(editedContact, insertContactID)

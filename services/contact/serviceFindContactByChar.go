@@ -6,7 +6,7 @@ import (
 
 func FindContactByChar(insertChar string) (protocol.ContactStorage, uint) {
 	if resultData, data := storage.FindContactByChar(insertChar); resultData {
-		return data, uint(len(data.Data))
+		return data, uint(len(data.ContactData))
 	}
 	return protocol.ContactStorage{}, 0
 }

@@ -1,7 +1,7 @@
 package config
 
 const (
-	RunAppType = "serv"
+	RunAppType = ""
 )
 
 // for client mode insert blank

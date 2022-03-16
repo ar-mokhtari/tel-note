@@ -1,16 +1,21 @@
 package protocol
 
 type (
+	CellPhone struct {
+		CellPhone   string
+		Description string
+	}
 	Contact struct {
 		Id          uint
 		PersonID    uint
 		JobID       uint
 		Tel         string
-		Cellphone   string
+		Cellphone   []CellPhone
+		Address     string
 		Description string
 	}
 	ContactStorage struct {
-		Data []*Contact
+		ContactData []*Contact
 	}
 	ContactServices interface {
 		GetContacts() ContactStorage

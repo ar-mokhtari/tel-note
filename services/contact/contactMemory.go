@@ -17,7 +17,7 @@ func (AllContact *storageMemory) AddContact(inputContact protocol.Contact) bool 
 	var (
 		lastID uint
 	)
-	for _, data := range AllContact.Data {
+	for _, data := range AllContact.ContactData {
 		if data.Id > lastID {
 			lastID = data.Id
 		}
@@ -31,12 +31,12 @@ func (AllContact *storageMemory) AddContact(inputContact protocol.Contact) bool 
 		Description: inputContact.Description,
 		JobID:       inputContact.JobID,
 	}
-	AllContact.Data = append(AllContact.Data, &result)
+	AllContact.ContactData = append(AllContact.ContactData, &result)
 	return true
 }
 
 func (AllContact *storageMemory) FindContactByID(id uint) (bool, protocol.Contact) {
-	for _, data := range AllContact.Data {
+	for _, data := range AllContact.ContactData {
 		if data.Id == id {
 			return true, *data
 		}
@@ -46,13 +46,13 @@ func (AllContact *storageMemory) FindContactByID(id uint) (bool, protocol.Contac
 
 func (AllContact *storageMemory) FindContactByChar(insertChar string) (status bool, result protocol.ContactStorage) {
 	if state, res := person.FindPersonByChar(insertChar); state.State {
-		for _, data := range AllContact.Data {
+		for _, data := range AllContact.ContactData {
 			if len(res.PersonData) == 0 {
 				break
 			}
 			if ((res.PersonData)[0]).Id == data.PersonID {
 				status = true
-				result.Data = append(result.Data, data)
+				result.ContactData = append(result.ContactData, data)
 				res.PersonData = (res.PersonData)[1:]
 			}
 		}
@@ -61,23 +61,23 @@ func (AllContact *storageMemory) FindContactByChar(insertChar string) (status bo
 }
 
 func (AllContact *storageMemory) EditContactByID(newData protocol.Contact, ID uint) bool {
-	for index, data := range AllContact.Data {
+	for index, data := range AllContact.ContactData {
 		if data.Id == ID {
 			//TODO:: what the hell below ... is there any cleaner way for test "is it not nil?"
 			if newData.PersonID != 0 {
-				(AllContact.Data)[index].PersonID = newData.PersonID
+				(AllContact.ContactData)[index].PersonID = newData.PersonID
 			}
 			if newData.Description != "" {
-				(AllContact.Data)[index].Description = newData.Description
+				(AllContact.ContactData)[index].Description = newData.Description
 			}
 			if newData.Tel != "" {
-				(AllContact.Data)[index].Tel = newData.Tel
+				(AllContact.ContactData)[index].Tel = newData.Tel
 			}
-			if newData.Cellphone != "" {
-				(AllContact.Data)[index].Cellphone = newData.Cellphone
+			if newData.Cellphone != nil {
+				(AllContact.ContactData)[index].Cellphone = newData.Cellphone
 			}
 			if newData.JobID != 0 {
-				(AllContact.Data)[index].JobID = newData.JobID
+				(AllContact.ContactData)[index].JobID = newData.JobID
 			}
 			return true
 		}
@@ -86,9 +86,9 @@ func (AllContact *storageMemory) EditContactByID(newData protocol.Contact, ID ui
 }
 
 func (AllContact *storageMemory) DeleteContactByID(ID uint) bool {
-	for index, data := range AllContact.Data {
+	for index, data := range AllContact.ContactData {
 		if data.Id == ID {
-			AllContact.Data = append((AllContact.Data)[:index], (AllContact.Data)[index+1:]...)
+			AllContact.ContactData = append((AllContact.ContactData)[:index], (AllContact.ContactData)[index+1:]...)
 			//TODO: BadSolution,HandelMultiDeleteInServiceOrStorageNotInClient
 			return true
 		}
@@ -97,6 +97,6 @@ func (AllContact *storageMemory) DeleteContactByID(ID uint) bool {
 }
 
 func (AllContact *storageMemory) DeleteAll() bool {
-	AllContact.Data = (AllContact.Data)[0:0]
+	AllContact.ContactData = (AllContact.ContactData)[0:0]
 	return true
 }

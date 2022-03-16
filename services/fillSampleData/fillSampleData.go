@@ -50,7 +50,7 @@ func FillSimpleDataInMainData() bool {
 		customer.AddCustomer(*data)
 	}
 	//contact have to locate in end list, because it's elements has dependent to upper steps (city/job/...)
-	for _, data := range (env.ContactDataTest).Data {
+	for _, data := range (env.ContactDataTest).ContactData {
 		contact.NewContact(*data)
 	}
 	//call api test for fill countries
