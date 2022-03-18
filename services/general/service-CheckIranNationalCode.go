@@ -1,23 +1,28 @@
 package general
 
 import (
+	"fmt"
+	"net/http"
 	"regexp"
 	"strconv"
 )
 
+type checkIranNationalCode struct{}
+
+var CheckIranNational *checkIranNationalCode
+
+var regexGatewayID = regexp.MustCompile("^[\\d]{10}$")
+
 func CheckIranNationalCode(inputChar string) bool {
-	if match, _ := regexp.MatchString("^[\\d]{10}$", inputChar); !match {
-		return match
-	}
-	var lenInputChar int
-	if lenInputChar = len(inputChar); lenInputChar != 10 {
+	//TODO::: cleaning
+	if !regexGatewayID.MatchString(inputChar) {
 		return false
 	}
 	var (
 		counter, uintChar uint
 		controlNumber, _  = strconv.Atoi(string(inputChar[9]))
 	)
-	for index := 1; index < lenInputChar-1; index++ {
+	for index := 1; index < len(inputChar)-1; index++ {
 		if internalUintChar, err := strconv.Atoi(string(inputChar[index])); err != nil {
 			return false
 		} else {
@@ -36,4 +41,10 @@ func CheckIranNationalCode(inputChar string) bool {
 		}
 	}
 	return false
+}
+
+func (iranNationalCode *checkIranNationalCode) ServeCheckIranNationalCode(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	NationalCode := r.Header.Values("NID")
+	fmt.Fprintf(w, "%v", CheckIranNationalCode(NationalCode[0]))
 }

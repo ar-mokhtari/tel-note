@@ -8,12 +8,9 @@ type (
 		Description         string
 		BasicPaymentPerHour uint
 	}
-	JobStorage struct {
-		JobData []*Job
-	}
 	JobServices interface {
 		// JobInfo methods
-		GetJobs() JobStorage
+		GetJobs() []*Job
 		FindJobByChar(inputChar string) (status bool, res []uint)
 		FindJobByID(inputID uint) (bool, Job)
 		NewJob(inputJob Job) bool

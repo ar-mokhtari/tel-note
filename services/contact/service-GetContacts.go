@@ -2,6 +2,6 @@ package contact
 
 import "tel-note/protocol"
 
-func GetContacts() protocol.ContactStorage {
+func GetContacts() []*protocol.Contact {
 	return storage.GetContacts()
 }

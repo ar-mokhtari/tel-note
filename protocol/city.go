@@ -9,12 +9,9 @@ type (
 		Lat         float64
 		Lng         float64
 	}
-	CityStorage struct {
-		CityData []*City
-	}
 	CityServices interface {
 		//city methods
-		GetCities() CityStorage
+		GetCities() []*City
 		FindCityByChar(inputChar string) (status bool, res []uint)
 		FindCityByID(inputID uint) (bool, City)
 		NewCity(inputCity City) bool

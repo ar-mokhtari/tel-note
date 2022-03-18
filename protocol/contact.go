@@ -14,14 +14,11 @@ type (
 		Address             string
 		Description         string
 	}
-	ContactStorage struct {
-		ContactData []*Contact
-	}
 	ContactServices interface {
-		GetContacts() ContactStorage
+		GetContacts() []*Contact
 		AddContact(inputContact Contact) bool
 		FindContactByID(id uint) (bool, Contact)
-		FindContactByChar(insertChar string) (status bool, result ContactStorage)
+		FindContactByChar(insertChar string) (status bool, result []*Contact)
 		EditContactByID(newData Contact, ID uint) bool
 		DeleteContactByID(ID uint) bool
 		DeleteAll() bool

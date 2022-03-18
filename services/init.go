@@ -1,10 +1,13 @@
 package services
 
 import (
+	"tel-note/cli"
 	"tel-note/services/city"
 	"tel-note/services/contact"
 	"tel-note/services/country"
 	"tel-note/services/customer"
+	"tel-note/services/fillSampleData"
+	"tel-note/services/general"
 	"tel-note/services/job"
 	"tel-note/services/person"
 	"tel-note/services/sex"
@@ -31,4 +34,13 @@ func Init() {
 
 	//init contact services
 	contact.Init()
+
+	//init general services
+	general.Init()
+
+	//init fill data
+	fillSampleData.Init()
+
+	//serv handle menu
+	cli.MenuHTTPServe()
 }

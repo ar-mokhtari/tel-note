@@ -1,6 +1,10 @@
 package country
 
+import "net/http"
+
 func Init() {
-	var countryMethods storageCountry
+	var countryMethods storageMemory
 	storageService = &countryMethods
+
+	http.Handle("/country-list", http.HandlerFunc(CallCountry.ServeCallCountry))
 }

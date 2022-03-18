@@ -12,13 +12,12 @@ type (
 		CreatedAt    time.Time
 		UpdatedAt    time.Time
 	}
-	CountryStorage  []*Country
 	CountryServices interface {
-		GetCountry() CountryStorage
-		CallCountry() CountryStorage
+		GetCountry() []*Country
+		CallCountry() []*Country
 		NewCountry(newCountry Country)
 		EditCountry(editedCountry Country)
 		DeleteCountry(IDS []uint) uint
-		FindCountryByChar(insertChar string) CountryStorage
+		FindCountryByChar(insertChar string) []*Country
 	}
 )

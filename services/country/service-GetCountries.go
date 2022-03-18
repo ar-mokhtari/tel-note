@@ -2,6 +2,6 @@ package country
 
 import "tel-note/protocol"
 
-func GetCountry() protocol.CountryStorage {
+func GetCountry() []*protocol.Country {
 	return storageService.GetCountry()
 }

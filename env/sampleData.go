@@ -17,17 +17,15 @@ var (
 	Delaram  = protocol.Contact{PersonID: 8, JobID: 4}
 
 	//----------- Test Vars -----------------
-	ContactDataTest = protocol.ContactStorage{
-		ContactData: []*protocol.Contact{
-			&Alireza,
-			&Kianoosh,
-			&Omid,
-			&Khorshid,
-			&Reza,
-			&Tom,
-			&Frank,
-			&Delaram,
-		},
+	ContactDataTest = []*protocol.Contact{
+		&Alireza,
+		&Kianoosh,
+		&Omid,
+		&Khorshid,
+		&Reza,
+		&Tom,
+		&Frank,
+		&Delaram,
 	}
 	JobDataTest = []*protocol.Job{
 		AccountManager,
@@ -70,7 +68,7 @@ var (
 		&DelaramPerson,
 	}
 
-	CustomersDataTest = protocol.CustomerStorage{Data: map[uint]*protocol.Customer{
+	CustomersDataTest = protocol.CustomerStorage{CustomerData: map[uint]*protocol.Customer{
 		0: &AlirezaCust,
 		1: &KianooshCust,
 		2: &KhorshidCust,

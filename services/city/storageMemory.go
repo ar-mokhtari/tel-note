@@ -9,14 +9,17 @@ import (
 	"tel-note/services/general"
 )
 
-type storageMemory protocol.CityStorage
-
-func (AllCity *storageMemory) GetCities() protocol.CityStorage {
-	return protocol.CityStorage(*AllCity)
+type storageMemory struct {
+	CityData []*protocol.City
+	PoolByID map[uint]*protocol.City
 }
 
-func (AllCity *storageMemory) FindCityByChar(inputChar string) (status bool, res []uint) {
-	for _, data := range AllCity.CityData {
+func (allCity *storageMemory) GetCities() []*protocol.City {
+	return allCity.CityData
+}
+
+func (allCity *storageMemory) FindCityByChar(inputChar string) (status bool, res []uint) {
+	for _, data := range allCity.CityData {
 		if strings.Contains(data.Name, inputChar) {
 			res = append(res, data.Id)
 			status = true
@@ -25,8 +28,8 @@ func (AllCity *storageMemory) FindCityByChar(inputChar string) (status bool, res
 	return status, res
 }
 
-func (AllCity *storageMemory) FindCityByID(inputID uint) (bool, protocol.City) {
-	for _, data := range AllCity.CityData {
+func (allCity *storageMemory) FindCityByID(inputID uint) (bool, protocol.City) {
+	for _, data := range allCity.CityData {
 		if data.Id == inputID {
 			return true, *data
 		}
@@ -34,9 +37,9 @@ func (AllCity *storageMemory) FindCityByID(inputID uint) (bool, protocol.City) {
 	return false, protocol.City{}
 }
 
-func (AllCity *storageMemory) NewCity(inputCity protocol.City) bool {
+func (allCity *storageMemory) NewCity(inputCity protocol.City) bool {
 	var LastID uint
-	for _, data := range AllCity.CityData {
+	for _, data := range allCity.CityData {
 		if data.Id > LastID {
 			LastID = data.Id
 		}
@@ -50,28 +53,28 @@ func (AllCity *storageMemory) NewCity(inputCity protocol.City) bool {
 		Lat:         inputCity.Lat,
 		Lng:         inputCity.Lng,
 	}
-	AllCity.CityData = append(AllCity.CityData, &result)
+	allCity.CityData = append(allCity.CityData, &result)
 	return true
 }
 
-func (AllCity *storageMemory) EditCity(ID uint, newCity protocol.City) bool {
-	for index, data := range AllCity.CityData {
+func (allCity *storageMemory) EditCity(ID uint, newCity protocol.City) bool {
+	for index, data := range allCity.CityData {
 		if data.Id == ID {
 			//TODO:: what the hell below ... is there any cleaner way for test "is it not nil?"
 			if newCity.Name != "" {
-				(AllCity.CityData)[index].Name = newCity.Name
+				(allCity.CityData)[index].Name = newCity.Name
 			}
 			if newCity.EnglishName != "" {
-				(AllCity.CityData)[index].EnglishName = newCity.EnglishName
+				(allCity.CityData)[index].EnglishName = newCity.EnglishName
 			}
 			if newCity.AriaCode != "" {
-				(AllCity.CityData)[index].AriaCode = newCity.AriaCode
+				(allCity.CityData)[index].AriaCode = newCity.AriaCode
 			}
 			if newCity.Lat != 0.0 {
-				(AllCity.CityData)[index].Lat = newCity.Lat
+				(allCity.CityData)[index].Lat = newCity.Lat
 			}
 			if newCity.Lng != 0.0 {
-				(AllCity.CityData)[index].Lng = newCity.Lng
+				(allCity.CityData)[index].Lng = newCity.Lng
 			}
 			return true
 		}
@@ -79,11 +82,11 @@ func (AllCity *storageMemory) EditCity(ID uint, newCity protocol.City) bool {
 	return false
 }
 
-func (AllCity *storageMemory) DeleteCityByID(IDS []uint) (resDel []uint) {
+func (allCity *storageMemory) DeleteCityByID(IDS []uint) (resDel []uint) {
 	for _, id := range IDS {
-		for index, data := range AllCity.CityData {
+		for index, data := range allCity.CityData {
 			if data.Id == id {
-				AllCity.CityData = append((AllCity.CityData)[:index], (AllCity.CityData)[index+1:]...)
+				allCity.CityData = append((allCity.CityData)[:index], (allCity.CityData)[index+1:]...)
 				resDel = append(resDel, id)
 			}
 		}
@@ -91,7 +94,7 @@ func (AllCity *storageMemory) DeleteCityByID(IDS []uint) (resDel []uint) {
 	return resDel
 }
 
-func (AllCity *storageMemory) CallTimeDistanceTwoCities(cityNoOne, cityNoTwo protocol.City) ([]uint, bool) {
+func (allCity *storageMemory) CallTimeDistanceTwoCities(cityNoOne, cityNoTwo protocol.City) ([]uint, bool) {
 	MapParams := map[string]string{
 		"type":         "car",
 		"origins":      fmt.Sprintf("%f,%f", cityNoOne.Lat, cityNoOne.Lng),

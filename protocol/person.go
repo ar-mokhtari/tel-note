@@ -15,12 +15,9 @@ type (
 		CreateAt        time.Time
 		UpdateAt        time.Time
 	}
-	PersonStorage struct {
-		PersonData []*Person
-	}
 	PersonServices interface {
-		GetPersons() PersonStorage
-		FindPersonByChar(inputChar string) (bool, PersonStorage)
+		GetPersons() []*Person
+		FindPersonByChar(inputChar string) (bool, []*Person)
 		FindPersonByID(inputID uint) (status bool, res Person)
 		NewPerson(person Person) bool
 		EditPerson(ID uint, newPerson Person) bool

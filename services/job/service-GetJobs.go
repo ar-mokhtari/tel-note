@@ -2,6 +2,6 @@ package job
 
 import "tel-note/protocol"
 
-func GetJobs() protocol.JobStorage {
+func GetJobs() []*protocol.Job {
 	return storage.GetJobs()
 }

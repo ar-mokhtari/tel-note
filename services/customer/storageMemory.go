@@ -12,7 +12,7 @@ type (
 	relation      protocol.CustomerGRelationStorage
 )
 
-func (AllCustomers *storageMemory) NewCustomer(newCustomer protocol.Customer) {
+func (allCustomers *storageMemory) NewCustomer(newCustomer protocol.Customer) {
 	var LastID uint
 	for ID := range globalVars.CustomerMapStore {
 		if ID > LastID {
@@ -22,10 +22,10 @@ func (AllCustomers *storageMemory) NewCustomer(newCustomer protocol.Customer) {
 	LastID += 1
 	newCustomer.CreateAt = time.Now()
 	globalVars.CustomerMapStore[LastID] = &newCustomer
-	//AllCustomers.Data[LastID] = &newCustomer
+	//allCustomers.Data[LastID] = &newCustomer
 }
 
-func (AllCustomers *storageMemory) EditCustomer(id uint, EditedCustomer protocol.Customer) {
+func (allCustomers *storageMemory) EditCustomer(id uint, EditedCustomer protocol.Customer) {
 	if EditedCustomer.PersonID != 0 {
 		globalVars.CustomerMapStore[id].PersonID = EditedCustomer.PersonID
 	}
@@ -37,11 +37,11 @@ func (AllCustomers *storageMemory) EditCustomer(id uint, EditedCustomer protocol
 	}
 }
 
-func (AllCustomers *storageMemory) DeleteCustomerById(id uint) {
+func (allCustomers *storageMemory) DeleteCustomerById(id uint) {
 	delete(globalVars.CustomerMapStore, id)
 }
 
-func (AllCustomers *storageMemory) FindCustomerByID(ID uint) protocol.Customer {
+func (allCustomers *storageMemory) FindCustomerByID(ID uint) protocol.Customer {
 	for id, customer := range globalVars.CustomerMapStore {
 		if id == ID {
 			return *customer
@@ -97,11 +97,11 @@ func (AllRelation *relation) GetCustomerGroupRelation() protocol.CustomerGRelati
 }
 
 func (AllRelation *relation) FindCustomerByGroupID(ID uint) protocol.CustomerStorage {
-	var result = protocol.CustomerStorage{Data: make(map[uint]*protocol.Customer)}
+	var result = protocol.CustomerStorage{CustomerData: make(map[uint]*protocol.Customer)}
 	for _, groupRelation := range *AllRelation {
 		if groupRelation.GroupID == ID {
 			findCustomer := FindCustomerByID(groupRelation.CustomerID)
-			result.Data[groupRelation.CustomerID] = &findCustomer
+			result.CustomerData[groupRelation.CustomerID] = &findCustomer
 		}
 	}
 	return result

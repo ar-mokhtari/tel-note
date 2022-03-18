@@ -61,7 +61,7 @@ func RunMenu() {
 				fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-v | %-12v | %-3v  \n",
 					"Id", "PID", "PersonName", "PersonFamily", "JID", "JobName", "Gender", "Cellphone", "LoID", "jobCity", "Desc")
 				fmt.Println("")
-				for _, data := range contact.GetContacts().ContactData {
+				for _, data := range contact.GetContacts() {
 					_, person := person.FindPersonByID(data.PersonID)
 					genderID := person.GenderID
 					gender, _ := sex.FindSexByID(uint8(genderID))
@@ -75,8 +75,8 @@ func RunMenu() {
 				}
 				fmt.Println(separator7)
 				fmt.Println("Top 10 City Data:")
-				if cityCollection := city.GetCities(); cityCollection.CityData != nil {
-					for _, data := range cityCollection.CityData[:10] {
+				if cityCollection := city.GetCities(); cityCollection != nil {
+					for _, data := range cityCollection[:10] {
 						fmt.Printf("%3v | %-15v \n", data.Id, data.Name)
 					}
 					fmt.Println(separator7)
@@ -93,17 +93,17 @@ func RunMenu() {
 				}
 				fmt.Println(separator7)
 				fmt.Println("Job Data:")
-				for _, data := range job.GetJobs().JobData {
+				for _, data := range job.GetJobs() {
 					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 				}
 				fmt.Println(separator7)
 				fmt.Println("sex Data:")
-				for _, data := range sex.GetSex().SexData {
+				for _, data := range sex.GetSex() {
 					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 				}
 				fmt.Println(separator7)
 				fmt.Println("person Data:")
-				for _, data := range person.GetPersons().PersonData {
+				for _, data := range person.GetPersons() {
 					fmt.Printf("%3v | %-15s \t %30s \n", data.Id, data.FirstName, data.LastName)
 				}
 				fmt.Println(separator7)
@@ -204,7 +204,7 @@ func RunMenu() {
 				fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-v | %-12v | %-3v  \n",
 					"Id", "PID", "PersonName", "PersonFamily", "JID", "JobName", "Gender", "Cellphone", "LoID", "jobCity", "Desc")
 				fmt.Println("")
-				for _, data := range contact.GetContacts().ContactData {
+				for _, data := range contact.GetContacts() {
 					_, person := person.FindPersonByID(data.PersonID)
 					genderID := person.GenderID
 					gender, _ := sex.FindSexByID(uint8(genderID))
@@ -253,7 +253,7 @@ func RunMenu() {
 					fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-v | %-12v | %-3v  \n",
 						"Id", "PID", "PersonName", "PersonFamily", "JID", "JobName", "Gender", "Cellphone", "LoID", "jobCity", "Desc")
 					fmt.Println("")
-					for _, data := range resultData.ContactData {
+					for _, data := range resultData {
 						_, person := person.FindPersonByID(data.PersonID)
 						genderID := person.GenderID
 						gender, _ := sex.FindSexByID(uint8(genderID))
@@ -424,7 +424,7 @@ func RunMenu() {
 				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-25v | %-25v |  %-23v  \n",
 					"CID", "Customername", "CustomerFamily", "PID", "Creat@", "Update@", "Desc")
 				fmt.Println()
-				for ID, data := range customer.FindCustomerByGroupID(groupID).Data {
+				for ID, data := range customer.FindCustomerByGroupID(groupID).CustomerData {
 					_, person := person.FindPersonByID(data.PersonID)
 					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-25v | %-25v | %-23v \n",
 						ID, person.FirstName, person.LastName, data.PersonID, (data.CreateAt).String()[0:19], (data.UpdatedAt).String()[0:19], data.Description)
@@ -550,7 +550,7 @@ func RunMenu() {
 				//TODO::: decide to:
 				//create a method called "GetPersons" to responds updated data live
 				//use a global variable and after every event have to updated it
-				for _, data := range person.GetPersons().PersonData /*person.GetPersons().PersonData*/ {
+				for _, data := range person.GetPersons() /*person.GetPersons().PersonData*/ {
 					genderID := data.GenderID
 					gender, _ := sex.FindSexByID(uint8(genderID))
 					_, city := city.FindCityByID(data.BirthLocationID)
@@ -582,12 +582,12 @@ func RunMenu() {
 				scanner.Scan()
 				if state, data := person.FindPersonByChar(scanner.Text()); state.State {
 					fmt.Println(separator7)
-					fmt.Println(len(data.PersonData), "record(s) found")
+					fmt.Println(len(data), "record(s) found")
 					fmt.Println("Person Data:")
 					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
 						"Id", "PersonName", "PersonFamily", "Gender", "BLoID", "jobCity", "DOB", "Desc")
 					fmt.Println("")
-					for _, personData := range data.PersonData {
+					for _, personData := range data {
 						genderID := personData.GenderID
 						gender, _ := sex.FindSexByID(uint8(genderID))
 						_, city := city.FindCityByID(personData.BirthLocationID)
@@ -725,10 +725,10 @@ func RunMenu() {
 				}
 				fmt.Println(ShowMenuWarn)
 			case ListOfCities:
-				dataJSON, _ := json.MarshalIndent(city.GetCities().CityData, "", "  ")
+				dataJSON, _ := json.MarshalIndent(city.GetCities(), "", "  ")
 				fmt.Println(string(dataJSON))
 				fmt.Println(separator7)
-				for _, data := range city.GetCities().CityData {
+				for _, data := range city.GetCities() {
 					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 				}
 				fmt.Println(ShowMenuWarn)
@@ -972,10 +972,10 @@ func RunMenu() {
 				}
 				fmt.Println(ShowMenuWarn)
 			case ListOfJob:
-				dataJSON, _ := json.MarshalIndent(job.GetJobs().JobData, "", "  ")
+				dataJSON, _ := json.MarshalIndent(job.GetJobs(), "", "  ")
 				fmt.Println(string(dataJSON))
 				fmt.Println(separator7)
-				for _, data := range job.GetJobs().JobData {
+				for _, data := range job.GetJobs() {
 					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 				}
 				fmt.Println(ShowMenuWarn)
@@ -1023,17 +1023,17 @@ func RunMenu() {
 				}
 				fmt.Println(ShowMenuWarn)
 			case ListOfSex:
-				dataJSON, _ := json.MarshalIndent(sex.GetSex().SexData, "", "  ")
+				dataJSON, _ := json.MarshalIndent(sex.GetSex(), "", "  ")
 				fmt.Println(string(dataJSON))
 				fmt.Println(separator7)
-				for _, data := range sex.GetSex().SexData {
+				for _, data := range sex.GetSex() {
 					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 				}
 				fmt.Println(ShowMenuWarn)
 			//something wrong:
 			case RESET:
 				globalVars.DeleteAllGlobalVars()
-				RunApp()
+				RunCli()
 			default:
 				if !identity.IsRegulator || notSelected {
 					fmt.Println("bad input, please insert character of menu list")

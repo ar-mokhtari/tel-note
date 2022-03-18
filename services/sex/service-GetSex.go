@@ -2,6 +2,6 @@ package sex
 
 import "tel-note/protocol"
 
-func GetSex() protocol.SexStorage {
+func GetSex() []*protocol.Sex {
 	return storage.GetSex()
 }

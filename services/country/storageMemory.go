@@ -9,13 +9,17 @@ import (
 	"time"
 )
 
-type storageCountry protocol.CountryStorage
+type (
+	storageMemory struct {
+		CountryData []*protocol.Country
+	}
+)
 
-func (AllCountries *storageCountry) GetCountry() protocol.CountryStorage {
-	return protocol.CountryStorage(*AllCountries)
+func (allCountries *storageMemory) GetCountry() []*protocol.Country {
+	return allCountries.CountryData
 }
 
-func (AllCountries *storageCountry) CallCountry() protocol.CountryStorage {
+func (allCountries *storageMemory) CallCountry() []*protocol.Country {
 	//generate new token
 	MapTokenHeaders := map[string]string{
 		"Accept":     "application/json",
@@ -44,20 +48,20 @@ func (AllCountries *storageCountry) CallCountry() protocol.CountryStorage {
 		map[string]string{},
 		MapHeaders,
 	)
-	var AllResult protocol.CountryStorage
+	var AllResult []*protocol.Country
 	json.Unmarshal(responseData, &AllResult)
 	return AllResult
 }
 
-func (AllCountries *storageCountry) NewCountry(newCountry protocol.Country) {
+func (allCountries *storageMemory) NewCountry(newCountry protocol.Country) {
 	var LastID uint
-	for _, country := range *AllCountries {
+	for _, country := range allCountries.CountryData {
 		if country.ID > LastID {
 			LastID = country.ID
 		}
 	}
 	LastID += 1
-	*AllCountries = append(*AllCountries, &protocol.Country{
+	allCountries.CountryData = append(allCountries.CountryData, &protocol.Country{
 		ID:           LastID,
 		Name:         newCountry.Name,
 		CapitalID:    newCountry.CapitalID,
@@ -67,45 +71,45 @@ func (AllCountries *storageCountry) NewCountry(newCountry protocol.Country) {
 	})
 }
 
-func (AllCountries *storageCountry) EditCountry(editedCountry protocol.Country) {
-	for index, country := range *AllCountries {
+func (allCountries *storageMemory) EditCountry(editedCountry protocol.Country) {
+	for index, country := range allCountries.CountryData {
 		if country.ID == editedCountry.ID {
 			if editedCountry.Name != "" {
-				(*AllCountries)[index].Name = editedCountry.Name
+				(allCountries.CountryData)[index].Name = editedCountry.Name
 			}
 			if editedCountry.ShortName != "" {
-				(*AllCountries)[index].ShortName = editedCountry.ShortName
+				(allCountries.CountryData)[index].ShortName = editedCountry.ShortName
 			}
 			if editedCountry.PrePhoneCode != 0 {
-				(*AllCountries)[index].PrePhoneCode = editedCountry.PrePhoneCode
+				(allCountries.CountryData)[index].PrePhoneCode = editedCountry.PrePhoneCode
 			}
 			if editedCountry.CapitalID != 0 {
-				(*AllCountries)[index].CapitalID = editedCountry.CapitalID
+				(allCountries.CountryData)[index].CapitalID = editedCountry.CapitalID
 			}
 			if editedCountry.Name != "" ||
 				editedCountry.ShortName != "" ||
 				editedCountry.PrePhoneCode != 0 ||
 				editedCountry.CapitalID != 0 {
-				(*AllCountries)[index].UpdatedAt = time.Now()
+				(allCountries.CountryData)[index].UpdatedAt = time.Now()
 			}
 		}
 	}
 }
-func (AllCountries *storageCountry) DeleteCountry(IDS []uint) uint {
+func (allCountries *storageMemory) DeleteCountry(IDS []uint) uint {
 	var counter uint
-	for index, country := range *AllCountries {
+	for index, country := range allCountries.CountryData {
 		for _, ID := range IDS {
 			if country.ID == ID {
-				*AllCountries = append((*AllCountries)[:index], (*AllCountries)[index+1:]...)
+				allCountries.CountryData = append((allCountries.CountryData)[:index], (allCountries.CountryData)[index+1:]...)
 				counter += 1
 			}
 		}
 	}
 	return counter
 }
-func (AllCountries *storageCountry) FindCountryByChar(insertChar string) protocol.CountryStorage {
-	var result protocol.CountryStorage
-	for _, country := range *AllCountries {
+func (allCountries *storageMemory) FindCountryByChar(insertChar string) []*protocol.Country {
+	var result []*protocol.Country
+	for _, country := range allCountries.CountryData {
 		if strings.Contains(strings.ToLower(country.Name), strings.ToLower(insertChar)) {
 			result = append(result, country)
 		}

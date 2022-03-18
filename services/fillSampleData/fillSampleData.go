@@ -1,7 +1,9 @@
 package fillSampleData
 
 import (
+	"encoding/json"
 	"fmt"
+	"net/http"
 	"strconv"
 	"tel-note/env"
 	"tel-note/protocol"
@@ -14,6 +16,20 @@ import (
 	"tel-note/services/person"
 	"tel-note/services/sex"
 )
+
+type fillData struct{}
+type AllDataCollection struct {
+	contact               []*protocol.Contact
+	customer              []*protocol.Customer
+	customerGroup         []*protocol.CustomerGroup
+	customerGroupRelation []*protocol.CustomerGroupRelation
+	customerRelation      protocol.CustomerGRelationStorage
+	person                []*protocol.Person
+	countries             []*protocol.Country
+	cities                []*protocol.City
+}
+
+var FillDataStruct fillData
 
 func FillSimpleDataInMainData() bool {
 	for _, data := range env.SexDataTest {
@@ -46,19 +62,47 @@ func FillSimpleDataInMainData() bool {
 	for _, data := range env.CustomerRelation {
 		customer.NewRelation(data.CustomerID, data.GroupID)
 	}
-	for _, data := range env.CustomersDataTest.Data {
+	for _, data := range env.CustomersDataTest.CustomerData {
 		customer.AddCustomer(*data)
 	}
 	//contact have to locate in end list, because it's elements has dependent to upper steps (city/job/...)
-	for _, data := range (env.ContactDataTest).ContactData {
+	for _, data := range env.ContactDataTest {
 		contact.NewContact(*data)
 	}
 	//call api test for fill countries
 	fmt.Println("" +
 		"importing countries ...")
-	countries := country.CallCountry()
+	countries := country.CallCountry.Do()
 	for _, data := range countries {
 		country.NewCountry(*data)
 	}
 	return true
+}
+
+func (fillData *fillData) DoFillData() bool {
+	return FillSimpleDataInMainData()
+}
+
+func (fillData *fillData) DoGetData() (result AllDataCollection) {
+	result.contact = contact.GetContacts()
+	result.customerGroup = customer.GetCustomerGroup()
+	result.customerGroupRelation = customer.GetCustomerGroupRelation()
+	result.person = person.GetPersons()
+	result.countries = country.GetCountry()
+	result.cities = city.GetCities()
+	return result
+}
+
+func (fillData *fillData) ServeGetDataHandle(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(fillData.DoGetData())
+}
+
+func (fillData *fillData) ServeFillData(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	if fillData.DoFillData() {
+		fmt.Fprintf(w, "data insert successfuly")
+	} else {
+		fmt.Fprintf(w, "some thing wrong")
+	}
 }

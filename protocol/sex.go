@@ -5,11 +5,8 @@ type (
 		Id   uint8
 		Name string
 	}
-	SexStorage struct {
-		SexData []*Sex
-	}
 	SexServices interface {
-		GetSex() SexStorage
+		GetSex() []*Sex
 		NewSex(inputSex Sex) bool
 		EditSex(newSex Sex) bool
 		DeleteSex(ID uint8) bool
