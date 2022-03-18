@@ -95,7 +95,14 @@ func (fillData *fillData) DoGetData() (result AllDataCollection) {
 
 func (fillData *fillData) ServeGetDataHandle(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(fillData.DoGetData())
+	json.NewEncoder(w).Encode(fillData.DoGetData().contact)
+	json.NewEncoder(w).Encode(fillData.DoGetData().customer)
+	json.NewEncoder(w).Encode(fillData.DoGetData().customerGroup)
+	json.NewEncoder(w).Encode(fillData.DoGetData().customerGroupRelation)
+	json.NewEncoder(w).Encode(fillData.DoGetData().customerRelation)
+	json.NewEncoder(w).Encode(fillData.DoGetData().person)
+	json.NewEncoder(w).Encode(fillData.DoGetData().countries)
+	json.NewEncoder(w).Encode(fillData.DoGetData().cities)
 }
 
 func (fillData *fillData) ServeFillData(w http.ResponseWriter, r *http.Request) {
