@@ -1,7 +1,7 @@
 package city
 
 import (
-	"fmt"
+	"encoding/json"
 	"net/http"
 	"tel-note/protocol"
 	"tel-note/services/general"
@@ -27,18 +27,42 @@ func (handler *serviceHandler) DistanceTimeServeHTTP(w http.ResponseWriter, r *h
 	if firstStatus.State && secondStatus.State {
 		result, state := handler.CallDistanceTimeTwoCities(dataFirstCity, dataSecondCity)
 		if state.State {
-			fmt.Fprintf(w,
-				"First city: %v Second city: %v \n", dataFirstCity.Name, dataSecondCity.Name)
-			fmt.Fprintf(w,
-				"Time duration with online traffic is: %v hours ", result[0]/3600)
-			if minutes := result[0] % 3600; minutes != 0 {
-				fmt.Fprintf(w, "and %v min", minutes/60)
-			}
-			fmt.Fprintf(w, "\nDistance is: %v km\n", result[1]/1000)
+			json.NewEncoder(w).Encode(
+				struct {
+					Status     uint
+					FirstCity  string
+					SecondCity string
+					Duration   struct {
+						Hour   float32
+						Minute float32
+					}
+					Distance uint
+				}{200, dataFirstCity.Name, dataSecondCity.Name,
+					struct {
+						Hour   float32
+						Minute float32
+					}{float32(result[0] / 3600), float32(result[0] % 3600 / 60)},
+					result[1] / 1000},
+			)
 		} else {
-			fmt.Fprintf(w, "method send nothing")
+			json.NewEncoder(w).Encode(
+				struct {
+					Status  uint
+					Massage string
+				}{400, "method don't response any"})
 		}
 	} else {
-		fmt.Fprintf(w, "not found")
+		json.NewEncoder(w).Encode(
+			struct {
+				Status           uint
+				Massage          string
+				FirstCityStatus  bool
+				SecondCityStatus bool
+			}{
+				401,
+				"city(ies) not found",
+				firstStatus.State,
+				secondStatus.State,
+			})
 	}
 }
