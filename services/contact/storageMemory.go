@@ -28,10 +28,11 @@ func (allContact *storageMemory) AddContact(inputContact protocol.Contact) bool 
 	result := protocol.Contact{
 		Id:                  lastID,
 		PersonID:            inputContact.PersonID,
+		JobID:               inputContact.JobID,
 		Tel:                 inputContact.Tel,
 		CellphoneCollection: inputContact.CellphoneCollection,
+		Address:             inputContact.Address,
 		Description:         inputContact.Description,
-		JobID:               inputContact.JobID,
 	}
 	allContact.ContactData = append(allContact.ContactData, &result)
 	return true
@@ -69,8 +70,8 @@ func (allContact *storageMemory) EditContactByID(newData protocol.Contact, ID ui
 			if newData.PersonID != 0 {
 				(allContact.ContactData)[index].PersonID = newData.PersonID
 			}
-			if newData.Description != "" {
-				(allContact.ContactData)[index].Description = newData.Description
+			if newData.JobID != 0 {
+				(allContact.ContactData)[index].JobID = newData.JobID
 			}
 			if newData.Tel != "" {
 				(allContact.ContactData)[index].Tel = newData.Tel
@@ -78,8 +79,11 @@ func (allContact *storageMemory) EditContactByID(newData protocol.Contact, ID ui
 			if newData.CellphoneCollection != nil {
 				(allContact.ContactData)[index].CellphoneCollection = newData.CellphoneCollection
 			}
-			if newData.JobID != 0 {
-				(allContact.ContactData)[index].JobID = newData.JobID
+			if newData.Address != "" {
+				(allContact.ContactData)[index].Address = newData.Address
+			}
+			if newData.Description != "" {
+				(allContact.ContactData)[index].Description = newData.Description
 			}
 			return true
 		}

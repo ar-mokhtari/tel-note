@@ -172,8 +172,8 @@ func RunMenu() {
 				fmt.Println("sample format: 'cellphone1,description1,cellphone2,description2,...'")
 				fmt.Scanln(&cellphone)
 				var cellPack []protocol.CellPhone
-				if len(cellphone)%2 != 0 {
-					cellPhoneCollection := strings.Split(cellphone, ",")
+				cellPhoneCollection := strings.Split(cellphone, ",")
+				if (len(cellPhoneCollection))%2 == 0 {
 					var tempCell protocol.CellPhone
 					for index, data := range cellPhoneCollection {
 						if (index+1)%2 != 0 {
@@ -188,7 +188,7 @@ func RunMenu() {
 				//input description
 				fmt.Println("Please inter description:")
 				scanner.Scan()
-				contact.NewContact(
+				contact.PoolContact.NewContact(
 					protocol.Contact{
 						PersonID:            personID,
 						JobID:               jobID,

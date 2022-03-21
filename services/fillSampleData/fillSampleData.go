@@ -67,7 +67,7 @@ func FillSimpleDataInMainData() bool {
 	}
 	//contact have to locate in end list, because it's elements has dependent to upper steps (city/job/...)
 	for _, data := range env.ContactDataTest {
-		contact.NewContact(*data)
+		contact.PoolContact.NewContact(*data)
 	}
 	//call api test for fill countries
 	fmt.Println("" +
