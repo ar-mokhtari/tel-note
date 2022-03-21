@@ -84,7 +84,7 @@ func (fillData *fillData) DoFillData() bool {
 }
 
 func (fillData *fillData) DoGetData() (result AllDataCollection) {
-	result.contact = contact.GetContacts()
+	result.contact = contact.GetPool.GetContacts()
 	result.customerGroup = customer.GetCustomerGroup()
 	result.customerGroupRelation = customer.GetCustomerGroupRelation()
 	result.person = person.GetPersons()

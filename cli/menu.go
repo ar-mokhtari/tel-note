@@ -61,7 +61,7 @@ func RunMenu() {
 				fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-v | %-12v | %-3v  \n",
 					"Id", "PID", "PersonName", "PersonFamily", "JID", "JobName", "Gender", "Cellphone", "LoID", "jobCity", "Desc")
 				fmt.Println("")
-				for _, data := range contact.GetContacts() {
+				for _, data := range contact.GetPool.GetContacts() {
 					_, person := person.FindPersonByID(data.PersonID)
 					genderID := person.GenderID
 					gender, _ := sex.FindSexByID(uint8(genderID))
@@ -204,7 +204,7 @@ func RunMenu() {
 				fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-v | %-12v | %-3v  \n",
 					"Id", "PID", "PersonName", "PersonFamily", "JID", "JobName", "Gender", "Cellphone", "LoID", "jobCity", "Desc")
 				fmt.Println("")
-				for _, data := range contact.GetContacts() {
+				for _, data := range contact.GetPool.GetContacts() {
 					_, person := person.FindPersonByID(data.PersonID)
 					genderID := person.GenderID
 					gender, _ := sex.FindSexByID(uint8(genderID))
@@ -320,7 +320,7 @@ func RunMenu() {
 					CellphoneCollection: cellPack,
 					Description:         scanner.Text(),
 				}
-				state := contact.EditContactByID(editedContact, insertContactID)
+				state := contact.EditPool.EditContactByID(editedContact, insertContactID)
 				if state.State {
 					fmt.Printf("contact no %v updated", insertContactID)
 				}
