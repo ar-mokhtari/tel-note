@@ -11,6 +11,10 @@ type serviceHandler struct{}
 
 var ServiceHandler serviceHandler
 
+func (handler *serviceHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+
+}
+
 func (handler *serviceHandler) CallDistanceTimeTwoCities(cityNoOne, CityNoTwo protocol.City) ([]uint, protocol.ResponseStatus) {
 	if data, status := storage.CallTimeDistanceTwoCities(cityNoOne, CityNoTwo); status {
 		return data, protocol.ResponseStatus{State: status}

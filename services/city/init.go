@@ -6,5 +6,5 @@ func Init() {
 	var cityObject storageMemory
 	storage = &cityObject
 
-	http.Handle("/distance-time-between-two-city", http.HandlerFunc(ServiceHandler.DistanceTimeServeHTTP))
+	http.HandleFunc("/distance-time-between-two-city", ServiceHandler.DistanceTimeServeHTTP)
 }
