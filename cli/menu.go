@@ -221,7 +221,7 @@ func RunMenu() {
 				var id uint
 				fmt.Println("Please insert your contact ID:")
 				fmt.Scanln(&id)
-				isFound, result := contact.FindContactByID(id)
+				isFound, result := contact.FindByIDPool.FindContactByID(id)
 				if isFound.State {
 					fmt.Println(separator7)
 					fmt.Println("Contact Data:")
@@ -243,7 +243,7 @@ func RunMenu() {
 				var insertChar string
 				fmt.Println("insert character(s):")
 				fmt.Scanln(&insertChar)
-				resultData, resultCount := contact.FindContactByChar(insertChar)
+				_, resultData, resultCount := contact.FindByCharPool.FindContactByChar(insertChar)
 				if resultCount == 0 {
 					fmt.Println("not found")
 				} else {
@@ -271,7 +271,7 @@ func RunMenu() {
 				)
 				fmt.Println("Please insert your contact id you want to edit:")
 				fmt.Scanln(&insertContactID)
-				isFound, result := contact.FindContactByID(insertContactID)
+				isFound, result := contact.FindByIDPool.FindContactByID(insertContactID)
 				if isFound.State {
 					fmt.Println(separator7)
 					fmt.Println("Contact Data:")
@@ -334,7 +334,7 @@ func RunMenu() {
 					var deleteID uint
 					fmt.Println("insert your contact id that you want to delete:")
 					fmt.Scanln(&deleteID)
-					status := contact.DeleteContactByID(deleteID)
+					status := contact.PoolDelContactID.DeleteContactByID(deleteID)
 					switch status.State {
 					case true:
 						fmt.Printf("contact with id number:  %d deleted.", deleteID)
@@ -349,7 +349,7 @@ func RunMenu() {
 				fmt.Println("are you sure? (yes or no)")
 				fmt.Scanln(&confirmDel)
 				if strings.ToLower(confirmDel) == YES {
-					resultStatus := contact.DeleteAll()
+					resultStatus := contact.PoolDelAllContact.DeleteAll()
 					fmt.Println(resultStatus.String)
 				}
 				fmt.Println(ShowMenuWarn)
@@ -370,7 +370,7 @@ func RunMenu() {
 							fmt.Println("not equal kind")
 							break
 						} else {
-							status = *contact.DeleteContactByID(uint(uintDelID))
+							status = *contact.PoolDelContactID.DeleteContactByID(uint(uintDelID))
 							fmt.Println(status.String)
 						}
 					}
@@ -482,10 +482,7 @@ func RunMenu() {
 					idPack := strings.Split(deleteIDS, ",")
 					var idPackInt []uint
 					for _, i := range idPack {
-						j, err := strconv.Atoi(i)
-						if err != nil {
-							panic(err)
-						}
+						j := general.StrToUint(i)
 						idPackInt = append(idPackInt, uint(j))
 						customer.DeleteCustomerById(uint(j))
 					}
@@ -637,10 +634,7 @@ func RunMenu() {
 						idPack := strings.Split(deleteIDS, ",")
 						var idPackInt []uint
 						for _, i := range idPack {
-							j, err := strconv.Atoi(i)
-							if err != nil {
-								panic(err)
-							}
+							j := general.StrToUint(i)
 							idPackInt = append(idPackInt, uint(j))
 						}
 						resNums := person.DeletePerson(idPackInt)
@@ -687,10 +681,7 @@ func RunMenu() {
 					idPack := strings.Split(deleteIDS, ",")
 					var idPackInt []uint
 					for _, i := range idPack {
-						j, err := strconv.Atoi(i)
-						if err != nil {
-							panic(err)
-						}
+						j := general.StrToUint(i)
 						idPackInt = append(idPackInt, uint(j))
 					}
 					resNums := person.DeletePerson(idPackInt)
@@ -761,10 +752,7 @@ func RunMenu() {
 					idPack := strings.Split(deleteIDS, ",")
 					var idPackInt []uint
 					for _, i := range idPack {
-						j, err := strconv.Atoi(i)
-						if err != nil {
-							panic(err)
-						}
+						j := general.StrToUint(i)
 						idPackInt = append(idPackInt, uint(j))
 					}
 					resNums := city.DeleteCity(idPackInt)
@@ -853,10 +841,7 @@ func RunMenu() {
 					idPack := strings.Split(deleteIDS, ",")
 					var idPackInt []uint
 					for _, i := range idPack {
-						j, err := strconv.Atoi(i)
-						if err != nil {
-							panic(err)
-						}
+						j := general.StrToUint(i)
 						idPackInt = append(idPackInt, uint(j))
 					}
 					resNums := country.DeleteCountry(idPackInt)
@@ -961,10 +946,7 @@ func RunMenu() {
 					idPack := strings.Split(deleteIDS, ",")
 					var idPackInt []uint
 					for _, i := range idPack {
-						j, err := strconv.Atoi(i)
-						if err != nil {
-							panic(err)
-						}
+						j := general.StrToUint(i)
 						idPackInt = append(idPackInt, uint(j))
 					}
 					resNums := job.DeleteJobByID(idPackInt)

@@ -1,12 +1,32 @@
 package contact
 
 import (
+	"encoding/json"
+	"net/http"
 	"tel-note/protocol"
 )
 
-func FindContactByChar(insertChar string) ([]*protocol.Contact, uint) {
+type contactFindCharContactPool struct{}
+
+var FindByCharPool *contactFindCharContactPool
+
+func (allData *contactFindCharContactPool) FindContactByChar(insertChar string) (bool, []*protocol.Contact, uint) {
 	if resultData, data := storage.FindContactByChar(insertChar); resultData {
-		return data, uint(len(data))
+		return true, data, uint(len(data))
 	}
-	return []*protocol.Contact{}, 0
+	return false, []*protocol.Contact{}, 0
+}
+
+func (allData *contactFindCharContactPool) FindContactByCharServeHTTP(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	char := r.Header.Get("char")
+	if status, result, count := allData.FindContactByChar(char); status {
+		json.NewEncoder(w).Encode(struct {
+			Status      int
+			ResultCount uint
+		}{200, count})
+		for _, data := range result {
+			json.NewEncoder(w).Encode(data)
+		}
+	}
 }

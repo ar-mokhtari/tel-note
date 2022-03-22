@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"net/http"
 	"regexp"
-	"strconv"
 )
 
 type checkIranNationalCode struct{}
@@ -20,14 +19,11 @@ func CheckIranNationalCode(inputChar string) bool {
 	}
 	var (
 		counter, uintChar uint
-		controlNumber, _  = strconv.Atoi(string(inputChar[9]))
+		controlNumber     = StrToUint(string(inputChar[9]))
 	)
 	for index := 1; index < len(inputChar)-1; index++ {
-		if internalUintChar, err := strconv.Atoi(string(inputChar[index])); err != nil {
-			return false
-		} else {
-			uintChar = uint(internalUintChar)
-		}
+		internalUintChar := StrToUint(string(inputChar[index]))
+		uintChar = internalUintChar
 		counter += uint(10-index) * uintChar
 	}
 	switch remaining := counter % 11; remaining < 2 {
