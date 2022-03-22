@@ -1,0 +1,436 @@
+{
+  "info": {
+    "_postman_id": "22f92940-f229-47d5-97cc-921ada6d21ca",
+    "name": "tel-note",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "contact",
+      "item": [
+        {
+          "name": "get-contact",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "127.0.0.1:1212/get-contact",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "1212",
+              "path": [
+                "get-contact"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "add-contact",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "PersonID",
+                "value": "1",
+                "type": "text"
+              },
+              {
+                "key": "JobID",
+                "value": "1",
+                "type": "text"
+              },
+              {
+                "key": "Tel",
+                "value": "021",
+                "type": "text"
+              },
+              {
+                "key": "CellphoneCollection",
+                "value": "0912,home,09121,work",
+                "type": "text"
+              },
+              {
+                "key": "Address",
+                "value": "none",
+                "type": "text"
+              },
+              {
+                "key": "Description",
+                "value": "none",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "127.0.0.1:1212/add-contact",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "1212",
+              "path": [
+                "add-contact"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "edit-contact",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "ID",
+                "value": "1",
+                "type": "text"
+              },
+              {
+                "key": "PersonID",
+                "value": "2",
+                "type": "text"
+              },
+              {
+                "key": "JobID",
+                "value": "2",
+                "type": "text"
+              },
+              {
+                "key": "Tel",
+                "value": "021-21",
+                "type": "text"
+              },
+              {
+                "key": "CellphoneCollection",
+                "value": "0912,new_home,09121,new_work",
+                "type": "text"
+              },
+              {
+                "key": "Address",
+                "value": "new address",
+                "type": "text"
+              },
+              {
+                "key": "Description",
+                "value": "new description",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "127.0.0.1:1212/edit-contact",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "1212",
+              "path": [
+                "edit-contact"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "find-contact-char",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "char",
+                "value": "ki",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "127.0.0.1:1212/find-contact-char",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "1212",
+              "path": [
+                "find-contact-char"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "find-contact-id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "127.0.0.1:1212/find-contact-id?id=2",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "1212",
+              "path": [
+                "find-contact-id"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete-contact-id",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "id",
+                "value": "2",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "127.0.0.1:1212/delete-contact-id",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "1212",
+              "path": [
+                "delete-contact-id"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete-contact-all",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "127.0.0.1:1212/delete-contact-all",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "1212",
+              "path": [
+                "delete-contact-all"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "person",
+      "item": [
+        {
+          "name": "find-person-id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "127.0.0.1:1212/find-person-id?pid=2",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "1212",
+              "path": [
+                "find-person-id"
+              ],
+              "query": [
+                {
+                  "key": "pid",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "country",
+      "item": [
+        {
+          "name": "country-list",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "127.0.0.1:1212/country-list",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "1212",
+              "path": [
+                "country-list"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "city",
+      "item": [
+        {
+          "name": "distance-time-between-two-city",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "firstCity",
+                "value": "913",
+                "type": "text"
+              },
+              {
+                "key": "secondCity",
+                "value": "1133",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "127.0.0.1:1212/distance-time-between-two-city",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "1212",
+              "path": [
+                "distance-time-between-two-city"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "general",
+      "item": [
+        {
+          "name": "check-national-id",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "NID",
+                "value": "0123456789",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "127.0.0.1:1212/check-national-id",
+              "host": [
+                "127",
+                "0",
+                "0",
+                "1"
+              ],
+              "port": "1212",
+              "path": [
+                "check-national-id"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "menu-list",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "127.0.0.1:1212/menu-list",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "1212",
+          "path": [
+            "menu-list"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "fill-data",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "127.0.0.1:1212/fill-data",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "1212",
+          "path": [
+            "fill-data"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get-data",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "127.0.0.1:1212/get-data",
+          "host": [
+            "127",
+            "0",
+            "0",
+            "1"
+          ],
+          "port": "1212",
+          "path": [
+            "get-data"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
