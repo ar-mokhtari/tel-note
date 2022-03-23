@@ -1,6 +1,8 @@
 package city
 
-import "net/http"
+import (
+	"net/http"
+)
 
 func Init() {
 	var cityObject storageMemory
