@@ -31,14 +31,13 @@ type AllDataCollection struct {
 
 var FillDataStruct fillData
 
-func FillSimpleDataInMainData() bool {
+func (fillData *fillData) FillSimpleDataInMainData() bool {
 	for _, data := range env.SexDataTest {
 		sex.NewSex(*data)
 	}
 	//for _, data := range env.CityDataTest {
 	//	city.NewCity(*data)
 	//}
-	fmt.Println("importing cities ...")
 	cities, _ := general.GetDataFromExcel("././env/IranCities.csv", true)
 	for _, cityPack := range cities {
 		lat, _ := strconv.ParseFloat(cityPack[6], 64)
@@ -70,8 +69,6 @@ func FillSimpleDataInMainData() bool {
 		contact.PoolContact.NewContact(*data)
 	}
 	//call api test for fill countries
-	fmt.Println("" +
-		"importing countries ...")
 	countries := country.CallCountry.Do()
 	for _, data := range countries {
 		country.NewCountry(*data)
@@ -80,7 +77,7 @@ func FillSimpleDataInMainData() bool {
 }
 
 func (fillData *fillData) DoFillData() bool {
-	return FillSimpleDataInMainData()
+	return fillData.FillSimpleDataInMainData()
 }
 
 func (fillData *fillData) DoGetData() (result AllDataCollection) {
@@ -95,14 +92,15 @@ func (fillData *fillData) DoGetData() (result AllDataCollection) {
 
 func (fillData *fillData) ServeGetDataHandle(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(fillData.DoGetData().contact)
-	json.NewEncoder(w).Encode(fillData.DoGetData().customer)
-	json.NewEncoder(w).Encode(fillData.DoGetData().customerGroup)
-	json.NewEncoder(w).Encode(fillData.DoGetData().customerGroupRelation)
-	json.NewEncoder(w).Encode(fillData.DoGetData().customerRelation)
-	json.NewEncoder(w).Encode(fillData.DoGetData().person)
-	json.NewEncoder(w).Encode(fillData.DoGetData().countries)
-	json.NewEncoder(w).Encode(fillData.DoGetData().cities)
+	result := fillData.DoGetData()
+	json.NewEncoder(w).Encode(result.contact)
+	json.NewEncoder(w).Encode(result.customer)
+	json.NewEncoder(w).Encode(result.customerGroup)
+	json.NewEncoder(w).Encode(result.customerGroupRelation)
+	json.NewEncoder(w).Encode(result.customerRelation)
+	json.NewEncoder(w).Encode(result.person)
+	json.NewEncoder(w).Encode(result.countries)
+	json.NewEncoder(w).Encode(result.cities)
 }
 
 func (fillData *fillData) ServeFillData(w http.ResponseWriter, r *http.Request) {

@@ -53,7 +53,7 @@ func RunMenu() {
 		case true:
 			switch userInput {
 			case InsertSomeSamplesData:
-				fillSampleData.FillSimpleDataInMainData()
+				fillSampleData.FillDataStruct.FillSimpleDataInMainData()
 				fmt.Println(ShowMenuWarn)
 			case PrintAllData:
 				fmt.Println(separator7)
