@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
+	"tel-note/config"
 	"tel-note/env"
 	"tel-note/protocol"
 	"tel-note/services/city"
@@ -31,14 +32,15 @@ type AllDataCollection struct {
 
 var FillDataStruct fillData
 
-func (fillData *fillData) FillSimpleDataInMainData() bool {
+func (fillData *fillData) FillSimpleDataInMainData() (result [][]string, err error) {
 	for _, data := range env.SexDataTest {
 		sex.NewSex(*data)
 	}
 	//for _, data := range env.CityDataTest {
 	//	city.NewCity(*data)
 	//}
-	cities, _ := general.GetDataFromExcel("././env/IranCities.csv", true)
+	var cities [][]string
+	cities, err = general.GetDataFromExcel(config.MainPath+"env/IranCities.csv", true)
 	for _, cityPack := range cities {
 		lat, _ := strconv.ParseFloat(cityPack[6], 64)
 		lng, _ := strconv.ParseFloat(cityPack[7], 64)
@@ -73,11 +75,12 @@ func (fillData *fillData) FillSimpleDataInMainData() bool {
 	for _, data := range countries {
 		country.NewCountry(*data)
 	}
-	return true
+	return cities, err
 }
 
-func (fillData *fillData) DoFillData() bool {
-	return fillData.FillSimpleDataInMainData()
+func (fillData *fillData) DoFillData() error {
+	_, err := fillData.FillSimpleDataInMainData()
+	return err
 }
 
 func (fillData *fillData) DoGetData() (result AllDataCollection) {
@@ -93,6 +96,7 @@ func (fillData *fillData) DoGetData() (result AllDataCollection) {
 func (fillData *fillData) ServeGetDataHandle(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	result := fillData.DoGetData()
+	json.NewEncoder(w).Encode(result.cities)
 	json.NewEncoder(w).Encode(result.contact)
 	json.NewEncoder(w).Encode(result.customer)
 	json.NewEncoder(w).Encode(result.customerGroup)
@@ -100,14 +104,19 @@ func (fillData *fillData) ServeGetDataHandle(w http.ResponseWriter, r *http.Requ
 	json.NewEncoder(w).Encode(result.customerRelation)
 	json.NewEncoder(w).Encode(result.person)
 	json.NewEncoder(w).Encode(result.countries)
-	json.NewEncoder(w).Encode(result.cities)
 }
 
 func (fillData *fillData) ServeFillData(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	if fillData.DoFillData() {
-		fmt.Fprintf(w, "data insert successfuly")
+	if err := fillData.DoFillData(); err != nil {
+		json.NewEncoder(w).Encode(struct {
+			Err string
+		}{fmt.Sprintf("error is: %v", err)})
+
 	} else {
-		fmt.Fprintf(w, "some thing wrong")
+		json.NewEncoder(w).Encode(struct {
+			State   int
+			Message string
+		}{200, "Data insert successfully"})
 	}
 }
