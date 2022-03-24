@@ -1,6 +1,7 @@
 package config
 
 const (
+	MainPath   = "/home/aliz/go/src/tel-note/"
 	RunAppType = "serv"
 )
 

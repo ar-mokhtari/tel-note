@@ -6,8 +6,9 @@ import (
 	"os"
 )
 
-func GetDataFromExcel(path string, hasHeader bool) (result [][]string, err error) {
-	file, _ := os.Open(path)
+func GetDataFromExcel(path string, hasHeader bool) ([][]string, error) {
+	var result [][]string
+	var file, err = os.Open(path)
 	// parse as csv
 	reader := csv.NewReader(file)
 	for {
@@ -25,5 +26,5 @@ func GetDataFromExcel(path string, hasHeader bool) (result [][]string, err error
 	if hasHeader {
 		result = result[1:]
 	}
-	return result, nil
+	return result, err
 }

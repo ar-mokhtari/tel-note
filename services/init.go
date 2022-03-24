@@ -14,6 +14,9 @@ import (
 )
 
 func Init() {
+	//init general services
+	general.Init()
+
 	//init sex services
 	sex.Init()
 
@@ -34,9 +37,6 @@ func Init() {
 
 	//init contact services
 	contact.Init()
-
-	//init general services
-	general.Init()
 
 	//init fill data
 	fillSampleData.Init()
