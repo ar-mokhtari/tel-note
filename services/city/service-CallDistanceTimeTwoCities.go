@@ -7,29 +7,74 @@ import (
 	"tel-note/services/general"
 )
 
-type serviceHandler struct{}
+type DistanceTimeService struct{}
 
-var ServiceHandler serviceHandler
-
-func (handler *serviceHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-
+func (Handler *DistanceTimeService) ServeHTTP() http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		firstCity := r.Header.Get("firstCity")
+		secondCity := r.Header.Get("secondCity")
+		firstStatus, dataFirstCity := FindCityByID(general.StrToUint(firstCity))
+		secondStatus, dataSecondCity := FindCityByID(general.StrToUint(secondCity))
+		if firstStatus.State && secondStatus.State {
+			result, state := Handler.CallDistanceTimeTwoCities(dataFirstCity, dataSecondCity)
+			if state.State {
+				json.NewEncoder(w).Encode(
+					struct {
+						Status     uint
+						FirstCity  string
+						SecondCity string
+						Duration   struct {
+							Hour   float32
+							Minute float32
+						}
+						Distance uint
+					}{200, dataFirstCity.Name, dataSecondCity.Name,
+						struct {
+							Hour   float32
+							Minute float32
+						}{float32(result[0] / 3600), float32(result[0] % 3600 / 60)},
+						result[1] / 1000},
+				)
+			} else {
+				json.NewEncoder(w).Encode(
+					struct {
+						Status  uint
+						Massage string
+					}{400, "method don't response any"})
+			}
+		} else {
+			json.NewEncoder(w).Encode(
+				struct {
+					Status           uint
+					Massage          string
+					FirstCityStatus  bool
+					SecondCityStatus bool
+				}{
+					401,
+					"city(ies) not found",
+					firstStatus.State,
+					secondStatus.State,
+				})
+		}
+	}
 }
 
-func (handler *serviceHandler) CallDistanceTimeTwoCities(cityNoOne, CityNoTwo protocol.City) ([]uint, protocol.ResponseStatus) {
+func (Handler *DistanceTimeService) CallDistanceTimeTwoCities(cityNoOne, CityNoTwo protocol.City) ([]uint, protocol.ResponseStatus) {
 	if data, status := storage.CallTimeDistanceTwoCities(cityNoOne, CityNoTwo); status {
 		return data, protocol.ResponseStatus{State: status}
 	}
 	return []uint{}, protocol.ResponseStatus{State: false}
 }
 
-func (handler *serviceHandler) DistanceTimeServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (Handler *DistanceTimeService) DistanceTimeServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	firstCity := r.Header.Get("firstCity")
 	secondCity := r.Header.Get("secondCity")
 	firstStatus, dataFirstCity := FindCityByID(general.StrToUint(firstCity))
 	secondStatus, dataSecondCity := FindCityByID(general.StrToUint(secondCity))
 	if firstStatus.State && secondStatus.State {
-		result, state := handler.CallDistanceTimeTwoCities(dataFirstCity, dataSecondCity)
+		result, state := Handler.CallDistanceTimeTwoCities(dataFirstCity, dataSecondCity)
 		if state.State {
 			json.NewEncoder(w).Encode(
 				struct {

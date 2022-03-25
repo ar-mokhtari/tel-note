@@ -1,12 +1,10 @@
 package city
 
-import (
-	"net/http"
-)
+import "net/http"
 
 func Init() {
+
 	var cityObject storageMemory
 	storage = &cityObject
-
-	http.HandleFunc("/distance-time-between-two-city", ServiceHandler.DistanceTimeServeHTTP)
+	http.HandleFunc("/distance-time-between-two-city", (*DistanceTimeService).ServeHTTP(nil))
 }
