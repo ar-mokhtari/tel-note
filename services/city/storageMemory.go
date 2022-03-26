@@ -1,5 +1,4 @@
 //go:build memory
-// +build memory
 
 package city
 
@@ -16,6 +15,11 @@ type storageMemory struct {
 	CityData []*protocol.City
 	PoolByID map[uint]*protocol.City
 }
+
+var (
+	storage storageMemory
+	_       protocol.CityServices = &storage
+)
 
 func (allCity *storageMemory) GetCities() []*protocol.City {
 	return allCity.CityData

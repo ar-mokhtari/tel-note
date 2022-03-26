@@ -1,6 +1,3 @@
-//go:build memory
-// +build memory
-
 package services
 
 import (

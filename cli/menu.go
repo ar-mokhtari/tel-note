@@ -769,7 +769,7 @@ func RunMenu() {
 				firstStatus, dataFirstCity := city.FindCityByID(firstCityCode)
 				secondStatus, dataSecondCity := city.FindCityByID(secondCityCode)
 				if firstStatus.State && secondStatus.State {
-					result, state := (*city.DistanceTimeService).CallDistanceTimeTwoCities(nil, dataFirstCity, dataSecondCity)
+					result, state := city.DistanceTimeService.Do(dataFirstCity, dataSecondCity)
 					if state.State {
 						fmt.Printf(
 							"Time duration with online traffic is: %v hours ", result[0]/3600)
