@@ -24,6 +24,7 @@
          City
          panic.storage
          general.CallGetAPIs
+         127.0.0.1:1212/find-city-char
 −−−−−−−−−−−−−−−−−−−−−−−−−−
 This note is modified and added
 −−−−−−−−−−−−−−−−−−−−−−−−−−
