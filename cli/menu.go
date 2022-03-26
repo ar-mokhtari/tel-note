@@ -7,6 +7,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"tel-note/lib"
 	"tel-note/protocol"
 	"tel-note/services/city"
 	"tel-note/services/contact"
@@ -140,7 +141,7 @@ func RunMenu() {
 				var nationalCode string
 				fmt.Println("insert new NationalCode")
 				fmt.Scanln(&nationalCode)
-				if !general.CheckIranNationalCode(nationalCode) {
+				if !lib.CheckNationalID(nationalCode) {
 					fmt.Println("Invalid national code")
 					fmt.Println(ShowMenuWarn)
 				} else {
@@ -518,7 +519,7 @@ func RunMenu() {
 				fmt.Scanln(&GenderID)
 				fmt.Println("insert new NationalCode")
 				fmt.Scanln(&NationalCode)
-				if !general.CheckIranNationalCode(NationalCode) {
+				if !lib.CheckNationalID(NationalCode) {
 					fmt.Println("Invalid national code")
 					fmt.Println(ShowMenuWarn)
 				}

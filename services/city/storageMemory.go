@@ -1,3 +1,6 @@
+//go:build memory
+// +build memory
+
 package city
 
 import (
