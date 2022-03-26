@@ -23,7 +23,7 @@
 
 <h3> To build:</h3>
 
-$ go build -o bin/telnote
+$ go build -tags storageType -o bin/telnote
 
 <h3> Create service </h3>
 
