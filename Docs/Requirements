@@ -1,21 +1,23 @@
 ✖# Identification, Authentication, Authorization to control user services
 ✖# Create Validation service
-✔# Import data from external source csv file
 ✖# Export data to csv file
+✖# Send sms for different service(s)
+✖# Send email for different service(s)
+✖# Create and develop internal database to "data service(ing)"
+✖# Create reports, listen and export official data(s) by api(s) [b2e]
+✖# Build with storage(s) type tags
+✖# Use general packages (lib)s
+
+
+✔# Import data from external source csv file
+✔# Listen and export business data to applicant(s) [b2c]
+    - use a web framework and router
+    - create a collection for api(s) document(s)
 ✔# Call Some Api(s) [b2b]
     - Date and time
     - Check national id(s)
     - Insert and update city(ies) and its property(ies)
     - ...
-✖# Send sms for different service(s)
-✖# Send email for different service(s)
-✔# Listen and export business data to applicant(s) [b2c]
-    - use a web framework and router
-    - create a collection for api(s) document(s)
-✖# Create and develop internal database to "data service(ing)"
-✖# Create reports, listen and export official data(s) by api(s) [b2e]
-✖# Build with storage(s) type tags
-✖# Use general packages (lib)s
 
 
 −−−−−−−−−−−−−−−−−−−−−−−−−−
