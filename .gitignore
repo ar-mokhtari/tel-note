@@ -17,8 +17,8 @@
 *.idea
 
 # external entity(ies)
-/SDK/neshan/*
-/SDK/Universal/*
+/SDK/neshan/material.go
+/SDK/Universal/material.go
 
 # build file(s)
 main
