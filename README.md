@@ -11,9 +11,9 @@
 
 ---
 
-<h6> please notice us if you have any other idea ...
+<h6> please notice me if you have any other idea ...
 </h6>
- 
+
 <a href="mailto:neatland@gmail.com"><img alt="Gmail" title="Alireza Mokhtari G Gmail" src="https://camo.githubusercontent.com/571384769c09e0c66b45e39b5be70f68f552db3e2b2311bc2064f0d4a9f5983b/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f476d61696c2d4431343833363f7374796c653d666f722d7468652d6261646765266c6f676f3d676d61696c266c6f676f436f6c6f723d7768697465" data-canonical-src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&amp;logo=gmail&amp;logoColor=white" style="max-width: 100%;"></a> <a href="https://t.me/ar_mokhtari" rel="nofollow"><img alt="Telegram" title="Alireza Mokhtari G Telegram" src="https://camo.githubusercontent.com/cf4ed981404024c1adfc79d5575c4edf1836c4fe36b24b03383ece888cef7e29/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f54656c656772616d2d3243413545303f7374796c653d666f722d7468652d6261646765266c6f676f3d74656c656772616d266c6f676f436f6c6f723d7768697465" data-canonical-src="https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&amp;logo=telegram&amp;logoColor=white" style="max-width: 100%;"></a>
 
 <h4 style="color: deepskyblue;margin-bottom: -0.9rem">Powered by</h4>
@@ -24,23 +24,23 @@
 
 <h3>Requirements</h3>
 [Requirements for this project](Docs/Requirements)
-> - [ ] Identification, Authentication, Authorization to control user services
-> - [ ] Create Validation service
-> - [ ] Export data to csv file
-> - [ ] Send sms for different service(s)
-> - [ ] Send email for different service(s)
-> - [ ] Create and develop internal database to "data service(ing)"
-> - [ ] Create reports, listen and export official data(s) by api(s) [b2e]
-> - [ ] Build with storage(s) type tags
-> - [ ] Use general packages (lib)s
-> - [x] Import data from external source csv file
-> - [x] Listen and export business data to applicant(s) [b2c]
->> - [x] use a web framework and router
->> - [x] create a collection for api(s) document(s)
-> - [x] Call Some Api(s) [b2b]
->> - [x] Date and time
->> - [x] Check national id(s)
->> - [x] Insert and update city(ies) and its property(ies)
+[ ] Identification, Authentication, Authorization to control user services
+[ ] Create Validation service
+[ ] Export data to csv file
+[ ] Send sms for different service(s)
+[ ] Send email for different service(s)
+[ ] Create and develop internal database to "data service(ing)"
+[ ] Create reports, listen and export official data(s) by api(s) [b2e]
+[ ] Build with storage(s) type tags
+[ ] Use general packages (lib)s
+[x] Import data from external source csv file
+[x] Listen and export business data to applicant(s) [b2c]
+[x] use a web framework and router
+[x] create a collection for api(s) document(s)
+[x] Call Some Api(s) [b2b]
+[x] Date and time
+[x] Check national id(s)
+[x] Insert and update city(ies) and its property(ies)
 
 
 <h3> To build:</h3>
