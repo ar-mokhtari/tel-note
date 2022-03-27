@@ -36,8 +36,8 @@
 > - [ ] Use general packages (lib)s
 > - [x] Import data from external source csv file
 > - [x] Listen and export business data to applicant(s) [b2c]
-> - [x] use a web framework and router
-> - [x] create a collection for api(s) document(s)
+>> - [x] use a web framework and router
+>> - [x] create a collection for api(s) document(s)
 > - [x] Call Some Api(s) [b2b]
 >> - [x] Date and time
 >> - [x] Check national id(s)
