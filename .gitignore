@@ -17,7 +17,7 @@
 *.idea
 
 # external entity(ies)
-/SDK/*
+#/SDK/*
 
 # build file(s)
 main
