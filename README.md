@@ -26,23 +26,22 @@
 
 [Requirements for this project](Docs/Requirements)
 > - [ ] Identification, Authentication, Authorization to control user services
-
-- [ ] Create Validation service
-- [ ] Export data to csv file
-- [ ] Send sms for different service(s)
-- [ ] Send email for different service(s)
-- [ ] Create and develop internal database to "data service(ing)"
-- [ ] Create reports, listen and export official data(s) by api(s) [b2e]
-- [ ] Build with storage(s) type tags
-- [ ] Use general packages (lib)s
-- [x] Import data from external source csv file
-- [x] Listen and export business data to applicant(s) [b2c]
-- [x] use a web framework and router
-- [x] create a collection for api(s) document(s)
-- [x] Call Some Api(s) [b2b]
-- [x] Date and time
-- [x] Check national id(s)
-- [x] Insert and update city(ies) and its property(ies)
+> - [ ] Create Validation service
+> - [ ] Export data to csv file
+> - [ ] Send sms for different service(s)
+> - [ ] Send email for different service(s)
+> - [ ] Create and develop internal database to "data service(ing)"
+> - [ ] Create reports, listen and export official data(s) by api(s) [b2e]
+> - [ ] Build with storage(s) type tags
+> - [ ] Use general packages (lib)s
+> - [x] Import data from external source csv file
+> - [x] Listen and export business data to applicant(s) [b2c]
+> - [x] use a web framework and router
+> - [x] create a collection for api(s) document(s)
+> - [x] Call Some Api(s) [b2b]
+> - [x] Date and time
+> - [x] Check national id(s)
+> - [x] Insert and update city(ies) and its property(ies)
 
 <h3> To build:</h3>
 
