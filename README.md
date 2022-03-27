@@ -1,5 +1,13 @@
 <h1 align="center" style="alignment: center;color: yellow"> Tel-Note </h1>
 
+```diff
+- text in red
++ text in green
+! text in orange
+# text in gray
+@@ text in purple (and bold)@@
+```
+
 <h6> Tel-note is a structure and syntax practise with Go-lang. </h6>
 <h6 style="margin-top: -1rem">we are beginner in go and this practise seems to have bad implement or structure, please give us tips 🙏
 </h6>
