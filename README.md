@@ -6,7 +6,7 @@
 
 ---
 
-<h6>Special thanks to :+1: :heart: @OmidHekayati for training support
+<h6>Special thanks to :+1:  @https://github.com/OmidHekayati :heart: for training support
 </h6>
 
 ---
