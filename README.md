@@ -1,7 +1,7 @@
 <h1 align="center" style="alignment: center;color: yellow"> Tel-Note </h1>
 
 <h6> Tel-note is a structure and syntax practise with Go-lang. </h6>
-<h6 style="margin-top: -1rem">we are beginner in go and this practise seems to have bad implement or structure, please give us tips 🙏
+<h6> This is an example of sending and receiving data from/to external sources and the operations of creating, reading, updating and maintaining data. Searching and creating sample reports is one of the goals of this project. 
 </h6>
 
 ---
