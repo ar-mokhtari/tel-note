@@ -6,7 +6,7 @@
 
 ---
 
-<h6>Special thanks to :+1:  @OmidHekayati :heart: for training support
+<h6>Special thanks to :+1:  `@https://github.com/OmidHekayati` :heart: for training support
 </h6>
 
 ---
@@ -45,11 +45,15 @@
 
 <h3> To build:</h3>
 
+````
 $ go build -tags storageType -o bin/telnote
+````
 
 <h3> Create service </h3>
 
+````
 $ nano /lib/systemd/system/telnote.service
+````
 
 <h3> Set service </h3>
 
