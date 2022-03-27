@@ -23,9 +23,10 @@
 ---
 
 <h3>Requirements</h3>
-[Requirements for this project](Docs/Requirements)
 
-- [ ] Identification, Authentication, Authorization to control user services
+[Requirements for this project](Docs/Requirements)
+> - [ ] Identification, Authentication, Authorization to control user services
+
 - [ ] Create Validation service
 - [ ] Export data to csv file
 - [ ] Send sms for different service(s)
