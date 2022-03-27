@@ -6,5 +6,5 @@ func Init() {
 	var personObject storageMemory
 	storage = &personObject
 
-	http.Handle("/find-person-id", http.HandlerFunc(ServPersonRoute.ServeFindPersonByIDHandle))
+	http.Handle("/find-person-id", &ServPersonRoute)
 }

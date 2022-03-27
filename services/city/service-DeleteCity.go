@@ -1,3 +1,5 @@
+//go:build memory
+
 package city
 
 func DeleteCity(IDS []uint) []uint {

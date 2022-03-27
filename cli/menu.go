@@ -7,14 +7,14 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"tel-note/lib"
+	"tel-note/lib/convertor"
+	"tel-note/lib/validator"
 	"tel-note/protocol"
 	"tel-note/services/city"
 	"tel-note/services/contact"
 	"tel-note/services/country"
 	"tel-note/services/customer"
 	"tel-note/services/fillSampleData"
-	"tel-note/services/general"
 	"tel-note/services/globalVars"
 	"tel-note/services/identity"
 	"tel-note/services/job"
@@ -141,7 +141,7 @@ func RunMenu() {
 				var nationalCode string
 				fmt.Println("insert new NationalCode")
 				fmt.Scanln(&nationalCode)
-				if !lib.CheckNationalID(nationalCode) {
+				if !validator.CheckNationalID(nationalCode) {
 					fmt.Println("Invalid national code")
 					fmt.Println(ShowMenuWarn)
 				} else {
@@ -483,7 +483,7 @@ func RunMenu() {
 					idPack := strings.Split(deleteIDS, ",")
 					var idPackInt []uint
 					for _, i := range idPack {
-						j := general.StrToUint(i)
+						j := convertor.StrToUint(i)
 						idPackInt = append(idPackInt, uint(j))
 						customer.DeleteCustomerById(uint(j))
 					}
@@ -519,7 +519,7 @@ func RunMenu() {
 				fmt.Scanln(&GenderID)
 				fmt.Println("insert new NationalCode")
 				fmt.Scanln(&NationalCode)
-				if !lib.CheckNationalID(NationalCode) {
+				if !validator.CheckNationalID(NationalCode) {
 					fmt.Println("Invalid national code")
 					fmt.Println(ShowMenuWarn)
 				}
@@ -635,7 +635,7 @@ func RunMenu() {
 						idPack := strings.Split(deleteIDS, ",")
 						var idPackInt []uint
 						for _, i := range idPack {
-							j := general.StrToUint(i)
+							j := convertor.StrToUint(i)
 							idPackInt = append(idPackInt, uint(j))
 						}
 						resNums := person.DeletePerson(idPackInt)
@@ -682,7 +682,7 @@ func RunMenu() {
 					idPack := strings.Split(deleteIDS, ",")
 					var idPackInt []uint
 					for _, i := range idPack {
-						j := general.StrToUint(i)
+						j := convertor.StrToUint(i)
 						idPackInt = append(idPackInt, uint(j))
 					}
 					resNums := person.DeletePerson(idPackInt)
@@ -753,7 +753,7 @@ func RunMenu() {
 					idPack := strings.Split(deleteIDS, ",")
 					var idPackInt []uint
 					for _, i := range idPack {
-						j := general.StrToUint(i)
+						j := convertor.StrToUint(i)
 						idPackInt = append(idPackInt, uint(j))
 					}
 					resNums := city.DeleteCity(idPackInt)
@@ -842,7 +842,7 @@ func RunMenu() {
 					idPack := strings.Split(deleteIDS, ",")
 					var idPackInt []uint
 					for _, i := range idPack {
-						j := general.StrToUint(i)
+						j := convertor.StrToUint(i)
 						idPackInt = append(idPackInt, uint(j))
 					}
 					resNums := country.DeleteCountry(idPackInt)
@@ -947,7 +947,7 @@ func RunMenu() {
 					idPack := strings.Split(deleteIDS, ",")
 					var idPackInt []uint
 					for _, i := range idPack {
-						j := general.StrToUint(i)
+						j := convertor.StrToUint(i)
 						idPackInt = append(idPackInt, uint(j))
 					}
 					resNums := job.DeleteJobByID(idPackInt)

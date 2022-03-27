@@ -3,8 +3,8 @@ package contact
 import (
 	"encoding/json"
 	"net/http"
+	"tel-note/lib/convertor"
 	"tel-note/protocol"
-	"tel-note/services/general"
 )
 
 type deleteContactByID struct{}
@@ -18,10 +18,10 @@ func (allData *deleteContactByID) DeleteContactByID(ID uint) *protocol.ResponseS
 	return &protocol.ResponseStatus{State: false}
 }
 
-func (allData *deleteContactByID) DeleteContactByIDServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (allData *deleteContactByID) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	id := r.Header.Get("id")
-	if state := allData.DeleteContactByID(general.StrToUint(id)); state.State {
+	if state := allData.DeleteContactByID(convertor.StrToUint(id)); state.State {
 		json.NewEncoder(w).Encode(struct {
 			State   uint
 			Message string

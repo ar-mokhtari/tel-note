@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 	"strings"
+	"tel-note/lib/convertor"
 	"tel-note/protocol"
-	"tel-note/services/general"
 )
 
 type contactEditPool struct{}
@@ -19,7 +19,7 @@ func (allData *contactEditPool) EditContactByID(newData protocol.Contact, ID uin
 	return &protocol.ResponseStatus{State: true, String: "not found"}
 }
 
-func (allData *contactEditPool) EditContactServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (allData *contactEditPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	ID := r.Header.Get("ID")
 	PersonID := r.Header.Get("PersonID")
@@ -43,14 +43,14 @@ func (allData *contactEditPool) EditContactServeHTTP(w http.ResponseWriter, r *h
 		}
 	}
 	result := protocol.Contact{
-		PersonID:            general.StrToUint(PersonID),
-		JobID:               general.StrToUint(JobID),
+		PersonID:            convertor.StrToUint(PersonID),
+		JobID:               convertor.StrToUint(JobID),
 		Tel:                 Tel,
 		CellphoneCollection: cellPack,
 		Address:             Address,
 		Description:         Description,
 	}
-	if status := allData.EditContactByID(result, general.StrToUint(ID)); status.State {
+	if status := allData.EditContactByID(result, convertor.StrToUint(ID)); status.State {
 		json.NewEncoder(w).Encode(struct {
 			State   int
 			Message string

@@ -6,5 +6,5 @@ func Init() {
 	var countryMethods storageMemory
 	storageService = &countryMethods
 
-	http.Handle("/country-list", http.HandlerFunc(CallCountry.ServeCallCountry))
+	http.Handle("/country-list", &CallCountry)
 }

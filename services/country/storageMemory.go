@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"strings"
 	"tel-note/SDK/Universal"
+	"tel-note/lib/callAPI"
 	"tel-note/protocol"
-	"tel-note/services/general"
 	"time"
 )
 
@@ -26,7 +26,7 @@ func (allCountries *storageMemory) CallCountry() []*protocol.Country {
 		"api-token":  Universal.UniversaltutorialToken,
 		"user-email": Universal.Email,
 	}
-	responseTokenData := general.CallGetAPIs(
+	responseTokenData := callAPI.CallGetAPIs(
 		Universal.GetTokenURL,
 		map[string]string{},
 		MapTokenHeaders,
@@ -43,7 +43,7 @@ func (allCountries *storageMemory) CallCountry() []*protocol.Country {
 		"Accept":        "application/json",
 		"Authorization": "Bearer " + string(token["auth_token"]),
 	}
-	responseData := general.CallGetAPIs(
+	responseData := callAPI.CallGetAPIs(
 		Universal.GetCountryURL,
 		map[string]string{},
 		MapHeaders,

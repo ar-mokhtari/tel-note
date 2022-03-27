@@ -1,7 +1,10 @@
+//go:build memory
+
 package city
 
 import (
 	"encoding/json"
+	"io/ioutil"
 	"net/http"
 	"tel-note/protocol"
 )
@@ -19,19 +22,37 @@ func (allData *findByCharService) FindCityByChar(inputChar string) (protocol.Res
 
 func (allData *findByCharService) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	var char struct{ char string }
-	err := json.NewDecoder(r.Body).Decode(&char)
+	var char struct {
+		Char string `json:"char"`
+	}
+	body, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		panic(err)
+	}
+	err = json.Unmarshal(body, &char)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	if status, data := allData.FindCityByChar(char.char); status.State {
+	if status, data := allData.FindCityByChar(char.Char); status.State {
+		type cityResult struct {
+			CityCode uint
+			CityName string
+		}
+		var dataResult []cityResult
 		for _, result := range data {
 			_, city := storage.FindCityByID(result)
-			json.NewEncoder(w).Encode(struct {
-				CityCode uint
-				CityName string
-			}{city.Id, city.Name})
+			dataResult = append(dataResult, cityResult{city.Id, city.Name})
 		}
+		json.NewEncoder(w).Encode(struct {
+			Status      uint
+			ResultCount uint
+			Data        []cityResult
+		}{200, uint(len(data)), dataResult})
+	} else {
+		json.NewEncoder(w).Encode(struct {
+			State   uint
+			Message string
+		}{400, "not found"})
 	}
 }

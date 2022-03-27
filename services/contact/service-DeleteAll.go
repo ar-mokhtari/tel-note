@@ -17,7 +17,7 @@ func (allData *deleteAllContact) DeleteAll() *protocol.ResponseStatus {
 	return &protocol.ResponseStatus{State: false}
 }
 
-func (allData *deleteAllContact) DelAllContactServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (allData *deleteAllContact) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	if status := allData.DeleteAll(); status.State {
 		json.NewEncoder(w).Encode(struct {

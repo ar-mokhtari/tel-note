@@ -8,7 +8,7 @@ import (
 
 type contactFindCharContactPool struct{}
 
-var FindByCharPool *contactFindCharContactPool
+var FindByCharPool contactFindCharContactPool
 
 func (allData *contactFindCharContactPool) FindContactByChar(insertChar string) (bool, []*protocol.Contact, uint) {
 	if resultData, data := storage.FindContactByChar(insertChar); resultData {
@@ -17,7 +17,7 @@ func (allData *contactFindCharContactPool) FindContactByChar(insertChar string) 
 	return false, []*protocol.Contact{}, 0
 }
 
-func (allData *contactFindCharContactPool) FindContactByCharServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (allData *contactFindCharContactPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	char := r.Header.Get("char")
 	if status, result, count := allData.FindContactByChar(char); status {

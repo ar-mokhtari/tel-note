@@ -3,15 +3,15 @@ package general
 import (
 	"fmt"
 	"net/http"
-	"tel-note/lib"
+	"tel-note/lib/validator"
 )
 
 type checkIranNationalCode struct{}
 
-var CheckIranNational *checkIranNationalCode
+var CheckIranNational checkIranNationalCode
 
-func (iranNationalCode *checkIranNationalCode) ServeCheckIranNationalCode(w http.ResponseWriter, r *http.Request) {
+func (iranNationalCode *checkIranNationalCode) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	NationalCode := r.Header.Values("NID")
-	fmt.Fprintf(w, "%v", lib.CheckNationalID(NationalCode[0]))
+	fmt.Fprintf(w, "%v", validator.CheckNationalID(NationalCode[0]))
 }

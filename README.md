@@ -36,6 +36,8 @@
 > - [ ] Create reports, listen and export official data(s) by api(s) [b2e]
 > - [ ] Build with storage(s) type tags
 > - [ ] Use general packages (lib)s
+> - [ ] Create product wiki
+> ---
 > - [x] Import data from external source csv file
 > - [x] Listen and export business data to applicant(s) [b2c]
 >> - [x] use a web framework and router
@@ -48,7 +50,7 @@
 <h3> To build:</h3>
 
 ````
-$ go build -tags storageType -o bin/telnote
+$ go build -tags storageType(exmp: memory) -o bin/telnote
 ````
 
 <h3> Create service </h3>
@@ -123,7 +125,7 @@ Create examples of all available entities for testing:
 </ul>
 
 <h3> Entities </h3>
-<ul>**/Protocol**
+<ul> <b>Protocols:s</b>
 <details style="margin-left: 2em">
 <li>city</li>
 <li>contact</li>

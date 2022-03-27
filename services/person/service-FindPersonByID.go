@@ -10,7 +10,7 @@ import (
 
 type servPersonRoute struct{}
 
-var ServPersonRoute *servPersonRoute
+var ServPersonRoute servPersonRoute
 
 func FindPersonByID(ID uint) (state protocol.ResponseStatus, result protocol.Person) {
 	if status, res := storage.FindPersonByID(ID); status {
@@ -19,7 +19,7 @@ func FindPersonByID(ID uint) (state protocol.ResponseStatus, result protocol.Per
 	return protocol.ResponseStatus{State: false}, protocol.Person{}
 }
 
-func (servPerson *servPersonRoute) ServeFindPersonByIDHandle(w http.ResponseWriter, r *http.Request) {
+func (servPerson *servPersonRoute) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	personID := r.FormValue("pid")
 	personUID, _ := strconv.ParseUint(personID, 10, 8)

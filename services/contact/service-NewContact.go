@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 	"strings"
+	"tel-note/lib/convertor"
 	"tel-note/protocol"
-	"tel-note/services/general"
 )
 
 type contactPool struct{}
@@ -20,7 +20,7 @@ func (allData *contactPool) NewContact(inputContact protocol.Contact) (status pr
 
 }
 
-func (allData *contactPool) NewContactServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (allData *contactPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	PersonID := r.Header.Get("PersonID")
 	JobID := r.Header.Get("JobID")
@@ -43,8 +43,8 @@ func (allData *contactPool) NewContactServeHTTP(w http.ResponseWriter, r *http.R
 		}
 	}
 	result := protocol.Contact{
-		PersonID:            general.StrToUint(PersonID),
-		JobID:               general.StrToUint(JobID),
+		PersonID:            convertor.StrToUint(PersonID),
+		JobID:               convertor.StrToUint(JobID),
 		Tel:                 Tel,
 		CellphoneCollection: cellPack,
 		Address:             Address,

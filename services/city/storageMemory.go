@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"strings"
 	"tel-note/SDK/neshan"
+	"tel-note/lib/callAPI"
 	"tel-note/protocol"
-	"tel-note/services/general"
 )
 
 type storageMemory struct {
@@ -18,7 +18,8 @@ type storageMemory struct {
 
 var (
 	storage storageMemory
-	_       protocol.CityServices = &storage
+	//TODO::: What does this do?
+	_ protocol.CityServices = &storage
 )
 
 func (allCity *storageMemory) GetCities() []*protocol.City {
@@ -110,7 +111,7 @@ func (allCity *storageMemory) CallTimeDistanceTwoCities(cityNoOne, cityNoTwo pro
 	MapHeaders := map[string]string{
 		"Api-Key": neshan.ApiKey,
 	}
-	responseData := general.CallGetAPIs(
+	responseData := callAPI.CallGetAPIs(
 		neshan.DistanceMatrixURL,
 		MapParams,
 		MapHeaders,

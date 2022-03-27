@@ -7,28 +7,18 @@ import (
 	"strconv"
 	"tel-note/config"
 	"tel-note/env"
+	"tel-note/lib/convertor"
 	"tel-note/protocol"
 	"tel-note/services/city"
 	"tel-note/services/contact"
 	"tel-note/services/country"
 	"tel-note/services/customer"
-	"tel-note/services/general"
 	"tel-note/services/job"
 	"tel-note/services/person"
 	"tel-note/services/sex"
 )
 
 type fillData struct{}
-type AllDataCollection struct {
-	contact               []*protocol.Contact
-	customer              []*protocol.Customer
-	customerGroup         []*protocol.CustomerGroup
-	customerGroupRelation []*protocol.CustomerGroupRelation
-	customerRelation      protocol.CustomerGRelationStorage
-	person                []*protocol.Person
-	countries             []*protocol.Country
-	cities                []*protocol.City
-}
 
 var FillDataStruct fillData
 
@@ -40,7 +30,7 @@ func (fillData *fillData) FillSimpleDataInMainData() (result [][]string, err err
 	//	city.NewCity(*data)
 	//}
 	var cities [][]string
-	cities, err = general.GetDataFromExcel(config.MainPath+"env/IranCities.csv", true)
+	cities, err = convertor.GetDataFromExcel(config.MainPath+"env/IranCities.csv", true)
 	for _, cityPack := range cities {
 		lat, _ := strconv.ParseFloat(cityPack[6], 64)
 		lng, _ := strconv.ParseFloat(cityPack[7], 64)
@@ -83,30 +73,7 @@ func (fillData *fillData) DoFillData() error {
 	return err
 }
 
-func (fillData *fillData) DoGetData() (result AllDataCollection) {
-	result.contact = contact.GetPool.GetContacts()
-	result.customerGroup = customer.GetCustomerGroup()
-	result.customerGroupRelation = customer.GetCustomerGroupRelation()
-	result.person = person.GetPersons()
-	result.countries = country.GetCountry()
-	result.cities = city.GetCities()
-	return result
-}
-
-func (fillData *fillData) ServeGetDataHandle(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	result := fillData.DoGetData()
-	json.NewEncoder(w).Encode(result.cities)
-	json.NewEncoder(w).Encode(result.contact)
-	json.NewEncoder(w).Encode(result.customer)
-	json.NewEncoder(w).Encode(result.customerGroup)
-	json.NewEncoder(w).Encode(result.customerGroupRelation)
-	json.NewEncoder(w).Encode(result.customerRelation)
-	json.NewEncoder(w).Encode(result.person)
-	json.NewEncoder(w).Encode(result.countries)
-}
-
-func (fillData *fillData) ServeFillData(w http.ResponseWriter, r *http.Request) {
+func (fillData *fillData) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	if err := fillData.DoFillData(); err != nil {
 		json.NewEncoder(w).Encode(struct {

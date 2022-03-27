@@ -1,4 +1,4 @@
-package general
+package callAPI
 
 import (
 	"fmt"

@@ -1,4 +1,4 @@
-package lib
+package validator
 
 import (
 	"regexp"
@@ -7,11 +7,16 @@ import (
 
 var regexGatewayID = regexp.MustCompile("^[\\d]{10}$")
 
+func LuhnAlgorithm(input string) bool {
+	if regexGatewayID.MatchString(input) {
+		return true
+	}
+	return false
+}
+
 func CheckNationalID(inputChar string) bool {
 	//TODO::: cleaning
-	if !regexGatewayID.MatchString(inputChar) {
-		return false
-	}
+	LuhnAlgorithm(inputChar)
 	var (
 		counter, uintChar uint
 		controlNumber, _  = strconv.Atoi(string(inputChar[9]))

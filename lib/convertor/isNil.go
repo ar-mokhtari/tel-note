@@ -1,4 +1,4 @@
-package general
+package convertor
 
 func ISNil(input []string) []string {
 	if input == nil {
