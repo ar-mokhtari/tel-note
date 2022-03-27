@@ -39,9 +39,9 @@
 > - [x] use a web framework and router
 > - [x] create a collection for api(s) document(s)
 > - [x] Call Some Api(s) [b2b]
-> - [x] Date and time
-> - [x] Check national id(s)
-> - [x] Insert and update city(ies) and its property(ies)
+>> - [x] Date and time
+>> - [x] Check national id(s)
+>> - [x] Insert and update city(ies) and its property(ies)
 
 <h3> To build:</h3>
 
