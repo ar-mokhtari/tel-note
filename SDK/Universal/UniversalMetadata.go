@@ -6,6 +6,6 @@ const (
 	// GetCountryURL UniversalTutorialURL UniversalTutorial
 	GetCountryURL          = "https://www.universal-tutorial.com/api/countries"
 	GetTokenURL            = "https://www.universal-tutorial.com/api/getaccesstoken"
-	UniversaltutorialToken = ""
+	UniversaltutorialToken = "1"
 	Email                  = ""
 )
