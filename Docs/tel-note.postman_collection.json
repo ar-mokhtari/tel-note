@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "22f92940-f229-47d5-97cc-921ada6d21ca",
+		"_postman_id": "b5990bef-28a5-497e-938b-6305d7e977af",
 		"name": "tel-note",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -330,6 +330,33 @@
 							"port": "1212",
 							"path": [
 								"distance-time-between-two-city"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-city",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "ids",
+								"value": "13,113,1113,R,11113",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "127.0.0.1:1212/delete-city",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"delete-city"
 							]
 						}
 					},
