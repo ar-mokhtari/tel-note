@@ -298,7 +298,7 @@ func RunMenu() {
 				fmt.Scanln(&cellphone)
 				var cellPack []protocol.CellPhone
 				if len(cellphone)%2 != 0 {
-					cellPhoneCollection := strings.Split(cellphone, ",")
+					cellPhoneCollection := convertor.StrToSlice(cellphone)
 					var tempCell protocol.CellPhone
 					for index, data := range cellPhoneCollection {
 						if (index + 1%2) != 0 {
@@ -364,7 +364,7 @@ func RunMenu() {
 					var status protocol.ResponseStatus
 					fmt.Println("insert your contact id(s) that you want to delete, separate id's by ',':")
 					fmt.Scanln(&deleteIDS)
-					idPack := strings.Split(deleteIDS, ",")
+					idPack := convertor.StrToSlice(deleteIDS)
 					for _, delID := range idPack {
 						uintDelID, _ := strconv.ParseUint(delID, 10, 8)
 						if uint(uintDelID) <= 0 {
@@ -480,7 +480,7 @@ func RunMenu() {
 					var deleteIDS string
 					fmt.Println("insert your customer id(s) that you want to delete, separate id's by ',':")
 					fmt.Scanln(&deleteIDS)
-					idPack := strings.Split(deleteIDS, ",")
+					idPack := convertor.StrToSlice(deleteIDS)
 					var idPackInt []uint
 					for _, i := range idPack {
 						j := convertor.StrToUint(i)
@@ -632,7 +632,7 @@ func RunMenu() {
 						var deleteIDS string
 						fmt.Println("insert your person id(s) that you want to delete, separate id's by ',':")
 						fmt.Scanln(&deleteIDS)
-						idPack := strings.Split(deleteIDS, ",")
+						idPack := convertor.StrToSlice(deleteIDS)
 						var idPackInt []uint
 						for _, i := range idPack {
 							j := convertor.StrToUint(i)
@@ -679,7 +679,7 @@ func RunMenu() {
 					var deleteIDS string
 					fmt.Println("insert your person id(s) that you want to delete, separate id's by ',':")
 					fmt.Scanln(&deleteIDS)
-					idPack := strings.Split(deleteIDS, ",")
+					idPack := convertor.StrToSlice(deleteIDS)
 					var idPackInt []uint
 					for _, i := range idPack {
 						j := convertor.StrToUint(i)
@@ -750,13 +750,13 @@ func RunMenu() {
 					var deleteIDS string
 					fmt.Println("insert your city id(s) that you want to delete, for more than one, separate id's by ',':")
 					fmt.Scanln(&deleteIDS)
-					idPack := strings.Split(deleteIDS, ",")
+					idPack := convertor.StrToSlice(deleteIDS)
 					var idPackInt []uint
 					for _, i := range idPack {
 						j := convertor.StrToUint(i)
 						idPackInt = append(idPackInt, uint(j))
 					}
-					resNums := city.DeleteCity(idPackInt)
+					resNums := city.DeleteCityPool.Do(idPackInt)
 					fmt.Printf("%v city(ies) has been deleted", resNums)
 				}
 				fmt.Println(ShowMenuWarn)
@@ -839,7 +839,7 @@ func RunMenu() {
 					var deleteIDS string
 					fmt.Println("insert your country id(s) that you want to delete, for more than one, separate id's by ',':")
 					fmt.Scanln(&deleteIDS)
-					idPack := strings.Split(deleteIDS, ",")
+					idPack := convertor.StrToSlice(deleteIDS)
 					var idPackInt []uint
 					for _, i := range idPack {
 						j := convertor.StrToUint(i)
@@ -944,7 +944,7 @@ func RunMenu() {
 					var deleteIDS string
 					fmt.Println("insert your job id(s) that you want to delete, for more than one, separate id's by ',':")
 					fmt.Scanln(&deleteIDS)
-					idPack := strings.Split(deleteIDS, ",")
+					idPack := convertor.StrToSlice(deleteIDS)
 					var idPackInt []uint
 					for _, i := range idPack {
 						j := convertor.StrToUint(i)

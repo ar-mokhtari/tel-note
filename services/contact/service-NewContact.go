@@ -3,7 +3,6 @@ package contact
 import (
 	"encoding/json"
 	"net/http"
-	"strings"
 	"tel-note/lib/convertor"
 	"tel-note/protocol"
 )
@@ -29,7 +28,7 @@ func (allData *contactPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	Address := r.Header.Get("Address")
 	Description := r.Header.Get("Description")
 	var cellPack []protocol.CellPhone
-	cellPhoneCollection := strings.Split(Cellphone, ",")
+	cellPhoneCollection := convertor.StrToSlice(Cellphone)
 	if (len(cellPhoneCollection))%2 == 0 {
 		var tempCell protocol.CellPhone
 		for index, data := range cellPhoneCollection {
