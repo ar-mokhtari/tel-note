@@ -172,4 +172,9 @@ Create examples of all available entities for testing:
 <li><a href="127.0.0.1:1212/find-person-id?pid=2">127.0.0.1:1212/find-person-id?pid=2</a></li></ul></li>
 <li>sex</li>
 </ul>
-<h3></h3>
+<h3>Json collection</h3>
+To use and call from API platform like "Postman":
+
+````
+/Docs/tel-note.postman_collection.json
+````
