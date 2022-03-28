@@ -1,4 +1,4 @@
-package fillSampleData
+package sampleData
 
 import "net/http"
 

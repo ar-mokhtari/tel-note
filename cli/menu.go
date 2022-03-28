@@ -14,11 +14,11 @@ import (
 	"tel-note/services/contact"
 	"tel-note/services/country"
 	"tel-note/services/customer"
-	"tel-note/services/fillSampleData"
 	"tel-note/services/globalVars"
 	"tel-note/services/identity"
 	"tel-note/services/job"
 	"tel-note/services/person"
+	"tel-note/services/sampleData"
 	"tel-note/services/sex"
 	"time"
 )
@@ -54,7 +54,7 @@ func RunMenu() {
 		case true:
 			switch userInput {
 			case InsertSomeSamplesData:
-				fillSampleData.FillDataStruct.FillSimpleDataInMainData()
+				sampleData.FillDataStruct.FillSimpleDataInMainData()
 				fmt.Println(ShowMenuWarn)
 			case PrintAllData:
 				fmt.Println(separator7)

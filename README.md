@@ -1,7 +1,7 @@
 <h1 align="center" style="alignment: center;color: yellow"> Tel-Note </h1>
 
 <h6> Tel-note is a structure and syntax practise with Go-lang. </h6>
-<h6> This is an example of sending and receiving data from/to external sources and the operations of creating, reading, updating and maintaining data. Searching and creating sample reports is one of the goals of this project. 
+<h6> This is an example of sending and receiving data from/to external sources and the operations of creating, reading, updating and maintaining data. Searching and creating sample reports is one of the project goals. 
 </h6>
 
 ---
@@ -40,12 +40,11 @@
 > ---
 > - [x] Import data from external source csv file
 > - [x] Listen and export business data to applicant(s) [b2c]
->> - [x] use a web framework and router
+>> - [ ] use a web framework and router
 >> - [x] create a collection for api(s) document(s)
 > - [x] Call Some Api(s) [b2b]
->> - [x] Date and time
->> - [x] Check national id(s)
->> - [x] Insert and update city(ies) and its property(ies)
+>> - [x] Insert and update country(ies) and its property(ies)
+>> - [x] Send some data and receive processed data from provider, (lat and lng of a city and publish online traffic duration and distance[neshan.org])
 
 <h3> To build:</h3>
 
@@ -114,10 +113,10 @@ Create examples of all available entities for testing:
 <ul style="margin-top: unset">
 <li>file: env/sampleData.go
 </li>
-<li>service: services/fillSampleData/fillSampleData.go</li>
+<li>service: services/sampleData/fillSampleData.go & getSampleData.go</li>
 <li>cli: reg->data
 </li>
-<li>route: 127.0.0.1:1212/fill-data
+<li>route: 127.0.0.1:1212/fill-data and get-data
 </li>
 </ul>
 </div>
@@ -173,3 +172,4 @@ Create examples of all available entities for testing:
 <li><a href="127.0.0.1:1212/find-person-id?pid=2">127.0.0.1:1212/find-person-id?pid=2</a></li></ul></li>
 <li>sex</li>
 </ul>
+<h3></h3>

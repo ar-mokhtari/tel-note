@@ -6,10 +6,10 @@ import (
 	"tel-note/services/contact"
 	"tel-note/services/country"
 	"tel-note/services/customer"
-	"tel-note/services/fillSampleData"
 	"tel-note/services/general"
 	"tel-note/services/job"
 	"tel-note/services/person"
+	"tel-note/services/sampleData"
 	"tel-note/services/sex"
 )
 
@@ -39,7 +39,7 @@ func Init() {
 	contact.Init()
 
 	//init fill data
-	fillSampleData.Init()
+	sampleData.Init()
 
 	//serv handle menu
 	cli.MenuHTTPServe()
