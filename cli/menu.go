@@ -545,10 +545,7 @@ func RunMenu() {
 				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
 					"Id", "PersonName", "PersonFamily", "Gender", "BLoID", "jobCity", "DOB", "Desc")
 				fmt.Println("")
-				//TODO::: decide to:
-				//create a method called "GetPersons" to responds updated data live
-				//use a global variable and after every event have to updated it
-				for _, data := range person.GetPersons() /*person.GetPersons().PersonData*/ {
+				for _, data := range person.GetPersons() {
 					genderID := data.GenderID
 					gender, _ := sex.FindSexByID(uint8(genderID))
 					_, city := city.FindCityByID(data.BirthLocationID)
