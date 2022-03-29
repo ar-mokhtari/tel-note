@@ -149,8 +149,13 @@ Create examples of all available entities for testing:
 <ul>
 <li>city
 <ul>
-<li><a href="127.0.0.1:1212/distance-time-between-two-city">127.0.0.1:1212/distance-time-between-two-city</a></li>
+<li><a href="127.0.0.1:1212/get-city">127.0.0.1:1212/get-city</a></li>
+<li><a href="127.0.0.1:1212/add-city">127.0.0.1:1212/add-city</a></li>
+<li><a href="127.0.0.1:1212/edit-city">127.0.0.1:1212/edit-city</a></li>
 <li><a href="127.0.0.1:1212/find-city-char">127.0.0.1:1212/find-city-char</a></li>
+<li><a href="127.0.0.1:1212/find-city-id">127.0.0.1:1212/find-city-id</a></li>
+<li><a href="127.0.0.1:1212/delete-city">127.0.0.1:1212/delete-city</a></li>
+<li><a href="127.0.0.1:1212/distance-time-between-two-city">127.0.0.1:1212/distance-time-between-two-city</a></li>
 </ul>
 </li>
 <li>contact
