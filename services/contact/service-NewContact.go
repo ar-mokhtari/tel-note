@@ -41,9 +41,11 @@ func (allData *contactPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
+	_, uintPersonID := convertor.StrToUint(PersonID)
+	_, uintJobID := convertor.StrToUint(JobID)
 	result := protocol.Contact{
-		PersonID:            convertor.StrToUint(PersonID),
-		JobID:               convertor.StrToUint(JobID),
+		PersonID:            uintPersonID,
+		JobID:               uintJobID,
 		Tel:                 Tel,
 		CellphoneCollection: cellPack,
 		Address:             Address,

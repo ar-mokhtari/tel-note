@@ -7,4 +7,5 @@ func Init() {
 	http.Handle("/distance-time-between-two-city", &DistanceTimeService)
 	http.Handle("/find-city-char", &FindByCharService)
 	http.Handle("/delete-city", &DeleteCityPool)
+	http.Handle("/edit-city", &EditCityPool)
 }

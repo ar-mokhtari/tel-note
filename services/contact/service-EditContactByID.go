@@ -41,15 +41,18 @@ func (allData *contactEditPool) ServeHTTP(w http.ResponseWriter, r *http.Request
 			}
 		}
 	}
+	_, uintPersonID := convertor.StrToUint(PersonID)
+	_, uintJobID := convertor.StrToUint(JobID)
 	result := protocol.Contact{
-		PersonID:            convertor.StrToUint(PersonID),
-		JobID:               convertor.StrToUint(JobID),
+		PersonID:            uintPersonID,
+		JobID:               uintJobID,
 		Tel:                 Tel,
 		CellphoneCollection: cellPack,
 		Address:             Address,
 		Description:         Description,
 	}
-	if status := allData.EditContactByID(result, convertor.StrToUint(ID)); status.State {
+	_, uintID := convertor.StrToUint(ID)
+	if status := allData.EditContactByID(result, uintID); status.State {
 		json.NewEncoder(w).Encode(struct {
 			State   int
 			Message string

@@ -21,7 +21,8 @@ func (allData *deleteContactByID) DeleteContactByID(ID uint) *protocol.ResponseS
 func (allData *deleteContactByID) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	id := r.Header.Get("id")
-	if state := allData.DeleteContactByID(convertor.StrToUint(id)); state.State {
+	_, uintID := convertor.StrToUint(id)
+	if state := allData.DeleteContactByID(uintID); state.State {
 		json.NewEncoder(w).Encode(struct {
 			State   uint
 			Message string

@@ -65,9 +65,9 @@ func (allCity *storageMemory) NewCity(inputCity protocol.City) bool {
 	return true
 }
 
-func (allCity *storageMemory) EditCity(ID uint, newCity protocol.City) bool {
+func (allCity *storageMemory) EditCity(newCity protocol.City) bool {
 	for index, data := range allCity.CityData {
-		if data.Id == ID {
+		if data.Id == newCity.Id {
 			//TODO:: what the hell below ... is there any cleaner way for test "is it not nil?"
 			if newCity.Name != "" {
 				(allCity.CityData)[index].Name = newCity.Name

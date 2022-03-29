@@ -7,11 +7,18 @@ import (
 	"tel-note/lib/validator"
 )
 
-func StrToUint(input string) (output uint) {
+func StrToUint(input string) (err error, output uint) {
 	if result, err := strconv.Atoi(input); err == nil {
 		output = uint(result)
 	}
-	return output
+	return errors.New("can't convert to uint"), output
+}
+
+func StrToFloat64(input string) (err error, output float64) {
+	if result, err := strconv.ParseFloat(input, 64); err == nil {
+		return nil, result
+	}
+	return errors.New("can't convert to float"), output
 }
 
 func StrToSlice(input string) (output []string) {
@@ -19,12 +26,17 @@ func StrToSlice(input string) (output []string) {
 	return inputPack
 }
 
-func StrSliceToUintSlice(input []string) (err error, output []uint) {
+func StrSliceToUintSlice(input []string) (error, []uint) {
+	var output []uint
 	for _, data := range input {
 		if validator.IsNumber(data) {
-			output = append(output, StrToUint(data))
+			if err, uintRes := StrToUint(data); err == nil {
+				output = append(output, uintRes)
+			} else {
+				return err, []uint{}
+			}
 		} else {
-			return errors.New("invalid format"), []uint{}
+			return errors.New(" invalid format "), []uint{}
 		}
 	}
 	return nil, output

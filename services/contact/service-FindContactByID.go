@@ -21,7 +21,8 @@ func (allData *contactFindIDContactPool) FindContactByID(id uint) (protocol.Resp
 func (allData *contactFindIDContactPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	id := r.FormValue("id")
-	if status, result := allData.FindContactByID(convertor.StrToUint(id)); status.State {
+	_, uintID := convertor.StrToUint(id)
+	if status, result := allData.FindContactByID(uintID); status.State {
 		json.NewEncoder(w).Encode(struct {
 			Status      int
 			ContactData protocol.Contact

@@ -483,7 +483,7 @@ func RunMenu() {
 					idPack := convertor.StrToSlice(deleteIDS)
 					var idPackInt []uint
 					for _, i := range idPack {
-						j := convertor.StrToUint(i)
+						_, j := convertor.StrToUint(i)
 						idPackInt = append(idPackInt, uint(j))
 						customer.DeleteCustomerById(uint(j))
 					}
@@ -632,7 +632,7 @@ func RunMenu() {
 						idPack := convertor.StrToSlice(deleteIDS)
 						var idPackInt []uint
 						for _, i := range idPack {
-							j := convertor.StrToUint(i)
+							_, j := convertor.StrToUint(i)
 							idPackInt = append(idPackInt, uint(j))
 						}
 						resNums := person.DeletePerson(idPackInt)
@@ -679,7 +679,7 @@ func RunMenu() {
 					idPack := convertor.StrToSlice(deleteIDS)
 					var idPackInt []uint
 					for _, i := range idPack {
-						j := convertor.StrToUint(i)
+						_, j := convertor.StrToUint(i)
 						idPackInt = append(idPackInt, uint(j))
 					}
 					resNums := person.DeletePerson(idPackInt)
@@ -731,7 +731,7 @@ func RunMenu() {
 				inputName = scanner.Text()
 				fmt.Println("insert new aria code:")
 				fmt.Scanln(&ariaCode)
-				if city.EditCityByID(inputID, protocol.City{
+				if city.EditCityPool.EditCityByID(protocol.City{
 					Name:     inputName,
 					AriaCode: ariaCode,
 				}).State {
@@ -750,7 +750,7 @@ func RunMenu() {
 					idPack := convertor.StrToSlice(deleteIDS)
 					var idPackInt []uint
 					for _, i := range idPack {
-						j := convertor.StrToUint(i)
+						_, j := convertor.StrToUint(i)
 						idPackInt = append(idPackInt, uint(j))
 					}
 					resNums := city.DeleteCityPool.Do(idPackInt)
@@ -839,7 +839,7 @@ func RunMenu() {
 					idPack := convertor.StrToSlice(deleteIDS)
 					var idPackInt []uint
 					for _, i := range idPack {
-						j := convertor.StrToUint(i)
+						_, j := convertor.StrToUint(i)
 						idPackInt = append(idPackInt, uint(j))
 					}
 					resNums := country.DeleteCountry(idPackInt)
@@ -944,7 +944,7 @@ func RunMenu() {
 					idPack := convertor.StrToSlice(deleteIDS)
 					var idPackInt []uint
 					for _, i := range idPack {
-						j := convertor.StrToUint(i)
+						_, j := convertor.StrToUint(i)
 						idPackInt = append(idPackInt, uint(j))
 					}
 					resNums := job.DeleteJobByID(idPackInt)
