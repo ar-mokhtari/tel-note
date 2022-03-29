@@ -22,8 +22,8 @@ func (handler *distanceTimeService) ServeHTTP(w http.ResponseWriter, r *http.Req
 	secondCity := r.Header.Get("secondCity")
 	_, uintFirstCity := convertor.StrToUint(firstCity)
 	_, uintSecondCity := convertor.StrToUint(secondCity)
-	firstStatus, dataFirstCity := FindCityByID(uintFirstCity)
-	secondStatus, dataSecondCity := FindCityByID(uintSecondCity)
+	firstStatus, dataFirstCity := FindCityIDPool.FindCityByID(uintFirstCity)
+	secondStatus, dataSecondCity := FindCityIDPool.FindCityByID(uintSecondCity)
 	if firstStatus.State && secondStatus.State {
 		result, state := handler.Do(dataFirstCity, dataSecondCity)
 		if state.State {

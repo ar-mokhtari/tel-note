@@ -67,7 +67,7 @@ func RunMenu() {
 					genderID := person.GenderID
 					gender, _ := sex.FindSexByID(uint8(genderID))
 					_, job := job.FindJobByID(data.JobID)
-					_, city := city.FindCityByID(job.LocationID)
+					_, city := city.FindCityIDPool.FindCityByID(job.LocationID)
 					if data.CellphoneCollection == nil {
 						data.CellphoneCollection = append(data.CellphoneCollection, protocol.CellPhone{})
 					}
@@ -76,7 +76,7 @@ func RunMenu() {
 				}
 				fmt.Println(separator7)
 				fmt.Println("Top 10 City Data:")
-				if cityCollection := city.GetCities(); cityCollection != nil {
+				if cityCollection := city.GetCityPool.GetCities(); cityCollection != nil {
 					for _, data := range cityCollection[:10] {
 						fmt.Printf("%3v | %-15v \n", data.Id, data.Name)
 					}
@@ -210,7 +210,7 @@ func RunMenu() {
 					genderID := person.GenderID
 					gender, _ := sex.FindSexByID(uint8(genderID))
 					_, job := job.FindJobByID(data.JobID)
-					_, city := city.FindCityByID(job.LocationID)
+					_, city := city.FindCityIDPool.FindCityByID(job.LocationID)
 					if data.CellphoneCollection == nil {
 						data.CellphoneCollection = append(data.CellphoneCollection, protocol.CellPhone{})
 					}
@@ -233,7 +233,7 @@ func RunMenu() {
 					genderID := person.GenderID
 					gender, _ := sex.FindSexByID(uint8(genderID))
 					_, job := job.FindJobByID(result.JobID)
-					_, city := city.FindCityByID(job.LocationID)
+					_, city := city.FindCityIDPool.FindCityByID(job.LocationID)
 					fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-4v | %-12v | %-3v  \n",
 						result.Id, result.PersonID, person.FirstName, person.LastName, result.JobID, job.Name, gender.Name, result.CellphoneCollection, job.LocationID, city.Name, result.Description)
 				} else {
@@ -259,7 +259,7 @@ func RunMenu() {
 						genderID := person.GenderID
 						gender, _ := sex.FindSexByID(uint8(genderID))
 						_, job := job.FindJobByID(data.JobID)
-						_, city := city.FindCityByID(job.LocationID)
+						_, city := city.FindCityIDPool.FindCityByID(job.LocationID)
 						fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-4v | %-12v | %-3v  \n",
 							data.Id, data.PersonID, person.FirstName, person.LastName, data.JobID, job.Name, gender.Name, data.CellphoneCollection, job.LocationID, city.Name, data.Description)
 					}
@@ -283,7 +283,7 @@ func RunMenu() {
 					genderID := person.GenderID
 					gender, _ := sex.FindSexByID(uint8(genderID))
 					_, job := job.FindJobByID(result.JobID)
-					_, city := city.FindCityByID(job.LocationID)
+					_, city := city.FindCityIDPool.FindCityByID(job.LocationID)
 					fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-4v | %-12v | %-3v  \n",
 						result.Id, result.PersonID, person.FirstName, person.LastName, result.JobID, job.Name, gender.Name, result.CellphoneCollection, job.LocationID, city.Name, result.Description)
 				} else {
@@ -548,7 +548,7 @@ func RunMenu() {
 				for _, data := range person.GetPersons() {
 					genderID := data.GenderID
 					gender, _ := sex.FindSexByID(uint8(genderID))
-					_, city := city.FindCityByID(data.BirthLocationID)
+					_, city := city.FindCityIDPool.FindCityByID(data.BirthLocationID)
 					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
 						data.Id, data.FirstName, data.LastName, gender.Name, data.BirthLocationID, city.Name, (data.DOB).String()[0:10], data.Description)
 				}
@@ -565,7 +565,7 @@ func RunMenu() {
 					fmt.Println("")
 					genderID := data.GenderID
 					gender, _ := sex.FindSexByID(uint8(genderID))
-					_, city := city.FindCityByID(data.BirthLocationID)
+					_, city := city.FindCityIDPool.FindCityByID(data.BirthLocationID)
 					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
 						data.Id, data.FirstName, data.LastName, gender.Name, data.BirthLocationID, city.Name, (data.DOB).String()[0:10], data.Description)
 				} else {
@@ -585,7 +585,7 @@ func RunMenu() {
 					for _, personData := range data {
 						genderID := personData.GenderID
 						gender, _ := sex.FindSexByID(uint8(genderID))
-						_, city := city.FindCityByID(personData.BirthLocationID)
+						_, city := city.FindCityIDPool.FindCityByID(personData.BirthLocationID)
 						fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
 							personData.Id, personData.FirstName, personData.LastName, gender.Name, personData.BirthLocationID, city.Name, (personData.DOB).String()[0:10], personData.Description)
 					}
@@ -603,7 +603,7 @@ func RunMenu() {
 					fmt.Println("")
 					genderID := data.GenderID
 					gender, _ := sex.FindSexByID(uint8(genderID))
-					_, city := city.FindCityByID(data.BirthLocationID)
+					_, city := city.FindCityIDPool.FindCityByID(data.BirthLocationID)
 					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-4v | %-12v | %-13v |  %-3v  \n",
 						data.Id, data.FirstName, data.LastName, gender.Name, data.BirthLocationID, city.Name, (data.DOB).String()[0:10], data.Description)
 					fmt.Println("insert FirstName")
@@ -704,7 +704,7 @@ func RunMenu() {
 				fmt.Scanln(&lat)
 				fmt.Println("insert lng:")
 				fmt.Scanln(&lng)
-				if city.NewCity(protocol.City{
+				if city.NewCityPool.NewCity(protocol.City{
 					Name:     inputCity,
 					AriaCode: ariaCode,
 					Lat:      lat,
@@ -714,10 +714,10 @@ func RunMenu() {
 				}
 				fmt.Println(ShowMenuWarn)
 			case ListOfCities:
-				dataJSON, _ := json.MarshalIndent(city.GetCities(), "", "  ")
+				dataJSON, _ := json.MarshalIndent(city.GetCityPool.GetCities(), "", "  ")
 				fmt.Println(string(dataJSON))
 				fmt.Println(separator7)
-				for _, data := range city.GetCities() {
+				for _, data := range city.GetCityPool.GetCities() {
 					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 				}
 				fmt.Println(ShowMenuWarn)
@@ -763,8 +763,8 @@ func RunMenu() {
 				fmt.Scanln(&firstCityCode)
 				fmt.Println("insert second city id:")
 				fmt.Scanln(&secondCityCode)
-				firstStatus, dataFirstCity := city.FindCityByID(firstCityCode)
-				secondStatus, dataSecondCity := city.FindCityByID(secondCityCode)
+				firstStatus, dataFirstCity := city.FindCityIDPool.FindCityByID(firstCityCode)
+				secondStatus, dataSecondCity := city.FindCityIDPool.FindCityByID(secondCityCode)
 				if firstStatus.State && secondStatus.State {
 					result, state := city.DistanceTimeService.Do(dataFirstCity, dataSecondCity)
 					if state.State {

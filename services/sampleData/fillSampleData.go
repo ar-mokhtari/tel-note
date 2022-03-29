@@ -34,7 +34,7 @@ func (fillData *fillData) FillSimpleDataInMainData() (result [][]string, err err
 	for _, cityPack := range cities {
 		lat, _ := strconv.ParseFloat(cityPack[6], 64)
 		lng, _ := strconv.ParseFloat(cityPack[7], 64)
-		city.NewCity(protocol.City{
+		city.NewCityPool.NewCity(protocol.City{
 			Name:     cityPack[3],
 			AriaCode: "",
 			Lat:      lat,

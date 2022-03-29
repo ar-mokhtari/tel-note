@@ -31,7 +31,7 @@ func (fillData *getData) DoGetData() (result AllDataCollection) {
 	result.customerGroupRelation = customer.GetCustomerGroupRelation()
 	result.person = person.GetPersons()
 	result.countries = country.GetCountry()
-	result.cities = city.GetCities()
+	result.cities = city.GetCityPool.GetCities()
 	return result
 }
 
