@@ -5,7 +5,6 @@ package city
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"tel-note/lib/convertor"
 	"tel-note/protocol"
@@ -32,12 +31,7 @@ func (allData *editCityPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		Lat         string
 		Lng         string
 	}
-	body, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		panic(err)
-	}
-	err = json.Unmarshal(body, &inputCity)
-	if err != nil {
+	if err := json.NewDecoder(r.Body).Decode(&inputCity); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
@@ -46,8 +40,8 @@ func (allData *editCityPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	newCity.Name = inputCity.Name
 	newCity.EnglishName = inputCity.EnglishName
 	newCity.AriaCode = inputCity.AriaCode
-	err, newCity.Lat = convertor.StrToFloat64(inputCity.Lat)
-	err, newCity.Lng = convertor.StrToFloat64(inputCity.Lng)
+	_, newCity.Lat = convertor.StrToFloat64(inputCity.Lat)
+	_, newCity.Lng = convertor.StrToFloat64(inputCity.Lng)
 	if status := allData.EditCityByID(*newCity); status.State {
 		json.NewEncoder(w).Encode(struct {
 			Status  uint

@@ -4,7 +4,6 @@ package city
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"net/http"
 	"tel-note/protocol"
 )
@@ -25,12 +24,7 @@ func (allData *findByCharService) ServeHTTP(w http.ResponseWriter, r *http.Reque
 	var char struct {
 		Char string `json:"char"`
 	}
-	body, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		panic(err)
-	}
-	err = json.Unmarshal(body, &char)
-	if err != nil {
+	if err := json.NewDecoder(r.Body).Decode(&char); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
