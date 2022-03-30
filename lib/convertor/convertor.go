@@ -10,8 +10,10 @@ import (
 func StrToUint(input string) (err error, output uint) {
 	if result, err := strconv.Atoi(input); err == nil {
 		output = uint(result)
+		return nil, output
+	} else {
+		return errors.New("can't convert to uint"), output
 	}
-	return errors.New("can't convert to uint"), output
 }
 
 func StrToFloat64(input string) (err error, output float64) {

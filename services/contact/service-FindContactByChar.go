@@ -24,9 +24,7 @@ func (allData *contactFindCharContactPool) ServeHTTP(w http.ResponseWriter, r *h
 		json.NewEncoder(w).Encode(struct {
 			Status      int
 			ResultCount uint
-		}{200, count})
-		for _, data := range result {
-			json.NewEncoder(w).Encode(data)
-		}
+			Data        []*protocol.Contact
+		}{200, count, result})
 	}
 }

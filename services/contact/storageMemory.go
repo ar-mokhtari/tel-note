@@ -11,6 +11,11 @@ type (
 	}
 )
 
+var (
+	storage storageMemory
+	_       protocol.ContactServices = &storage
+)
+
 func (allContact *storageMemory) GetContacts() []*protocol.Contact {
 	return allContact.ContactData
 }

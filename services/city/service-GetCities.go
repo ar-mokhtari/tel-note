@@ -18,7 +18,10 @@ func (allData *getCityPool) GetCities() []*protocol.City {
 
 func (allData *getCityPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	for _, city := range allData.GetCities() {
-		json.NewEncoder(w).Encode(city)
-	}
+	result := allData.GetCities()
+	json.NewEncoder(w).Encode(struct {
+		Status      uint
+		CountResult uint
+		Data        []*protocol.City
+	}{200, uint(len(result)), result})
 }

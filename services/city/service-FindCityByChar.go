@@ -29,19 +29,15 @@ func (allData *findByCharService) ServeHTTP(w http.ResponseWriter, r *http.Reque
 		return
 	}
 	if status, data := allData.FindCityByChar(char.Char); status.State {
-		type cityResult struct {
-			CityCode uint
-			CityName string
-		}
-		var dataResult []cityResult
+		var dataResult []protocol.City
 		for _, result := range data {
 			_, city := storage.FindCityByID(result)
-			dataResult = append(dataResult, cityResult{city.Id, city.Name})
+			dataResult = append(dataResult, city)
 		}
 		json.NewEncoder(w).Encode(struct {
 			Status      uint
 			ResultCount uint
-			Data        []cityResult
+			Data        []protocol.City
 		}{200, uint(len(data)), dataResult})
 	} else {
 		json.NewEncoder(w).Encode(struct {

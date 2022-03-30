@@ -16,8 +16,10 @@ func (allData *contactGetPool) GetContacts() []*protocol.Contact {
 
 func (allData *contactGetPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	result := allData.GetContacts
-	for _, data := range result() {
-		json.NewEncoder(w).Encode(data)
-	}
+	result := allData.GetContacts()
+	json.NewEncoder(w).Encode(struct {
+		State       uint
+		ResultCount uint
+		Data        []*protocol.Contact
+	}{200, uint(len(result)), result})
 }
