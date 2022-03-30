@@ -36,14 +36,15 @@ func (fillData *getData) DoGetData() (result AllDataCollection) {
 }
 
 func (fillData *getData) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	result := fillData.DoGetData()
 	json.NewEncoder(w).Encode(result.cities)
-	json.NewEncoder(w).Encode(result.contact)
-	json.NewEncoder(w).Encode(result.customer)
-	json.NewEncoder(w).Encode(result.customerGroup)
-	json.NewEncoder(w).Encode(result.customerGroupRelation)
-	json.NewEncoder(w).Encode(result.customerRelation)
-	json.NewEncoder(w).Encode(result.person)
-	json.NewEncoder(w).Encode(result.countries)
+	//json.NewEncoder(w).Encode(result.contact)
+	//json.NewEncoder(w).Encode(result.customer)
+	//json.NewEncoder(w).Encode(result.customerGroup)
+	//json.NewEncoder(w).Encode(result.customerGroupRelation)
+	//json.NewEncoder(w).Encode(result.customerRelation)
+	//json.NewEncoder(w).Encode(result.person)
+	//json.NewEncoder(w).Encode(result.countries)
 }

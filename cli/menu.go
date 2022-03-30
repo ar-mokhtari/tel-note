@@ -7,6 +7,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"tel-note/env"
 	"tel-note/lib/convertor"
 	"tel-note/lib/validator"
 	"tel-note/protocol"
@@ -53,10 +54,10 @@ func RunMenu() {
 		switch identity.IsRegulator {
 		case true:
 			switch userInput {
-			case InsertSomeSamplesData:
+			case env.InsertSomeSamplesData:
 				sampleData.FillDataStruct.FillSimpleDataInMainData()
-				fmt.Println(ShowMenuWarn)
-			case PrintAllData:
+				fmt.Println(env.ShowMenuWarn)
+			case env.PrintAllData:
 				fmt.Println(separator7)
 				fmt.Println("Contact Data:")
 				fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-v | %-12v | %-3v  \n",
@@ -136,25 +137,25 @@ func RunMenu() {
 					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-25v | %-25v | %-23v \n",
 						ID, person.FirstName, person.LastName, data.PersonID, (data.CreateAt).String()[0:19], (data.UpdatedAt).String()[0:19], data.Description)
 				}
-				fmt.Println(ShowMenuWarn)
-			case CheckIranNationalCode:
+				fmt.Println(env.ShowMenuWarn)
+			case env.CheckIranNationalCode:
 				var nationalCode string
 				fmt.Println("insert new NationalCode")
 				fmt.Scanln(&nationalCode)
 				if !validator.CheckNationalID(nationalCode) {
 					fmt.Println("Invalid national code")
-					fmt.Println(ShowMenuWarn)
+					fmt.Println(env.ShowMenuWarn)
 				} else {
 					fmt.Printf("OK")
 				}
-				fmt.Println(ShowMenuWarn)
+				fmt.Println(env.ShowMenuWarn)
 			default:
 				notSelected = true
 			}
 			switch userInput {
-			case ShowMenuList:
+			case env.ShowMenuList:
 				fmt.Println(ShowMenu())
-			case NewContactRecord:
+			case env.NewContactRecord:
 				var (
 					tel, cellphone  string
 					jobID, personID uint
@@ -198,8 +199,8 @@ func RunMenu() {
 						Description:         scanner.Text(),
 					})
 				fmt.Println(">> New contact added done <<")
-				fmt.Println(ShowMenuWarn)
-			case ListOfContact:
+				fmt.Println(env.ShowMenuWarn)
+			case env.ListOfContact:
 				fmt.Println(separator7)
 				fmt.Println("Contact Data:")
 				fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-v | %-12v | %-3v  \n",
@@ -217,8 +218,8 @@ func RunMenu() {
 					fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-4v | %-12v | %-3v  \n",
 						data.Id, data.PersonID, person.FirstName, person.LastName, data.JobID, job.Name, gender.Name, (data.CellphoneCollection)[0].CellPhone, job.LocationID, city.Name, data.Description)
 				}
-				fmt.Println(ShowMenuWarn)
-			case FindOneContactById:
+				fmt.Println(env.ShowMenuWarn)
+			case env.FindOneContactById:
 				var id uint
 				fmt.Println("Please insert your contact ID:")
 				fmt.Scanln(&id)
@@ -239,8 +240,8 @@ func RunMenu() {
 				} else {
 					fmt.Println("not found")
 				}
-				fmt.Println(ShowMenuWarn)
-			case FindContactContainingSomeCharacter:
+				fmt.Println(env.ShowMenuWarn)
+			case env.FindContactContainingSomeCharacter:
 				var insertChar string
 				fmt.Println("insert character(s):")
 				fmt.Scanln(&insertChar)
@@ -264,8 +265,8 @@ func RunMenu() {
 							data.Id, data.PersonID, person.FirstName, person.LastName, data.JobID, job.Name, gender.Name, data.CellphoneCollection, job.LocationID, city.Name, data.Description)
 					}
 				}
-				fmt.Println(ShowMenuWarn)
-			case FindAndEditContactByContactId:
+				fmt.Println(env.ShowMenuWarn)
+			case env.FindAndEditContactByContactId:
 				var (
 					insertContactID, jobID, personID uint
 					tel, cellphone                   string
@@ -288,7 +289,7 @@ func RunMenu() {
 						result.Id, result.PersonID, person.FirstName, person.LastName, result.JobID, job.Name, gender.Name, result.CellphoneCollection, job.LocationID, city.Name, result.Description)
 				} else {
 					fmt.Println("not found")
-					fmt.Println(ShowMenuWarn)
+					fmt.Println(env.ShowMenuWarn)
 				}
 				fmt.Println("new person ID:")
 				fmt.Scanln(&personID)
@@ -325,13 +326,13 @@ func RunMenu() {
 				if state.State {
 					fmt.Printf("contact no %v updated", insertContactID)
 				}
-				fmt.Println(ShowMenuWarn)
-			case DeleteContactById:
+				fmt.Println(env.ShowMenuWarn)
+			case env.DeleteContactById:
 				var confirmDel string
 				fmt.Println("*** important, be careful, you are deleting a contact ***")
 				fmt.Println("do you want to continue? (yes or no)")
 				fmt.Scanln(&confirmDel)
-				if strings.ToLower(confirmDel) == YES {
+				if strings.ToLower(confirmDel) == env.YES {
 					var deleteID uint
 					fmt.Println("insert your contact id that you want to delete:")
 					fmt.Scanln(&deleteID)
@@ -343,23 +344,23 @@ func RunMenu() {
 						fmt.Println("something wrong")
 					}
 				}
-				fmt.Println(ShowMenuWarn)
-			case DeleteAllContacts:
+				fmt.Println(env.ShowMenuWarn)
+			case env.DeleteAllContacts:
 				var confirmDel string
 				fmt.Println("*** important, be careful, you are deleting all of contacts ***")
 				fmt.Println("are you sure? (yes or no)")
 				fmt.Scanln(&confirmDel)
-				if strings.ToLower(confirmDel) == YES {
+				if strings.ToLower(confirmDel) == env.YES {
 					resultStatus := contact.PoolDelAllContact.DeleteAll()
 					fmt.Println(resultStatus.String)
 				}
-				fmt.Println(ShowMenuWarn)
-			case DeleteMultiContactByIds:
+				fmt.Println(env.ShowMenuWarn)
+			case env.DeleteMultiContactByIds:
 				var confirmDel string
 				fmt.Println("*** important, be careful, you are deleting contact(s) ***")
 				fmt.Println("do you want to continue? (yes or no)")
 				fmt.Scanln(&confirmDel)
-				if strings.ToLower(confirmDel) == YES {
+				if strings.ToLower(confirmDel) == env.YES {
 					var deleteIDS string
 					var status protocol.ResponseStatus
 					fmt.Println("insert your contact id(s) that you want to delete, separate id's by ',':")
@@ -376,23 +377,23 @@ func RunMenu() {
 						}
 					}
 				}
-				fmt.Println(ShowMenuWarn)
-			case NewCustomerGroup:
+				fmt.Println(env.ShowMenuWarn)
+			case env.NewCustomerGroup:
 				var groupName string
 				fmt.Println("insert group name:")
 				scanner.Scan()
 				groupName = scanner.Text()
 				customer.NewGroup(groupName)
-				fmt.Println(ShowMenuWarn)
-			case NewCustomerGRelation:
+				fmt.Println(env.ShowMenuWarn)
+			case env.NewCustomerGRelation:
 				var customerID, groupID uint
 				fmt.Println("insert customerID:")
 				fmt.Scanln(&customerID)
 				fmt.Println("insert groupID:")
 				fmt.Scanln(&groupID)
 				customer.NewRelation(customerID, groupID)
-				fmt.Println(ShowMenuWarn)
-			case CustomerGroupList:
+				fmt.Println(env.ShowMenuWarn)
+			case env.CustomerGroupList:
 				fmt.Println(separator7)
 				fmt.Println("Customer group Data:")
 				fmt.Printf("%3v | %-15s   \n", "Id", "Groupname")
@@ -401,8 +402,8 @@ func RunMenu() {
 					fmt.Printf("%3v | %-25s  \n",
 						group.GroupID, group.GroupName)
 				}
-				fmt.Println(ShowMenuWarn)
-			case CustomerGroupRelationList:
+				fmt.Println(env.ShowMenuWarn)
+			case env.CustomerGroupRelationList:
 				fmt.Println(separator7)
 				fmt.Println("Customer group relation Data:")
 				fmt.Printf("%3v | %-25s | %-13v | %-45s   \n", "Id", "Groupname", "CustomerID", "FullName")
@@ -414,8 +415,8 @@ func RunMenu() {
 					fmt.Printf("%3v | %-25s | %-13v | %-45s \n",
 						relation.ID, groupObject.GroupName, relation.CustomerID, personObject.FirstName+" "+personObject.LastName)
 				}
-				fmt.Println(ShowMenuWarn)
-			case FindCustomerByGroupID:
+				fmt.Println(env.ShowMenuWarn)
+			case env.FindCustomerByGroupID:
 				var groupID uint
 				fmt.Println("insert group id:")
 				fmt.Scanln(&groupID)
@@ -430,8 +431,8 @@ func RunMenu() {
 					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-25v | %-25v | %-23v \n",
 						ID, person.FirstName, person.LastName, data.PersonID, (data.CreateAt).String()[0:19], (data.UpdatedAt).String()[0:19], data.Description)
 				}
-				fmt.Println(ShowMenuWarn)
-			case NewCustomer:
+				fmt.Println(env.ShowMenuWarn)
+			case env.NewCustomer:
 				var (
 					personID uint
 				)
@@ -444,8 +445,8 @@ func RunMenu() {
 					PersonID:    personID,
 					Description: desc,
 				})
-				fmt.Println(ShowMenuWarn)
-			case ListOfCustomer:
+				fmt.Println(env.ShowMenuWarn)
+			case env.ListOfCustomer:
 				fmt.Println(separator7)
 				fmt.Println("Customer Data:")
 				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-25v | %-25v |  %-23v  \n",
@@ -456,8 +457,8 @@ func RunMenu() {
 					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-25v | %-25v | %-23v \n",
 						ID, person.FirstName, person.LastName, data.PersonID, (data.CreateAt).String()[0:19], (data.UpdatedAt).String()[0:19], data.Description)
 				}
-				fmt.Println(ShowMenuWarn)
-			case EditCustomerByCustomerId:
+				fmt.Println(env.ShowMenuWarn)
+			case env.EditCustomerByCustomerId:
 				var customerID, personID uint
 				var description string
 				fmt.Println("insert customer id")
@@ -470,13 +471,13 @@ func RunMenu() {
 					PersonID:    personID,
 					Description: description,
 				})
-				fmt.Println(ShowMenuWarn)
-			case DeleteCustomerById:
+				fmt.Println(env.ShowMenuWarn)
+			case env.DeleteCustomerById:
 				var confirmDel string
 				fmt.Println("*** important, be careful, you are deleting customer(s) ***")
 				fmt.Println("do you want to continue? (yes or no)")
 				fmt.Scanln(&confirmDel)
-				if strings.ToLower(confirmDel) == YES {
+				if strings.ToLower(confirmDel) == env.YES {
 					var deleteIDS string
 					fmt.Println("insert your customer id(s) that you want to delete, separate id's by ',':")
 					fmt.Scanln(&deleteIDS)
@@ -489,12 +490,12 @@ func RunMenu() {
 					}
 					fmt.Printf("%v customer(s) has been deleted", idPackInt)
 				}
-				fmt.Println(ShowMenuWarn)
-			case DeleteAllCustomers:
+				fmt.Println(env.ShowMenuWarn)
+			case env.DeleteAllCustomers:
 				globalVars.CustomerMapStore = nil
 				fmt.Println("all customers deleted")
-				fmt.Println(ShowMenuWarn)
-			case NewPerson:
+				fmt.Println(env.ShowMenuWarn)
+			case env.NewPerson:
 				var (
 					FirstName       string
 					LastName        string
@@ -521,7 +522,7 @@ func RunMenu() {
 				fmt.Scanln(&NationalCode)
 				if !validator.CheckNationalID(NationalCode) {
 					fmt.Println("Invalid national code")
-					fmt.Println(ShowMenuWarn)
+					fmt.Println(env.ShowMenuWarn)
 				}
 				fmt.Println("insert new Description")
 				scanner.Scan()
@@ -538,8 +539,8 @@ func RunMenu() {
 					fmt.Println("New person added")
 				}
 				//some code
-				fmt.Println(ShowMenuWarn)
-			case ListOfPerson:
+				fmt.Println(env.ShowMenuWarn)
+			case env.ListOfPerson:
 				fmt.Println(separator7)
 				fmt.Println("Person Data:")
 				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
@@ -552,8 +553,8 @@ func RunMenu() {
 					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
 						data.Id, data.FirstName, data.LastName, gender.Name, data.BirthLocationID, city.Name, (data.DOB).String()[0:10], data.Description)
 				}
-				fmt.Println(ShowMenuWarn)
-			case FindOnePersonById:
+				fmt.Println(env.ShowMenuWarn)
+			case env.FindOnePersonById:
 				var personID uint
 				fmt.Println("insert person id")
 				fmt.Scanln(&personID)
@@ -571,8 +572,8 @@ func RunMenu() {
 				} else {
 					fmt.Println("not found")
 				}
-				fmt.Println(ShowMenuWarn)
-			case FindPersonContainingSomeCharacter:
+				fmt.Println(env.ShowMenuWarn)
+			case env.FindPersonContainingSomeCharacter:
 				fmt.Println("insert character")
 				scanner.Scan()
 				if state, data := person.FindPersonByChar(scanner.Text()); state.State {
@@ -590,8 +591,8 @@ func RunMenu() {
 							personData.Id, personData.FirstName, personData.LastName, gender.Name, personData.BirthLocationID, city.Name, (personData.DOB).String()[0:10], personData.Description)
 					}
 				}
-				fmt.Println(ShowMenuWarn)
-			case FindAndEditPersonByPersonId:
+				fmt.Println(env.ShowMenuWarn)
+			case env.FindAndEditPersonByPersonId:
 				fmt.Println("insert person id to (find and) edit")
 				var personID uint
 				fmt.Scanln(&personID)
@@ -625,7 +626,7 @@ func RunMenu() {
 					fmt.Println("*** important, be careful, you are deleting person(s) ***")
 					fmt.Println("do you want to continue? (yes or no)")
 					fmt.Scanln(&confirmDel)
-					if strings.ToLower(confirmDel) == YES {
+					if strings.ToLower(confirmDel) == env.YES {
 						var deleteIDS string
 						fmt.Println("insert your person id(s) that you want to delete, separate id's by ',':")
 						fmt.Scanln(&deleteIDS)
@@ -638,7 +639,7 @@ func RunMenu() {
 						resNums := person.DeletePerson(idPackInt)
 						fmt.Printf("%v person(s) has been deleted", resNums)
 					}
-					fmt.Println(ShowMenuWarn)
+					fmt.Println(env.ShowMenuWarn)
 					scanner.Scan()
 					GenderID := scanner.Text()
 					GenderIDUINT, _ := strconv.ParseUint(GenderID, 10, 8)
@@ -663,16 +664,16 @@ func RunMenu() {
 					} else {
 						fmt.Println("some thing wrong")
 					}
-					fmt.Println(ShowMenuWarn)
+					fmt.Println(env.ShowMenuWarn)
 				}
 				fmt.Println("not found")
-				fmt.Println(ShowMenuWarn)
-			case DeletePersonById:
+				fmt.Println(env.ShowMenuWarn)
+			case env.DeletePersonById:
 				var confirmDel string
 				fmt.Println("*** important, be careful, you are deleting person(s) ***")
 				fmt.Println("do you want to continue? (yes or no)")
 				fmt.Scanln(&confirmDel)
-				if strings.ToLower(confirmDel) == YES {
+				if strings.ToLower(confirmDel) == env.YES {
 					var deleteIDS string
 					fmt.Println("insert your person id(s) that you want to delete, separate id's by ',':")
 					fmt.Scanln(&deleteIDS)
@@ -685,14 +686,14 @@ func RunMenu() {
 					resNums := person.DeletePerson(idPackInt)
 					fmt.Printf("%v person(s) has been deleted", resNums)
 				}
-				fmt.Println(ShowMenuWarn)
-			case DeleteMultiPersonByIds:
+				fmt.Println(env.ShowMenuWarn)
+			case env.DeleteMultiPersonByIds:
 				//some code
-				fmt.Println(ShowMenuWarn)
-			case DeleteAllPersons:
+				fmt.Println(env.ShowMenuWarn)
+			case env.DeleteAllPersons:
 				//some code
-				fmt.Println(ShowMenuWarn)
-			case InsertNewCity:
+				fmt.Println(env.ShowMenuWarn)
+			case env.InsertNewCity:
 				var inputCity, ariaCode string
 				var lat, lng float64
 				fmt.Println("insert city name:")
@@ -712,16 +713,16 @@ func RunMenu() {
 				}).State {
 					fmt.Println("New city added")
 				}
-				fmt.Println(ShowMenuWarn)
-			case ListOfCities:
+				fmt.Println(env.ShowMenuWarn)
+			case env.ListOfCities:
 				dataJSON, _ := json.MarshalIndent(city.GetCityPool.GetCities(), "", "  ")
 				fmt.Println(string(dataJSON))
 				fmt.Println(separator7)
 				for _, data := range city.GetCityPool.GetCities() {
 					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 				}
-				fmt.Println(ShowMenuWarn)
-			case EditCityById:
+				fmt.Println(env.ShowMenuWarn)
+			case env.EditCityById:
 				var inputID uint
 				var inputName, ariaCode string
 				fmt.Println("insert city id:")
@@ -737,13 +738,13 @@ func RunMenu() {
 				}).State {
 					fmt.Println("City changed ...")
 				}
-				fmt.Println(ShowMenuWarn)
-			case DeleteCityById:
+				fmt.Println(env.ShowMenuWarn)
+			case env.DeleteCityById:
 				var confirmDel string
 				fmt.Println("*** important, be careful, you are deleting city(ies) ***")
 				fmt.Println("do you want to continue? (yes or no)")
 				fmt.Scanln(&confirmDel)
-				if strings.ToLower(confirmDel) == YES {
+				if strings.ToLower(confirmDel) == env.YES {
 					var deleteIDS string
 					fmt.Println("insert your city id(s) that you want to delete, for more than one, separate id's by ',':")
 					fmt.Scanln(&deleteIDS)
@@ -756,8 +757,8 @@ func RunMenu() {
 					resNums := city.DeleteCityPool.Do(idPackInt)
 					fmt.Printf("%v city(ies) has been deleted", resNums)
 				}
-				fmt.Println(ShowMenuWarn)
-			case CallDistanceTimeTwoCities:
+				fmt.Println(env.ShowMenuWarn)
+			case env.CallDistanceTimeTwoCities:
 				var firstCityCode, secondCityCode uint
 				fmt.Println("insert first city id:")
 				fmt.Scanln(&firstCityCode)
@@ -780,8 +781,8 @@ func RunMenu() {
 				} else {
 					fmt.Println("not found")
 				}
-				fmt.Println(ShowMenuWarn)
-			case AddCountry:
+				fmt.Println(env.ShowMenuWarn)
+			case env.AddCountry:
 				var newCountryName string
 				fmt.Println("insert new country name")
 				scanner.Scan()
@@ -801,8 +802,8 @@ func RunMenu() {
 					PrePhoneCode: prePhoneCode,
 					CapitalID:    capitalID,
 				})
-				fmt.Println(ShowMenuWarn)
-			case EditCountry:
+				fmt.Println(env.ShowMenuWarn)
+			case env.EditCountry:
 				var countryID uint
 				fmt.Println("insert country id")
 				fmt.Scanln(&countryID)
@@ -826,13 +827,13 @@ func RunMenu() {
 					PrePhoneCode: prePhoneCode,
 					CapitalID:    capitalID,
 				})
-				fmt.Println(ShowMenuWarn)
-			case DeleteCountry:
+				fmt.Println(env.ShowMenuWarn)
+			case env.DeleteCountry:
 				var confirmDel string
 				fmt.Println("*** important, be careful, you are deleting country(ies) ***")
 				fmt.Println("do you want to continue? (yes or no)")
 				fmt.Scanln(&confirmDel)
-				if strings.ToLower(confirmDel) == YES {
+				if strings.ToLower(confirmDel) == env.YES {
 					var deleteIDS string
 					fmt.Println("insert your country id(s) that you want to delete, for more than one, separate id's by ',':")
 					fmt.Scanln(&deleteIDS)
@@ -845,8 +846,8 @@ func RunMenu() {
 					resNums := country.DeleteCountry(idPackInt)
 					fmt.Printf("%v country(ies) has been deleted", resNums)
 				}
-				fmt.Println(ShowMenuWarn)
-			case FindCountryByChar:
+				fmt.Println(env.ShowMenuWarn)
+			case env.FindCountryByChar:
 				println("insert character")
 				scanner.Scan()
 				insertChar := scanner.Text()
@@ -859,8 +860,8 @@ func RunMenu() {
 					fmt.Printf("%3v | %-45s | %-8v | %-10v | %-12v | %-19v  | %-19v   \n",
 						data.ID, data.Name, data.ShortName, data.PrePhoneCode, data.CapitalID, (data.CreatedAt).String()[0:16], (data.UpdatedAt).String()[0:16])
 				}
-				fmt.Println(ShowMenuWarn)
-			case CountriesList:
+				fmt.Println(env.ShowMenuWarn)
+			case env.CountriesList:
 				fmt.Println(separator7)
 				fmt.Println("Country Data:")
 				fmt.Printf("%3v | %-45s | %-8v | %-10v | %-12v | %-19v  | %-19v   \n",
@@ -872,8 +873,8 @@ func RunMenu() {
 							data.ID, data.Name, data.ShortName, data.PrePhoneCode, data.CapitalID, (data.CreatedAt).String()[0:16], (data.UpdatedAt).String()[0:16])
 					}
 				}
-				fmt.Println(ShowMenuWarn)
-			case InsertNewJob:
+				fmt.Println(env.ShowMenuWarn)
+			case env.InsertNewJob:
 				var (
 					Name                string
 					LocationID          uint64
@@ -900,8 +901,8 @@ func RunMenu() {
 				}).State {
 					fmt.Println("New job added")
 				}
-				fmt.Println(ShowMenuWarn)
-			case EditJobById:
+				fmt.Println(env.ShowMenuWarn)
+			case env.EditJobById:
 				var (
 					inputID             uint
 					Name                string
@@ -931,13 +932,13 @@ func RunMenu() {
 				}).State {
 					fmt.Println("Job changed ...")
 				}
-				fmt.Println(ShowMenuWarn)
-			case DeleteJobById:
+				fmt.Println(env.ShowMenuWarn)
+			case env.DeleteJobById:
 				var confirmDel string
 				fmt.Println("*** important, be careful, you are deleting job(s) ***")
 				fmt.Println("do you want to continue? (yes or no)")
 				fmt.Scanln(&confirmDel)
-				if strings.ToLower(confirmDel) == YES {
+				if strings.ToLower(confirmDel) == env.YES {
 					var deleteIDS string
 					fmt.Println("insert your job id(s) that you want to delete, for more than one, separate id's by ',':")
 					fmt.Scanln(&deleteIDS)
@@ -950,16 +951,16 @@ func RunMenu() {
 					resNums := job.DeleteJobByID(idPackInt)
 					fmt.Printf("%v job(s) has been deleted", resNums)
 				}
-				fmt.Println(ShowMenuWarn)
-			case ListOfJob:
+				fmt.Println(env.ShowMenuWarn)
+			case env.ListOfJob:
 				dataJSON, _ := json.MarshalIndent(job.GetJobs(), "", "  ")
 				fmt.Println(string(dataJSON))
 				fmt.Println(separator7)
 				for _, data := range job.GetJobs() {
 					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 				}
-				fmt.Println(ShowMenuWarn)
-			case InsertNewSex:
+				fmt.Println(env.ShowMenuWarn)
+			case env.InsertNewSex:
 				var insertName string
 				fmt.Println("Insert sex name")
 				fmt.Scanln(&insertName)
@@ -970,8 +971,8 @@ func RunMenu() {
 				).State {
 					fmt.Println("New sex info added")
 				}
-				fmt.Println(ShowMenuWarn)
-			case EditSex:
+				fmt.Println(env.ShowMenuWarn)
+			case env.EditSex:
 				var insertID uint8
 				var insertName string
 				fmt.Println("Insert sex id:")
@@ -986,12 +987,12 @@ func RunMenu() {
 				} else {
 					fmt.Println("some thing wrong")
 				}
-				fmt.Println(ShowMenuWarn)
-			case DeleteSex:
+				fmt.Println(env.ShowMenuWarn)
+			case env.DeleteSex:
 				fmt.Println("you are deleting some data, are you sure? (yes/no)")
 				var confirmInsert string
 				fmt.Scanln(&confirmInsert)
-				if strings.ToLower(confirmInsert) == YES {
+				if strings.ToLower(confirmInsert) == env.YES {
 					var insertID uint8
 					fmt.Println("insert sex id to delete:")
 					fmt.Scanln(&insertID)
@@ -1001,17 +1002,17 @@ func RunMenu() {
 						fmt.Println("some thing wrong")
 					}
 				}
-				fmt.Println(ShowMenuWarn)
-			case ListOfSex:
+				fmt.Println(env.ShowMenuWarn)
+			case env.ListOfSex:
 				dataJSON, _ := json.MarshalIndent(sex.GetSex(), "", "  ")
 				fmt.Println(string(dataJSON))
 				fmt.Println(separator7)
 				for _, data := range sex.GetSex() {
 					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 				}
-				fmt.Println(ShowMenuWarn)
+				fmt.Println(env.ShowMenuWarn)
 			//something wrong:
-			case RESET:
+			case env.RESET:
 				globalVars.DeleteAllGlobalVars()
 				RunCli()
 			default:

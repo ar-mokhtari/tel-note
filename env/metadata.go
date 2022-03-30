@@ -1,4 +1,4 @@
-package cli
+package env
 
 // MetaData & Usage
 // A metadata is a data that describes other data in a structured way.
@@ -6,11 +6,20 @@ package cli
 //TODO::: + string(rune(iota)) (for generate unique routes)
 
 const (
-	YES                   = "yes"
-	NO                    = "no"
-	OK                    = "ok"
-	Male                  = "male"
-	Female                = "female"
+	//methods:
+	GetMethod    = "GET"
+	PostMethod   = "POST"
+	PutMethod    = "PUT"
+	PatchMethod  = "PATCH"
+	DeleteMethod = "DELETE"
+	//---
+	YES = "yes"
+	NO  = "no"
+	OK  = "ok"
+	//---
+	Male   = "male"
+	Female = "female"
+	//---
 	ShowMenuList          = "/"
 	ShowMenuWarn          = "To see menu, insert ('/') then enter"
 	RegulatorString       = "reg"

@@ -52,8 +52,8 @@ var (
 	}
 
 	SexDataTest = []*protocol.Sex{
-		Female,
-		Male,
+		FemaleGender,
+		MaleGender,
 		Other,
 	}
 
@@ -134,9 +134,9 @@ var (
 	MasterChef       = &protocol.Job{Name: "MasterChef", LocationID: 7, Description: "", BasicPaymentPerHour: 0}
 
 	// sex variable
-	Female = &protocol.Sex{Id: 1, Name: "Female"}
-	Male   = &protocol.Sex{Id: 2, Name: "Male"}
-	Other  = &protocol.Sex{Id: 3, Name: "Other"}
+	FemaleGender = &protocol.Sex{Id: 1, Name: "FemaleGender"}
+	MaleGender   = &protocol.Sex{Id: 2, Name: "MaleGender"}
+	Other        = &protocol.Sex{Id: 3, Name: "Other"}
 
 	// customer variable
 	AlirezaCust  = protocol.Customer{PersonID: 1, Description: "first"}

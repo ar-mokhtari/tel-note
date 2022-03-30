@@ -5,6 +5,7 @@ package city
 import (
 	"encoding/json"
 	"net/http"
+	"tel-note/env"
 	"tel-note/lib/convertor"
 )
 
@@ -18,17 +19,24 @@ func (allData deleteCityPool) Do(IDS []uint) []uint {
 
 func (allData deleteCityPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	idsCollection := convertor.StrToSlice(r.Header.Get("ids"))
-	if err, data := convertor.StrSliceToUintSlice(idsCollection); err == nil {
-		result := allData.Do(data)
+	if r.Method != env.DeleteMethod {
 		json.NewEncoder(w).Encode(struct {
-			State      uint
-			DeletedIDs []uint
-		}{200, result})
+			State   uint
+			Message string
+		}{400, "method not support"})
 	} else {
-		json.NewEncoder(w).Encode(struct {
-			State     uint
-			ErrString string
-		}{400, err.Error()})
+		idsCollection := convertor.StrToSlice(r.Header.Get("ids"))
+		if err, data := convertor.StrSliceToUintSlice(idsCollection); err == nil {
+			result := allData.Do(data)
+			json.NewEncoder(w).Encode(struct {
+				State      uint
+				DeletedIDs []uint
+			}{200, result})
+		} else {
+			json.NewEncoder(w).Encode(struct {
+				State     uint
+				ErrString string
+			}{400, err.Error()})
+		}
 	}
 }

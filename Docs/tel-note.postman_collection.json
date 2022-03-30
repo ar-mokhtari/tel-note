@@ -278,12 +278,12 @@
 			"name": "country",
 			"item": [
 				{
-					"name": "country-list",
+					"name": "call-country-list",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "127.0.0.1:1212/country-list",
+							"raw": "127.0.0.1:1212/call-country-list",
 							"host": [
 								"127",
 								"0",
@@ -292,7 +292,7 @@
 							],
 							"port": "1212",
 							"path": [
-								"country-list"
+								"call-country-list"
 							]
 						}
 					},
@@ -338,102 +338,96 @@
 				{
 					"name": "delete-city",
 					"request": {
-						"method": "GET",
+						"method": "DELETE",
 						"header": [
 							{
 								"key": "ids",
-								"value": "13,113,1113,R,11113",
+								"value": "13,113,1113,11113",
 								"type": "text"
 							}
 						],
 						"url": {
 							"raw": "127.0.0.1:1212/delete-city",
-                          "host": [
-                            "127",
-                            "0",
-                            "0",
-                            "1"
-                          ],
-                          "port": "1212",
-                          "path": [
-                            "delete-city"
-                          ]
-                        }
-                    },
-                  "response": []
-                },
-              {
-                "name": "edit-city",
-                "protocolProfileBehavior": {
-                  "disableBodyPruning": true
-                },
-                "request": {
-                  "method": "GET",
-                  "header": [],
-                  "body": {
-                    "mode": "raw",
-                    "raw": "{\n    \"ID\" : 13,\n    \"Name\" : \"سرزمین پاکی\" ,\n    \"EnglishName\" : \"neatland\" ,\n    \"AriaCode\" : \"13\" ,\n    \"Lat\" : \"\" ,\n    \"Lng\" : \"\" \n}",
-                    "options": {
-                      "raw": {
-                        "language": "json"
-                      }
-                    }
-                  },
-                  "url": {
-                    "raw": "127.0.0.1:1212/edit-city",
-                    "host": [
-                      "127",
-                      "0",
-                      "0",
-                      "1"
-                    ],
-                    "port": "1212",
-                    "path": [
-                      "edit-city"
-                    ]
-                  }
-                },
-                "response": []
-              },
-              {
-                "name": "add-city",
-                "protocolProfileBehavior": {
-                  "disableBodyPruning": true
-                },
-                "request": {
-                  "method": "GET",
-                  "header": [],
-                  "body": {
-                    "mode": "raw",
-                    "raw": "{\n    \"Name\" : \"شهر جدید\" ,\n    \"EnglishName\" : \"New town\" ,\n    \"AriaCode\" : \"1313\" ,\n    \"Lat\" : \"36.5678161\" ,\n    \"Lng\" : \"51.8789308\" \n}",
-                    "options": {
-                      "raw": {
-                        "language": "json"
-                      }
-                    }
-                  },
-                  "url": {
-                    "raw": "127.0.0.1:1212/add-city",
-                    "host": [
-                      "127",
-                      "0",
-                      "0",
-                      "1"
-                    ],
-                    "port": "1212",
-                    "path": [
-                      "add-city"
-                    ]
-                  }
-                },
-                "response": []
-              },
-              {
-                "name": "find-city-char",
-                "protocolProfileBehavior": {
-                  "disableBodyPruning": true,
-                  "disabledSystemHeaders": {}
-                },
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"delete-city"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit-city",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ID\" : 13,\n    \"Name\" : \"سرزمین پاکی\" ,\n    \"EnglishName\" : \"neatland\" ,\n    \"AriaCode\" : \"13\" ,\n    \"Lat\" : \"\" ,\n    \"Lng\" : \"\" \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:1212/edit-city",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"edit-city"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add-city",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Name\" : \"شهر جدید\" ,\n    \"EnglishName\" : \"New town\" ,\n    \"AriaCode\" : \"1313\" ,\n    \"Lat\" : \"36.5678161\" ,\n    \"Lng\" : \"51.8789308\" \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:1212/add-city",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"add-city"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find-city-char",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {}
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -450,93 +444,93 @@
 							"raw": "127.0.0.1:1212/find-city-char",
 							"host": [
 								"127",
-                              "0",
-                              "0",
-                              "1"
-                            ],
-                          "port": "1212",
-                          "path": [
-                            "find-city-char"
-                          ]
-                        }
-                    },
-                "response": []
-              },
-              {
-                "name": "find-city-id",
-                "protocolProfileBehavior": {
-                  "disableBodyPruning": true,
-                  "disabledSystemHeaders": {}
-                },
-                "request": {
-                  "method": "GET",
-                  "header": [
-                    {
-                      "key": "cityID",
-                      "value": "1133",
-                      "type": "text"
-                    }
-                  ],
-                  "body": {
-                    "mode": "raw",
-                    "raw": "",
-                    "options": {
-                      "raw": {
-                        "language": "json"
-                      }
-                    }
-                  },
-                  "url": {
-                    "raw": "127.0.0.1:1212/find-city-id",
-                    "host": [
-                      "127",
-                      "0",
-                      "0",
-                      "1"
-                    ],
-                    "port": "1212",
-                    "path": [
-                      "find-city-id"
-                    ]
-                  }
-                },
-                "response": []
-              },
-              {
-                "name": "get-city",
-                "protocolProfileBehavior": {
-                  "disableBodyPruning": true,
-                  "disabledSystemHeaders": {}
-                },
-                "request": {
-                  "method": "GET",
-                  "header": [],
-                  "body": {
-                    "mode": "raw",
-                    "raw": "",
-                    "options": {
-                      "raw": {
-                        "language": "json"
-                      }
-                    }
-                  },
-                  "url": {
-                    "raw": "127.0.0.1:1212/get-city",
-                    "host": [
-                      "127",
-                      "0",
-                      "0",
-                      "1"
-                    ],
-                    "port": "1212",
-                    "path": [
-                      "get-city"
-                    ]
-                  }
-                },
-                "response": []
-              }
-            ]
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"find-city-char"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find-city-id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "cityID",
+								"value": "1133",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:1212/find-city-id",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"find-city-id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-city",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:1212/get-city",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"get-city"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "general",

@@ -23,7 +23,7 @@ func (allData *findCityIDPool) FindCityByID(inputID uint) (protocol.ResponseStat
 func (allData *findCityIDPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	err, cityID := convertor.StrToUint(r.Header.Get("cityID"))
-	if err != nil {
+	if err == nil {
 		if status, city := allData.FindCityByID(cityID); status.State {
 			json.NewEncoder(w).Encode(struct {
 				Status uint
