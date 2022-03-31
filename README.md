@@ -183,3 +183,10 @@ To use and call from API platform like "Postman":
 ````
 /Docs/tel-note.postman_collection.json
 ````
+
+<h3>User Interface [web]</h3>
+A sample SPA with "Ajax" request which call routes ...
+
+```` 
+/UI/tel-note.html 
+````
