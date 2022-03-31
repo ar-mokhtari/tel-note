@@ -13,10 +13,11 @@ function getData() {
     $.ajax({
         type: 'GET',
         url: getDataUrl,
-        // contentType: "application/x-www-form-urlencoded; charset=iso-8859-1",
+        contentType: "application/x-www-form-urlencoded; charset=iso-8859-1",
         dataType: "json",
         success: function (data) {
-            $.each(data, function (index, element) {
+            let cityData = JSON.stringify(data.CityData);
+            $.each(JSON.stringify(cityData), function (index, element) {
                 $("#response span").append("<span>" + (JSON.stringify(element.Name)) + '</span>');
                 $("#response span").append("<span>" + (JSON.stringify(element.EnglishName)) + '</span>');
                 $("#response span").append("<span>" + (JSON.stringify(element.AriaCode)) + '</span>');

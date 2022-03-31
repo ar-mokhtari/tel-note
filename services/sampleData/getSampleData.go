@@ -38,8 +38,14 @@ func (fillData *getData) DoGetData() (result AllDataCollection) {
 func (fillData *getData) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+
 	result := fillData.DoGetData()
-	json.NewEncoder(w).Encode(result.cities)
+	json.NewEncoder(w).Encode(struct {
+		State    uint
+		CityData []*protocol.City
+	}{200, result.cities})
 	//json.NewEncoder(w).Encode(result.contact)
 	//json.NewEncoder(w).Encode(result.customer)
 	//json.NewEncoder(w).Encode(result.customerGroup)
