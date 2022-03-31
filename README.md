@@ -186,6 +186,11 @@ To use and call from API platform like "Postman":
 
 <h3>User Interface [web]</h3>
 A sample SPA with "Ajax" request which call routes ...
+<ul>
+<li>Boostrap -v 5.1.3</li>
+<li>jQuery 3.6.0</li>
+<li>Ajax</li>
+</ul>
 
 ```` 
 /UI/tel-note.html 
