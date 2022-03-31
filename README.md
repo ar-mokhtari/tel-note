@@ -45,6 +45,7 @@
 
 
 > ---
+> - <h4>Developed :</h4>
 > - [x] Import data from external source csv file
 > - [x] Listen and export business data to applicant(s) [b2c]
 >> - [ ] use a web framework and router
