@@ -1,7 +1,28 @@
 #response span {
     display: block;
+    margin: 0.5rem 2rem;
 }
 
 button {
     margin: 0.5rem !important;
 }
+
+table thead {
+    text-align: center;
+}
+
+table thead td {
+    color: cornflowerblue;
+    height: 50px;
+    vertical-align: middle;
+}
+
+table tbody td {
+    text-align: center;
+}
+
+table td {
+    margin: 0.1rem !important;
+    padding: 0.1rem !important;
+}
+

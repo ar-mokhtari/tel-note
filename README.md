@@ -161,7 +161,7 @@ Create examples of all available entities for testing:
 <li>contact
 <ul>
 <li><a href="127.0.0.1:1212/get-contact">127.0.0.1:1212/get-contact</a></li>
-<li><a href="127.0.0.1:1212/add-contact">127.0.0.1:1212/add-contact</a></li>
+<li><a href="127.0.0.1:1212/new-contact">127.0.0.1:1212/add-contact</a></li>
 <li><a href="127.0.0.1:1212/edit-contact">127.0.0.1:1212/edit-contact</a></li>
 <li><a href="127.0.0.1:1212/find-contact-char">127.0.0.1:1212/find-contact-char</a></li>
 <li><a href="127.0.0.1:1212/find-contact-id?id=2">127.0.0.1:1212/find-contact-id?id=2</a></li>

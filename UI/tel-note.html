@@ -3,7 +3,9 @@
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
     <!-- Title  -->
     <title>Tel-Note</title>
 
@@ -11,25 +13,38 @@
     <link rel="icon" href="">
 
     <!-- Core Style CSS -->
+    <link href="css/bootstrap/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
 
 </head>
 
 <body>
-<button class="fillDataBtn btn btn-success">fill data</button>
-<button class="addCityBtn btn btn-success">add city</button>
-<button class="getDataBtn btn btn-success">get data</button>
+<button class="btn btn-outline-success fillDataBtn" type="button">fill data</button>
+<button class="addCityBtn btn btn-outline-success" type="button">add city</button>
+<button class="addContactBtn btn btn-outline-success" type="button">add contact</button>
+<button class="getDataBtn btn btn-outline-success" type="button">get data</button>
 
+<ul class="nav nav-tabs">
+    <li class="nav-item"><a aria-current="page" class="nav-link active" href="#">City</a></li>
+    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+    <li class="nav-item"><a class="nav-link" href="#">CustomerGroup</a></li>
+    <li class="nav-item"><a class="nav-link" href="#">Customer</a></li>
+    <li class="nav-item"><a class="nav-link" href="#">CustomerRelation</a></li>
+    <li class="nav-item"><a class="nav-link" href="#">Person</a></li>
+    <li class="nav-item"><a class="nav-link" href="#">Countries</a></li>
+    <li class="nav-item"><a class="nav-link" href="#">Job</a></li>
+    <li class="nav-item"><a class="nav-link" href="#">Sex</a></li>
+</ul>
 <div id="response">
 <span>
 
 </span>
 </div>
 
-<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/bootstrap/bootstrap.min.js"></script>
+<script src="js/bootstrap/bootstrap.bundle.js"></script>
 <script src="js/callApi.js"></script>
-
 <script>
 
 </script>

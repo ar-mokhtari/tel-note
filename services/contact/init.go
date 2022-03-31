@@ -3,8 +3,8 @@ package contact
 import "net/http"
 
 func Init() {
-	http.Handle("/get-contact", &GetPool)
 	http.Handle("/new-contact", &PoolContact)
+	http.Handle("/get-contact", &GetPool)
 	http.Handle("/edit-contact", &EditPool)
 	http.Handle("/find-contact-id", &FindByIDPool)
 	http.Handle("/find-contact-char", &FindByCharPool)

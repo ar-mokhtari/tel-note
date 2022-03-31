@@ -21,6 +21,10 @@ func (allData *contactPool) NewContact(inputContact protocol.Contact) (status pr
 
 func (allData *contactPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 	PersonID := r.Header.Get("PersonID")
 	JobID := r.Header.Get("JobID")
 	Tel := r.Header.Get("Tel")
