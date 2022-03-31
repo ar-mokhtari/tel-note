@@ -1,27 +1,24 @@
-✖# Identification, Authentication, Authorization to control user services
-✖# Create Validation service
-✖# Export data to csv file
-✖# Send sms for different service(s)
-✖# Send email for different service(s)
-✖# Create and develop internal database to "data service(ing)"
-✖# Create reports, listen and export official data(s) by api(s) [b2e]
-✖# Build with storage(s) type tags
-✖# Use general packages (lib)s
-✖# Create product wiki
+> - [ ] Identification, Authentication, Authorization to control user services
+> - [ ] Create Validation service
+> - [ ] Export data to csv file
+> - [ ] Send sms for different service(s)
+> - [ ] Send email for different service(s)
+> - [ ] Create and develop internal database to "data service(ing)"
+> - [ ] Create reports, listen and export official data(s) by api(s) [b2e]
+> - [ ] Build with storage(s) type tags
+> - [ ] Use general packages (lib)s
+> - [ ] Create product wiki
+> - [ ] Create UI web application
+> - [ ] Create Mobile application (Android)
+> ---
+> - [x] Import data from external source csv file
+> - [x] Listen and export business data to applicant(s) [b2c]
+>> - [ ] use a web framework and router
+>> - [x] create a collection for api(s) document(s)
+> - [x] Call Some Api(s) [b2b]
+>> - [x] Insert and update country(ies) and its property(ies)
+>> - [x] Send some data and receive processed data from provider, (lat and lng of a city and publish online traffic duration and distance[neshan.org])
 
-
-✔# Import data from external source csv file
-✔# Listen and export business data to applicant(s) [b2c]
-    - use a web framework and router
-    - create a collection for api(s) document(s)
-✔# Call Some Api(s) [b2b]
-    - Date and time
-    - Check national id(s)
-    - Insert and update city(ies) and its property(ies)
-    - ...
-
-//TODO:::
-         127.0.0.1:1212/find-city-char
 −−−−−−−−−−−−−−−−−−−−−−−−−−
 This note is modified and added
 −−−−−−−−−−−−−−−−−−−−−−−−−−

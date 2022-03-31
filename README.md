@@ -27,6 +27,9 @@
 <h3>Requirements</h3>
 
 [Requirements for this project](Docs/Requirements)
+
+> <h4>Under development</h6>
+> ---
 > - [ ] Identification, Authentication, Authorization to control user services
 > - [ ] Create Validation service
 > - [ ] Export data to csv file
@@ -39,6 +42,8 @@
 > - [ ] Create product wiki
 > - [ ] Create UI web application
 > - [ ] Create Mobile application (Android)
+>
+> <h4> Developed </h4>
 > ---
 > - [x] Import data from external source csv file
 > - [x] Listen and export business data to applicant(s) [b2c]
