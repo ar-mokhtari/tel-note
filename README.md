@@ -37,6 +37,8 @@
 > - [ ] Build with storage(s) type tags
 > - [ ] Use general packages (lib)s
 > - [ ] Create product wiki
+> - [ ] Create UI web application
+> - [ ] Create Mobile application (Android)
 > ---
 > - [x] Import data from external source csv file
 > - [x] Listen and export business data to applicant(s) [b2c]
