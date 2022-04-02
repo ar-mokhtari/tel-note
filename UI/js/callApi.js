@@ -80,6 +80,7 @@ function addContact() {
 }
 
 function getMenu() {
+    $("#MainSidebar").empty();
     $.ajax({
         type: 'GET',
         url: getMenuUrl,
@@ -88,28 +89,24 @@ function getMenu() {
         data: JSON.stringify({GroupName: "GroupName", Row: "Row"}),
         Row: JSON.stringify({Title: "Title", Description: "Description"}),
         success: function (data) {
-            $("#MainSidebar ul").empty()
-            $.each(data, function (index, element) {
-                $("#MainSidebar ul").append(
+            $.each(data, function (menuIndex, menuElement) {
+                $("#MainSidebar").append(
                     "<li class='mb-1'>" +
-                    "<button class=\"btn btn-toggle align-items-center rounded collapsed\" data-bs-toggle=\"collapse\"\n" +
-                    "data-bs-target=\"" + "#group-collapse" + index + "\" aria-expanded=\"false\">\n" +
-                    element.GroupName +
+                    "<button aria-expanded=\"true\" class=\"btn btn-toggle align-items-center rounded collapsed\"" +
+                    " data-bs-target = #group-collapse" + menuIndex + " data-bs-toggle = collapse > " +
+                    menuElement.GroupName +
                     "</button>" +
-                    "<div class=\"collapse\" id=\"" + "group-collapse" + index + "\">\n" +
+                    "<div class=\"collapse\" id=\"" + "group-collapse" + menuIndex + "\">\n" +
                     "    <ul class=\"btn-toggle-nav list-unstyled fw-normal pb-1 small\">\n" +
-                    "<li><a href=\"#\" class=\"link-dark rounded\">" + JSON.stringify(element.Row) + "</a></li>" +
-                    // $.each(element.Row, function (detailIndex, detailElement) {
-                    //     console.log(detailElement.Description)
-                    //     // alert(JSON.stringify(detailElement.Description))
-                    //     // this.append("<li><a href=\"#\" class=\"link-dark rounded\">" + JSON.stringify(detailElement.Description) + "</a></li>")
-                    // })
                     "    </ul>\n" +
                     "</div>" +
-                    "</li>" +
-                    "</ul>"
-                )
-            });
+                    "</li>"
+                );
+                $.each(menuElement.Row, function (detailIndex, detailElement) {
+                    $("#group-collapse" + menuIndex + " ul").append("<li><a class=\"link-dark rounded\" href=\"#\">" + detailElement.Description + "</a></li>")
+                    // $(this).append("<li><a href=\"#\" class=\"link-dark rounded\">" + detailElement.Description + "</a></li>")
+                })
+            })
         }
     });
 }
@@ -124,7 +121,7 @@ $('.addCityBtn').click(function () {
     addCity()
 })
 $('.addContactBtn').click(function () {
-    // addContact()
-    getMenu()
+    addContact()
 })
 
+getMenu()
