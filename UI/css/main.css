@@ -1,6 +1,27 @@
+
+#MainHolder {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
 #response span {
-    display: block;
     margin: 0.5rem 2rem;
+    position: absolute;
+    width: 95%;
+    height: 95%;
+    overflow: scroll;
+}
+
+#response span table {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+#response span table thead {
+    position: sticky;
+    top: 0;
 }
 
 table thead {
@@ -9,7 +30,7 @@ table thead {
 
 table thead td {
     color: cornflowerblue;
-    height: 50px;
+    height: 30px;
     vertical-align: middle;
 }
 
