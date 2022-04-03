@@ -20,25 +20,36 @@ const newContactData = {
 }
 
 function getData() {
-    $("#response span").empty();
+    $("#response div,#ContactTabContent div").empty();
     $.ajax({
         type: 'GET',
         url: getDataUrl,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        data: JSON.stringify({CityData: "CityData", ContactData: "ContactData"}),
+        data: JSON.stringify({State: "State", CityData: "CityData", ContactData: "ContactData"}),
         success: function (data) {
-            $("#response span").append("<table data-toggle='table' class='table table-striped table-hover table-responsive small'></table>");
-            $("#response span table").append("<thead><tr class='table-primary'><td>Name</td><td>EnglishName</td><td>AriaCode</td><td>Lat</td><td>Lng</td></tr></thead><tbody></tbody>");
+            $("#response div").append("<table data-toggle='table' class='table table-striped table-hover table-responsive small'></table>");
+            $("#response div table").append("<thead><tr class='table-primary'><td>Name</td><td>EnglishName</td><td>AriaCode</td><td>Lat</td><td>Lng</td></tr></thead><tbody></tbody>");
             $.each(data.CityData, function (index, element) {
-                $("#response span table tbody").append("<tr>" + "<td>" + (JSON.stringify(element.Name)) + '</td>' +
+                $("#response div table tbody").append("<tr>" + "<td>" + (JSON.stringify(element.Name)) + '</td>' +
                     "<td>" + (JSON.stringify(element.EnglishName)) + '</td>' +
                     "<td>" + (JSON.stringify(element.AriaCode)) + '</td>' +
                     "<td>" + (JSON.stringify(element.Lat)) + '</td>' +
                     "<td>" + (JSON.stringify(element.Lng)) + '</td>' +
                     "</tr>");
             });
-            // $("#response span").append("<span>" + JSON.stringify(data.ContactData) + '</span>');
+            $("#ContactTabContent div").append("<table data-toggle='table' class='table table-striped table-hover table-responsive small'></table>");
+            $("#ContactTabContent div table").append("<thead><tr class='table-primary'><td>PersonID</td><td>JobID</td><td>Tel</td><td>Address</td><td>Description</td></tr></thead><tbody></tbody>");
+            $.each(data.ContactData, function (indexContactData, elementContactData) {
+                $("#ContactTabContent div table tbody").append("<tr>" + "<td>" + (JSON.stringify(elementContactData.PersonID)) + '</td>' +
+                    "<td>" + (JSON.stringify(elementContactData.JobID)) + '</td>' +
+                    "<td>" + (JSON.stringify(elementContactData.Tel)) + '</td>' +
+                    "<td>" + (JSON.stringify(elementContactData.Address)) + '</td>' +
+                    "<td>" + (JSON.stringify(elementContactData.Description)) + '</td>' +
+                    "</tr>");
+            });
+            $("#headerResponse div a").text("Get Data");
+            $("#statusRespond").empty().append("<span>" + JSON.stringify(data.State) + '</span>');
         }
     });
 }
@@ -92,7 +103,7 @@ function getMenu() {
             $.each(data, function (menuIndex, menuElement) {
                 $("#MainSidebar").append(
                     "<li class='mb-1'>" +
-                    "<button aria-expanded=\"true\" class=\"btn btn-toggle align-items-center rounded collapsed\"" +
+                    "<button aria-expanded=\"false\" class=\"btn btn-toggle align-items-center rounded collapsed\"" +
                     " data-bs-target = #group-collapse" + menuIndex + " data-bs-toggle = collapse > " +
                     menuElement.GroupName +
                     "</button>" +
