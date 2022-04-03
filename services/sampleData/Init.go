@@ -1,8 +1,11 @@
 package sampleData
 
-import "net/http"
+import (
+	"net/http"
+	"tel-note/env"
+)
 
 func Init() {
-	http.Handle("/fill-data", &FillDataStruct)
-	http.Handle("/get-data", &GetDataStruct)
+	http.Handle(env.InsertSomeSamplesDataR, &FillDataStruct)
+	http.Handle(env.PrintAllDataR, &GetDataStruct)
 }

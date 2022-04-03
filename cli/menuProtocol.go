@@ -4,6 +4,7 @@ type (
 	MenuDetail struct {
 		Title       string
 		Description string
+		Route       string
 	}
 	MenuGroup struct {
 		GroupName string

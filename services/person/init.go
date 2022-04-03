@@ -1,10 +1,13 @@
 package person
 
-import "net/http"
+import (
+	"net/http"
+	"tel-note/env"
+)
 
 func Init() {
 	var personObject storageMemory
 	storage = &personObject
 
-	http.Handle("/find-person-id", &ServPersonRoute)
+	http.Handle(env.FindOnePersonByIdR, &ServPersonRoute)
 }

@@ -1,10 +1,13 @@
 package country
 
-import "net/http"
+import (
+	"net/http"
+	"tel-note/env"
+)
 
 func Init() {
 	var countryMethods storageMemory
 	storageService = &countryMethods
 
-	http.Handle("/call-country-list", &CallCountry)
+	http.Handle(env.CountriesListR, &CallCountry)
 }

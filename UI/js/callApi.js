@@ -20,24 +20,38 @@ const newContactData = {
 }
 
 function getData() {
-    $("#response div,#ContactTabContent div").empty();
+    $("#ResponseTabContent div," +
+        "#ContactTabContent div, " +
+        "#CustomerTabContent div").empty();
     $.ajax({
         type: 'GET',
         url: getDataUrl,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
-        data: JSON.stringify({State: "State", CityData: "CityData", ContactData: "ContactData"}),
+        data: JSON.stringify({
+            State: "State",
+            CityData: "CityData",
+            ContactData: "ContactData",
+            CustomerData: "CustomerData",
+            CustomerGroupData: "CustomerGroupData",
+            CustomerGroupRelationData: "CustomerGroupRelationData",
+            CustomerRelationData: "CustomerRelationData",
+            PersonData: "PersonData",
+            CountriesData: "CountriesData",
+        }),
         success: function (data) {
-            $("#response div").append("<table data-toggle='table' class='table table-striped table-hover table-responsive small'></table>");
-            $("#response div table").append("<thead><tr class='table-primary'><td>Name</td><td>EnglishName</td><td>AriaCode</td><td>Lat</td><td>Lng</td></tr></thead><tbody></tbody>");
+            //city
+            $("#ResponseTabContent div").append("<table data-toggle='table' class='table table-striped table-hover table-responsive small'></table>");
+            $("#ResponseTabContent div table").append("<thead><tr class='table-primary'><td>Name</td><td>EnglishName</td><td>AriaCode</td><td>Lat</td><td>Lng</td></tr></thead><tbody></tbody>");
             $.each(data.CityData, function (index, element) {
-                $("#response div table tbody").append("<tr>" + "<td>" + (JSON.stringify(element.Name)) + '</td>' +
+                $("#ResponseTabContent div table tbody").append("<tr>" + "<td>" + (JSON.stringify(element.Name)) + '</td>' +
                     "<td>" + (JSON.stringify(element.EnglishName)) + '</td>' +
                     "<td>" + (JSON.stringify(element.AriaCode)) + '</td>' +
                     "<td>" + (JSON.stringify(element.Lat)) + '</td>' +
                     "<td>" + (JSON.stringify(element.Lng)) + '</td>' +
                     "</tr>");
             });
+            //contact
             $("#ContactTabContent div").append("<table data-toggle='table' class='table table-striped table-hover table-responsive small'></table>");
             $("#ContactTabContent div table").append("<thead><tr class='table-primary'><td>PersonID</td><td>JobID</td><td>Tel</td><td>Address</td><td>Description</td></tr></thead><tbody></tbody>");
             $.each(data.ContactData, function (indexContactData, elementContactData) {
@@ -48,6 +62,18 @@ function getData() {
                     "<td>" + (JSON.stringify(elementContactData.Description)) + '</td>' +
                     "</tr>");
             });
+            //CustomerData
+            $("#CustomerTabContent div").append("<table data-toggle='table' class='table table-striped table-hover table-responsive small'></table>");
+            $("#CustomerTabContent div table").append("<thead><tr class='table-primary'><td>PersonID</td><td>Description</td><td>CreateAt</td><td>UpdatedAt</td><td>Description</td></tr></thead><tbody></tbody>");
+            $.each(data.CustomerData, function (indexCustomerData, elementCustomerData) {
+                $("#CustomerTabContent div table tbody").append("<tr>" +
+                    "<td>" + (JSON.stringify(elementCustomerData.PersonID)) + '</td>' +
+                    "<td>" + (JSON.stringify(elementCustomerData.Description)) + '</td>' +
+                    "<td>" + (JSON.stringify(elementCustomerData.CreateAt)) + '</td>' +
+                    "<td>" + (JSON.stringify(elementCustomerData.UpdatedAt)) + '</td>' +
+                    "</tr>");
+            });
+            //header and state
             $("#headerResponse div a").text("Get Data");
             $("#statusRespond").empty().append("<span>" + JSON.stringify(data.State) + '</span>');
         }
@@ -60,7 +86,7 @@ function fillData() {
         url: fillDataUrl,
         contentType: "application/json; charset=utf-8",
         success: function (data) {
-            alert("OK")
+            // alert("OK")
         }
     });
 }

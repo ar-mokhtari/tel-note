@@ -78,16 +78,22 @@ func (fillData *fillData) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
 	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
-
-	if err := fillData.DoFillData(); err != nil {
+	if r.Method != env.PostMethod {
 		json.NewEncoder(w).Encode(struct {
-			Err string
-		}{fmt.Sprintf("error is: %v", err)})
-
-	} else {
-		json.NewEncoder(w).Encode(struct {
-			State   int
+			State   uint
 			Message string
-		}{200, "Data insert successfully"})
+		}{400, "method not support"})
+	} else {
+		if err := fillData.DoFillData(); err != nil {
+			json.NewEncoder(w).Encode(struct {
+				Err string
+			}{fmt.Sprintf("error is: %v", err)})
+
+		} else {
+			json.NewEncoder(w).Encode(struct {
+				State   int
+				Message string
+			}{200, "Data insert successfully"})
+		}
 	}
 }

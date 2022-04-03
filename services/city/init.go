@@ -1,13 +1,16 @@
 package city
 
-import "net/http"
+import (
+	"net/http"
+	"tel-note/env"
+)
 
 func Init() {
-	http.Handle("/distance-time-between-two-city", &DistanceTimeService)
-	http.Handle("/find-city-char", &FindByCharService)
-	http.Handle("/delete-city", &DeleteCityPool)
-	http.Handle("/edit-city", &EditCityPool)
-	http.Handle("/find-city-id", &FindCityIDPool)
-	http.Handle("/get-city", &GetCityPool)
-	http.Handle("/add-city", &NewCityPool)
+	http.Handle(env.CallDistanceTimeTwoCitiesR, &DistanceTimeService)
+	http.Handle(env.FindCityByCharR, &FindByCharService)
+	http.Handle(env.DeleteCityByIdR, &DeleteCityPool)
+	http.Handle(env.EditCityByIdR, &EditCityPool)
+	http.Handle(env.FindCityByIdR, &FindCityIDPool)
+	http.Handle(env.ListOfCitiesR, &GetCityPool)
+	http.Handle(env.InsertNewCityR, &NewCityPool)
 }

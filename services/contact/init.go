@@ -1,13 +1,16 @@
 package contact
 
-import "net/http"
+import (
+	"net/http"
+	"tel-note/env"
+)
 
 func Init() {
-	http.Handle("/new-contact", &PoolContact)
-	http.Handle("/get-contact", &GetPool)
-	http.Handle("/edit-contact", &EditPool)
-	http.Handle("/find-contact-id", &FindByIDPool)
-	http.Handle("/find-contact-char", &FindByCharPool)
-	http.Handle("/delete-contact-id", &PoolDelContactID)
-	http.Handle("/delete-contact-all", &PoolDelAllContact)
+	http.Handle(env.NewContactRecordR, &PoolContact)
+	http.Handle(env.ListOfContactR, &GetPool)
+	http.Handle(env.FindAndEditContactByContactIdR, &EditPool)
+	http.Handle(env.FindOneContactByIdR, &FindByIDPool)
+	http.Handle(env.FindContactContainingSomeCharacterR, &FindByCharPool)
+	http.Handle(env.DeleteContactByIdR, &PoolDelContactID)
+	http.Handle(env.DeleteAllContactsR, &PoolDelAllContact)
 }

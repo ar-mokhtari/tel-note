@@ -8,12 +8,13 @@ import (
 	"tel-note/services/contact"
 	"tel-note/services/country"
 	"tel-note/services/customer"
+	"tel-note/services/globalVars"
 	"tel-note/services/person"
 )
 
 type AllDataCollection struct {
 	contact               []*protocol.Contact
-	customer              []*protocol.Customer
+	customer              map[uint]*protocol.Customer
 	customerGroup         []*protocol.CustomerGroup
 	customerGroupRelation []*protocol.CustomerGroupRelation
 	customerRelation      protocol.CustomerGRelationStorage
@@ -27,6 +28,7 @@ var GetDataStruct getData
 
 func (fillData *getData) DoGetData() (result AllDataCollection) {
 	result.contact = contact.GetPool.GetContacts()
+	result.customer = globalVars.CustomerMapStore
 	result.customerGroup = customer.GetCustomerGroup()
 	result.customerGroupRelation = customer.GetCustomerGroupRelation()
 	result.person = person.GetPersons()
@@ -42,18 +44,24 @@ func (fillData *getData) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 	result := fillData.DoGetData()
 	json.NewEncoder(w).Encode(struct {
-		State       uint
-		CityData    []*protocol.City
-		ContactData []*protocol.Contact
+		State                     uint
+		CityData                  []*protocol.City
+		ContactData               []*protocol.Contact
+		CustomerData              map[uint]*protocol.Customer
+		CustomerGroupData         []*protocol.CustomerGroup
+		CustomerGroupRelationData []*protocol.CustomerGroupRelation
+		CustomerRelationData      protocol.CustomerGRelationStorage
+		PersonData                []*protocol.Person
+		CountriesData             []*protocol.Country
 	}{200,
 		result.cities,
 		result.contact,
+		result.customer,
+		result.customerGroup,
+		result.customerGroupRelation,
+		result.customerRelation,
+		result.person,
+		result.countries,
 	})
-	//json.NewEncoder(w).Encode(result.contact)
-	//json.NewEncoder(w).Encode(result.customer)
-	//json.NewEncoder(w).Encode(result.customerGroup)
-	//json.NewEncoder(w).Encode(result.customerGroupRelation)
-	//json.NewEncoder(w).Encode(result.customerRelation)
-	//json.NewEncoder(w).Encode(result.person)
-	//json.NewEncoder(w).Encode(result.countries)
+
 }

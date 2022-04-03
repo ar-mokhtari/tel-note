@@ -1,7 +1,10 @@
 package general
 
-import "net/http"
+import (
+	"net/http"
+	"tel-note/env"
+)
 
 func Init() {
-	http.Handle("/check-national-id", &CheckIranNational)
+	http.Handle(env.CheckIranNationalCodeR, &CheckIranNational)
 }
