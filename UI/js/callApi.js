@@ -124,7 +124,7 @@ function getMenu() {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: JSON.stringify({GroupName: "GroupName", Row: "Row"}),
-        Row: JSON.stringify({Title: "Title", Description: "Description"}),
+        Row: JSON.stringify({Title: "Title", Description: "Description", Route: "Route"}),
         success: function (data) {
             $.each(data, function (menuIndex, menuElement) {
                 $("#MainSidebar").append(
@@ -141,7 +141,6 @@ function getMenu() {
                 );
                 $.each(menuElement.Row, function (detailIndex, detailElement) {
                     $("#group-collapse" + menuIndex + " ul").append("<li><a class=\"link-dark rounded\" href=\"#\">" + detailElement.Description + "</a></li>")
-                    // $(this).append("<li><a href=\"#\" class=\"link-dark rounded\">" + detailElement.Description + "</a></li>")
                 })
             })
         }
