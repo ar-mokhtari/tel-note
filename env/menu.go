@@ -215,6 +215,11 @@ const (
 	CheckIranNationalCodeD = "check Iran national code"
 	CheckIranNationalCodeR = "/check-national-id"
 
+	//reports
+	ContactReport  = ""
+	ContactReportD = "contact general report"
+	ContactReportR = "/report-contact"
+
 	RESET  = "RESET"
 	RESETD = ""
 	RESETR = ""

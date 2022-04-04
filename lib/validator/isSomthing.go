@@ -21,7 +21,7 @@ func IsNumber(input string) bool {
 	return false
 }
 
-func ISNil(input []string) []string {
+func ISNil(input []string) interface{} {
 	if input == nil {
 		return []string{""}
 	}

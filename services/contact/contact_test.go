@@ -8,18 +8,21 @@ import (
 )
 
 func TestNewContact(t *testing.T) {
-	assertCorrectMessage := func(t testing.TB, got, want protocol.ContactStorage) {
+	assertCorrectMessage := func(t testing.TB, got, want []*protocol.Contact) {
 		t.Helper()
-		if !reflect.DeepEqual(got.Data, want.Data) {
+		if !reflect.DeepEqual(got, want) {
 			t.Errorf("got %p want %p", got, want)
 		}
 	}
 	t.Run("fill new contact", func(t *testing.T) {
 		contactTest := protocol.Contact{
-			PersonID:    1,
-			JobID:       5,
-			Tel:         "",
-			Cellphone:   "09121234567",
+			PersonID: 1,
+			JobID:    5,
+			Tel:      "",
+			CellphoneCollection: []protocol.CellPhone{protocol.CellPhone{
+				CellPhone:   "None",
+				Description: "09121234567",
+			}},
 			Description: "none",
 		}
 		Init()
@@ -27,9 +30,9 @@ func TestNewContact(t *testing.T) {
 		got := storage.GetContacts()
 		want := env.ContactDataTest
 		//slice env to one part
-		want.Data = (want.Data)[0:1]
+		want = (want)[0:1]
 		//add an id to env sample
-		(want.Data)[0].Id = 1
+		(want)[0].Id = 1
 		assertCorrectMessage(t, got, want)
 	})
 }

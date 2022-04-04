@@ -9,7 +9,7 @@ import (
 
 type contactPool struct{}
 
-var PoolContact contactPool
+var NewContactPool contactPool
 
 func (allData *contactPool) NewContact(inputContact protocol.Contact) (status protocol.ResponseStatus, resData []*protocol.Contact) {
 	if status.State = storage.AddContact(inputContact); status.State {

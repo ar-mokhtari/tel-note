@@ -9,7 +9,7 @@ import (
 
 type deleteContactByID struct{}
 
-var PoolDelContactID deleteContactByID
+var DelContactIDPool deleteContactByID
 
 func (allData *deleteContactByID) DeleteContactByID(ID uint) *protocol.ResponseStatus {
 	if storage.DeleteContactByID(ID) {

@@ -3,6 +3,7 @@ const addCityUrl = 'http://127.0.0.1:1212/add-city';
 const fillDataUrl = 'http://127.0.0.1:1212/fill-data';
 const getDataUrl = 'http://127.0.0.1:1212/get-data';
 const getMenuUrl = 'http://127.0.0.1:1212/menu-list';
+const getReportContactUrl = 'http://127.0.0.1:1212/report-contact';
 
 const newCityData = {
     "Name": "شهر جدید",
@@ -80,6 +81,46 @@ function getData() {
     });
 }
 
+function getReportContact() {
+    $("#ReportContactTabContent div").empty();
+    $.ajax({
+        type: 'GET',
+        url: getReportContactUrl,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify({
+            State: "State",
+            ReportContactData: "ReportContactData",
+        }),
+        success: function (data) {
+            //ReportContact
+            $("#ReportContactTabContent div").append("<table data-toggle='table' class='table table-striped table-hover table-responsive small'></table>");
+            $("#ReportContactTabContent div table").append("<thead><tr class='table-primary'><td>ID</td><td>PID</td> <td>PersonName</td><td>PersonFamily</td> <td>DOB</td><td>JID</td><td>JobName</td><td>Gender</td><td>Cellphone</td><td>LoID</td><td>JobCityName</td><td>JobCity</td> <td>Address</td><td>Description</td></tr></thead><tbody></tbody>");
+            $.each(data.ReportContactData, function (index, element) {
+                $("#ReportContactTabContent div table tbody").append("<tr>" +
+                    "<td>" + (JSON.stringify(element.ID)) + '</td>' +
+                    "<td>" + (JSON.stringify(element.PID)) + '</td>' +
+                    "<td>" + (JSON.stringify(element.PersonName)) + '</td>' +
+                    "<td>" + (JSON.stringify(element.PersonFamily)) + '</td>' +
+                    "<td>" + mask(((JSON.stringify(element.DOB).replace(/"/g, '')).replace(/-/g,'')),"**** ** **") + '</td>' +
+                    "<td>" + (JSON.stringify(element.JID)) + '</td>' +
+                    "<td>" + (JSON.stringify(element.JobName)) + '</td>' +
+                    "<td>" + (JSON.stringify(element.Gender)) + '</td>' +
+                    "<td>" + (JSON.stringify(element.Cellphone)) + '</td>' +
+                    "<td>" + (JSON.stringify(element.LoID)) + '</td>' +
+                    "<td>" + (JSON.stringify(element.JobCityName)) + '</td>' +
+                    "<td>" + (JSON.stringify(element.JobCity)) + '</td>' +
+                    "<td>" + (JSON.stringify(element.Address)) + '</td>' +
+                    "<td>" + (JSON.stringify(element.Description)) + '</td>' +
+                    "</tr>");
+            });
+            //header and state
+            $("#headerResponse div a").text("General contact report");
+            $("#statusRespond").empty().append("<span>" + JSON.stringify(data.State) + '</span>');
+        }
+    });
+}
+
 function fillData() {
     $.ajax({
         type: 'POST',
@@ -149,6 +190,9 @@ function getMenu() {
 
 $('.getDataBtn').click(function () {
     getData()
+})
+$('.getReportContactBtn').click(function () {
+    getReportContact()
 })
 $('.fillDataBtn').click(function () {
     fillData()

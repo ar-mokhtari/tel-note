@@ -71,6 +71,9 @@ var (
 			{env.InsertSomeSamplesData, env.InsertSomeSamplesDataD, env.InsertSomeSamplesDataR},
 			{env.PrintAllData, env.PrintAllDataD, env.PrintAllDataR},
 		}},
+		{"Reports Menu", []MenuDetail{
+			{env.ContactReport, env.ContactReportD, env.ContactReportR},
+		}},
 		{"General Menu", []MenuDetail{
 			{env.CheckIranNationalCode, env.CheckIranNationalCodeD, env.CheckIranNationalCodeR},
 			{env.RESET, env.RESETD, env.RESETR},

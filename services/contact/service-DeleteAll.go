@@ -8,7 +8,7 @@ import (
 
 type deleteAllContact struct{}
 
-var PoolDelAllContact deleteAllContact
+var DelAllContactPool deleteAllContact
 
 func (allData *deleteAllContact) DeleteAll() *protocol.ResponseStatus {
 	if storage.DeleteAll() {

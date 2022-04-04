@@ -9,6 +9,7 @@ import (
 	"tel-note/services/general"
 	"tel-note/services/job"
 	"tel-note/services/person"
+	"tel-note/services/reporter"
 	"tel-note/services/sampleData"
 	"tel-note/services/sex"
 )
@@ -40,6 +41,9 @@ func Init() {
 
 	//init fill data
 	sampleData.Init()
+
+	//init fill data
+	reporter.Init()
 
 	//serv handle menu
 	cli.MenuHTTPServe()

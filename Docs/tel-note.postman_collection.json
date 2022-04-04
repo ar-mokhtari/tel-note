@@ -565,6 +565,32 @@
 			]
 		},
 		{
+			"name": "report",
+			"item": [
+				{
+					"name": "127.0.0.1:1212/report-contact",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:1212/report-contact",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"report-contact"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "menu-list",
 			"request": {
 				"method": "GET",
@@ -588,7 +614,7 @@
 		{
 			"name": "fill-data",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"url": {
 					"raw": "127.0.0.1:1212/fill-data",

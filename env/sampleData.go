@@ -134,8 +134,8 @@ var (
 	MasterChef       = &protocol.Job{Name: "MasterChef", LocationID: 7, Description: "", BasicPaymentPerHour: 0}
 
 	// sex variable
-	FemaleGender = &protocol.Sex{Id: 1, Name: "FemaleGender"}
-	MaleGender   = &protocol.Sex{Id: 2, Name: "MaleGender"}
+	FemaleGender = &protocol.Sex{Id: 1, Name: "Female"}
+	MaleGender   = &protocol.Sex{Id: 2, Name: "Male"}
 	Other        = &protocol.Sex{Id: 3, Name: "Other"}
 
 	// customer variable

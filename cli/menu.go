@@ -190,7 +190,7 @@ func RunMenu() {
 				//input description
 				fmt.Println("Please inter description:")
 				scanner.Scan()
-				contact.PoolContact.NewContact(
+				contact.NewContactPool.NewContact(
 					protocol.Contact{
 						PersonID:            personID,
 						JobID:               jobID,
@@ -336,7 +336,7 @@ func RunMenu() {
 					var deleteID uint
 					fmt.Println("insert your contact id that you want to delete:")
 					fmt.Scanln(&deleteID)
-					status := contact.PoolDelContactID.DeleteContactByID(deleteID)
+					status := contact.DelContactIDPool.DeleteContactByID(deleteID)
 					switch status.State {
 					case true:
 						fmt.Printf("contact with id number:  %d deleted.", deleteID)
@@ -351,7 +351,7 @@ func RunMenu() {
 				fmt.Println("are you sure? (yes or no)")
 				fmt.Scanln(&confirmDel)
 				if strings.ToLower(confirmDel) == env.YES {
-					resultStatus := contact.PoolDelAllContact.DeleteAll()
+					resultStatus := contact.DelAllContactPool.DeleteAll()
 					fmt.Println(resultStatus.String)
 				}
 				fmt.Println(env.ShowMenuWarn)
@@ -372,7 +372,7 @@ func RunMenu() {
 							fmt.Println("not equal kind")
 							break
 						} else {
-							status = *contact.PoolDelContactID.DeleteContactByID(uint(uintDelID))
+							status = *contact.DelContactIDPool.DeleteContactByID(uint(uintDelID))
 							fmt.Println(status.String)
 						}
 					}
