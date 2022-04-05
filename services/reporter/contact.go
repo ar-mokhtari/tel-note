@@ -30,7 +30,6 @@ type resultReport struct {
 	Cellphone    string
 	LoID         uint //Location ID of job
 	JobCityName  string
-	JobCity      string
 	Address      string
 	Description  string
 }

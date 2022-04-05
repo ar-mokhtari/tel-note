@@ -20,10 +20,10 @@ const newContactData = {
     "Description": "---",
 }
 
+let AllData
+
 function getData() {
-    $("#ResponseTabContent div," +
-        "#ContactTabContent div, " +
-        "#CustomerTabContent div").empty();
+
     $.ajax({
         type: 'GET',
         url: getDataUrl,
@@ -41,44 +41,23 @@ function getData() {
             CountriesData: "CountriesData",
         }),
         success: function (data) {
-            //city
-            $("#ResponseTabContent div").append("<table data-toggle='table' class='table table-striped table-hover table-responsive small'></table>");
-            $("#ResponseTabContent div table").append("<thead><tr class='table-primary'><td>Name</td><td>EnglishName</td><td>AriaCode</td><td>Lat</td><td>Lng</td></tr></thead><tbody></tbody>");
-            $.each(data.CityData, function (index, element) {
-                $("#ResponseTabContent div table tbody").append("<tr>" + "<td>" + (JSON.stringify(element.Name)) + '</td>' +
-                    "<td>" + (JSON.stringify(element.EnglishName)) + '</td>' +
-                    "<td>" + (JSON.stringify(element.AriaCode)) + '</td>' +
-                    "<td>" + (JSON.stringify(element.Lat)) + '</td>' +
-                    "<td>" + (JSON.stringify(element.Lng)) + '</td>' +
-                    "</tr>");
-            });
-            //contact
-            $("#ContactTabContent div").append("<table data-toggle='table' class='table table-striped table-hover table-responsive small'></table>");
-            $("#ContactTabContent div table").append("<thead><tr class='table-primary'><td>PersonID</td><td>JobID</td><td>Tel</td><td>Address</td><td>Description</td></tr></thead><tbody></tbody>");
-            $.each(data.ContactData, function (indexContactData, elementContactData) {
-                $("#ContactTabContent div table tbody").append("<tr>" + "<td>" + (JSON.stringify(elementContactData.PersonID)) + '</td>' +
-                    "<td>" + (JSON.stringify(elementContactData.JobID)) + '</td>' +
-                    "<td>" + (JSON.stringify(elementContactData.Tel)) + '</td>' +
-                    "<td>" + (JSON.stringify(elementContactData.Address)) + '</td>' +
-                    "<td>" + (JSON.stringify(elementContactData.Description)) + '</td>' +
-                    "</tr>");
-            });
-            //CustomerData
-            $("#CustomerTabContent div").append("<table data-toggle='table' class='table table-striped table-hover table-responsive small'></table>");
-            $("#CustomerTabContent div table").append("<thead><tr class='table-primary'><td>PersonID</td><td>Description</td><td>CreateAt</td><td>UpdatedAt</td><td>Description</td></tr></thead><tbody></tbody>");
-            $.each(data.CustomerData, function (indexCustomerData, elementCustomerData) {
-                $("#CustomerTabContent div table tbody").append("<tr>" +
-                    "<td>" + (JSON.stringify(elementCustomerData.PersonID)) + '</td>' +
-                    "<td>" + (JSON.stringify(elementCustomerData.Description)) + '</td>' +
-                    "<td>" + (JSON.stringify(elementCustomerData.CreateAt)) + '</td>' +
-                    "<td>" + (JSON.stringify(elementCustomerData.UpdatedAt)) + '</td>' +
-                    "</tr>");
-            });
-            //header and state
-            $("#headerResponse div a").text("Get Data");
-            $("#statusRespond").empty().append("<span>" + JSON.stringify(data.State) + '</span>');
+            AllData = data
         }
     });
+}
+
+function getDataAndApplyCatch() {
+    $("#ResponseTabContent div," +
+        "#ContactTabContent div, " +
+        "#CustomerTabContent div").empty();
+    //city
+    cityHtmlPlacement();
+    //contact
+    contactHtmlPlacement();
+    // //CustomerData
+    customerHtmlPlacement();
+    //header and state
+    $("#statusRespond").empty().append("<span>" + JSON.stringify(AllData.State) + '</span>');
 }
 
 function getReportContact() {
@@ -94,28 +73,8 @@ function getReportContact() {
         }),
         success: function (data) {
             //ReportContact
-            $("#ReportContactTabContent div").append("<table data-toggle='table' class='table table-striped table-hover table-responsive small'></table>");
-            $("#ReportContactTabContent div table").append("<thead><tr class='table-primary'><td>ID</td><td>PID</td> <td>PersonName</td><td>PersonFamily</td> <td>DOB</td><td>JID</td><td>JobName</td><td>Gender</td><td>Cellphone</td><td>LoID</td><td>JobCityName</td><td>JobCity</td> <td>Address</td><td>Description</td></tr></thead><tbody></tbody>");
-            $.each(data.ReportContactData, function (index, element) {
-                $("#ReportContactTabContent div table tbody").append("<tr>" +
-                    "<td>" + (JSON.stringify(element.ID)) + '</td>' +
-                    "<td>" + (JSON.stringify(element.PID)) + '</td>' +
-                    "<td>" + (JSON.stringify(element.PersonName)) + '</td>' +
-                    "<td>" + (JSON.stringify(element.PersonFamily)) + '</td>' +
-                    "<td>" + mask(((JSON.stringify(element.DOB).replace(/"/g, '')).replace(/-/g,'')),"**** ** **") + '</td>' +
-                    "<td>" + (JSON.stringify(element.JID)) + '</td>' +
-                    "<td>" + (JSON.stringify(element.JobName)) + '</td>' +
-                    "<td>" + (JSON.stringify(element.Gender)) + '</td>' +
-                    "<td>" + (JSON.stringify(element.Cellphone)) + '</td>' +
-                    "<td>" + (JSON.stringify(element.LoID)) + '</td>' +
-                    "<td>" + (JSON.stringify(element.JobCityName)) + '</td>' +
-                    "<td>" + (JSON.stringify(element.JobCity)) + '</td>' +
-                    "<td>" + (JSON.stringify(element.Address)) + '</td>' +
-                    "<td>" + (JSON.stringify(element.Description)) + '</td>' +
-                    "</tr>");
-            });
+            contactReportPlacement(data);
             //header and state
-            $("#headerResponse div a").text("General contact report");
             $("#statusRespond").empty().append("<span>" + JSON.stringify(data.State) + '</span>');
         }
     });
@@ -127,7 +86,8 @@ function fillData() {
         url: fillDataUrl,
         contentType: "application/json; charset=utf-8",
         success: function (data) {
-            // alert("OK")
+            getData()
+            alert("Call API for load data successful")
         }
     });
 }
@@ -140,7 +100,7 @@ function addCity() {
         contentType: "application/json; charset=utf-8",
         traditional: true,
         success: function (data) {
-            getData()
+            getDataAndApplyCatch()
         }
     });
 }
@@ -153,6 +113,7 @@ function addContact() {
         contentType: "application/json; charset=utf-8",
         // traditional: true,
         success: function (data) {
+            getDataAndApplyCatch()
         }
     });
 }
@@ -191,6 +152,10 @@ function getMenu() {
 $('.getDataBtn').click(function () {
     getData()
 })
+
+$('.applyBtn').click(function () {
+    getDataAndApplyCatch()
+})
 $('.getReportContactBtn').click(function () {
     getReportContact()
 })
@@ -204,4 +169,6 @@ $('.addContactBtn').click(function () {
     addContact()
 })
 
+
+//run menu on startup
 getMenu()
