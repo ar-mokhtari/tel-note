@@ -1,4 +1,4 @@
-const addContactUrl = 'http://127.0.0.1:1212/new-contact';
+const addContactUrl = 'http://127.0.0.1:1212/new-contact';// '/new-contact'
 const addCityUrl = 'http://127.0.0.1:1212/add-city';
 const fillDataUrl = 'http://127.0.0.1:1212/fill-data';
 const getDataUrl = 'http://127.0.0.1:1212/get-data';
@@ -23,7 +23,7 @@ const newContactData = {
 let AllData
 
 function getData() {
-
+    //TODO:::fetch
     $.ajax({
         type: 'GET',
         url: getDataUrl,
@@ -41,6 +41,7 @@ function getData() {
             CountriesData: "CountriesData",
         }),
         success: function (data) {
+            //TODO::: async await
             AllData = data
         }
     });

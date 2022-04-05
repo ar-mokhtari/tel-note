@@ -12,6 +12,7 @@ var CheckIranNational checkIranNationalCode
 
 func (iranNationalCode *checkIranNationalCode) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	//TODO::: get in body
 	NationalCode := r.Header.Values("NID")
 	fmt.Fprintf(w, "%v", validator.CheckNationalID(NationalCode[0]))
 }

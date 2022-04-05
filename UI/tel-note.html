@@ -173,7 +173,8 @@
             <div class="container-fluid">
                 <a class="navbar-brand"></a>
                 <form class="d-flex">
-                    <input id="MainSearch" aria-label="Search" class="form-control me-2" placeholder="Offline-Search(in active table)"
+                    <input aria-label="Search" class="form-control me-2" id="MainSearch"
+                           placeholder="Offline-Search(in active table)"
                            type="search" autocomplete="off" style="width:14.5rem">
                 </form>
             </div>
@@ -182,16 +183,30 @@
 
         <!-- Btn bar -->
         <div aria-label="TelNote Actions" class="position-relative px-4 m-3 btn-group" role="group">
-            <button class="btn btn-outline-success fillDataBtn" type="button" title="fill some sample data to server memory">1.fill data</button>
-            <button class="getDataBtn btn btn-outline-success" type="button" title="get server data memory and load it to local memory">2.get data</button>
+            <button class="btn btn-outline-success fillDataBtn" title="fill some sample data to server memory"
+                    type="button">1.fill data
+            </button>
+            <button class="getDataBtn btn btn-outline-success"
+                    title="get server data memory and load it to local memory"
+                    type="button">2.get data
+            </button>
         </div>
         <div aria-label="TelNote Actions" class="position-relative px-4 m-3 btn-group" role="group">
-            <button class="applyBtn btn btn-outline-success" type="button" title="apply local memory to html">3.apply data</button>
-            <button class="addCityBtn btn btn-outline-success" type="button" title="add new city to server memory">add city</button>
-            <button class="addContactBtn btn btn-outline-success" type="button" title="add new contact to server memory">add contact</button>
+            <button class="applyBtn btn btn-outline-success" title="apply local memory to html" type="button">3.apply
+                data
+            </button>
+            <button class="addCityBtn btn btn-outline-success" title="add new city to server memory" type="button">add
+                city
+            </button>
+            <button class="addContactBtn btn btn-outline-success" title="add new contact to server memory"
+                    type="button">add contact
+            </button>
         </div>
         <div aria-label="TelNote Actions" class="position-relative px-4 m-3 btn-group" role="group">
-            <button class="getReportContactBtn btn btn-outline-success" type="button" title="fill, get and apply contact report to html">get contact report</button>
+            <button class="getReportContactBtn btn btn-outline-success"
+                    title="fill, get and apply contact report to html"
+                    type="button">get contact report
+            </button>
         </div>
         <!-- Btn bar -->
 
@@ -248,10 +263,10 @@
 <!-- General -->
 <script src="js/generalScript.js"></script>
 <!-- Html Placement -->
-<script src="js/htmlPlacement/city.js"></script>
-<script src="js/htmlPlacement/contact.js"></script>
-<script src="js/htmlPlacement/contactReport.js"></script>
-<script src="js/htmlPlacement/customer.js"></script>
+<script src="pages/city.js"></script>
+<script src="pages/contact.js"></script>
+<script src="pages/contactReport.js"></script>
+<script src="pages/customer.js"></script>
 <!-- Call API -->
 <script src="js/callApi.js"></script>
 </body>

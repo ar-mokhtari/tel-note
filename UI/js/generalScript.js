@@ -20,7 +20,7 @@ $("#MainSearch").on("keyup", function () {
     let value = $(this).val().toLowerCase();
     value = value.replace("ی", "ي");
     let target = "#tab-content div.active div table tbody tr";
-    let isFindTr
+    let isFindTr = false;
     $(target).each(function () {
         let targetTDs = $(this).find("td")
         $(targetTDs).each(function () {
@@ -28,15 +28,16 @@ $("#MainSearch").on("keyup", function () {
                 isFindTr = true;
                 $(this).addClass("text-danger");
             } else {
-                // $(this).closest("tr").hide();
                 $(this).removeClass("text-danger");
             }
         });
+        alert($(this).find("td:last-child").text());
         switch (isFindTr) {
             case true:
-                $(this).eq($(this).index()).show();
+                $(this).eq($(this).index() + 1).show();
             case false:
-                $(this).eq($(this).index()).hide();
+                $(this).eq($(this).index() + 1).hide();
         }
+        isFindTr = false;
     });
 });

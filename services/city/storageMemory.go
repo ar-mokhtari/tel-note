@@ -4,6 +4,7 @@ package city
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"strings"
 	"tel-note/SDK/neshan"
@@ -22,12 +23,12 @@ var (
 	_ protocol.CityServices = &storage
 )
 
-func (allCity *storageMemory) GetCities() []*protocol.City {
-	return allCity.CityData
+func (sm *storageMemory) GetCities() []*protocol.City {
+	return sm.CityData
 }
 
-func (allCity *storageMemory) FindCityByChar(inputChar string) (status bool, res []uint) {
-	for _, data := range allCity.CityData {
+func (sm *storageMemory) FindCityByChar(inputChar string) (status bool, res []uint) {
+	for _, data := range sm.CityData {
 		if strings.Contains(data.Name, inputChar) {
 			res = append(res, data.Id)
 			status = true
@@ -36,8 +37,8 @@ func (allCity *storageMemory) FindCityByChar(inputChar string) (status bool, res
 	return status, res
 }
 
-func (allCity *storageMemory) FindCityByID(inputID uint) (bool, protocol.City) {
-	for _, data := range allCity.CityData {
+func (sm *storageMemory) FindCityByID(inputID uint) (bool, protocol.City) {
+	for _, data := range sm.CityData {
 		if data.Id == inputID {
 			return true, *data
 		}
@@ -45,9 +46,9 @@ func (allCity *storageMemory) FindCityByID(inputID uint) (bool, protocol.City) {
 	return false, protocol.City{}
 }
 
-func (allCity *storageMemory) NewCity(inputCity protocol.City) bool {
+func (sm *storageMemory) NewCity(inputCity protocol.City) bool {
 	var LastID uint
-	for _, data := range allCity.CityData {
+	for _, data := range sm.CityData {
 		if data.Id > LastID {
 			LastID = data.Id
 		}
@@ -61,40 +62,39 @@ func (allCity *storageMemory) NewCity(inputCity protocol.City) bool {
 		Lat:         inputCity.Lat,
 		Lng:         inputCity.Lng,
 	}
-	allCity.CityData = append(allCity.CityData, &result)
+	sm.CityData = append(sm.CityData, &result)
 	return true
 }
 
-func (allCity *storageMemory) EditCity(newCity protocol.City) bool {
-	for index, data := range allCity.CityData {
+func (sm *storageMemory) EditCity(newCity protocol.City) (err error) {
+	for index, data := range sm.CityData {
 		if data.Id == newCity.Id {
-			//TODO:: what the hell below ... is there any cleaner way for test "is it not nil?"
 			if newCity.Name != "" {
-				(allCity.CityData)[index].Name = newCity.Name
+				(sm.CityData)[index].Name = newCity.Name
 			}
 			if newCity.EnglishName != "" {
-				(allCity.CityData)[index].EnglishName = newCity.EnglishName
+				(sm.CityData)[index].EnglishName = newCity.EnglishName
 			}
 			if newCity.AriaCode != "" {
-				(allCity.CityData)[index].AriaCode = newCity.AriaCode
+				(sm.CityData)[index].AriaCode = newCity.AriaCode
 			}
 			if newCity.Lat != 0.0 {
-				(allCity.CityData)[index].Lat = newCity.Lat
+				(sm.CityData)[index].Lat = newCity.Lat
 			}
 			if newCity.Lng != 0.0 {
-				(allCity.CityData)[index].Lng = newCity.Lng
+				(sm.CityData)[index].Lng = newCity.Lng
 			}
-			return true
+			return nil
 		}
 	}
-	return false
+	return errors.New("not edited")
 }
 
-func (allCity *storageMemory) DeleteCityByID(IDS []uint) (resDel []uint) {
+func (sm *storageMemory) DeleteCityByID(IDS []uint) (resDel []uint) {
 	for _, id := range IDS {
-		for index, data := range allCity.CityData {
+		for index, data := range sm.CityData {
 			if data.Id == id {
-				allCity.CityData = append((allCity.CityData)[:index], (allCity.CityData)[index+1:]...)
+				sm.CityData = append((sm.CityData)[:index], (sm.CityData)[index+1:]...)
 				resDel = append(resDel, id)
 			}
 		}
@@ -102,7 +102,7 @@ func (allCity *storageMemory) DeleteCityByID(IDS []uint) (resDel []uint) {
 	return resDel
 }
 
-func (allCity *storageMemory) CallTimeDistanceTwoCities(cityNoOne, cityNoTwo protocol.City) ([]uint, bool) {
+func (sm *storageMemory) CallTimeDistanceTwoCities(cityNoOne, cityNoTwo protocol.City) ([]uint, bool) {
 	MapParams := map[string]string{
 		"type":         "car",
 		"origins":      fmt.Sprintf("%f,%f", cityNoOne.Lat, cityNoOne.Lng),
