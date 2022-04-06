@@ -1,9 +1,10 @@
-const addContactUrl = 'http://127.0.0.1:1212/new-contact';// '/new-contact'
-const addCityUrl = 'http://127.0.0.1:1212/add-city';
-const fillDataUrl = 'http://127.0.0.1:1212/fill-data';
-const getDataUrl = 'http://127.0.0.1:1212/get-data';
-const getMenuUrl = 'http://127.0.0.1:1212/menu-list';
-const getReportContactUrl = 'http://127.0.0.1:1212/report-contact';
+const hostName = 'http://127.0.0.1:1212'
+const addContactUrl = hostName + '/new-contact';
+const addCityUrl = hostName + '/add-city';
+const fillDataUrl = hostName + '/fill-data';
+const getDataUrl = hostName + '/get-data';
+const getMenuUrl = hostName + '/menu-list';
+const getReportContactUrl = hostName + '/report-contact';
 
 const newCityData = {
     "Name": "شهر جدید",
@@ -22,6 +23,8 @@ const newContactData = {
 
 let AllData
 
+
+//TODO::: generate function from go (convert go to javascript)
 function getData() {
     //TODO:::fetch
     $.ajax({

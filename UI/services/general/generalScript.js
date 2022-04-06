@@ -7,6 +7,10 @@ function mask(value, pattern) {
     return pattern.replace(/\*/g, () => value[count++] || '')
 }
 
+$("#MainSidebar a").on("click", function () {
+    alert("");
+});
+
 $("#mainTab a").click(function (e) {
     e.preventDefault();
     $("#MainSearch").val('');
