@@ -3,7 +3,7 @@ sudo apt install nginx
 sudo systemctl status nginx
 sudo ufw allow 'Nginx Full'
 ----------
-root@HQ3 /etc# cp /home/aliz/go/src/tel-note/UI/Docs/nginx/telnote.loc /etc/nginx/sites-available/
-root@HQ3 /etc# sudo ln -s /etc/nginx/sites-available/telnote.loc /etc/nginx/sites-enabled/
+root@:/etc/nginx/sites-available# cp default telnote.loc
+root@:/etc/nginx/sites-available# sudo ln -s /etc/nginx/sites-available/telnote.loc /etc/nginx/sites-enabled/
 ----------
-sudo chmod -R 777 /var/www
+

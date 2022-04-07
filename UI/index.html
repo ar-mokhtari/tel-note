@@ -9,9 +9,6 @@
     <!-- Title  -->
     <title>Tel-Note</title>
 
-    <!-- Favicon  -->
-    <link rel="icon" href="">
-
     <!-- Core Style CSS -->
     <link href="SDK/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="SDK/bootstrap/css/sidebars.css" rel="stylesheet">
@@ -184,66 +181,38 @@
         <!-- Nav header -->
 
         <!-- Btn bar -->
-        <div aria-label="TelNote Actions" class="position-relative px-4 m-3 btn-group" role="group">
-            <button class="btn btn-outline-success fillDataBtn" title="fill some sample data to server memory"
-                    type="button">1.fill data
-            </button>
-            <button class="getDataBtn btn btn-outline-success"
-                    title="get server data memory and load it to local memory"
-                    type="button">2.get data
-            </button>
-        </div>
-        <div aria-label="TelNote Actions" class="position-relative px-4 m-3 btn-group" role="group">
-            <button class="applyBtn btn btn-outline-success" title="apply local memory to html" type="button">3.apply
-                data
-            </button>
-            <button class="addCityBtn btn btn-outline-success" title="add new city to server memory" type="button">add
-                city
-            </button>
-            <button class="addContactBtn btn btn-outline-success" title="add new contact to server memory"
-                    type="button">add contact
-            </button>
-        </div>
-        <div aria-label="TelNote Actions" class="position-relative px-4 m-3 btn-group" role="group">
-            <button class="getReportContactBtn btn btn-outline-success"
-                    title="fill, get and apply contact report to html"
-                    type="button">get contact report
-            </button>
+        <div>
+            <div aria-label="TelNote Actions" class="position-relative px-4 m-3 btn-group" role="group">
+                <button class="btn btn-outline-success fillDataBtn" title="fill some sample data to server memory"
+                        type="button">1.fill data
+                </button>
+                <button class="getDataBtn btn btn-outline-success"
+                        title="get server data memory and load it to local memory"
+                        type="button">2.get data
+                </button>
+            </div>
+            <div aria-label="TelNote Actions" class="position-relative px-4 m-3 btn-group" role="group">
+                <button class="applyBtn btn btn-outline-success" title="apply local memory to html" type="button">
+                    3.apply
+                    data
+                </button>
+                <button class="addCityBtn btn btn-outline-success" title="add new city to server memory" type="button">
+                    add
+                    city
+                </button>
+                <button class="addContactBtn btn btn-outline-success" title="add new contact to server memory"
+                        type="button">add contact
+                </button>
+            </div>
+            <div aria-label="TelNote Actions" class="position-relative px-4 m-3 btn-group" role="group">
+                <button class="getReportContactBtn btn btn-outline-success"
+                        title="fill, get and apply contact report to html"
+                        type="button">get contact report
+                </button>
+            </div>
         </div>
         <!-- Btn bar -->
-
-        <!-- Nav tabs -->
-        <ul id="mainTab" class="nav nav-tabs">
-            <li class="nav-item"><a class="nav-link active" href="#ResponseTabContent">City</a></li>
-            <li class="nav-item"><a aria-current="page" class="nav-link" href="#ContactTabContent">Contact</a></li>
-            <li class="nav-item"><a class="nav-link" href="#CustomerTabContent">Customer</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">CustomerGroup</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">CustomerRelation</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Person</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Countries</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Job</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Sex</a></li>
-            <li class="nav-item"><a class="nav-link" href="#ReportContactTabContent">ReportContactTabContent</a></li>
-        </ul>
-        <!-- Nav tabs -->
-
-        <!-- Response body -->
-        <div id="tab-content" class="tab-content">
-            <div id="ResponseTabContent" class="tab-pane fade show active">
-                <div></div>
-            </div>
-            <div class="tab-pane fade" id="ContactTabContent">
-                <div></div>
-            </div>
-            <div class="tab-pane fade" id="CustomerTabContent">
-                <div></div>
-            </div>
-            <div class="tab-pane fade" id="ReportContactTabContent">
-                <div></div>
-            </div>
-        </div>
-        <!-- Response body -->
-
+        <div id="MainGrid"></div>
         <!-- Footer -->
         <footer class="container bg-light text-center position-absolute bottom-0 end-0 w-100 p-3">
             <!-- Copyright -->
@@ -265,15 +234,29 @@
 <!-- Boostrap -->
 <script src="SDK/bootstrap/js/bootstrap.js"></script>
 <script src="SDK/bootstrap/js/sidebars.js"></script>
+
+<!-- Menu and Grids Placement -->
+<script src="pages/menu.js"></script>
+<script src="pages/grids.js"></script>
+<script src="services/callApi.js"></script>
+
+<script>
+    //run menu on startup
+    getMenu()
+    //create grid place
+    // createGrids()
+</script>
+
 <!-- General -->
 <script src="services/general/generalScript.js"></script>
+
 <!-- Html Placement -->
 <script src="pages/city.js"></script>
 <script src="pages/contact.js"></script>
 <script src="pages/contactReport.js"></script>
 <script src="pages/customer.js"></script>
+
 <!-- Call API -->
-<script src="services/callApi.js"></script>
 </body>
 
 </html>
