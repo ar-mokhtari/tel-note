@@ -4,7 +4,6 @@ package city
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"strings"
 	"tel-note/SDK/neshan"
@@ -66,7 +65,7 @@ func (sm *storageMemory) NewCity(inputCity protocol.City) bool {
 	return true
 }
 
-func (sm *storageMemory) EditCity(newCity protocol.City) (err error) {
+func (sm *storageMemory) EditCity(newCity protocol.City) bool {
 	for index, data := range sm.CityData {
 		if data.Id == newCity.Id {
 			if newCity.Name != "" {
@@ -84,10 +83,10 @@ func (sm *storageMemory) EditCity(newCity protocol.City) (err error) {
 			if newCity.Lng != 0.0 {
 				(sm.CityData)[index].Lng = newCity.Lng
 			}
-			return nil
+			return true
 		}
 	}
-	return errors.New("not edited")
+	return false
 }
 
 func (sm *storageMemory) DeleteCityByID(IDS []uint) (resDel []uint) {
