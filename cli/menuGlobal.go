@@ -4,7 +4,7 @@ import "tel-note/env"
 
 var (
 	GlobalMenu = Menu{[]MenuGroup{
-		{"Contact Menu", []MenuDetail{
+		{"Contact", []MenuDetail{
 			{env.NewContactRecord, env.NewContactRecordD, env.NewContactRecordR},
 			{env.ListOfContact, env.ListOfContactD, env.ListOfContactR},
 			{env.FindOneContactById, env.FindOneContactByIdD, env.FindOneContactByIdR},
@@ -14,14 +14,14 @@ var (
 			{env.DeleteMultiContactByIds, env.DeleteMultiContactByIdsD, env.DeleteMultiContactByIdsR},
 			{env.DeleteAllContacts, env.DeleteAllContactsD, env.DeleteAllContactsR},
 		}},
-		{"Customer group Menu", []MenuDetail{
+		{"Customer group", []MenuDetail{
 			{env.NewCustomerGroup, env.NewCustomerGroupD, env.NewCustomerGroupR},
 			{env.NewCustomerGRelation, env.NewCustomerGRelationD, env.NewCustomerGRelationR},
 			{env.CustomerGroupList, env.CustomerGroupListD, env.CustomerGroupListR},
 			{env.CustomerGroupRelationList, env.CustomerGroupRelationListD, env.CustomerGroupRelationListR},
 			{env.FindCustomerByGroupID, env.FindCustomerByGroupIDD, env.FindCustomerByGroupIDR},
 		}},
-		{"Customer Menu", []MenuDetail{
+		{"Customer", []MenuDetail{
 			{env.NewCustomer, env.NewCustomerD, env.NewCustomerR},
 			{env.ListOfCustomer, env.ListOfCustomerD, env.ListOfCustomerR},
 			{env.EditCustomerByCustomerId, env.EditCustomerByCustomerIdD, env.EditCustomerByCustomerIdR},
@@ -29,7 +29,7 @@ var (
 			{env.DeleteMultiCustomerByIds, env.DeleteMultiCustomerByIdsD, env.DeleteMultiCustomerByIdsR},
 			{env.DeleteAllCustomers, env.DeleteAllCustomersD, env.DeleteAllCustomersR},
 		}},
-		{"Person Menu", []MenuDetail{
+		{"Person", []MenuDetail{
 			{env.NewPerson, env.NewPersonD, env.NewPersonR},
 			{env.ListOfPerson, env.ListOfPersonD, env.ListOfPersonR},
 			{env.FindOnePersonById, env.FindOnePersonByIdD, env.FindOnePersonByIdR},
@@ -39,14 +39,14 @@ var (
 			{env.DeleteMultiPersonByIds, env.DeleteMultiPersonByIdsD, env.DeleteMultiPersonByIdsR},
 			{env.DeleteAllPersons, env.DeleteAllPersonsD, env.DeleteAllPersonsR},
 		}},
-		{"Country menu", []MenuDetail{
+		{"Country", []MenuDetail{
 			{env.AddCountry, env.AddCountryD, env.AddCountryR},
 			{env.EditCountry, env.EditCountryD, env.EditCountryR},
 			{env.DeleteCountry, env.DeleteCountryD, env.DeleteCountryR},
 			{env.FindCountryByChar, env.FindCountryByCharD, env.FindCountryByCharR},
 			{env.CountriesList, env.CountriesListD, env.CountriesListR},
 		}},
-		{"City Menu", []MenuDetail{
+		{"City", []MenuDetail{
 			{env.ListOfCities, env.ListOfCitiesD, env.ListOfCitiesR},
 			{env.InsertNewCity, env.InsertNewCityD, env.InsertNewCityR},
 			{env.EditCityById, env.EditCityByIdD, env.EditCityByIdR},
@@ -55,7 +55,7 @@ var (
 			{env.DeleteCityById, env.DeleteCityByIdD, env.DeleteCityByIdR},
 			{env.CallDistanceTimeTwoCities, env.CallDistanceTimeTwoCitiesD, env.CallDistanceTimeTwoCitiesR},
 		}},
-		{"Job Menu", []MenuDetail{
+		{"Job", []MenuDetail{
 			{env.InsertNewJob, env.InsertNewJobD, env.InsertNewJobR},
 			{env.EditJobById, env.EditJobByIdD, env.EditJobByIdR},
 			{env.DeleteJobById, env.DeleteJobByIdD, env.DeleteJobByIdR},
@@ -67,14 +67,14 @@ var (
 			{env.EditSex, env.EditSexD, env.EditSexR},
 			{env.DeleteSex, env.DeleteSexD, env.DeleteSexR},
 		}},
-		{"Sample data Menu", []MenuDetail{
+		{"Sample data", []MenuDetail{
 			{env.InsertSomeSamplesData, env.InsertSomeSamplesDataD, env.InsertSomeSamplesDataR},
 			{env.PrintAllData, env.PrintAllDataD, env.PrintAllDataR},
 		}},
-		{"Reports Menu", []MenuDetail{
+		{"Reports", []MenuDetail{
 			{env.ContactReport, env.ContactReportD, env.ContactReportR},
 		}},
-		{"General Menu", []MenuDetail{
+		{"General", []MenuDetail{
 			{env.CheckIranNationalCode, env.CheckIranNationalCodeD, env.CheckIranNationalCodeR},
 			{env.RESET, env.RESETD, env.RESETR},
 		}},
