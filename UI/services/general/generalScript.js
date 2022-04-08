@@ -8,10 +8,15 @@ function mask(value, pattern) {
 }
 
 $(document).on("click", "#MainSidebar a", function () {
+    let subMenu = $(this).text();
+    let MenuPosition = $(this).parent().closest('div').attr('id');
+    let Menu = $("#" + MenuPosition).closest("li").find("button").text();
+    // search input empty
     $("#MainSearch").val('');
-    $("#headerResponse div a").text($(this).text());
-    $("body tr").show();
-    createGrids();
+    // form named
+    $("#headerResponse div a").text(Menu);
+    // $("body tr").show();
+    createGrids(subMenu);
 });
 
 $("#mainTab a").click(function (e) {

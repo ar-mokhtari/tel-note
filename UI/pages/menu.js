@@ -13,7 +13,7 @@ function menuPlacement(data) {
             "</li>"
         );
         $.each(menuElement.Row, function (detailIndex, detailElement) {
-            $("#group-collapse" + menuIndex + " ul").append("<li><a class=\"link-dark rounded\" href=\"#\">" + detailElement.Description + "</a></li>")
+            $("#group-collapse" + menuIndex + " ul").append("<li><a data-route=" + detailElement.Route + " class=\"link-dark rounded\" href=\"#\">" + detailElement.Description + "</a></li>")
         })
     })
 }
