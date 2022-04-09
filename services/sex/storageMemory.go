@@ -34,7 +34,6 @@ func (allSex *storageMemory) NewSex(inputSex protocol.Sex) bool {
 func (allSex *storageMemory) EditSex(newSex protocol.Sex) bool {
 	for index, data := range allSex.SexData {
 		if data.Id == newSex.Id {
-			//TODO::: what the hell below ... is there any cleaner way for test "is it not nil?"
 			if newSex.Name != "" {
 				(allSex.SexData)[index].Name = newSex.Name
 			}

@@ -54,7 +54,6 @@ func (allJob *storageMemory) NewJob(inputJob protocol.Job) bool {
 func (allJob *storageMemory) EditJob(ID uint, newJob protocol.Job) bool {
 	for index, data := range allJob.JobData {
 		if data.Id == ID {
-			//TODO::: what the hell below ... is there any cleaner way for test "is it not nil?"
 			if newJob.Name != "" {
 				(allJob.JobData)[index].Name = newJob.Name
 			}

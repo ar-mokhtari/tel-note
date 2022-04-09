@@ -64,7 +64,6 @@ func (allPerson *storageMemory) NewPerson(inputPerson protocol.Person) bool {
 func (allPerson *storageMemory) EditPerson(ID uint, newPerson protocol.Person) bool {
 	for index, data := range allPerson.PersonData {
 		if data.Id == ID {
-			//TODO::: what the hell below ... is there any cleaner way for test "is it not nil?"
 			if newPerson.FirstName != "" {
 				(allPerson.PersonData)[index].FirstName = newPerson.FirstName
 			}
