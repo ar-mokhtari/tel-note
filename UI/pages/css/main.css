@@ -4,11 +4,15 @@ body, .btn, input {
     background: rgb(250, 250, 250, 0.5);
 }
 
-#MainSidebar li button {
+#MainSidebarAccordionHolder {
+    overflow: scroll;
+}
+
+#MainSidebarAccordionHolder li button {
     width: 100%;
 }
 
-#MainSidebar li div ul li a {
+#MainSidebarAccordionHolder li div ul li a {
     width: 90%;
 }
 
@@ -60,10 +64,20 @@ table td {
     background-color: rgba(0, 0, 0, .01);
 }
 
-.btn-check:focus + .btn, .btn:focus {
-    box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.25);
+.menuItems {
+    padding: 0.2rem 0.4rem 0.2rem 0.8rem;
 }
 
-.btn-toggle-nav a:hover, .btn-toggle-nav a:focus {
+.menuItems:hover, .menuItems:focus {
     background-color: rgba(210, 244, 234, 0.5);
+    box-shadow: 0 0 0 0.13rem rgba(13, 110, 253, 0.13);
+}
+
+.accordion-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+}
+
+.accordion-body {
+    padding: 0.8rem;
 }

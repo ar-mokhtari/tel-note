@@ -35,6 +35,7 @@ function getData(inputUrl) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: JSON.stringify({
+            State: "State",
             Data: "Data",
         }),
         success: function (data) {
@@ -55,26 +56,29 @@ $("#mainTab a").click(function (e) {
 //offline search
 $("#MainSearch").on("keyup", function () {
     let value = $(this).val().toLowerCase();
-    value = value.replace("ی", "ي");
     let target = "#tab-content div.active div table tbody tr";
-    let isFindTr = false;
-    $(target).each(function () {
-        let targetTDs = $(this).find("td")
-        $(targetTDs).each(function () {
-            if (value != "" && $(this).text().replace("ی", "ي").toLowerCase().indexOf(value) !== -1) {
-                isFindTr = true;
-                $(this).addClass("text-danger");
+    if (value != "") {
+        value = value.replace("ی", "ي");
+        let isFindTr = false;
+        $(target).each(function () {
+            let targetTDs = $(this).find("td")
+            $(targetTDs).each(function () {
+                if ($(this).text().replace("ی", "ي").toLowerCase().indexOf(value) != -1) {
+                    isFindTr = true;
+                    $(this).addClass("text-danger");
+                } else {
+                    $(this).removeClass("text-danger");
+                }
+            });
+            if (isFindTr) {
+                $(this).show();
             } else {
-                $(this).removeClass("text-danger");
+                $(this).hide();
             }
+            isFindTr = false;
         });
-        alert($(this).find("td:last-child").text());
-        switch (isFindTr) {
-            case true:
-                $(this).eq($(this).index() + 1).show();
-            case false:
-                $(this).eq($(this).index() + 1).hide();
-        }
-        isFindTr = false;
-    });
+    } else {
+        $("body tr").show();
+        $("body td").removeClass("text-danger");
+    }
 });

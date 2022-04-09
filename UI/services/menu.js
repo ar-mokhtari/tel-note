@@ -16,7 +16,7 @@ function menuPlacement(data) {
         );
         $.each(menuElement.Row, function (detailIndex, detailElement) {
             $("#collapse" + menuIndex + " div.accordion-body").append(
-                "<div class='btn-toggle-nav list-unstyled fw-normal pb-1 small'><div style='cursor: pointer'  data-route=\"" + detailElement.Route + "\" class=\"link-dark menuItems w-100 rounded\" \"\">" +
+                "<div class='link-dark text-cente  pb-1 small'><div style='cursor: pointer'  data-route=\"" + detailElement.Route + "\" class=\"menuItems rounded\" \"\">" +
                 detailElement.Description +
                 "</div></a>");
         });
