@@ -11,20 +11,19 @@ function mask(value, pattern) {
     return pattern.replace(/\*/g, () => value[count++] || '')
 }
 
-$(document).on("click", "#MainSidebarAccordion a", function () {
+$(document).on("click", "#MainSidebarAccordion div.menuItems", function () {
     let subMenu = $(this).text();
     let MenuPosition = $(this).parent().closest('div.accordion-item').find("h2").attr('id');
     let Menu = $("#" + MenuPosition).find("button").text();
     // search input empty
     $("#MainSearch").val('');
-    // // form named
+    // form named
     $("#headerResponse div a").text(Menu);
-    // // $("body tr").show();
+    // $("body tr").show();
     createGrids(subMenu);
     let dataRoute = hostName + $(this).data('route');
     getData(dataRoute);
     setTimeout("dbGridHtmlPlacement()", 50);
-    alert();
 });
 
 //TODO::: generate function from go (convert go to javascript)

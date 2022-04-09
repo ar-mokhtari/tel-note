@@ -1,5 +1,4 @@
 function createGrids(subMenu) {
-    alert();
     $("#MainGrid").empty();
     $("#MainGrid").append(
         "       <!-- Tabs -->\n" +
