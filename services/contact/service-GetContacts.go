@@ -15,7 +15,10 @@ func (allData *contactGetPool) GetContacts() []*protocol.Contact {
 }
 
 func (allData *contactGetPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET")
+	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 	result := allData.GetContacts()
 	json.NewEncoder(w).Encode(struct {
 		State       uint
