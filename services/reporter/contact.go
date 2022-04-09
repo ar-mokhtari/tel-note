@@ -87,8 +87,8 @@ func (allData *contactReportPool) ServeHTTP(w http.ResponseWriter, r *http.Reque
 			}{400, err.Error()})
 		} else {
 			json.NewEncoder(w).Encode(struct {
-				State             uint
-				ReportContactData []resultReport
+				State uint
+				Data  []resultReport
 			}{200, result})
 		}
 	}
