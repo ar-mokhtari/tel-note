@@ -23,7 +23,7 @@ func (allData *getCityPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 	result := allData.GetCities()
 	json.NewEncoder(w).Encode(struct {
-		Status      uint
+		State       uint
 		CountResult uint
 		Data        []*protocol.City
 	}{200, uint(len(result)), result})
