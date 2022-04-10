@@ -1,0 +1,83 @@
+body, .btn, input {
+    font-size: 0.95rem !important;
+    font-family: "Vazir Light";
+    background: rgb(250, 250, 250, 0.5);
+}
+
+#MainSidebarAccordionHolder {
+    overflow: scroll;
+}
+
+#MainSidebarAccordionHolder li button {
+    width: 100%;
+}
+
+#MainSidebarAccordionHolder li div ul li a {
+    width: 90%;
+}
+
+#MainHolder {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+#tab-content div div {
+    margin: 0.5rem 2rem;
+    position: absolute;
+    width: 95%;
+    height: 95%;
+    overflow: scroll;
+}
+
+#tab-content div div table thead {
+    position: sticky;
+    top: 0;
+}
+
+#MainSearch {
+    transform: scale(0.87);
+}
+
+table thead {
+    text-align: center;
+}
+
+table thead td {
+    color: cornflowerblue;
+    height: 30px;
+    vertical-align: middle;
+}
+
+table tbody td {
+    text-align: center;
+}
+
+table td {
+    margin: 0.1rem !important;
+    padding: 0.1rem !important;
+}
+
+/*custom boostrap*/
+.b-example-divider {
+    width: 0.8rem;
+    background-color: rgba(0, 0, 0, .01);
+}
+
+.menuItems {
+    padding: 0.2rem 0.4rem 0.2rem 0.8rem;
+}
+
+.menuItems:hover, .menuItems:focus {
+    background-color: rgba(210, 244, 234, 0.5);
+    box-shadow: 0 0 0 0.13rem rgba(13, 110, 253, 0.13);
+}
+
+.accordion-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+}
+
+.accordion-body {
+    padding: 0.8rem;
+}
