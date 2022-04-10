@@ -1,3 +1,26 @@
+//first call menu to get data from server
+function getMenu() {
+    $("#MainSidebarAccordion").empty();
+    $.ajax({
+        type: 'GET',
+        url: getMenuUrl,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify({GroupName: "GroupName", Row: "Row"}),
+        Row: JSON.stringify({
+            Title: "Title",
+            Description: "Description",
+            Route: "Route",
+            Type: "Type",
+        }),
+        success: function (data) {
+            MenuList = data;
+            menuPlacement(data);
+        }
+    });
+}
+
+//then placement in html
 function menuPlacement(data) {
     $.each(data, function (menuIndex, menuElement) {
         $("#MainSidebarAccordion").append(
@@ -16,7 +39,7 @@ function menuPlacement(data) {
         );
         $.each(menuElement.Row, function (detailIndex, detailElement) {
             $("#collapse" + menuIndex + " div.accordion-body").append(
-                "<div class='link-dark text-cente  pb-1 small'><div style='cursor: pointer'  data-route=\"" + detailElement.Route + "\" class=\"menuItems rounded\" \"\">" +
+                "<div class='link-dark text-cente  pb-1 small'><div style='cursor: pointer'  data-route=\"" + detailElement.Route + "\"  data-type=\"" + detailElement.Type + "\" class=\"menuItems rounded\" \"\">" +
                 detailElement.Description +
                 "</div></a>");
         });

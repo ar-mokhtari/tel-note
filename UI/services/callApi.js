@@ -94,22 +94,6 @@ function addContact() {
     });
 }
 
-function getMenu() {
-    $("#MainSidebar").empty();
-    $.ajax({
-        type: 'GET',
-        url: getMenuUrl,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: JSON.stringify({GroupName: "GroupName", Row: "Row"}),
-        Row: JSON.stringify({Title: "Title", Description: "Description", Route: "Route"}),
-        success: function (data) {
-            MenuList = data;
-            menuPlacement(data);
-        }
-    });
-}
-
 $('.getDataBtn').click(function () {
     getData()
 })
