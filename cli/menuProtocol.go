@@ -5,6 +5,7 @@ type (
 		Title       string
 		Description string
 		Route       string
+		Type        uint
 	}
 	MenuGroup struct {
 		GroupName string
