@@ -21,4 +21,11 @@ const (
 	ShowMenuList    = "/"
 	ShowMenuWarn    = "To see menu, insert ('/') then enter"
 	RegulatorString = "reg"
+
+	//template route types
+	//front-end use this type for manage menu
+	DataEntryTypeForm = 100   //(RW) get and return data to create entry form type in front-end
+	ListTypeForm      = 200   //(RW) get and return data to create list form type in front-end
+	ReportTypeForm    = 500   //(R) return data to create report form type in front-end
+	ActionType        = 10000 //get and return data for do some action(s)
 )
