@@ -1,6 +1,5 @@
 let AllData;
 let MenuList;
-
 jQuery.loadScript = function (url, callback) {
     jQuery.ajax({
         url: url,
@@ -31,7 +30,6 @@ $(document).on("click", "#MainSidebarAccordion div.menuItems", function () {
     // form named
     $("#headerResponse div a").text(Menu);
     //tabs
-    createTabs(subMenu);
     //menu types implement
     switch (formType) {
         //data entry from
@@ -39,12 +37,10 @@ $(document).on("click", "#MainSidebarAccordion div.menuItems", function () {
             break;
         //list type from
         case 200:
-            $.loadScript('SDK/ag-grid/ag-grid-community.min.noStyle.js', function () {
-                //Stuff to do after someScript has loaded
-            });
-
+            $("#MainGrid").empty();
+            createTabs(subMenu);
             $.loadScript('services/ag-girdPlacement.js', function () {
-                //Stuff to do after someScript has loaded
+                initGrid(route);
             });
             //native mode
             // createTabs(subMenu);
@@ -53,9 +49,15 @@ $(document).on("click", "#MainSidebarAccordion div.menuItems", function () {
             break;
         //report type from
         case 500:
-            getData(route);
-            setTimeout("dbGridHtmlPlacement()", 50);
-            break;
+            $("#MainGrid").empty();
+            createTabs(subMenu);
+            $.loadScript('services/ag-girdPlacement.js', function () {
+                initGrid(route);
+            });
+            //native mode
+            // createTabs(subMenu);
+            // getData(route);
+            // setTimeout("dbGridHtmlPlacement()", 50);
             break;
         //action type from
         case 10000:
@@ -80,6 +82,7 @@ function getData(inputUrl) {
         }
     });
 }
+
 
 //show tab management
 // $("#mainTab a").click(function (e) {

@@ -1,53 +1,47 @@
-$('head').append('<link rel="stylesheet" href="../SDK/ag-grid/ag-grid.css" type="text/css" />');
-$('head').append('<link rel="stylesheet" href="../SDK/ag-grid/ag-theme-balham.css" type="text/css" />');
+function initGrid(apiURL) {
 
+    $("#MainGrid").append("<div id=\"data-table\"></div>\n");
+    // $("#data-table").addClass("ag-theme-alpine");
+    $("#data-table").addClass("ag-theme-balham");
+    $("#data-table").addClass("w-100");
+    $("#data-table").css("height", "600px");
+    const gridOptions = {
 
-$("#MainGrid").empty();
-$("#MainGrid").append("<style>\n" +
-    "    #data-table {\n" +
-    "        height: 500px;\n" +
-    "        width: 100%;\n" +
-    "    }\n" +
-    "</style>\n" +
-    "\n" +
-    "\n" +
-    "<div id=\"data-table\" class=\"ag-theme-balham\">\n" +
-    "</div>\n");
-const columnDefs = [
-    {field: "Id"},
-    {field: "Name"},
-    {field: "EnglishName"},
-    {field: "AriaCode"},
-    {field: "Lat"},
-    {field: "Lng"},
-];
+        defaultColDef: {
+            sortable: true,
+            filter: 'agTextColumnFilter',
+            resizable: true
+        },
 
-const gridOptions = {
+        pagination: true,
 
-    defaultColDef: {
-        sortable: true,
-        filter: 'agTextColumnFilter',
-        resizable: true
-    },
+        // columnDefs: columnDefs,
+        onGridReady: (event) => {
+            renderDataInTheTable(event.api, apiURL)
+        }
+    };
 
-    pagination: true,
+    const eGridDiv = document.getElementById('data-table');
 
-    columnDefs: columnDefs,
-    onGridReady: (event) => {
-        renderDataInTheTable(event.api)
-    }
-};
+    new agGrid.Grid(eGridDiv, gridOptions);
 
-const eGridDiv = document.getElementById('data-table');
+}
 
-new agGrid.Grid(eGridDiv, gridOptions);
-
-function renderDataInTheTable(api) {
-    fetch("http://127.0.0.1:1212/get-city")
+function renderDataInTheTable(api, apiURL) {
+    fetch(apiURL)
         .then(function (response) {
             return response.json();
         }).then(function (data) {
+        // set the column headers from the data
+        const colDefs = api.getColumnDefs();
+        colDefs.length = 0;
+        const keys = Object.keys((data.Data)[0])
+        keys.forEach(key => colDefs.push({field: key}));
+        api.setColumnDefs(colDefs);
+
+        // add the data to the grid
+
         api.setRowData(data.Data);
         api.sizeColumnsToFit();
-    })
+    });
 }

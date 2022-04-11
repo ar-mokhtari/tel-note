@@ -2,6 +2,7 @@ body, .btn, input {
     font-size: 0.95rem !important;
     font-family: "Vazir Light";
     background: rgb(250, 250, 250, 0.5);
+    user-select: none;
 }
 
 #MainSidebarAccordionHolder {
