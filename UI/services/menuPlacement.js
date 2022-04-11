@@ -14,7 +14,6 @@ function getMenu() {
             Type: "Type",
         }),
         success: function (data) {
-            MenuList = data;
             menuPlacement(data);
         }
     });

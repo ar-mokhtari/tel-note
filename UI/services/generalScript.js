@@ -1,5 +1,6 @@
 let AllData;
-let MenuList;
+let apiUrl;
+
 jQuery.loadScript = function (url, callback) {
     jQuery.ajax({
         url: url,
@@ -40,7 +41,7 @@ $(document).on("click", "#MainSidebarAccordion div.menuItems", function () {
             $("#MainGrid").empty();
             createTabs(subMenu);
             $.loadScript('services/ag-girdPlacement.js', function () {
-                initGrid(route);
+                apiUrl = route;
             });
             //native mode
             // createTabs(subMenu);
@@ -52,7 +53,7 @@ $(document).on("click", "#MainSidebarAccordion div.menuItems", function () {
             $("#MainGrid").empty();
             createTabs(subMenu);
             $.loadScript('services/ag-girdPlacement.js', function () {
-                initGrid(route);
+                apiUrl = route;
             });
             //native mode
             // createTabs(subMenu);
@@ -96,12 +97,12 @@ function getData(inputUrl) {
 //grid search
 $("#MainSearch").on("keyup", function () {
     let value = $(this).val().toLowerCase();
-    let target = "#tab-content div.active div table tbody tr";
+    let target = ".ag-row";
     if (value != "") {
         value = value.replace("ی", "ي");
         let isFindTr = false;
         $(target).each(function () {
-            let targetTDs = $(this).find("td")
+            let targetTDs = $(this).find(".ag-cell")
             $(targetTDs).each(function () {
                 if ($(this).text().replace("ی", "ي").toLowerCase().indexOf(value) != -1) {
                     isFindTr = true;
@@ -114,18 +115,12 @@ $("#MainSearch").on("keyup", function () {
                     $(this).removeClass("fst-italic");
                 }
             });
-            if (isFindTr) {
-                $(this).show();
-            } else {
-                $(this).hide();
-            }
-            isFindTr = false;
         });
     } else {
-        $("body tr").show();
-        $("body td").removeClass("text-decoration-underline text-danger");
-        $("body td").removeClass("fw-bold");
-        $("body td").removeClass("fst-italic");
+        $(".ag-row").show();
+        $(".ag-cell").removeClass("text-decoration-underline text-danger");
+        $(".ag-cell").removeClass("fw-bold");
+        $(".ag-cell").removeClass("fst-italic");
     }
 });
 

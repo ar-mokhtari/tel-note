@@ -1,34 +1,40 @@
-function initGrid(apiURL) {
+$("#MainGrid").append("<div id=\"data-table\"></div>\n");
+// $("#data-table").addClass("ag-theme-alpine");
+$("#data-table").addClass("ag-theme-balham");
+$("#data-table").addClass("w-100");
+$("#data-table").css("height", "600px");
 
-    $("#MainGrid").append("<div id=\"data-table\"></div>\n");
-    // $("#data-table").addClass("ag-theme-alpine");
-    $("#data-table").addClass("ag-theme-balham");
-    $("#data-table").addClass("w-100");
-    $("#data-table").css("height", "600px");
-    const gridOptions = {
+gridOptions = {
 
-        defaultColDef: {
-            sortable: true,
-            filter: 'agTextColumnFilter',
-            resizable: true
-        },
+    defaultColDef: {
+        sortable: true,
+        filter: 'agTextColumnFilter',
+        resizable: true
+    },
 
-        pagination: true,
+    pagination: true,
 
-        // columnDefs: columnDefs,
-        onGridReady: (event) => {
-            renderDataInTheTable(event.api, apiURL)
-        }
-    };
+    cacheQuickFilter: false,
 
-    const eGridDiv = document.getElementById('data-table');
+    // columnDefs: columnDefs,
+    onGridReady: (event) => {
+        renderDataInTheTable(event.api, apiUrl)
+    }
+};
 
-    new agGrid.Grid(eGridDiv, gridOptions);
-
+function onFilterTextBoxChanged() {
+    gridOptions.api.setQuickFilter(
+        document.getElementById('MainSearch').value
+    );
 }
 
-function renderDataInTheTable(api, apiURL) {
-    fetch(apiURL)
+
+eGridDiv = document.getElementById('data-table');
+new agGrid.Grid(eGridDiv, gridOptions);
+
+
+function renderDataInTheTable(api, apiUrl) {
+    fetch(apiUrl)
         .then(function (response) {
             return response.json();
         }).then(function (data) {
@@ -43,5 +49,6 @@ function renderDataInTheTable(api, apiURL) {
 
         api.setRowData(data.Data);
         api.sizeColumnsToFit();
+
     });
 }
