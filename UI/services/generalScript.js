@@ -1,3 +1,7 @@
+const hostName = 'http://127.0.0.1:1212'
+const getMenuUrl = hostName + '/menu-list';
+
+
 let AllData;
 let apiUrl;
 
@@ -65,25 +69,6 @@ $(document).on("click", "#MainSidebarAccordion div.menuItems", function () {
             break;
     }
 });
-
-//TODO::: generate function from go (convert go to javascript)
-function getData(inputUrl) {
-    //TODO:::fetch
-    $.ajax({
-        type: 'GET',
-        url: inputUrl,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: JSON.stringify({
-            State: "State",
-            Data: "Data",
-        }),
-        success: function (data) {
-            AllData = data;
-        }
-    });
-}
-
 
 //show tab management
 // $("#mainTab a").click(function (e) {
