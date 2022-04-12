@@ -225,3 +225,21 @@ A sample SPA PWA with "Ajax" request which call routes ...
 ```` 
 /UI/tel-note.html 
 ````
+
+<h3>Git</h3>
+for production, there is stable ****main**** branch:
+
+```` 
+ git checkout main
+ 
+````
+for develop:
+```` 
+ git checkout -b developing
+ 
+````
+after all, back to main:
+```` 
+ git merge --no-ff developing
+ 
+````
