@@ -7,88 +7,46 @@ import (
 	"fmt"
 	"net/http"
 	"tel-note/env"
-	"tel-note/lib/convertor"
 	"tel-note/protocol"
 )
 
-type editCityPool struct{}
+var EditCityRequest editCityRequest
 
-var EditCityPool editCityPool
-
-func (allData *editCityPool) EditCityByID(NewCity protocol.City) protocol.ResponseStatus {
-	if storage.EditCity(NewCity) {
-		return protocol.ResponseStatus{State: true}
+type (
+	editCityRequest protocol.City
+	output          struct {
+		State   uint
+		Message string
 	}
-	return protocol.ResponseStatus{State: false}
+)
+
+func (ec *editCityRequest) Do() (err error) {
+	if err := storage.EditCity(protocol.City(*ec)); err != nil {
+		return err
+	}
+	return nil
 }
-
-func (allData *editCityPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	var inputCity struct {
-		Id          int
-		Name        string
-		EnglishName string
-		AriaCode    string
-		Lat         string
-		Lng         string
-	}
-	if err := json.NewDecoder(r.Body).Decode(&inputCity); err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
-		return
-	}
-	newCity := new(protocol.City)
-	newCity.Id = uint(inputCity.Id)
-	newCity.Name = inputCity.Name
-	newCity.EnglishName = inputCity.EnglishName
-	newCity.AriaCode = inputCity.AriaCode
-	_, newCity.Lat = convertor.StrToFloat64(inputCity.Lat)
-	_, newCity.Lng = convertor.StrToFloat64(inputCity.Lng)
-	if status := allData.EditCityByID(*newCity); status.State {
-		json.NewEncoder(w).Encode(struct {
-			Status  uint
-			Message string
-		}{200, fmt.Sprintf("City #%v edited", newCity.Id)})
+func (ec *editCityRequest) Decoder(r http.Request) error {
+	return json.NewDecoder(r.Body).Decode(&ec)
+}
+func (ec *editCityRequest) Encoder(w http.ResponseWriter, output output) {
+	json.NewEncoder(w).Encode(output)
+}
+func (ec *editCityRequest) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	if r.Method != env.PatchMethod {
+		ec.Encoder(w, output{400, "method not support"})
 	} else {
-		json.NewEncoder(w).Encode(struct {
-			State   uint
-			Message string
-		}{400, "could not be edited"})
-		if r.Method != env.PatchMethod {
-			json.NewEncoder(w).Encode(struct {
-				State   uint
-				Message string
-			}{400, "don't support request"})
+		if err := ec.Decoder(*r); err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+		if err := ec.Do(); err != nil {
+			ec.Encoder(w, output{400, err.Error()})
 		} else {
-			var inputCity struct {
-				Id          int
-				Name        string
-				EnglishName string
-				AriaCode    string
-				Lat         string
-				Lng         string
-			}
-			if err := json.NewDecoder(r.Body).Decode(&inputCity); err != nil {
-				http.Error(w, err.Error(), http.StatusBadRequest)
-				return
-			}
-			newCity := new(protocol.City)
-			newCity.Id = uint(inputCity.Id)
-			newCity.Name = inputCity.Name
-			newCity.EnglishName = inputCity.EnglishName
-			newCity.AriaCode = inputCity.AriaCode
-			_, newCity.Lat = convertor.StrToFloat64(inputCity.Lat)
-			_, newCity.Lng = convertor.StrToFloat64(inputCity.Lng)
-			if status := allData.EditCityByID(*newCity); status.State {
-				json.NewEncoder(w).Encode(struct {
-					Status  uint
-					Message string
-				}{200, fmt.Sprintf("City #%v edited", newCity.Id)})
-			} else {
-				json.NewEncoder(w).Encode(struct {
-					State   uint
-					Message string
-				}{400, "could not be edited"})
-			}
+			ec.Encoder(w, output{
+				200,
+				fmt.Sprintf("City #%v edited", ec.Id),
+			})
 		}
 	}
 }

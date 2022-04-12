@@ -1,7 +1,15 @@
-body, .btn, input {
+html {
     font-size: 0.95rem !important;
     font-family: "Vazir Light";
     background: rgb(250, 250, 250, 0.5);
+}
+
+body, .btn {
+    user-select: none;
+}
+
+input {
+    user-select: text;
 }
 
 #MainSidebarAccordionHolder {

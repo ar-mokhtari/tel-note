@@ -18,8 +18,7 @@ type storageMemory struct {
 
 var (
 	storage storageMemory
-	//TODO::: What does this do?
-	_ protocol.CityServices = &storage
+	_       protocol.CityServices = &storage
 )
 
 func (sm *storageMemory) GetCities() []*protocol.City {

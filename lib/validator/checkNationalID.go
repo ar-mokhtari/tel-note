@@ -5,7 +5,6 @@ import (
 )
 
 func CheckNationalID(inputChar string) bool {
-	//TODO::: cleaning
 	IsLuhnAlgorithm(inputChar)
 	var (
 		counter, uintChar uint
