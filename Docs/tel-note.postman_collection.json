@@ -369,7 +369,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"ID\" : 13,\n    \"Name\" : \"سرزمین پاکی\" ,\n    \"EnglishName\" : \"neatland\" ,\n    \"AriaCode\" : \"13\" ,\n    \"Lat\" : \"\" ,\n    \"Lng\" : \"\" \n}",
+							"raw": "{\n    \"ID\" : 133333,\n    \"Name\" : \"سرزمین پاکی\" ,\n    \"EnglishName\" : \"neatland\" ,\n    \"AriaCode\" : \"13\" ,\n    \"Lat\" : 0 ,\n    \"Lng\" : 0 \n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -467,7 +467,7 @@
 						"header": [
 							{
 								"key": "cityID",
-								"value": "1133",
+								"value": "13",
 								"type": "text"
 							}
 						],
