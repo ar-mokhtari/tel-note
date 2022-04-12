@@ -227,13 +227,20 @@ A sample SPA PWA with "Ajax" request which call routes ...
 ````
 
 <h3>Git</h3>
-for production, there is stable ****main**** branch:
+<p align="left">
+<a href="" 
+target="_blank"><img src="https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white" alt="git" /></a>&nbsp;
+</p>
+
+for production, there is stable **main** branch:
 
 ```` 
  git checkout main
  
 ````
+
 for develop:
+
 ```` 
  git checkout -b developing
  
