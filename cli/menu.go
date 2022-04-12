@@ -732,10 +732,9 @@ func RunMenu() {
 				inputName = scanner.Text()
 				fmt.Println("insert new aria code:")
 				fmt.Scanln(&ariaCode)
-				if city.EditCityPool.EditCityByID(protocol.City{
-					Name:     inputName,
-					AriaCode: ariaCode,
-				}).State {
+				request := city.EditCityRequest
+				request.Name, request.AriaCode = inputName, ariaCode
+				if err := city.EditCityRequest.Do(); err == nil {
 					fmt.Println("City changed ...")
 				}
 				fmt.Println(env.ShowMenuWarn)

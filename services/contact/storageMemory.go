@@ -99,7 +99,6 @@ func (allContact *storageMemory) DeleteContactByID(ID uint) bool {
 	for index, data := range allContact.ContactData {
 		if data.Id == ID {
 			allContact.ContactData = append((allContact.ContactData)[:index], (allContact.ContactData)[index+1:]...)
-			//TODO: BadSolution,HandelMultiDeleteInServiceOrStorageNotInClient
 			return true
 		}
 	}

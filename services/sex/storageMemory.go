@@ -30,7 +30,6 @@ func (allSex *storageMemory) NewSex(inputSex protocol.Sex) bool {
 	return true
 }
 
-//TODO::: ForEditStrategy,AllEntity(ies)CanInputProtocolArgumentWithIdentityFieldAndDon'tNeedThisFieldSeparately
 func (allSex *storageMemory) EditSex(newSex protocol.Sex) bool {
 	for index, data := range allSex.SexData {
 		if data.Id == newSex.Id {
