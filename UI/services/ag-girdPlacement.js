@@ -38,6 +38,7 @@ function renderDataInTheTable(api, apiUrl) {
         .then(function (response) {
             return response.json();
         }).then(function (data) {
+        AllData = data
         // set the column headers from the data
         const colDefs = api.getColumnDefs();
         colDefs.length = 0;
@@ -49,6 +50,7 @@ function renderDataInTheTable(api, apiUrl) {
 
         api.setRowData(data.Data);
         api.sizeColumnsToFit();
+        $("#statusRespond").empty().append("<span> " + AllData.State + " </span>");
 
     });
 }
