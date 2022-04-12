@@ -1,4 +1,17 @@
-<h1 align="center" style="alignment:  center;color: yellow"> Tel-Note </h1>
+<h1 align="center" style="alignment: center;color: yellow">
+  <img alt="cgapp logo" src="https://raw.githubusercontent.com/create-go-app/cli/master/.github/images/cgapp_logo%402x.png" width="224px"/><br/>
+  Tel-Note
+</h1>
+<p align="center"><b>backend</b> (Golang), <b>frontend</b> (JavaScript, Jquery)<br/><br/><br/></p>
+
+<p align="center">
+<a href="" 
+target="_blank"><img src="https://img.shields.io/badge/Go-1.17+-00ADD8?style=for-the-badge&logo=go" alt="go version" /></a>&nbsp;
+<a href="" 
+target="_blank"><img src="https://img.shields.io/badge/jquery-%230769AD.svg?style=for-the-badge&logo=jquery&logoColor=white" alt="jQuery" /></a>&nbsp;
+<a href="" 
+target="_blank"><img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E" alt="javascript" /></a>&nbsp;
+</p>
 
 <h6> Tel-note is a structure and syntax practise with Go-lang. </h6>
 <h6> This is an example of sending and receiving data from/to external sources and the operations of creating, reading, updating and maintaining data. Searching and creating sample reports is one of the project goals. 
@@ -193,9 +206,18 @@ To use and call from API platform like "Postman":
 ````
 
 <h3>User Interface [web]</h3>
+Testing with "Nginx web server"
+[nginx install and setting](UI/Docs/nginx)
+<p align="left">
+<a href="" 
+target="_blank"><img src="https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white" alt="nginx" /></a>&nbsp;
+</p>
+
+
 A sample SPA PWA with "Ajax" request which call routes ...
 <ul>
-<li>Boostrap -v 5.1.3</li>
+<li>HTML</li>
+<li>CSS Boostrap -v 5.1.3</li>
 <li>jQuery 3.6.0</li>
 <li>Ajax</li>
 </ul>
