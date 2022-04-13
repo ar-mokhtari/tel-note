@@ -28,10 +28,8 @@ function onFilterTextBoxChanged() {
     );
 }
 
-
 eGridDiv = document.getElementById('data-table');
 new agGrid.Grid(eGridDiv, gridOptions);
-
 
 function renderDataInTheTable(api, apiUrl) {
     fetch(apiUrl)
