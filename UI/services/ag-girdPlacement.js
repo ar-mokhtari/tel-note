@@ -2,7 +2,7 @@ $("#MainGrid").append("<div id=\"data-table\"></div>\n");
 // $("#data-table").addClass("ag-theme-alpine");
 $("#data-table").addClass("ag-theme-balham");
 $("#data-table").addClass("w-100");
-$("#data-table").css("height", "600px");
+$("#data-table").css("height", "400px");
 
 gridOptions = {
 
