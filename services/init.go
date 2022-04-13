@@ -1,13 +1,13 @@
 package services
 
 import (
-	"tel-note/cli"
 	"tel-note/services/city"
 	"tel-note/services/contact"
 	"tel-note/services/country"
 	"tel-note/services/customer"
 	"tel-note/services/general"
 	"tel-note/services/job"
+	"tel-note/services/menu"
 	"tel-note/services/person"
 	"tel-note/services/reporter"
 	"tel-note/services/sampleData"
@@ -46,5 +46,5 @@ func Init() {
 	reporter.Init()
 
 	//serv handle menu
-	cli.MenuHTTPServe()
+	menu.Init()
 }

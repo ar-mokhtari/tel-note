@@ -6,6 +6,9 @@ package env
 //TODO::: + string(rune(iota)) (for generate unique routes)
 
 const (
+	//menu
+	MenuR = "/menu-list"
+
 	//contact
 	NewContactRecord  = "N"
 	NewContactRecordD = "new contact"

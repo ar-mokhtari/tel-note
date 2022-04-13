@@ -1,4 +1,4 @@
-package cli
+package protocol
 
 type (
 	MenuDetail struct {

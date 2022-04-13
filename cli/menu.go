@@ -33,7 +33,7 @@ var (
 func ShowMenu() (output string) {
 	output += fmt.Sprintln(separator7)
 	output += fmt.Sprintln("*** Main menu: ***\n", "Please select:")
-	for _, data := range GlobalMenu.Group {
+	for _, data := range env.GlobalMenu.Group {
 		output += fmt.Sprintf("%-3s %s %3s \n", separator, data.GroupName, separator)
 		for _, detail := range data.Row {
 			output += fmt.Sprintf("%s			|	%s\n", detail.Title, detail.Description)
