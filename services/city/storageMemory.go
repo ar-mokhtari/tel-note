@@ -65,28 +65,38 @@ func (sm *storageMemory) NewCity(inputCity protocol.City) bool {
 	return true
 }
 
-func (sm *storageMemory) EditCity(newCity protocol.City) error {
+func (sm *storageMemory) EditCity(newCity protocol.City) (err error) {
+	var index, exitingCity = sm.GetCity(newCity.Id)
+	// check for found city
+	if (protocol.City{}) == exitingCity {
+		return errors.New("not found")
+	}
+	// try to edit
+	if newCity.Name != "" {
+		(sm.CityData)[index].Name = newCity.Name
+	}
+	if newCity.EnglishName != "" {
+		(sm.CityData)[index].EnglishName = newCity.EnglishName
+	}
+	if newCity.AriaCode != "" {
+		(sm.CityData)[index].AriaCode = newCity.AriaCode
+	}
+	if newCity.Lat != 0.0 {
+		(sm.CityData)[index].Lat = newCity.Lat
+	}
+	if newCity.Lng != 0.0 {
+		(sm.CityData)[index].Lng = newCity.Lng
+	}
+	return nil
+}
+
+func (sm *storageMemory) GetCity(ID uint) (cityIndex int, city protocol.City) {
 	for index, data := range sm.CityData {
-		if data.Id == newCity.Id {
-			if newCity.Name != "" {
-				(sm.CityData)[index].Name = newCity.Name
-			}
-			if newCity.EnglishName != "" {
-				(sm.CityData)[index].EnglishName = newCity.EnglishName
-			}
-			if newCity.AriaCode != "" {
-				(sm.CityData)[index].AriaCode = newCity.AriaCode
-			}
-			if newCity.Lat != 0.0 {
-				(sm.CityData)[index].Lat = newCity.Lat
-			}
-			if newCity.Lng != 0.0 {
-				(sm.CityData)[index].Lng = newCity.Lng
-			}
-			return nil
+		if data.Id == ID {
+			return index, *data
 		}
 	}
-	return errors.New("can't edited")
+	return -1, protocol.City{}
 }
 
 func (sm *storageMemory) DeleteCityByID(IDS []uint) (resDel []uint) {

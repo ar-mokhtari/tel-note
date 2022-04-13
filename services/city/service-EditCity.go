@@ -12,7 +12,7 @@ import (
 
 type (
 	editCity         struct{}
-	editCityRequest  protocol.City
+	EditCityRequest  protocol.City
 	editCityResponse struct {
 		State   uint
 		Message string
@@ -20,18 +20,17 @@ type (
 )
 
 var (
-	EditCity        editCity
-	EditCityRequest editCityRequest //for access from cli
+	EditCity editCity
 )
 
-func (ec *editCity) Do(inputCity editCityRequest) (err error) {
-	if err := storage.EditCity(protocol.City(inputCity)); err != nil {
+func (ec *editCity) Do(inputCity EditCityRequest) (err error) {
+	if err = storage.EditCity(protocol.City(inputCity)); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (ecq *editCityRequest) DecoderJson(r http.Request) error {
+func (ecq *EditCityRequest) DecoderJson(r http.Request) error {
 	return json.NewDecoder(r.Body).Decode(&ecq)
 }
 
@@ -41,7 +40,7 @@ func (ecs *editCityResponse) EncoderJson(w http.ResponseWriter, output editCityR
 
 func (ec *editCity) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	var (
-		req editCityRequest
+		req EditCityRequest
 		res editCityResponse
 	)
 	switch r.Method {
