@@ -6,8 +6,6 @@ import (
 )
 
 func Init() {
-	var countryMethods storageMemory
-	storageService = &countryMethods
-
-	http.Handle(env.CountriesListR, &CallCountry)
+	http.Handle(env.CountriesListR, &GetCountry)
+	http.Handle(env.CountriesCallR, &CallCountry)
 }

@@ -176,8 +176,12 @@ const (
 	FindCountryByCharR = ""
 
 	CountriesList  = "COUL"
-	CountriesListD = "list of country(ies)"
-	CountriesListR = "/call-country-list"
+	CountriesListD = "get country(ies)"
+	CountriesListR = "/get-country"
+
+	CountriesCall  = "COUC"
+	CountriesCallD = "call for get country(ies)"
+	CountriesCallR = "/call-country-list"
 
 	//job
 	InsertNewJob  = "NJ"

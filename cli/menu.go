@@ -87,8 +87,8 @@ func RunMenu() {
 						"Id", "CountryName", "ShName", "PrePhone", "CapID", "create@", "updated@")
 					fmt.Println()
 				}
-				if countryData := country.GetCountry(); countryData != nil {
-					for _, data := range country.GetCountry()[:10] {
+				if countryData := country.GetCountry.GetCountry(); countryData != nil {
+					for _, data := range country.GetCountry.GetCountry()[:10] {
 						fmt.Printf("%3v | %-45s | %-8v | %-10v | %-12v | %-19v | %-19v \n",
 							data.ID, data.Name, data.ShortName, data.PrePhoneCode, data.CapitalID, (data.CreatedAt).String()[0:16], (data.UpdatedAt).String()[0:16])
 					}
@@ -867,8 +867,8 @@ func RunMenu() {
 				fmt.Printf("%3v | %-45s | %-8v | %-10v | %-12v | %-19v  | %-19v   \n",
 					"Id", "CountryName", "ShName", "PrePhone", "CapID", "create@", "updated@")
 				fmt.Println()
-				if country.GetCountry() != nil {
-					for _, data := range country.GetCountry() {
+				if country.GetCountry.GetCountry() != nil {
+					for _, data := range country.GetCountry.GetCountry() {
 						fmt.Printf("%3v | %-45s | %-8v | %-10v | %-12v | %-19v  | %-19v   \n",
 							data.ID, data.Name, data.ShortName, data.PrePhoneCode, data.CapitalID, (data.CreatedAt).String()[0:16], (data.UpdatedAt).String()[0:16])
 					}

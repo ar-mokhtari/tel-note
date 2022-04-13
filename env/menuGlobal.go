@@ -47,6 +47,7 @@ var (
 			{DeleteCountry, DeleteCountryD, DeleteCountryR, ActionType},
 			{FindCountryByChar, FindCountryByCharD, FindCountryByCharR, ActionType},
 			{CountriesList, CountriesListD, CountriesListR, ListTypeForm},
+			{CountriesCall, CountriesCallD, CountriesCallR, ActionType},
 		}},
 		{"City", []protocol.MenuDetail{
 			{ListOfCities, ListOfCitiesD, ListOfCitiesR, ListTypeForm},

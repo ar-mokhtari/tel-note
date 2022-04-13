@@ -15,6 +15,11 @@ type (
 	}
 )
 
+var (
+	storage storageMemory
+	_       protocol.CountryServices = &storage
+)
+
 func (allCountries *storageMemory) GetCountry() []*protocol.Country {
 	return allCountries.CountryData
 }

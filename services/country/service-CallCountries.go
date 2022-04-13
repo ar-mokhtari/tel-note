@@ -11,7 +11,7 @@ type callCountry struct{}
 var CallCountry callCountry
 
 func (allCountry *callCountry) Do() []*protocol.Country {
-	return storageService.CallCountry()
+	return storage.CallCountry()
 }
 func (allCountry *callCountry) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")

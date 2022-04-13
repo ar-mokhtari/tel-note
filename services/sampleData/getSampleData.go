@@ -32,7 +32,7 @@ func (fillData *getData) DoGetData() (result AllDataCollection) {
 	result.customerGroup = customer.GetCustomerGroup()
 	result.customerGroupRelation = customer.GetCustomerGroupRelation()
 	result.person = person.GetPersons()
-	result.countries = country.GetCountry()
+	result.countries = country.GetCountry.GetCountry()
 	result.cities = city.GetCityPool.GetCities()
 	return result
 }
