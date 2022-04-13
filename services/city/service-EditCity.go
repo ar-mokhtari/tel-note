@@ -10,43 +10,56 @@ import (
 	"tel-note/protocol"
 )
 
-var EditCityRequest editCityRequest
-
 type (
-	editCityRequest protocol.City
-	output          struct {
+	editCity         struct{}
+	editCityRequest  protocol.City
+	editCityResponse struct {
 		State   uint
 		Message string
 	}
 )
 
-func (ec *editCityRequest) Do() (err error) {
-	if err := storage.EditCity(protocol.City(*ec)); err != nil {
+var (
+	EditCity        editCity
+	EditCityRequest editCityRequest //for access from cli
+)
+
+func (ec *editCity) Do(inputCity editCityRequest) (err error) {
+	if err := storage.EditCity(protocol.City(inputCity)); err != nil {
 		return err
 	}
 	return nil
 }
-func (ec *editCityRequest) Decoder(r http.Request) error {
-	return json.NewDecoder(r.Body).Decode(&ec)
+
+func (ecq *editCityRequest) DecoderJson(r http.Request) error {
+	return json.NewDecoder(r.Body).Decode(&ecq)
 }
-func (ec *editCityRequest) Encoder(w http.ResponseWriter, output output) {
+
+func (ecs *editCityResponse) EncoderJson(w http.ResponseWriter, output editCityResponse) {
 	json.NewEncoder(w).Encode(output)
 }
-func (ec *editCityRequest) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	if r.Method != env.PatchMethod {
-		ec.Encoder(w, output{400, "method not support"})
-	} else {
-		if err := ec.Decoder(*r); err != nil {
+
+func (ec *editCity) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	var (
+		req editCityRequest
+		res editCityResponse
+	)
+	switch r.Method {
+	case env.PatchMethod:
+		if err := req.DecoderJson(*r); err != nil {
 			http.Error(w, err.Error(), http.StatusBadRequest)
 			return
 		}
-		if err := ec.Do(); err != nil {
-			ec.Encoder(w, output{400, err.Error()})
+		if err := ec.Do(req); err != nil {
+			res.EncoderJson(w, editCityResponse{400, err.Error()})
 		} else {
-			ec.Encoder(w, output{
+			res.EncoderJson(w, editCityResponse{
 				200,
-				fmt.Sprintf("City #%v edited", ec.Id),
+				fmt.Sprintf("City #%v edited", req.Id),
 			})
 		}
+	default:
+		res.EncoderJson(w, editCityResponse{400, "method not support"})
+
 	}
 }

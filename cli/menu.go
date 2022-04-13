@@ -732,9 +732,9 @@ func RunMenu() {
 				inputName = scanner.Text()
 				fmt.Println("insert new aria code:")
 				fmt.Scanln(&ariaCode)
-				request := city.EditCityRequest
-				request.Name, request.AriaCode = inputName, ariaCode
-				if err := city.EditCityRequest.Do(); err == nil {
+				city.EditCityRequest.Id, city.EditCityRequest.Name, city.EditCityRequest.AriaCode =
+					inputID, inputName, ariaCode
+				if err := city.EditCity.Do(city.EditCityRequest); err == nil {
 					fmt.Println("City changed ...")
 				}
 				fmt.Println(env.ShowMenuWarn)
