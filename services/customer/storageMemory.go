@@ -12,6 +12,15 @@ type (
 	relation      protocol.CustomerGRelationStorage
 )
 
+var (
+	storage         storageMemory
+	_               protocol.CustomerServices = &storage
+	storageGroup    group
+	_               protocol.CustomerGroupServices = &storageGroup
+	storageRelation relation
+	_               protocol.CustomerGroupRelationServices = &storageRelation
+)
+
 func (allCustomers *storageMemory) NewCustomer(newCustomer protocol.Customer) {
 	var LastID uint
 	for ID := range globalVars.CustomerMapStore {

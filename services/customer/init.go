@@ -1,10 +1,10 @@
 package customer
 
+import (
+	"net/http"
+	"tel-note/env"
+)
+
 func Init() {
-	var customerObject storageMemory
-	var customerGroupObject group
-	var customerGRelationObject relation
-	storageCustomer = &customerObject
-	storageGroup = &customerGroupObject
-	storageRelation = &customerGRelationObject
+	http.Handle(env.ListOfCustomerR, &GetCustomer)
 }

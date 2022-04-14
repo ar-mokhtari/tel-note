@@ -78,7 +78,7 @@ const (
 
 	ListOfCustomer  = "LCU"
 	ListOfCustomerD = "list of customers"
-	ListOfCustomerR = ""
+	ListOfCustomerR = "/get-customer"
 
 	EditCustomerByCustomerId  = "ECU"
 	EditCustomerByCustomerIdD = "edit customer"
@@ -131,28 +131,28 @@ const (
 
 	//city
 	InsertNewCity  = "NC"
-	InsertNewCityR = "/add-city"
 	InsertNewCityD = "insert new city"
+	InsertNewCityR = "/add-city"
 
 	EditCityById  = "EC"
-	EditCityByIdR = "/edit-city"
 	EditCityByIdD = "edit city by id"
+	EditCityByIdR = "/edit-city"
 
 	FindCityById  = "FCBI"
-	FindCityByIdR = "/find-city-id"
 	FindCityByIdD = "find city by id"
+	FindCityByIdR = "/find-city-id"
 
 	FindCityByChar  = "FCBC"
-	FindCityByCharR = "/find-city-char"
 	FindCityByCharD = "find city by char"
+	FindCityByCharR = "/find-city-char"
 
 	DeleteCityById  = "DC"
-	DeleteCityByIdR = "/delete-city"
 	DeleteCityByIdD = "delete city by id"
+	DeleteCityByIdR = "/delete-city"
 
 	ListOfCities  = "LC"
-	ListOfCitiesR = "/get-city"
 	ListOfCitiesD = "list of city(ies)"
+	ListOfCitiesR = "/get-city"
 
 	CallDistanceTimeTwoCities  = "CDTTC"
 	CallDistanceTimeTwoCitiesR = "distance-time-between-two-city"
