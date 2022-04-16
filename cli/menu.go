@@ -95,17 +95,17 @@ func RunMenu() {
 				}
 				fmt.Println(separator7)
 				fmt.Println("Job Data:")
-				for _, data := range job.GetJobs() {
+				for _, data := range job.GetJob.Do() {
 					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 				}
 				fmt.Println(separator7)
 				fmt.Println("sex Data:")
-				for _, data := range sex.GetSex() {
+				for _, data := range sex.GetSex.Do() {
 					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 				}
 				fmt.Println(separator7)
 				fmt.Println("person Data:")
-				for _, data := range person.GetPersons() {
+				for _, data := range person.GetPerson.Do() {
 					fmt.Printf("%3v | %-15s \t %30s \n", data.Id, data.FirstName, data.LastName)
 				}
 				fmt.Println(separator7)
@@ -546,7 +546,7 @@ func RunMenu() {
 				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
 					"Id", "PersonName", "PersonFamily", "Gender", "BLoID", "jobCity", "DOB", "Desc")
 				fmt.Println("")
-				for _, data := range person.GetPersons() {
+				for _, data := range person.GetPerson.Do() {
 					genderID := data.GenderID
 					gender, _ := sex.FindSexByID(uint8(genderID))
 					_, city := city.FindCityIDPool.FindCityByID(data.BirthLocationID)
@@ -953,10 +953,10 @@ func RunMenu() {
 				}
 				fmt.Println(env.ShowMenuWarn)
 			case env.ListOfJob:
-				dataJSON, _ := json.MarshalIndent(job.GetJobs(), "", "  ")
+				dataJSON, _ := json.MarshalIndent(job.GetJob.Do(), "", "  ")
 				fmt.Println(string(dataJSON))
 				fmt.Println(separator7)
-				for _, data := range job.GetJobs() {
+				for _, data := range job.GetJob.Do() {
 					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 				}
 				fmt.Println(env.ShowMenuWarn)
@@ -1004,10 +1004,10 @@ func RunMenu() {
 				}
 				fmt.Println(env.ShowMenuWarn)
 			case env.ListOfSex:
-				dataJSON, _ := json.MarshalIndent(sex.GetSex(), "", "  ")
+				dataJSON, _ := json.MarshalIndent(sex.GetSex.Do(), "", "  ")
 				fmt.Println(string(dataJSON))
 				fmt.Println(separator7)
-				for _, data := range sex.GetSex() {
+				for _, data := range sex.GetSex.Do() {
 					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
 				}
 				fmt.Println(env.ShowMenuWarn)

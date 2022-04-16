@@ -103,14 +103,14 @@ const (
 
 	ListOfPerson  = "LP"
 	ListOfPersonD = "list of person(s)"
-	ListOfPersonR = ""
+	ListOfPersonR = "/get-person"
 
 	FindOnePersonById  = "FP"
 	FindOnePersonByIdD = "find person by id"
 	FindOnePersonByIdR = "find-person-id"
 
 	FindPersonContainingSomeCharacter  = "FPC"
-	FindPersonContainingSomeCharacterD = "finf person by char"
+	FindPersonContainingSomeCharacterD = "find person by char"
 	FindPersonContainingSomeCharacterR = ""
 
 	FindAndEditPersonByPersonId  = "EP"
@@ -198,7 +198,7 @@ const (
 
 	ListOfJob  = "LJ"
 	ListOfJobD = "list of job(s)"
-	ListOfJobR = ""
+	ListOfJobR = "/get-job"
 
 	//sex
 	InsertNewSex  = "NS"
@@ -207,7 +207,7 @@ const (
 
 	ListOfSex  = "LS"
 	ListOfSexD = "list of sex(s)"
-	ListOfSexR = ""
+	ListOfSexR = "/get-sex"
 
 	EditSex  = "ES"
 	EditSexD = "edit sex"

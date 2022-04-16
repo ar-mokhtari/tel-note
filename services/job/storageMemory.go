@@ -9,6 +9,11 @@ type storageMemory struct {
 	JobData []*protocol.Job
 }
 
+var (
+	storage storageMemory
+	_       protocol.JobServices = &storage
+)
+
 func (allJob *storageMemory) GetJobs() []*protocol.Job {
 	return allJob.JobData
 }

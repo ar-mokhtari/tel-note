@@ -10,6 +10,11 @@ type (
 	}
 )
 
+var (
+	storage storageMemory
+	_       protocol.SexServices = &storage
+)
+
 func (allSex *storageMemory) GetSex() []*protocol.Sex {
 	return allSex.SexData
 }

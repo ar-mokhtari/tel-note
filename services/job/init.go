@@ -1,6 +1,10 @@
 package job
 
+import (
+	"net/http"
+	"tel-note/env"
+)
+
 func Init() {
-	var jobObject storageMemory
-	storage = &jobObject
+	http.Handle(env.ListOfJobR, &GetJob)
 }

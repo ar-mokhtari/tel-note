@@ -1,6 +1,10 @@
 package sex
 
+import (
+	"net/http"
+	"tel-note/env"
+)
+
 func Init() {
-	var sexObject storageMemory
-	storage = &sexObject
+	http.Handle(env.ListOfSexR, &GetSex)
 }

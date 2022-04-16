@@ -31,7 +31,7 @@ func (fillData *getData) DoGetData() (result AllDataCollection) {
 	result.customer = globalVars.CustomerMapStore
 	result.customerGroup = customer.GetCustomerGroup()
 	result.customerGroupRelation = customer.GetCustomerGroupRelation()
-	result.person = person.GetPersons()
+	result.person = person.GetPerson.Do()
 	result.countries = country.GetCountry.GetCountry()
 	result.cities = city.GetCityPool.GetCities()
 	return result

@@ -10,7 +10,10 @@ type storageMemory struct {
 	PersonData []*protocol.Person
 }
 
-//type storageMemory protocol.PersonStorage
+var (
+	storage storageMemory
+	_       protocol.PersonServices = &storage
+)
 
 func (allPerson *storageMemory) GetPersons() []*protocol.Person {
 	return allPerson.PersonData

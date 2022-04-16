@@ -34,7 +34,7 @@ type resultReport struct {
 	Description  string
 }
 
-func (allData *contactReportPool) CreateContactReport() (result []resultReport, err error) {
+func (cr *contactReportPool) Do() (result []resultReport, err error) {
 	allContact := contact.GetPool.GetContacts()
 	for _, contact := range allContact {
 		if contact.CellphoneCollection == nil {
@@ -69,7 +69,7 @@ func (allData *contactReportPool) CreateContactReport() (result []resultReport, 
 	return result, nil
 }
 
-func (allData *contactReportPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (cr *contactReportPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "GET")
@@ -80,7 +80,7 @@ func (allData *contactReportPool) ServeHTTP(w http.ResponseWriter, r *http.Reque
 			Message string
 		}{400, "method not support"})
 	} else {
-		if result, err := allData.CreateContactReport(); err != nil {
+		if result, err := cr.Do(); err != nil {
 			json.NewEncoder(w).Encode(struct {
 				State   uint
 				Message string

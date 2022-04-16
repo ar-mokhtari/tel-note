@@ -6,8 +6,6 @@ import (
 )
 
 func Init() {
-	var personObject storageMemory
-	storage = &personObject
-
 	http.Handle(env.FindOnePersonByIdR, &ServPersonRoute)
+	http.Handle(env.ListOfPersonR, &GetPerson)
 }
