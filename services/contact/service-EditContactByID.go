@@ -7,18 +7,18 @@ import (
 	"tel-note/protocol"
 )
 
-type contactEditPool struct{}
+type editContact struct{}
 
-var EditPool contactEditPool
+var EditContact editContact
 
-func (allData *contactEditPool) EditContactByID(newData protocol.Contact, ID uint) *protocol.ResponseStatus {
+func (ec *editContact) EditContactByID(newData protocol.Contact, ID uint) *protocol.ResponseStatus {
 	if storage.EditContactByID(newData, ID) {
 		return &protocol.ResponseStatus{State: true}
 	}
 	return &protocol.ResponseStatus{State: true, String: "not found"}
 }
 
-func (allData *contactEditPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (ec *editContact) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	ID := r.Header.Get("ID")
 	PersonID := r.Header.Get("PersonID")
@@ -52,7 +52,7 @@ func (allData *contactEditPool) ServeHTTP(w http.ResponseWriter, r *http.Request
 		Description:         Description,
 	}
 	_, uintID := convertor.StrToUint(ID)
-	if status := allData.EditContactByID(result, uintID); status.State {
+	if status := ec.EditContactByID(result, uintID); status.State {
 		json.NewEncoder(w).Encode(struct {
 			State   int
 			Message string

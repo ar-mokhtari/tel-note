@@ -10,10 +10,10 @@ type callCountry struct{}
 
 var CallCountry callCountry
 
-func (allCountry *callCountry) Do() []*protocol.Country {
+func (cc *callCountry) Do() []*protocol.Country {
 	return storage.CallCountry()
 }
-func (allCountry *callCountry) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (cc *callCountry) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(allCountry.Do())
+	json.NewEncoder(w).Encode(cc.Do())
 }

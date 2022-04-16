@@ -6,6 +6,6 @@ import (
 )
 
 func Init() {
-	http.Handle(env.FindOnePersonByIdR, &ServPersonRoute)
+	http.Handle(env.FindOnePersonByIdR, &FindPersonID)
 	http.Handle(env.ListOfPersonR, &GetPerson)
 }

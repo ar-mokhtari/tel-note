@@ -7,22 +7,22 @@ import (
 	"tel-note/protocol"
 )
 
-type contactFindIDContactPool struct{}
+type findContactID struct{}
 
-var FindByIDPool contactFindIDContactPool
+var FindContactID findContactID
 
-func (allData *contactFindIDContactPool) FindContactByID(id uint) (protocol.ResponseStatus, protocol.Contact) {
+func (fci *findContactID) FindContactByID(id uint) (protocol.ResponseStatus, protocol.Contact) {
 	if state, data := storage.FindContactByID(id); state {
 		return protocol.ResponseStatus{State: true}, data
 	}
 	return protocol.ResponseStatus{State: false}, protocol.Contact{}
 }
 
-func (allData *contactFindIDContactPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (fci *findContactID) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	id := r.FormValue("id")
 	_, uintID := convertor.StrToUint(id)
-	if status, result := allData.FindContactByID(uintID); status.State {
+	if status, result := fci.FindContactByID(uintID); status.State {
 		json.NewEncoder(w).Encode(struct {
 			Status      int
 			ContactData protocol.Contact

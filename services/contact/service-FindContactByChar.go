@@ -6,21 +6,21 @@ import (
 	"tel-note/protocol"
 )
 
-type contactFindCharContactPool struct{}
+type findContactChar struct{}
 
-var FindByCharPool contactFindCharContactPool
+var FindContactChar findContactChar
 
-func (allData *contactFindCharContactPool) FindContactByChar(insertChar string) (bool, []*protocol.Contact, uint) {
+func (fcc *findContactChar) FindContactByChar(insertChar string) (bool, []*protocol.Contact, uint) {
 	if resultData, data := storage.FindContactByChar(insertChar); resultData {
 		return true, data, uint(len(data))
 	}
 	return false, []*protocol.Contact{}, 0
 }
 
-func (allData *contactFindCharContactPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (fcc *findContactChar) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	char := r.Header.Get("char")
-	if status, result, count := allData.FindContactByChar(char); status {
+	if status, result, count := fcc.FindContactByChar(char); status {
 		json.NewEncoder(w).Encode(struct {
 			Status      int
 			ResultCount uint

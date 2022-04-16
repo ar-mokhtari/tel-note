@@ -14,9 +14,9 @@ import (
 	"time"
 )
 
-type contactReportPool struct{}
+type contactReport struct{}
 
-var ContactReportPool contactReportPool
+var ContactReport contactReport
 
 type resultReport struct {
 	ID           uint //Contact ID
@@ -34,15 +34,15 @@ type resultReport struct {
 	Description  string
 }
 
-func (cr *contactReportPool) Do() (result []resultReport, err error) {
-	allContact := contact.GetPool.GetContacts()
+func (cr *contactReport) Do() (result []resultReport, err error) {
+	allContact := contact.GetContact.Do()
 	for _, contact := range allContact {
 		if contact.CellphoneCollection == nil {
 			contact.CellphoneCollection = []protocol.CellPhone{{CellPhone: "", Description: ""}}
 		}
-		if err, personInfo := person.FindPersonByID(contact.PersonID); err.State {
+		if err, personInfo := person.FindPersonID.Do(contact.PersonID); err.State {
 			if err, jobInfo := job.FindJobByID(contact.JobID); err.State {
-				if err, cityInfo := city.FindCityIDPool.FindCityByID(jobInfo.LocationID); err.State {
+				if err, cityInfo := city.FindCityID.FindCityByID(jobInfo.LocationID); err.State {
 					if sexInfo, err := sex.FindSexByID(uint8(personInfo.GenderID)); err.State {
 						result = append(result, resultReport{
 							ID:           contact.Id,
@@ -69,7 +69,7 @@ func (cr *contactReportPool) Do() (result []resultReport, err error) {
 	return result, nil
 }
 
-func (cr *contactReportPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (cr *contactReport) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "GET")

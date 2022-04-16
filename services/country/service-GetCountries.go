@@ -6,20 +6,20 @@ import (
 	"tel-note/protocol"
 )
 
-type countryGetPool struct{}
+type getCountry struct{}
 
-var GetCountry countryGetPool
+var GetCountry getCountry
 
-func (allData *countryGetPool) GetCountry() []*protocol.Country {
+func (gc *getCountry) Do() []*protocol.Country {
 	return storage.GetCountry()
 }
 
-func (allData *countryGetPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (gc *getCountry) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "GET")
 	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
-	result := allData.GetCountry()
+	result := gc.Do()
 	json.NewEncoder(w).Encode(struct {
 		State       uint
 		ResultCount uint

@@ -8,22 +8,22 @@ import (
 	"tel-note/protocol"
 )
 
-type servPersonRoute struct{}
+type findPersonID struct{}
 
-var ServPersonRoute servPersonRoute
+var FindPersonID findPersonID
 
-func FindPersonByID(ID uint) (state protocol.ResponseStatus, result protocol.Person) {
+func (fpi *findPersonID) Do(ID uint) (state protocol.ResponseStatus, result protocol.Person) {
 	if status, res := storage.FindPersonByID(ID); status {
 		return protocol.ResponseStatus{State: true}, res
 	}
 	return protocol.ResponseStatus{State: false}, protocol.Person{}
 }
 
-func (servPerson *servPersonRoute) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (fpi *findPersonID) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	personID := r.FormValue("pid")
 	personUID, _ := strconv.ParseUint(personID, 10, 8)
-	if status, data := FindPersonByID(uint(personUID)); status.State {
+	if status, data := fpi.Do(uint(personUID)); status.State {
 		json.NewEncoder(w).Encode(data)
 	} else {
 		fmt.Fprintf(w, "not found")

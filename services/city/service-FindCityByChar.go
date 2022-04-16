@@ -12,14 +12,14 @@ type findByCharService struct{}
 
 var FindByCharService findByCharService
 
-func (allData *findByCharService) FindCityByChar(inputChar string) (protocol.ResponseStatus, []uint) {
+func (fcs *findByCharService) FindCityByChar(inputChar string) (protocol.ResponseStatus, []uint) {
 	if state, data := storage.FindCityByChar(inputChar); state {
 		return protocol.ResponseStatus{State: true}, data
 	}
 	return protocol.ResponseStatus{State: false}, []uint{}
 }
 
-func (allData *findByCharService) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (fcs *findByCharService) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	var char struct {
 		Char string `json:"char"`
@@ -28,7 +28,7 @@ func (allData *findByCharService) ServeHTTP(w http.ResponseWriter, r *http.Reque
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	if status, data := allData.FindCityByChar(char.Char); status.State {
+	if status, data := fcs.FindCityByChar(char.Char); status.State {
 		var dataResult []protocol.City
 		for _, result := range data {
 			_, city := storage.FindCityByID(result)

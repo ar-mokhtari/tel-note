@@ -24,16 +24,16 @@ type AllDataCollection struct {
 }
 type getData struct{}
 
-var GetDataStruct getData
+var GetData getData
 
-func (fillData *getData) DoGetData() (result AllDataCollection) {
-	result.contact = contact.GetPool.GetContacts()
+func (fillData *getData) Do() (result AllDataCollection) {
+	result.contact = contact.GetContact.Do()
 	result.customer = globalVars.CustomerMapStore
 	result.customerGroup = customer.GetCustomerGroup()
 	result.customerGroupRelation = customer.GetCustomerGroupRelation()
 	result.person = person.GetPerson.Do()
-	result.countries = country.GetCountry.GetCountry()
-	result.cities = city.GetCityPool.GetCities()
+	result.countries = country.GetCountry.Do()
+	result.cities = city.GetCity.Do()
 	return result
 }
 
@@ -42,7 +42,7 @@ func (fillData *getData) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "GET")
 	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
-	result := fillData.DoGetData()
+	result := fillData.Do()
 	json.NewEncoder(w).Encode(struct {
 		State                     uint
 		CityData                  []*protocol.City

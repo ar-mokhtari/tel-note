@@ -9,20 +9,20 @@ import (
 
 type deleteContactByID struct{}
 
-var DelContactIDPool deleteContactByID
+var DelContactID deleteContactByID
 
-func (allData *deleteContactByID) DeleteContactByID(ID uint) *protocol.ResponseStatus {
+func (dci *deleteContactByID) DeleteContactByID(ID uint) *protocol.ResponseStatus {
 	if storage.DeleteContactByID(ID) {
 		return &protocol.ResponseStatus{State: true}
 	}
 	return &protocol.ResponseStatus{State: false}
 }
 
-func (allData *deleteContactByID) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (dci *deleteContactByID) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	id := r.Header.Get("id")
 	_, uintID := convertor.StrToUint(id)
-	if state := allData.DeleteContactByID(uintID); state.State {
+	if state := dci.DeleteContactByID(uintID); state.State {
 		json.NewEncoder(w).Encode(struct {
 			State   uint
 			Message string

@@ -6,5 +6,5 @@ import (
 )
 
 func Init() {
-	http.Handle(env.ContactReportR, &ContactReportPool)
+	http.Handle(env.ContactReportR, &ContactReport)
 }

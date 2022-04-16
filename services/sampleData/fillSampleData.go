@@ -20,9 +20,9 @@ import (
 
 type fillData struct{}
 
-var FillDataStruct fillData
+var FillData fillData
 
-func (fillData *fillData) FillSimpleDataInMainData() (result [][]string, err error) {
+func (fd *fillData) FillSimpleData() (result [][]string, err error) {
 	for _, data := range env.SexDataTest {
 		sex.NewSex(*data)
 	}
@@ -34,7 +34,7 @@ func (fillData *fillData) FillSimpleDataInMainData() (result [][]string, err err
 	for _, cityPack := range cities {
 		lat, _ := strconv.ParseFloat(cityPack[6], 64)
 		lng, _ := strconv.ParseFloat(cityPack[7], 64)
-		city.NewCityPool.NewCity(protocol.City{
+		city.NewCity.NewCity(protocol.City{
 			Name:     cityPack[3],
 			AriaCode: "",
 			Lat:      lat,
@@ -58,7 +58,7 @@ func (fillData *fillData) FillSimpleDataInMainData() (result [][]string, err err
 	}
 	//contact have to locate in end list, because it's elements has dependent to upper steps (city/job/...)
 	for _, data := range env.ContactDataTest {
-		contact.NewContactPool.NewContact(*data)
+		contact.NewContact.NewContact(*data)
 	}
 	//call api test for fill countries
 	countries := country.CallCountry.Do()
@@ -68,12 +68,12 @@ func (fillData *fillData) FillSimpleDataInMainData() (result [][]string, err err
 	return cities, err
 }
 
-func (fillData *fillData) DoFillData() error {
-	_, err := fillData.FillSimpleDataInMainData()
+func (fd *fillData) Do() error {
+	_, err := fd.FillSimpleData()
 	return err
 }
 
-func (fillData *fillData) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (fd *fillData) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
@@ -84,7 +84,7 @@ func (fillData *fillData) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			Message string
 		}{400, "method not support"})
 	} else {
-		if err := fillData.DoFillData(); err != nil {
+		if err := fd.Do(); err != nil {
 			json.NewEncoder(w).Encode(struct {
 				Err string
 			}{fmt.Sprintf("error is: %v", err)})

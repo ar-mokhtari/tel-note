@@ -7,11 +7,11 @@ import (
 	"tel-note/protocol"
 )
 
-type contactPool struct{}
+type newContact struct{}
 
-var NewContactPool contactPool
+var NewContact newContact
 
-func (allData *contactPool) NewContact(inputContact protocol.Contact) (status protocol.ResponseStatus, resData []*protocol.Contact) {
+func (nc *newContact) NewContact(inputContact protocol.Contact) (status protocol.ResponseStatus, resData []*protocol.Contact) {
 	if status.State = storage.AddContact(inputContact); status.State {
 		return protocol.ResponseStatus{State: true}, resData
 	}
@@ -19,7 +19,7 @@ func (allData *contactPool) NewContact(inputContact protocol.Contact) (status pr
 
 }
 
-func (allData *contactPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (nc *newContact) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -55,7 +55,7 @@ func (allData *contactPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		Address:             Address,
 		Description:         Description,
 	}
-	if status, _ := allData.NewContact(result); status.State {
+	if status, _ := nc.NewContact(result); status.State {
 		json.NewEncoder(w).Encode(struct {
 			State   int
 			Message string

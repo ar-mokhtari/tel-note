@@ -10,18 +10,18 @@ import (
 	"tel-note/protocol"
 )
 
-type newCityPool struct{}
+type newCity struct{}
 
-var NewCityPool newCityPool
+var NewCity newCity
 
-func (allData *newCityPool) NewCity(city protocol.City) (status protocol.ResponseStatus) {
+func (nc *newCity) NewCity(city protocol.City) (status protocol.ResponseStatus) {
 	if status.State = storage.NewCity(city); status.State {
 		return protocol.ResponseStatus{State: true}
 	}
 	return protocol.ResponseStatus{State: false}
 }
 
-func (allData *newCityPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (nc *newCity) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "POST")
@@ -50,7 +50,7 @@ func (allData *newCityPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		newCity.AriaCode = inputCity.AriaCode
 		_, newCity.Lat = convertor.StrToFloat64(inputCity.Lat)
 		_, newCity.Lng = convertor.StrToFloat64(inputCity.Lng)
-		if status := allData.NewCity(*newCity); status.State {
+		if status := nc.NewCity(*newCity); status.State {
 			json.NewEncoder(w).Encode(struct {
 				Status  uint
 				Message string

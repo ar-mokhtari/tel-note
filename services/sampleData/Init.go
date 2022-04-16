@@ -6,6 +6,6 @@ import (
 )
 
 func Init() {
-	http.Handle(env.InsertSomeSamplesDataR, &FillDataStruct)
-	http.Handle(env.PrintAllDataR, &GetDataStruct)
+	http.Handle(env.InsertSomeSamplesDataR, &FillData)
+	http.Handle(env.PrintAllDataR, &GetData)
 }

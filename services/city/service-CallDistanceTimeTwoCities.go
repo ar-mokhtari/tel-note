@@ -16,16 +16,16 @@ type distanceTimeService struct{}
 
 var DistanceTimeService distanceTimeService
 
-func (handler *distanceTimeService) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (sts *distanceTimeService) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	firstCity := r.Header.Get("firstCity")
 	secondCity := r.Header.Get("secondCity")
 	_, uintFirstCity := convertor.StrToUint(firstCity)
 	_, uintSecondCity := convertor.StrToUint(secondCity)
-	firstStatus, dataFirstCity := FindCityIDPool.FindCityByID(uintFirstCity)
-	secondStatus, dataSecondCity := FindCityIDPool.FindCityByID(uintSecondCity)
+	firstStatus, dataFirstCity := FindCityID.FindCityByID(uintFirstCity)
+	secondStatus, dataSecondCity := FindCityID.FindCityByID(uintSecondCity)
 	if firstStatus.State && secondStatus.State {
-		result, state := handler.Do(dataFirstCity, dataSecondCity)
+		result, state := sts.Do(dataFirstCity, dataSecondCity)
 		if state.State {
 			json.NewEncoder(w).Encode(
 				struct {
@@ -67,7 +67,7 @@ func (handler *distanceTimeService) ServeHTTP(w http.ResponseWriter, r *http.Req
 	}
 }
 
-func (handler *distanceTimeService) Do(cityNoOne, cityNoTwo protocol.City) ([]uint, protocol.ResponseStatus) {
+func (sts *distanceTimeService) Do(cityNoOne, cityNoTwo protocol.City) ([]uint, protocol.ResponseStatus) {
 	MapParams := map[string]string{
 		"type":         "car",
 		"origins":      fmt.Sprintf("%f,%f", cityNoOne.Lat, cityNoOne.Lng),

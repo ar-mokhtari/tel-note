@@ -9,15 +9,15 @@ import (
 	"tel-note/lib/convertor"
 )
 
-type deleteCityPool struct{}
+type deleteCity struct{}
 
-var DeleteCityPool deleteCityPool
+var DeleteCity deleteCity
 
-func (allData deleteCityPool) Do(IDS []uint) []uint {
+func (dc deleteCity) Do(IDS []uint) []uint {
 	return storage.DeleteCityByID(IDS)
 }
 
-func (allData deleteCityPool) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (dc deleteCity) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	if r.Method != env.DeleteMethod {
 		json.NewEncoder(w).Encode(struct {
@@ -27,7 +27,7 @@ func (allData deleteCityPool) ServeHTTP(w http.ResponseWriter, r *http.Request) 
 	} else {
 		idsCollection := convertor.StrToSlice(r.Header.Get("ids"))
 		if err, data := convertor.StrSliceToUintSlice(idsCollection); err == nil {
-			result := allData.Do(data)
+			result := dc.Do(data)
 			json.NewEncoder(w).Encode(struct {
 				State      uint
 				DeletedIDs []uint
