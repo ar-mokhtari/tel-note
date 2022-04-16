@@ -20,8 +20,8 @@ func main() {
 		srv := &http.Server{
 			Handler:      nil,
 			Addr:         "127.0.0.1:1212",
-			WriteTimeout: 30 * time.Second,
-			ReadTimeout:  30 * time.Second,
+			WriteTimeout: 5 * time.Second,
+			ReadTimeout:  10 * time.Second,
 		}
 		//serve port 1212
 		//listen for request:
