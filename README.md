@@ -52,6 +52,7 @@ target="_blank"><img src="https://img.shields.io/badge/javascript-%23323330.svg?
 > - [ ] Create reports, listen and export official data(s) by api(s) [b2e]
 > - [ ] Build with storage(s) type tags
 > - [ ] Use general packages (lib)s
+> - [ ] Multi language service(s) 
 > - [ ] Create product wiki
 > - [ ] Create UI web application
 > - [ ] Create Mobile application (Android)
