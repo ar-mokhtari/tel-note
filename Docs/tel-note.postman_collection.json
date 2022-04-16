@@ -271,6 +271,27 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "get-person",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:1212/get-person",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"get-person"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -293,6 +314,27 @@
 							"port": "1212",
 							"path": [
 								"call-country-list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-country",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:1212/get-country",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"get-country"
 							]
 						}
 					},
@@ -369,7 +411,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"ID\" : 133333,\n    \"Name\" : \"سرزمین پاکی\" ,\n    \"EnglishName\" : \"neatland\" ,\n    \"AriaCode\" : \"13\" ,\n    \"Lat\" : 0 ,\n    \"Lng\" : 0 \n}",
+							"raw": "{\n    \"ID\" : 13,\n    \"Name\" : \"سرزمین پاکی\" ,\n    \"EnglishName\" : \"neatland\" ,\n    \"AriaCode\" : \"13\" ,\n    \"Lat\" : 0 ,\n    \"Lng\" : 0 \n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -583,6 +625,84 @@
 							"port": "1212",
 							"path": [
 								"report-contact"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "customer",
+			"item": [
+				{
+					"name": "get-customer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:1212/get-customer",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"get-customer"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "job",
+			"item": [
+				{
+					"name": "get-job",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:1212/get-job",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"get-job"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "sex",
+			"item": [
+				{
+					"name": "get-sex",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:1212/get-sex",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"get-sex"
 							]
 						}
 					},
