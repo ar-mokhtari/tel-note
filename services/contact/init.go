@@ -6,11 +6,11 @@ import (
 )
 
 func Init() {
-	http.Handle(env.NewContactRecordR, &NewContact)
-	http.Handle(env.ListOfContactR, &GetContact)
-	http.Handle(env.FindAndEditContactByContactIdR, &EditContact)
-	http.Handle(env.FindOneContactByIdR, &FindContactID)
-	http.Handle(env.FindContactContainingSomeCharacterR, &FindContactChar)
-	http.Handle(env.DeleteContactByIdR, &DelContactID)
+	http.Handle(env.ContactNewR, &NewContact)
+	http.Handle(env.ContactListR, &GetContact)
+	http.Handle(env.EditContactIdR, &EditContact)
+	http.Handle(env.ContactFindIdR, &FindContactID)
+	http.Handle(env.FindContactCharR, &FindContactChar)
+	http.Handle(env.DeleteContactIdR, &DelContactID)
 	http.Handle(env.DeleteAllContactsR, &DelAllContact)
 }

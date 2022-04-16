@@ -54,10 +54,10 @@ func RunMenu() {
 		switch identity.IsRegulator {
 		case true:
 			switch userInput {
-			case env.InsertSomeSamplesData:
+			case env.InsertData:
 				sampleData.FillData.FillSimpleData()
 				fmt.Println(env.ShowMenuWarn)
-			case env.PrintAllData:
+			case env.GetData:
 				fmt.Println(separator7)
 				fmt.Println("Contact Data:")
 				fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-v | %-12v | %-3v  \n",
@@ -155,7 +155,7 @@ func RunMenu() {
 			switch userInput {
 			case env.ShowMenuList:
 				fmt.Println(ShowMenu())
-			case env.NewContactRecord:
+			case env.ContactNew:
 				var (
 					tel, cellphone  string
 					jobID, personID uint
@@ -200,7 +200,7 @@ func RunMenu() {
 					})
 				fmt.Println(">> New contact added done <<")
 				fmt.Println(env.ShowMenuWarn)
-			case env.ListOfContact:
+			case env.ContactList:
 				fmt.Println(separator7)
 				fmt.Println("Contact Data:")
 				fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-v | %-12v | %-3v  \n",
@@ -219,7 +219,7 @@ func RunMenu() {
 						data.Id, data.PersonID, person.FirstName, person.LastName, data.JobID, job.Name, gender.Name, (data.CellphoneCollection)[0].CellPhone, job.LocationID, city.Name, data.Description)
 				}
 				fmt.Println(env.ShowMenuWarn)
-			case env.FindOneContactById:
+			case env.ContactFindId:
 				var id uint
 				fmt.Println("Please insert your contact ID:")
 				fmt.Scanln(&id)
@@ -241,7 +241,7 @@ func RunMenu() {
 					fmt.Println("not found")
 				}
 				fmt.Println(env.ShowMenuWarn)
-			case env.FindContactContainingSomeCharacter:
+			case env.FindContactChar:
 				var insertChar string
 				fmt.Println("insert character(s):")
 				fmt.Scanln(&insertChar)
@@ -266,7 +266,7 @@ func RunMenu() {
 					}
 				}
 				fmt.Println(env.ShowMenuWarn)
-			case env.FindAndEditContactByContactId:
+			case env.EditContactId:
 				var (
 					insertContactID, jobID, personID uint
 					tel, cellphone                   string
@@ -327,7 +327,7 @@ func RunMenu() {
 					fmt.Printf("contact no %v updated", insertContactID)
 				}
 				fmt.Println(env.ShowMenuWarn)
-			case env.DeleteContactById:
+			case env.DeleteContactId:
 				var confirmDel string
 				fmt.Println("*** important, be careful, you are deleting a contact ***")
 				fmt.Println("do you want to continue? (yes or no)")
@@ -355,7 +355,7 @@ func RunMenu() {
 					fmt.Println(resultStatus.String)
 				}
 				fmt.Println(env.ShowMenuWarn)
-			case env.DeleteMultiContactByIds:
+			case env.DeleteMultiContact:
 				var confirmDel string
 				fmt.Println("*** important, be careful, you are deleting contact(s) ***")
 				fmt.Println("do you want to continue? (yes or no)")
@@ -385,7 +385,7 @@ func RunMenu() {
 				groupName = scanner.Text()
 				customer.NewGroup(groupName)
 				fmt.Println(env.ShowMenuWarn)
-			case env.NewCustomerGRelation:
+			case env.NewCustGRelation:
 				var customerID, groupID uint
 				fmt.Println("insert customerID:")
 				fmt.Scanln(&customerID)
@@ -403,7 +403,7 @@ func RunMenu() {
 						group.GroupID, group.GroupName)
 				}
 				fmt.Println(env.ShowMenuWarn)
-			case env.CustomerGroupRelationList:
+			case env.CustGRelationList:
 				fmt.Println(separator7)
 				fmt.Println("Customer group relation Data:")
 				fmt.Printf("%3v | %-25s | %-13v | %-45s   \n", "Id", "Groupname", "CustomerID", "FullName")
@@ -416,7 +416,7 @@ func RunMenu() {
 						relation.ID, groupObject.GroupName, relation.CustomerID, personObject.FirstName+" "+personObject.LastName)
 				}
 				fmt.Println(env.ShowMenuWarn)
-			case env.FindCustomerByGroupID:
+			case env.FindCustGroupID:
 				var groupID uint
 				fmt.Println("insert group id:")
 				fmt.Scanln(&groupID)
@@ -458,7 +458,7 @@ func RunMenu() {
 						ID, person.FirstName, person.LastName, data.PersonID, (data.CreateAt).String()[0:19], (data.UpdatedAt).String()[0:19], data.Description)
 				}
 				fmt.Println(env.ShowMenuWarn)
-			case env.EditCustomerByCustomerId:
+			case env.EditCustomer:
 				var customerID, personID uint
 				var description string
 				fmt.Println("insert customer id")
@@ -472,7 +472,7 @@ func RunMenu() {
 					Description: description,
 				})
 				fmt.Println(env.ShowMenuWarn)
-			case env.DeleteCustomerById:
+			case env.DeleteCustomer:
 				var confirmDel string
 				fmt.Println("*** important, be careful, you are deleting customer(s) ***")
 				fmt.Println("do you want to continue? (yes or no)")
@@ -573,7 +573,7 @@ func RunMenu() {
 					fmt.Println("not found")
 				}
 				fmt.Println(env.ShowMenuWarn)
-			case env.FindPersonContainingSomeCharacter:
+			case env.FindPersonChar:
 				fmt.Println("insert character")
 				scanner.Scan()
 				if state, data := person.FindPersonByChar(scanner.Text()); state.State {
@@ -592,7 +592,7 @@ func RunMenu() {
 					}
 				}
 				fmt.Println(env.ShowMenuWarn)
-			case env.FindAndEditPersonByPersonId:
+			case env.EditPerson:
 				fmt.Println("insert person id to (find and) edit")
 				var personID uint
 				fmt.Scanln(&personID)
@@ -668,7 +668,7 @@ func RunMenu() {
 				}
 				fmt.Println("not found")
 				fmt.Println(env.ShowMenuWarn)
-			case env.DeletePersonById:
+			case env.DeletePerson:
 				var confirmDel string
 				fmt.Println("*** important, be careful, you are deleting person(s) ***")
 				fmt.Println("do you want to continue? (yes or no)")
@@ -687,7 +687,7 @@ func RunMenu() {
 					fmt.Printf("%v person(s) has been deleted", resNums)
 				}
 				fmt.Println(env.ShowMenuWarn)
-			case env.DeleteMultiPersonByIds:
+			case env.DeleteMultiPerson:
 				//some code
 				fmt.Println(env.ShowMenuWarn)
 			case env.DeleteAllPersons:

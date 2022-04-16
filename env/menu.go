@@ -10,67 +10,73 @@ const (
 	MenuR = "/menu-list"
 
 	//contact
-	NewContactRecord  = "N"
-	NewContactRecordD = "new contact"
-	NewContactRecordR = "/new-contact"
+	Contact = "contact"
 
-	ListOfContact  = "L"
-	ListOfContactD = "list of contact"
-	ListOfContactR = "/get-contact"
+	ContactNew  = "N"
+	ContactNewD = "new contact"
+	ContactNewR = "/new-contact"
 
-	FindOneContactById  = "F"
-	FindOneContactByIdD = "find contact by id"
-	FindOneContactByIdR = "/find-contact-id"
+	ContactList  = "L"
+	ContactListD = "list of contact"
+	ContactListR = "/get-contact"
 
-	FindContactContainingSomeCharacter  = "FC"
-	FindContactContainingSomeCharacterD = "find contact by char"
-	FindContactContainingSomeCharacterR = "/find-contact-char"
+	ContactFindId  = "F"
+	ContactFindIdD = "find contact by id"
+	ContactFindIdR = "/find-contact-id"
 
-	FindAndEditContactByContactId  = "E"
-	FindAndEditContactByContactIdD = "edit contact"
-	FindAndEditContactByContactIdR = "/edit-contact"
+	FindContactChar  = "FC"
+	FindContactCharD = "find contact by char"
+	FindContactCharR = "/find-contact-char"
 
-	DeleteContactById  = "D"
-	DeleteContactByIdD = "delete contact by id"
-	DeleteContactByIdR = "/delete-contact-id"
+	EditContactId  = "E"
+	EditContactIdD = "edit contact"
+	EditContactIdR = "/edit-contact"
 
-	DeleteMultiContactByIds  = "DM"
-	DeleteMultiContactByIdsD = "delete multi contact"
-	DeleteMultiContactByIdsR = ""
+	DeleteContactId  = "D"
+	DeleteContactIdD = "delete contact by id"
+	DeleteContactIdR = "/delete-contact-id"
+
+	DeleteMultiContact  = "DM"
+	DeleteMultiContactD = "delete multi contact"
+	DeleteMultiContactR = ""
 
 	DeleteAllContacts  = "DA"
 	DeleteAllContactsD = "delete all contact"
 	DeleteAllContactsR = "/delete-contact-all"
 
 	//sample data
-	InsertSomeSamplesData  = "DATA"
-	InsertSomeSamplesDataD = "insert some sample data "
-	InsertSomeSamplesDataR = "/fill-data"
+	SampleData  = "sample data"
+	InsertData  = "DATA"
+	InsertDataD = "insert some sample data "
+	InsertDataR = "/fill-data"
 
-	PrintAllData  = "ALL"
-	PrintAllDataD = "get all data"
-	PrintAllDataR = "/get-data"
+	GetData  = "ALL"
+	GetDataD = "get all data"
+	GetDataR = "/get-data"
 
 	//customer
+	Customer      = "Customer"
+	CustomerGroup = "Customer group"
+
 	NewCustomerGroup  = "NCUG"
 	NewCustomerGroupD = "new customer group"
 	NewCustomerGroupR = ""
 
-	NewCustomerGRelation  = "NCUGR"
-	NewCustomerGRelationD = "new customer group relation"
-	NewCustomerGRelationR = ""
+	NewCustGRelation  = "NCUGR"
+	NewCustGRelationD = "new customer group relation"
+	NewCustGRelationR = ""
 
 	CustomerGroupList  = "CUGL"
 	CustomerGroupListD = "customer group list"
 	CustomerGroupListR = ""
 
-	CustomerGroupRelationList  = "CUGRL"
-	CustomerGroupRelationListD = "customer group relation"
-	CustomerGroupRelationListR = ""
+	CustGRelationList  = "CUGRL"
+	CustGRelationListD = "customer group relation"
+	CustGRelationListR = ""
 
-	FindCustomerByGroupID  = "FCUBG"
-	FindCustomerByGroupIDD = "find customer by id"
-	FindCustomerByGroupIDR = ""
+	FindCustGroupID  = "FCUBG"
+	FindCustGroupIDD = "find customer by id"
+	FindCustGroupIDR = ""
 
 	NewCustomer  = "NCU"
 	NewCustomerD = "new customer"
@@ -80,23 +86,24 @@ const (
 	ListOfCustomerD = "list of customers"
 	ListOfCustomerR = "/get-customer"
 
-	EditCustomerByCustomerId  = "ECU"
-	EditCustomerByCustomerIdD = "edit customer"
-	EditCustomerByCustomerIdR = ""
+	EditCustomer  = "ECU"
+	EditCustomerD = "edit customer"
+	EditCustomerR = ""
 
-	DeleteCustomerById  = "DCU"
-	DeleteCustomerByIdD = "delete customer"
-	DeleteCustomerByIdR = ""
+	DeleteCustomer  = "DCU"
+	DeleteCustomerD = "delete customer"
+	DeleteCustomerR = ""
 
-	DeleteMultiCustomerByIds  = "DMCU"
-	DeleteMultiCustomerByIdsD = "delete multi customer"
-	DeleteMultiCustomerByIdsR = ""
+	DeleteMultiCust  = "DMCU"
+	DeleteMultiCustD = "delete multi customer"
+	DeleteMultiCustR = ""
 
 	DeleteAllCustomers  = "DACU"
 	DeleteAllCustomersD = "delete all customer"
 	DeleteAllCustomersR = ""
 
 	//person
+	Person     = "Person"
 	NewPerson  = "NP"
 	NewPersonD = "new person"
 	NewPersonR = ""
@@ -109,27 +116,28 @@ const (
 	FindOnePersonByIdD = "find person by id"
 	FindOnePersonByIdR = "find-person-id"
 
-	FindPersonContainingSomeCharacter  = "FPC"
-	FindPersonContainingSomeCharacterD = "find person by char"
-	FindPersonContainingSomeCharacterR = ""
+	FindPersonChar  = "FPC"
+	FindPersonCharD = "find person by char"
+	FindPersonCharR = ""
 
-	FindAndEditPersonByPersonId  = "EP"
-	FindAndEditPersonByPersonIdD = "edit person"
-	FindAndEditPersonByPersonIdR = ""
+	EditPerson  = "EP"
+	EditPersonD = "edit person"
+	EditPersonR = ""
 
-	DeletePersonById  = "DP"
-	DeletePersonByIdD = "delete person"
-	DeletePersonByIdR = ""
+	DeletePerson  = "DP"
+	DeletePersonD = "delete person"
+	DeletePersonR = ""
 
-	DeleteMultiPersonByIds  = "DMP"
-	DeleteMultiPersonByIdsD = "delete multi person(s)"
-	DeleteMultiPersonByIdsR = ""
+	DeleteMultiPerson  = "DMP"
+	DeleteMultiPersonD = "delete multi person(s)"
+	DeleteMultiPersonR = ""
 
 	DeleteAllPersons  = "DAP"
 	DeleteAllPersonsD = "delete all person(s)"
 	DeleteAllPersonsR = ""
 
 	//city
+	City           = "city"
 	InsertNewCity  = "NC"
 	InsertNewCityD = "insert new city"
 	InsertNewCityR = "/add-city"
@@ -159,6 +167,8 @@ const (
 	CallDistanceTimeTwoCitiesD = "find distance/time online traffic two cities"
 
 	//country
+	Country = "country"
+
 	AddCountry  = "ACOU"
 	AddCountryD = "new country"
 	AddCountryR = ""
@@ -184,6 +194,8 @@ const (
 	CountriesCallR = "/call-country-list"
 
 	//job
+	Job = "Job"
+
 	InsertNewJob  = "NJ"
 	InsertNewJobD = "new job"
 	InsertNewJobR = ""
@@ -201,6 +213,7 @@ const (
 	ListOfJobR = "/get-job"
 
 	//sex
+	Sex           = "sex"
 	InsertNewSex  = "NS"
 	InsertNewSexD = "new sex"
 	InsertNewSexR = ""
@@ -223,11 +236,14 @@ const (
 	CheckIranNationalCodeR = "/check-national-id"
 
 	//reports
+	Report = "reports"
+
 	ContactReport  = ""
 	ContactReportD = "contact general report"
 	ContactReportR = "/report-contact"
 
-	RESET  = "RESET"
-	RESETD = ""
-	RESETR = ""
+	General = "general"
+	RESET   = "RESET"
+	RESETD  = ""
+	RESETR  = ""
 )

@@ -47,7 +47,7 @@ func (fd *fillData) FillSimpleData() (result [][]string, err error) {
 	for _, data := range env.PersonDataTest {
 		person.NewPerson(*data)
 	}
-	for _, data := range env.CustomerGroup {
+	for _, data := range env.CustomerGroupExm {
 		customer.NewGroup(data.GroupName)
 	}
 	for _, data := range env.CustomerRelation {

@@ -6,42 +6,42 @@ import (
 
 var (
 	GlobalMenu = protocol.Menu{Group: []protocol.MenuGroup{
-		{"Contact", []protocol.MenuDetail{
-			{NewContactRecord, NewContactRecordD, NewContactRecordR, DataEntryTypeForm},
-			{ListOfContact, ListOfContactD, ListOfContactR, ListTypeForm},
-			{FindOneContactById, FindOneContactByIdD, FindOneContactByIdR, ActionType},
-			{FindContactContainingSomeCharacter, FindContactContainingSomeCharacterD, FindContactContainingSomeCharacterR, ActionType},
-			{FindAndEditContactByContactId, FindAndEditContactByContactIdD, FindAndEditContactByContactIdR, DataEntryTypeForm},
-			{DeleteContactById, DeleteContactByIdD, DeleteContactByIdR, ActionType},
-			{DeleteMultiContactByIds, DeleteMultiContactByIdsD, DeleteMultiContactByIdsR, ActionType},
+		{Contact, []protocol.MenuDetail{
+			{ContactNew, ContactNewD, ContactNewR, DataEntryTypeForm},
+			{ContactList, ContactListD, ContactListR, ListTypeForm},
+			{ContactFindId, ContactFindIdD, ContactFindIdR, ActionType},
+			{FindContactChar, FindContactCharD, FindContactCharR, ActionType},
+			{EditContactId, EditContactIdD, EditContactIdR, DataEntryTypeForm},
+			{DeleteContactId, DeleteContactIdD, DeleteContactIdR, ActionType},
+			{DeleteMultiContact, DeleteMultiContactD, DeleteMultiContactR, ActionType},
 			{DeleteAllContacts, DeleteAllContactsD, DeleteAllContactsR, ActionType},
 		}},
-		{"Customer group", []protocol.MenuDetail{
+		{CustomerGroup, []protocol.MenuDetail{
 			{NewCustomerGroup, NewCustomerGroupD, NewCustomerGroupR, DataEntryTypeForm},
-			{NewCustomerGRelation, NewCustomerGRelationD, NewCustomerGRelationR, DataEntryTypeForm},
+			{NewCustGRelation, NewCustGRelationD, NewCustGRelationR, DataEntryTypeForm},
 			{CustomerGroupList, CustomerGroupListD, CustomerGroupListR, ListTypeForm},
-			{CustomerGroupRelationList, CustomerGroupRelationListD, CustomerGroupRelationListR, ListTypeForm},
-			{FindCustomerByGroupID, FindCustomerByGroupIDD, FindCustomerByGroupIDR, ActionType},
+			{CustGRelationList, CustGRelationListD, CustGRelationListR, ListTypeForm},
+			{FindCustGroupID, FindCustGroupIDD, FindCustGroupIDR, ActionType},
 		}},
-		{"Customer", []protocol.MenuDetail{
+		{Customer, []protocol.MenuDetail{
 			{NewCustomer, NewCustomerD, NewCustomerR, DataEntryTypeForm},
 			{ListOfCustomer, ListOfCustomerD, ListOfCustomerR, ListTypeForm},
-			{EditCustomerByCustomerId, EditCustomerByCustomerIdD, EditCustomerByCustomerIdR, DataEntryTypeForm},
-			{DeleteCustomerById, DeleteCustomerByIdD, DeleteCustomerByIdR, ActionType},
-			{DeleteMultiCustomerByIds, DeleteMultiCustomerByIdsD, DeleteMultiCustomerByIdsR, ActionType},
+			{EditCustomer, EditCustomerD, EditCustomerR, DataEntryTypeForm},
+			{DeleteCustomer, DeleteCustomerD, DeleteCustomerR, ActionType},
+			{DeleteMultiCust, DeleteMultiCustD, DeleteMultiCustR, ActionType},
 			{DeleteAllCustomers, DeleteAllCustomersD, DeleteAllCustomersR, ActionType},
 		}},
-		{"Person", []protocol.MenuDetail{
+		{Person, []protocol.MenuDetail{
 			{NewPerson, NewPersonD, NewPersonR, DataEntryTypeForm},
 			{ListOfPerson, ListOfPersonD, ListOfPersonR, ListTypeForm},
 			{FindOnePersonById, FindOnePersonByIdD, FindOnePersonByIdR, ActionType},
-			{FindPersonContainingSomeCharacter, FindPersonContainingSomeCharacterD, FindPersonContainingSomeCharacterR, ActionType},
-			{FindAndEditPersonByPersonId, FindAndEditPersonByPersonIdD, FindAndEditPersonByPersonIdR, DataEntryTypeForm},
-			{DeletePersonById, DeletePersonByIdD, DeletePersonByIdR, ActionType},
-			{DeleteMultiPersonByIds, DeleteMultiPersonByIdsD, DeleteMultiPersonByIdsR, ActionType},
+			{FindPersonChar, FindPersonCharD, FindPersonCharR, ActionType},
+			{EditPerson, EditPersonD, EditPersonR, DataEntryTypeForm},
+			{DeletePerson, DeletePersonD, DeletePersonR, ActionType},
+			{DeleteMultiPerson, DeleteMultiPersonD, DeleteMultiPersonR, ActionType},
 			{DeleteAllPersons, DeleteAllPersonsD, DeleteAllPersonsR, ActionType},
 		}},
-		{"Country", []protocol.MenuDetail{
+		{Country, []protocol.MenuDetail{
 			{AddCountry, AddCountryD, AddCountryR, DataEntryTypeForm},
 			{EditCountry, EditCountryD, EditCountryR, DataEntryTypeForm},
 			{DeleteCountry, DeleteCountryD, DeleteCountryR, ActionType},
@@ -49,7 +49,7 @@ var (
 			{CountriesList, CountriesListD, CountriesListR, ListTypeForm},
 			{CountriesCall, CountriesCallD, CountriesCallR, ActionType},
 		}},
-		{"City", []protocol.MenuDetail{
+		{City, []protocol.MenuDetail{
 			{ListOfCities, ListOfCitiesD, ListOfCitiesR, ListTypeForm},
 			{InsertNewCity, InsertNewCityD, InsertNewCityR, DataEntryTypeForm},
 			{EditCityById, EditCityByIdD, EditCityByIdR, DataEntryTypeForm},
@@ -58,26 +58,26 @@ var (
 			{DeleteCityById, DeleteCityByIdD, DeleteCityByIdR, ActionType},
 			{CallDistanceTimeTwoCities, CallDistanceTimeTwoCitiesD, CallDistanceTimeTwoCitiesR, ReportTypeForm},
 		}},
-		{"Job", []protocol.MenuDetail{
+		{Job, []protocol.MenuDetail{
 			{InsertNewJob, InsertNewJobD, InsertNewJobR, DataEntryTypeForm},
 			{EditJobById, EditJobByIdD, EditJobByIdR, DataEntryTypeForm},
 			{DeleteJobById, DeleteJobByIdD, DeleteJobByIdR, ActionType},
 			{ListOfJob, ListOfJobD, ListOfJobR, ListTypeForm},
 		}},
-		{"Sex Menu", []protocol.MenuDetail{
+		{Sex, []protocol.MenuDetail{
 			{InsertNewSex, InsertNewSexD, InsertNewSexR, DataEntryTypeForm},
 			{ListOfSex, ListOfSexD, ListOfSexR, ListTypeForm},
 			{EditSex, EditSexD, EditSexR, DataEntryTypeForm},
 			{DeleteSex, DeleteSexD, DeleteSexR, ActionType},
 		}},
-		{"Sample data", []protocol.MenuDetail{
-			{InsertSomeSamplesData, InsertSomeSamplesDataD, InsertSomeSamplesDataR, DataEntryTypeForm},
-			{PrintAllData, PrintAllDataD, PrintAllDataR, ReportTypeForm},
+		{SampleData, []protocol.MenuDetail{
+			{InsertData, InsertDataD, InsertDataR, DataEntryTypeForm},
+			{GetData, GetDataD, GetDataR, ReportTypeForm},
 		}},
-		{"Reports", []protocol.MenuDetail{
+		{Report, []protocol.MenuDetail{
 			{ContactReport, ContactReportD, ContactReportR, ReportTypeForm},
 		}},
-		{"General", []protocol.MenuDetail{
+		{General, []protocol.MenuDetail{
 			{CheckIranNationalCode, CheckIranNationalCodeD, CheckIranNationalCodeR, ListTypeForm},
 			{RESET, RESETD, RESETR, ActionType},
 		}},

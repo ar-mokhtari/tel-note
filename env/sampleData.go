@@ -146,7 +146,7 @@ var (
 	RezaCust     = protocol.Customer{PersonID: 5, Description: "none"}
 	FrankCust    = protocol.Customer{PersonID: 7, Description: "---"}
 
-	CustomerGroup = protocol.CustomerGroupStorage{
+	CustomerGroupExm = protocol.CustomerGroupStorage{
 		&protocol.CustomerGroup{GroupID: 1, GroupName: "Real Customers"},
 		&protocol.CustomerGroup{GroupID: 2, GroupName: "Legal Customers"},
 	}
