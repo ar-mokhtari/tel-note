@@ -78,7 +78,7 @@ var (
 			{ContactReport, ContactReportD, ContactReportR, ReportTypeForm},
 		}},
 		{General, []protocol.MenuDetail{
-			{CheckIranNationalCode, CheckIranNationalCodeD, CheckIranNationalCodeR, ListTypeForm},
+			{CheckIranNationalCode, CheckIranNationalCodeD, CheckIranNationalCodeR, ActionType},
 			{RESET, RESETD, RESETR, ActionType},
 		}},
 	}}
