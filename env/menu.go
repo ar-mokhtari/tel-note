@@ -68,11 +68,11 @@ const (
 
 	CustomerGroupList  = "CUGL"
 	CustomerGroupListD = "customer group list"
-	CustomerGroupListR = ""
+	CustomerGroupListR = "/get-customer-group"
 
 	CustGRelationList  = "CUGRL"
 	CustGRelationListD = "customer group relation"
-	CustGRelationListR = ""
+	CustGRelationListR = "/get-cust-g-relation"
 
 	FindCustGroupID  = "FCUBG"
 	FindCustGroupIDD = "find customer by id"
@@ -82,9 +82,9 @@ const (
 	NewCustomerD = "new customer"
 	NewCustomerR = ""
 
-	ListOfCustomer  = "LCU"
-	ListOfCustomerD = "list of customers"
-	ListOfCustomerR = "/get-customer"
+	CustomerList  = "LCU"
+	CustomerListD = "list of customers"
+	CustomerListR = "/get-customer"
 
 	EditCustomer  = "ECU"
 	EditCustomerD = "edit customer"
@@ -98,9 +98,9 @@ const (
 	DeleteMultiCustD = "delete multi customer"
 	DeleteMultiCustR = ""
 
-	DeleteAllCustomers  = "DACU"
-	DeleteAllCustomersD = "delete all customer"
-	DeleteAllCustomersR = ""
+	DeleteAllCust  = "DACU"
+	DeleteAllCustD = "delete all customer"
+	DeleteAllCustR = ""
 
 	//person
 	Person     = "Person"
@@ -186,7 +186,7 @@ const (
 	FindCountryByCharR = ""
 
 	CountriesList  = "COUL"
-	CountriesListD = "get country(ies)"
+	CountriesListD = "list of country(ies)"
 	CountriesListR = "/get-country"
 
 	CountriesCall  = "COUC"

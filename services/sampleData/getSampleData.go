@@ -26,23 +26,23 @@ type getData struct{}
 
 var GetData getData
 
-func (fillData *getData) Do() (result AllDataCollection) {
+func (fd *getData) Do() (result AllDataCollection) {
 	result.contact = contact.GetContact.Do()
 	result.customer = globalVars.CustomerMapStore
-	result.customerGroup = customer.GetCustomerGroup()
-	result.customerGroupRelation = customer.GetCustomerGroupRelation()
+	result.customerGroup = customer.GetCustomerGroup.Do()
+	result.customerGroupRelation = customer.GetCustomerGroupRelation.Do()
 	result.person = person.GetPerson.Do()
 	result.countries = country.GetCountry.Do()
 	result.cities = city.GetCity.Do()
 	return result
 }
 
-func (fillData *getData) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (fd *getData) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "GET")
 	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
-	result := fillData.Do()
+	result := fd.Do()
 	json.NewEncoder(w).Encode(struct {
 		State                     uint
 		CityData                  []*protocol.City

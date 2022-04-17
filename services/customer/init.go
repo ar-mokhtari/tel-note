@@ -6,5 +6,7 @@ import (
 )
 
 func Init() {
-	http.Handle(env.ListOfCustomerR, &GetCustomer)
+	http.Handle(env.CustomerListR, &GetCustomer)
+	http.Handle(env.CustomerGroupListR, &GetCustomerGroup)
+	http.Handle(env.CustGRelationListR, &GetCustomerGroupRelation)
 }

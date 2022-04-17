@@ -112,7 +112,7 @@ func RunMenu() {
 				fmt.Println("Customer group Data:")
 				fmt.Printf("%3v | %-15s   \n", "Id", "Groupname")
 				fmt.Println()
-				for _, group := range customer.GetCustomerGroup() {
+				for _, group := range customer.GetCustomerGroup.Do() {
 					fmt.Printf("%3v | %-25s  \n",
 						group.GroupID, group.GroupName)
 				}
@@ -120,7 +120,7 @@ func RunMenu() {
 				fmt.Println("Customer group relation Data:")
 				fmt.Printf("%3v | %-25s | %-13v | %-45s   \n", "Id", "Groupname", "CustomerID", "FullName")
 				fmt.Println()
-				for _, relation := range customer.GetCustomerGroupRelation() {
+				for _, relation := range customer.GetCustomerGroupRelation.Do() {
 					customerObject := customer.FindCustomerByID(relation.CustomerID)
 					_, personObject := person.FindPersonID.Do(customerObject.PersonID)
 					groupObject := customer.FindGroupByID(relation.GroupID)
@@ -398,7 +398,7 @@ func RunMenu() {
 				fmt.Println("Customer group Data:")
 				fmt.Printf("%3v | %-15s   \n", "Id", "Groupname")
 				fmt.Println()
-				for _, group := range customer.GetCustomerGroup() {
+				for _, group := range customer.GetCustomerGroup.Do() {
 					fmt.Printf("%3v | %-25s  \n",
 						group.GroupID, group.GroupName)
 				}
@@ -408,7 +408,7 @@ func RunMenu() {
 				fmt.Println("Customer group relation Data:")
 				fmt.Printf("%3v | %-25s | %-13v | %-45s   \n", "Id", "Groupname", "CustomerID", "FullName")
 				fmt.Println()
-				for _, relation := range customer.GetCustomerGroupRelation() {
+				for _, relation := range customer.GetCustomerGroupRelation.Do() {
 					customerObject := customer.FindCustomerByID(relation.CustomerID)
 					_, personObject := person.FindPersonID.Do(customerObject.PersonID)
 					groupObject := customer.FindGroupByID(relation.GroupID)
@@ -446,7 +446,7 @@ func RunMenu() {
 					Description: desc,
 				})
 				fmt.Println(env.ShowMenuWarn)
-			case env.ListOfCustomer:
+			case env.CustomerList:
 				fmt.Println(separator7)
 				fmt.Println("Customer Data:")
 				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-25v | %-25v |  %-23v  \n",
@@ -491,7 +491,7 @@ func RunMenu() {
 					fmt.Printf("%v customer(s) has been deleted", idPackInt)
 				}
 				fmt.Println(env.ShowMenuWarn)
-			case env.DeleteAllCustomers:
+			case env.DeleteAllCust:
 				globalVars.CustomerMapStore = nil
 				fmt.Println("all customers deleted")
 				fmt.Println(env.ShowMenuWarn)

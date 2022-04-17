@@ -25,11 +25,11 @@ var (
 		}},
 		{Customer, []protocol.MenuDetail{
 			{NewCustomer, NewCustomerD, NewCustomerR, DataEntryTypeForm},
-			{ListOfCustomer, ListOfCustomerD, ListOfCustomerR, ListTypeForm},
+			{CustomerList, CustomerListD, CustomerListR, ListTypeForm},
 			{EditCustomer, EditCustomerD, EditCustomerR, DataEntryTypeForm},
 			{DeleteCustomer, DeleteCustomerD, DeleteCustomerR, ActionType},
 			{DeleteMultiCust, DeleteMultiCustD, DeleteMultiCustR, ActionType},
-			{DeleteAllCustomers, DeleteAllCustomersD, DeleteAllCustomersR, ActionType},
+			{DeleteAllCust, DeleteAllCustD, DeleteAllCustR, ActionType},
 		}},
 		{Person, []protocol.MenuDetail{
 			{NewPerson, NewPersonD, NewPersonR, DataEntryTypeForm},
