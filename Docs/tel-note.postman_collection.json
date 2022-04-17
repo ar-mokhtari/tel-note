@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b5990bef-28a5-497e-938b-6305d7e977af",
+		"_postman_id": "c5034a3f-8828-4f42-8f85-addee8cf6f99",
 		"name": "tel-note",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -651,6 +651,49 @@
 							"port": "1212",
 							"path": [
 								"get-customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-customer-group",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:1212/get-customer-group",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"get-customer-group"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-cust-g-relation",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:1212//get-cust-g-relation",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"",
+								"get-cust-g-relation"
 							]
 						}
 					},
