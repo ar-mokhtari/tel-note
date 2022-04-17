@@ -214,6 +214,12 @@ Testing with "Nginx web server"
 target="_blank"><img src="https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white" alt="nginx" /></a>&nbsp;
 </p>
 
+or simply browse:
+
+```` 
+http://127.0.0.1:1212/index.html 
+````
+
 
 A sample SPA PWA with "Ajax" request which call routes ...
 <ul>

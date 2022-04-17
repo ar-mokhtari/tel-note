@@ -15,6 +15,7 @@ func init() {
 }
 
 func main() {
+
 	switch config.RunAppType {
 	case "serv":
 		srv := &http.Server{

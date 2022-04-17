@@ -12,6 +12,7 @@ import (
 	"tel-note/services/reporter"
 	"tel-note/services/sampleData"
 	"tel-note/services/sex"
+	"tel-note/services/www"
 )
 
 func Init() {
@@ -47,4 +48,7 @@ func Init() {
 
 	//serv handle menu
 	menu.Init()
+
+	//serv www
+	www.Init()
 }

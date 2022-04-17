@@ -44,7 +44,7 @@ $(document).on("click", "#MainSidebarAccordion div.menuItems", function () {
         case 200:
             $("#MainGrid").empty();
             createTabs(subMenu);
-            $.loadScript('services/ag-girdPlacement.js', function () {
+            $.loadScript('/UI/services/ag-girdPlacement.js', function () {
                 apiUrl = route;
             });
             //native mode
@@ -56,7 +56,7 @@ $(document).on("click", "#MainSidebarAccordion div.menuItems", function () {
         case 500:
             $("#MainGrid").empty();
             createTabs(subMenu);
-            $.loadScript('services/ag-girdPlacement.js', function () {
+            $.loadScript('/UI/services/ag-girdPlacement.js', function () {
                 apiUrl = route;
             });
             //native mode

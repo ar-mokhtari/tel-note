@@ -1,4 +1,4 @@
-//go:build memory
+//go:build !mysql || !mongodb
 
 package city
 

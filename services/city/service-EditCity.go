@@ -30,14 +30,6 @@ func (ec *editCity) Do(inputCity EditCityRequest) (err error) {
 	return nil
 }
 
-func (ecq *EditCityRequest) DecoderJson(r http.Request) error {
-	return json.NewDecoder(r.Body).Decode(&ecq)
-}
-
-func (ecs *editCityResponse) EncoderJson(w http.ResponseWriter, output editCityResponse) {
-	json.NewEncoder(w).Encode(output)
-}
-
 func (ec *editCity) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	var (
 		req EditCityRequest
@@ -61,4 +53,12 @@ func (ec *editCity) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		res.EncoderJson(w, editCityResponse{400, "method not support"})
 
 	}
+}
+
+func (ecq *EditCityRequest) DecoderJson(r http.Request) error {
+	return json.NewDecoder(r.Body).Decode(&ecq)
+}
+
+func (ecs *editCityResponse) EncoderJson(w http.ResponseWriter, output editCityResponse) {
+	json.NewEncoder(w).Encode(output)
 }

@@ -1,24 +1,7 @@
-<!DOCTYPE html>
+{{define "title"}}A templated page{{end}}
 
-<html lang="fa"> <!--lang="fa" dir="rtl"-->
+{{define "body"}}
 
-<head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Title  -->
-    <title>Tel-Note</title>
-
-    <!-- Core Style CSS -->
-    <link href="SDK/bootstrap/css/bootstrap.css" rel="stylesheet">
-<!--    <link href="SDK/bootstrap/css/bootstrap.rtl.css" rel="stylesheet">-->
-    <link href="SDK/bootstrap/css/sidebars.css" rel="stylesheet">
-    <link rel="stylesheet" href="pages/css/main.css">
-    <link rel="stylesheet" href="SDK/ag-grid/ag-grid.css">
-    <link rel="stylesheet" href="SDK/ag-grid/ag-theme-balham.css">
-</head>
-
-<body>
 <svg style="display: none;" xmlns="http://www.w3.org/2000/svg">
     <symbol id="home" viewBox="0 0 16 16">
         <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z"/>
@@ -159,7 +142,7 @@
             <svg class="bi me-2" height="24" width="30">
                 <use xlink:href="#tools"/>
             </svg>
-            <span class="fs-5 fw-semibold">Menu list</span>
+            <span class="fs-5 fw-semisolid">Menu list</span>
         </a>
         <div class="accordion" id="MainSidebarAccordion">
 
@@ -207,20 +190,20 @@
 <!-- utf-8 -->
 <script type="text/javascript" charset="utf-8"></script>
 <!-- Jquery -->
-<script src="SDK/jquery-3.6.0/jquery-3.6.0.js"></script>
+<script src="/UI/SDK/jquery-3.6.0/jquery-3.6.0.js"></script>
 <!-- ag-grid-community -->
-<script src="SDK/ag-grid/ag-grid-community.min.noStyle.js"></script>
+<script src="/UI/SDK/ag-grid/ag-grid-community.min.noStyle.js"></script>
 <!-- Boostrap -->
-<script src="SDK/bootstrap/js/bootstrap.js"></script>
-<script src="SDK/bootstrap/js/sidebars.js"></script>
+<script src="/UI/SDK/bootstrap/js/bootstrap.js"></script>
+<script src="/UI/SDK/bootstrap/js/sidebars.js"></script>
 <!-- Boostrap -->
-<script src="SDK/bootstrap/js/sidebars.js"></script>
+<script src="/UI/SDK/bootstrap/js/sidebars.js"></script>
 
 <!-- General -->
-<script src="services/generalScript.js"></script>
+<script src="/UI/services/generalScript.js"></script>
 
 <!-- Menu and Grids Placement -->
-<script src="services/menuPlacement.js"></script>
+<script src="/UI/services/menuPlacement.js"></script>
 
 <script>
     //run menu on startup
@@ -229,9 +212,9 @@
 
 
 <!-- Html Placement -->
-<script src="services/dbGridPlacement.js"></script>
+<script src="/UI/services/dbGridPlacement.js"></script>
 
 <!-- Call API -->
-</body>
 
-</html>
+
+{{end}}
