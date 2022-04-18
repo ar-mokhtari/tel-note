@@ -42,7 +42,7 @@ func (nc *newCity) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		} else {
 			res.EncoderJson(w, newCityResponse{
 				200,
-				fmt.Sprintf("City #%v edited", req.Id),
+				fmt.Sprintf("City added"),
 			})
 		}
 	default:

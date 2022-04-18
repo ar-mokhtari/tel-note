@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"net/http"
 	"tel-note/SDK/neshan"
+	"tel-note/env"
 	"tel-note/lib/callAPI"
 	"tel-note/lib/convertor"
 	"tel-note/protocol"
@@ -18,52 +19,60 @@ var DistanceTimeService distanceTimeService
 
 func (sts *distanceTimeService) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	firstCity := r.FormValue("firstCity")
-	secondCity := r.FormValue("secondCity")
-	_, uintFirstCity := convertor.StrToUint(firstCity)
-	_, uintSecondCity := convertor.StrToUint(secondCity)
-	firstStatus, dataFirstCity := FindCityID.FindCityByID(uintFirstCity)
-	secondStatus, dataSecondCity := FindCityID.FindCityByID(uintSecondCity)
-	if firstStatus.State && secondStatus.State {
-		result, state := sts.Do(dataFirstCity, dataSecondCity)
-		if state.State {
-			json.NewEncoder(w).Encode(
-				struct {
-					Status     uint
-					FirstCity  string
-					SecondCity string
-					Duration   struct {
-						Hour   float32
-						Minute float32
-					}
-					Distance uint
-				}{200, dataFirstCity.Name, dataSecondCity.Name,
+	switch r.Method {
+	case env.GetMethod:
+		firstCity := r.FormValue("firstCity")
+		secondCity := r.FormValue("secondCity")
+		_, uintFirstCity := convertor.StrToUint(firstCity)
+		_, uintSecondCity := convertor.StrToUint(secondCity)
+		firstStatus, dataFirstCity := FindCityID.FindCityByID(uintFirstCity)
+		secondStatus, dataSecondCity := FindCityID.FindCityByID(uintSecondCity)
+		if firstStatus.State && secondStatus.State {
+			result, state := sts.Do(dataFirstCity, dataSecondCity)
+			if state.State {
+				json.NewEncoder(w).Encode(
 					struct {
-						Hour   float32
-						Minute float32
-					}{float32(result[0] / 3600), float32(result[0] % 3600 / 60)},
-					result[1] / 1000},
-			)
+						Status     uint
+						FirstCity  string
+						SecondCity string
+						Duration   struct {
+							Hour   float32
+							Minute float32
+						}
+						Distance uint
+					}{200, dataFirstCity.Name, dataSecondCity.Name,
+						struct {
+							Hour   float32
+							Minute float32
+						}{float32(result[0] / 3600), float32(result[0] % 3600 / 60)},
+						result[1] / 1000},
+				)
+			} else {
+				json.NewEncoder(w).Encode(
+					struct {
+						Status  uint
+						Massage string
+					}{400, "method don't response any"})
+			}
 		} else {
 			json.NewEncoder(w).Encode(
 				struct {
-					Status  uint
-					Massage string
-				}{400, "method don't response any"})
+					Status           uint
+					Massage          string
+					FirstCityStatus  bool
+					SecondCityStatus bool
+				}{
+					401,
+					"city(ies) not found",
+					firstStatus.State,
+					secondStatus.State,
+				})
 		}
-	} else {
-		json.NewEncoder(w).Encode(
-			struct {
-				Status           uint
-				Massage          string
-				FirstCityStatus  bool
-				SecondCityStatus bool
-			}{
-				401,
-				"city(ies) not found",
-				firstStatus.State,
-				secondStatus.State,
-			})
+	default:
+		json.NewEncoder(w).Encode(struct {
+			State   uint
+			Message string
+		}{400, "method not support"})
 	}
 }
 
