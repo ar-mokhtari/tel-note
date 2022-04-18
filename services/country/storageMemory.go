@@ -103,10 +103,11 @@ func (allCountries *storageMemory) EditCountry(editedCountry protocol.Country) {
 	}
 }
 func (allCountries *storageMemory) DeleteCountry(IDS []uint) uint {
+	//TODO::: when first input 4,5,13,120 then input 2,1,3,4,5,13,120 there was bug
 	var counter uint
 	for index, country := range allCountries.CountryData {
 		for _, ID := range IDS {
-			if country.ID == ID {
+			if country.ID == uint(ID) {
 				allCountries.CountryData = append((allCountries.CountryData)[:index], (allCountries.CountryData)[index+1:]...)
 				counter += 1
 			}

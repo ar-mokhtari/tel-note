@@ -190,7 +190,7 @@ func RunMenu() {
 				//input description
 				fmt.Println("Please inter description:")
 				scanner.Scan()
-				err := contact.NewContact.Do(
+				contact.NewContact.Do(
 					contact.NewContactRequest{
 						PersonID:            personID,
 						JobID:               jobID,
@@ -198,11 +198,7 @@ func RunMenu() {
 						CellphoneCollection: cellPack,
 						Description:         scanner.Text(),
 					})
-				if err != nil {
-					fmt.Println(">> New contact added done <<")
-				} else {
-					fmt.Println(err.Error())
-				}
+				fmt.Println(">> New contact added done <<")
 				fmt.Println(env.ShowMenuWarn)
 			case env.ContactList:
 				fmt.Println(separator7)
@@ -855,7 +851,7 @@ func RunMenu() {
 						_, j := convertor.StrToUint(i)
 						idPackInt = append(idPackInt, uint(j))
 					}
-					resNums := country.DeleteCountry(idPackInt)
+					resNums, _ := country.DeleteCountry.Do(idPackInt)
 					fmt.Printf("%v country(ies) has been deleted", resNums)
 				}
 				fmt.Println(env.ShowMenuWarn)

@@ -8,4 +8,5 @@ import (
 func Init() {
 	http.Handle(env.CountriesListR, &GetCountry)
 	http.Handle(env.CountriesCallR, &CallCountry)
+	http.Handle(env.DeleteCountryR, &DeleteCountry)
 }

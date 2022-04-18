@@ -179,7 +179,7 @@ const (
 
 	DeleteCountry  = "DCOU"
 	DeleteCountryD = "delete country"
-	DeleteCountryR = ""
+	DeleteCountryR = "/delete-country"
 
 	FindCountryByChar  = "FCOUBC"
 	FindCountryByCharD = "find country by char"
