@@ -14,7 +14,7 @@ type (
 		GetCities() []*City
 		FindCityByChar(inputChar string) (status bool, res []uint)
 		FindCityByID(inputID uint) (bool, City)
-		NewCity(inputCity City) bool
+		NewCity(inputCity City) error
 		EditCity(newCity City) error
 		DeleteCityByID(IDS []uint) (resDel []uint)
 		CallTimeDistanceTwoCities(cityNoOne, cityNoTwo City) ([]uint, bool)

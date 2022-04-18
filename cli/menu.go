@@ -705,13 +705,17 @@ func RunMenu() {
 				fmt.Scanln(&lat)
 				fmt.Println("insert lng:")
 				fmt.Scanln(&lng)
-				if city.NewCity.NewCity(protocol.City{
-					Name:     inputCity,
-					AriaCode: ariaCode,
-					Lat:      lat,
-					Lng:      lng,
-				}).State {
+				err := city.NewCity.Do(city.NewCityRequest{
+					Name:        inputCity,
+					EnglishName: "",
+					AriaCode:    ariaCode,
+					Lat:         lat,
+					Lng:         lng,
+				})
+				if err != nil {
 					fmt.Println("New city added")
+				} else {
+					fmt.Println(err.Error())
 				}
 				fmt.Println(env.ShowMenuWarn)
 			case env.ListOfCities:

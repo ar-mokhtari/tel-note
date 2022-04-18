@@ -45,7 +45,7 @@ func (sm *storageMemory) FindCityByID(inputID uint) (bool, protocol.City) {
 	return false, protocol.City{}
 }
 
-func (sm *storageMemory) NewCity(inputCity protocol.City) bool {
+func (sm *storageMemory) NewCity(inputCity protocol.City) (err error) {
 	var LastID uint
 	for _, data := range sm.CityData {
 		if data.Id > LastID {
@@ -62,7 +62,7 @@ func (sm *storageMemory) NewCity(inputCity protocol.City) bool {
 		Lng:         inputCity.Lng,
 	}
 	sm.CityData = append(sm.CityData, &result)
-	return true
+	return nil
 }
 
 func (sm *storageMemory) EditCity(newCity protocol.City) (err error) {

@@ -18,8 +18,8 @@ var DistanceTimeService distanceTimeService
 
 func (sts *distanceTimeService) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	firstCity := r.Header.Get("firstCity")
-	secondCity := r.Header.Get("secondCity")
+	firstCity := r.FormValue("firstCity")
+	secondCity := r.FormValue("secondCity")
 	_, uintFirstCity := convertor.StrToUint(firstCity)
 	_, uintSecondCity := convertor.StrToUint(secondCity)
 	firstStatus, dataFirstCity := FindCityID.FindCityByID(uintFirstCity)

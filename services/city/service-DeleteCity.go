@@ -25,7 +25,7 @@ func (dc deleteCity) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			Message string
 		}{400, "method not support"})
 	} else {
-		idsCollection := convertor.StrToSlice(r.Header.Get("ids"))
+		idsCollection := convertor.StrToSlice(r.FormValue("ids"))
 		if err, data := convertor.StrSliceToUintSlice(idsCollection); err == nil {
 			result := dc.Do(data)
 			json.NewEncoder(w).Encode(struct {

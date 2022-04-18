@@ -8,7 +8,6 @@ import (
 	"tel-note/config"
 	"tel-note/env"
 	"tel-note/lib/convertor"
-	"tel-note/protocol"
 	"tel-note/services/city"
 	"tel-note/services/contact"
 	"tel-note/services/country"
@@ -34,11 +33,12 @@ func (fd *fillData) FillSimpleData() (result [][]string, err error) {
 	for _, cityPack := range cities {
 		lat, _ := strconv.ParseFloat(cityPack[6], 64)
 		lng, _ := strconv.ParseFloat(cityPack[7], 64)
-		city.NewCity.NewCity(protocol.City{
-			Name:     cityPack[3],
-			AriaCode: "",
-			Lat:      lat,
-			Lng:      lng,
+		city.NewCity.Do(city.NewCityRequest{
+			Name:        cityPack[3],
+			EnglishName: "",
+			AriaCode:    "",
+			Lat:         lat,
+			Lng:         lng,
 		})
 	}
 	for _, data := range env.JobDataTest {

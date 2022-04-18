@@ -1,3 +1,5 @@
+//go:build !mysql || !mongodb
+
 package customer
 
 import (

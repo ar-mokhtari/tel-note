@@ -163,8 +163,8 @@ const (
 	ListOfCitiesR = "/get-city"
 
 	CallDistanceTimeTwoCities  = "CDTTC"
-	CallDistanceTimeTwoCitiesR = "distance-time-between-two-city"
 	CallDistanceTimeTwoCitiesD = "find distance/time online traffic two cities"
+	CallDistanceTimeTwoCitiesR = "/distance-time-between-two-city"
 
 	//country
 	Country = "country"

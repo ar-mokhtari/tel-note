@@ -22,7 +22,7 @@ func (fci *findCityID) FindCityByID(inputID uint) (protocol.ResponseStatus, prot
 
 func (fci *findCityID) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	err, cityID := convertor.StrToUint(r.Header.Get("cityID"))
+	err, cityID := convertor.StrToUint(r.FormValue("cityID"))
 	if err == nil {
 		if status, city := fci.FindCityByID(cityID); status.State {
 			json.NewEncoder(w).Encode(struct {
