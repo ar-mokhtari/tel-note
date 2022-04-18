@@ -2,65 +2,61 @@ package contact
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
-	"tel-note/lib/convertor"
+	"tel-note/env"
 	"tel-note/protocol"
 )
 
-type editContact struct{}
-
-var EditContact editContact
-
-func (ec *editContact) EditContactByID(newData protocol.Contact, ID uint) *protocol.ResponseStatus {
-	if storage.EditContactByID(newData, ID) {
-		return &protocol.ResponseStatus{State: true}
+type (
+	editContact         struct{}
+	EditContactRequest  protocol.Contact
+	editContactResponse struct {
+		State   uint
+		Message string
 	}
-	return &protocol.ResponseStatus{State: true, String: "not found"}
+)
+
+var (
+	EditContact editContact
+)
+
+func (ec *editContact) Do(inputContact EditContactRequest) (err error) {
+	if err = storage.EditContactByID(protocol.Contact(inputContact)); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (ec *editContact) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	ID := r.Header.Get("ID")
-	PersonID := r.Header.Get("PersonID")
-	JobID := r.Header.Get("JobID")
-	Tel := r.Header.Get("Tel")
-	Cellphone := r.Header.Get("CellphoneCollection")
-	Address := r.Header.Get("Address")
-	Description := r.Header.Get("Description")
-	var cellPack []protocol.CellPhone
-	cellPhoneCollection := convertor.StrToSlice(Cellphone)
-	if (len(cellPhoneCollection))%2 == 0 {
-		var tempCell protocol.CellPhone
-		for index, data := range cellPhoneCollection {
-			if (index+1)%2 != 0 {
-				tempCell.CellPhone = data
-			} else {
-				tempCell.Description = data
-				cellPack = append(cellPack, tempCell)
-				tempCell = protocol.CellPhone{}
-			}
+	var (
+		req EditContactRequest
+		res editContactResponse
+	)
+	switch r.Method {
+	case env.PatchMethod:
+		if err := req.DecoderJson(*r); err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
 		}
+		if err := ec.Do(req); err != nil {
+			res.EncoderJson(w, editContactResponse{400, err.Error()})
+		} else {
+			res.EncoderJson(w, editContactResponse{
+				200,
+				fmt.Sprintf("Contact #%v edited", req.Id),
+			})
+		}
+	default:
+		res.EncoderJson(w, editContactResponse{400, "method not support"})
+
 	}
-	_, uintPersonID := convertor.StrToUint(PersonID)
-	_, uintJobID := convertor.StrToUint(JobID)
-	result := protocol.Contact{
-		PersonID:            uintPersonID,
-		JobID:               uintJobID,
-		Tel:                 Tel,
-		CellphoneCollection: cellPack,
-		Address:             Address,
-		Description:         Description,
-	}
-	_, uintID := convertor.StrToUint(ID)
-	if status := ec.EditContactByID(result, uintID); status.State {
-		json.NewEncoder(w).Encode(struct {
-			State   int
-			Message string
-		}{200, "contact edited ..."})
-	} else {
-		json.NewEncoder(w).Encode(struct {
-			State   int
-			Message string
-		}{400, "some thing wrong"})
-	}
+}
+
+func (ecq *EditContactRequest) DecoderJson(r http.Request) error {
+	return json.NewDecoder(r.Body).Decode(&ecq)
+}
+
+func (ecs *editContactResponse) EncoderJson(w http.ResponseWriter, output editContactResponse) {
+	json.NewEncoder(w).Encode(output)
 }

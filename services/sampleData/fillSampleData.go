@@ -58,7 +58,7 @@ func (fd *fillData) FillSimpleData() (result [][]string, err error) {
 	}
 	//contact have to locate in end list, because it's elements has dependent to upper steps (city/job/...)
 	for _, data := range env.ContactDataTest {
-		contact.NewContact.NewContact(*data)
+		contact.NewContact.Do(contact.NewContactRequest(*data))
 	}
 	//call api test for fill countries
 	countries := country.CallCountry.Do()

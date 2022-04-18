@@ -3,6 +3,7 @@
 package contact
 
 import (
+	"errors"
 	"tel-note/protocol"
 	"tel-note/services/person"
 )
@@ -22,7 +23,7 @@ func (allContact *storageMemory) GetContacts() []*protocol.Contact {
 	return allContact.ContactData
 }
 
-func (allContact *storageMemory) AddContact(inputContact protocol.Contact) bool {
+func (allContact *storageMemory) AddContact(inputContact protocol.Contact) error {
 	var (
 		lastID uint
 	)
@@ -42,7 +43,7 @@ func (allContact *storageMemory) AddContact(inputContact protocol.Contact) bool 
 		Description:         inputContact.Description,
 	}
 	allContact.ContactData = append(allContact.ContactData, &result)
-	return true
+	return nil
 }
 
 func (allContact *storageMemory) FindContactByID(id uint) (bool, protocol.Contact) {
@@ -70,9 +71,9 @@ func (allContact *storageMemory) FindContactByChar(insertChar string) (status bo
 	return status, result
 }
 
-func (allContact *storageMemory) EditContactByID(newData protocol.Contact, ID uint) bool {
+func (allContact *storageMemory) EditContactByID(newData protocol.Contact) error {
 	for index, data := range allContact.ContactData {
-		if data.Id == ID {
+		if data.Id == newData.Id {
 			if newData.PersonID != 0 {
 				(allContact.ContactData)[index].PersonID = newData.PersonID
 			}
@@ -91,10 +92,10 @@ func (allContact *storageMemory) EditContactByID(newData protocol.Contact, ID ui
 			if newData.Description != "" {
 				(allContact.ContactData)[index].Description = newData.Description
 			}
-			return true
+			return nil
 		}
 	}
-	return false
+	return errors.New("contact not found")
 }
 
 func (allContact *storageMemory) DeleteContactByID(ID uint) bool {

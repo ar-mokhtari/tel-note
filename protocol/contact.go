@@ -16,10 +16,10 @@ type (
 	}
 	ContactServices interface {
 		GetContacts() []*Contact
-		AddContact(inputContact Contact) bool
+		AddContact(inputContact Contact) error
 		FindContactByID(id uint) (bool, Contact)
 		FindContactByChar(insertChar string) (status bool, result []*Contact)
-		EditContactByID(newData Contact, ID uint) bool
+		EditContactByID(newData Contact) error
 		DeleteContactByID(ID uint) bool
 		DeleteAll() bool
 	}

@@ -190,15 +190,19 @@ func RunMenu() {
 				//input description
 				fmt.Println("Please inter description:")
 				scanner.Scan()
-				contact.NewContact.NewContact(
-					protocol.Contact{
+				err := contact.NewContact.Do(
+					contact.NewContactRequest{
 						PersonID:            personID,
 						JobID:               jobID,
 						Tel:                 tel,
 						CellphoneCollection: cellPack,
 						Description:         scanner.Text(),
 					})
-				fmt.Println(">> New contact added done <<")
+				if err != nil {
+					fmt.Println(">> New contact added done <<")
+				} else {
+					fmt.Println(err.Error())
+				}
 				fmt.Println(env.ShowMenuWarn)
 			case env.ContactList:
 				fmt.Println(separator7)
@@ -223,7 +227,7 @@ func RunMenu() {
 				var id uint
 				fmt.Println("Please insert your contact ID:")
 				fmt.Scanln(&id)
-				isFound, result := contact.FindContactID.FindContactByID(id)
+				isFound, result := contact.FindContactID.Do(id)
 				if isFound.State {
 					fmt.Println(separator7)
 					fmt.Println("Contact Data:")
@@ -245,7 +249,7 @@ func RunMenu() {
 				var insertChar string
 				fmt.Println("insert character(s):")
 				fmt.Scanln(&insertChar)
-				_, resultData, resultCount := contact.FindContactChar.FindContactByChar(insertChar)
+				_, resultData, resultCount := contact.FindContactChar.Do(insertChar)
 				if resultCount == 0 {
 					fmt.Println("not found")
 				} else {
@@ -273,7 +277,7 @@ func RunMenu() {
 				)
 				fmt.Println("Please insert your contact id you want to edit:")
 				fmt.Scanln(&insertContactID)
-				isFound, result := contact.FindContactID.FindContactByID(insertContactID)
+				isFound, result := contact.FindContactID.Do(insertContactID)
 				if isFound.State {
 					fmt.Println(separator7)
 					fmt.Println("Contact Data:")
@@ -315,16 +319,20 @@ func RunMenu() {
 				fmt.Scanln(&jobID)
 				fmt.Println("new description:")
 				scanner.Scan()
-				editedContact := protocol.Contact{
+				editedContact := contact.NewContactRequest{
+					Id:                  insertContactID,
 					PersonID:            personID,
 					JobID:               jobID,
 					Tel:                 tel,
 					CellphoneCollection: cellPack,
+					Address:             "",
 					Description:         scanner.Text(),
 				}
-				state := contact.EditContact.EditContactByID(editedContact, insertContactID)
-				if state.State {
+				err := contact.NewContact.Do(editedContact)
+				if err != nil {
 					fmt.Printf("contact no %v updated", insertContactID)
+				} else {
+					fmt.Println(err.Error())
 				}
 				fmt.Println(env.ShowMenuWarn)
 			case env.DeleteContactId:
@@ -336,7 +344,7 @@ func RunMenu() {
 					var deleteID uint
 					fmt.Println("insert your contact id that you want to delete:")
 					fmt.Scanln(&deleteID)
-					status := contact.DelContactID.DeleteContactByID(deleteID)
+					status := contact.DelContactID.Do(deleteID)
 					switch status.State {
 					case true:
 						fmt.Printf("contact with id number:  %d deleted.", deleteID)
@@ -351,7 +359,7 @@ func RunMenu() {
 				fmt.Println("are you sure? (yes or no)")
 				fmt.Scanln(&confirmDel)
 				if strings.ToLower(confirmDel) == env.YES {
-					resultStatus := contact.DelAllContact.DeleteAll()
+					resultStatus := contact.DelAllContact.Do()
 					fmt.Println(resultStatus.String)
 				}
 				fmt.Println(env.ShowMenuWarn)
@@ -372,7 +380,7 @@ func RunMenu() {
 							fmt.Println("not equal kind")
 							break
 						} else {
-							status = *contact.DelContactID.DeleteContactByID(uint(uintDelID))
+							status = *contact.DelContactID.Do(uint(uintDelID))
 							fmt.Println(status.String)
 						}
 					}
