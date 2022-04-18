@@ -4,6 +4,7 @@ package country
 
 import (
 	"encoding/json"
+	"errors"
 	"strings"
 	"tel-note/SDK/Universal"
 	"tel-note/lib/callAPI"
@@ -22,11 +23,11 @@ var (
 	_       protocol.CountryServices = &storage
 )
 
-func (allCountries *storageMemory) GetCountry() []*protocol.Country {
-	return allCountries.CountryData
+func (sm *storageMemory) GetCountry() []*protocol.Country {
+	return sm.CountryData
 }
 
-func (allCountries *storageMemory) CallCountry() []*protocol.Country {
+func (sm *storageMemory) CallCountry() []*protocol.Country {
 	//generate new token
 	MapTokenHeaders := map[string]string{
 		"Accept":     "application/json",
@@ -60,15 +61,15 @@ func (allCountries *storageMemory) CallCountry() []*protocol.Country {
 	return AllResult
 }
 
-func (allCountries *storageMemory) NewCountry(newCountry protocol.Country) {
+func (sm *storageMemory) NewCountry(newCountry protocol.Country) error {
 	var LastID uint
-	for _, country := range allCountries.CountryData {
+	for _, country := range sm.CountryData {
 		if country.ID > LastID {
 			LastID = country.ID
 		}
 	}
 	LastID += 1
-	allCountries.CountryData = append(allCountries.CountryData, &protocol.Country{
+	sm.CountryData = append(sm.CountryData, &protocol.Country{
 		ID:           LastID,
 		Name:         newCountry.Name,
 		CapitalID:    newCountry.CapitalID,
@@ -76,48 +77,51 @@ func (allCountries *storageMemory) NewCountry(newCountry protocol.Country) {
 		PrePhoneCode: newCountry.PrePhoneCode,
 		CreatedAt:    time.Now(),
 	})
+	return nil
 }
 
-func (allCountries *storageMemory) EditCountry(editedCountry protocol.Country) {
-	for index, country := range allCountries.CountryData {
+func (sm *storageMemory) EditCountry(editedCountry protocol.Country) error {
+	for index, country := range sm.CountryData {
 		if country.ID == editedCountry.ID {
 			if editedCountry.Name != "" {
-				(allCountries.CountryData)[index].Name = editedCountry.Name
+				(sm.CountryData)[index].Name = editedCountry.Name
 			}
 			if editedCountry.ShortName != "" {
-				(allCountries.CountryData)[index].ShortName = editedCountry.ShortName
+				(sm.CountryData)[index].ShortName = editedCountry.ShortName
 			}
 			if editedCountry.PrePhoneCode != 0 {
-				(allCountries.CountryData)[index].PrePhoneCode = editedCountry.PrePhoneCode
+				(sm.CountryData)[index].PrePhoneCode = editedCountry.PrePhoneCode
 			}
 			if editedCountry.CapitalID != 0 {
-				(allCountries.CountryData)[index].CapitalID = editedCountry.CapitalID
+				(sm.CountryData)[index].CapitalID = editedCountry.CapitalID
 			}
 			if editedCountry.Name != "" ||
 				editedCountry.ShortName != "" ||
 				editedCountry.PrePhoneCode != 0 ||
 				editedCountry.CapitalID != 0 {
-				(allCountries.CountryData)[index].UpdatedAt = time.Now()
+				(sm.CountryData)[index].UpdatedAt = time.Now()
 			}
+			return nil
 		}
 	}
+	return errors.New("country not found")
 }
-func (allCountries *storageMemory) DeleteCountry(IDS []uint) uint {
+func (sm *storageMemory) DeleteCountry(IDS []uint) uint {
 	//TODO::: when first input 4,5,13,120 then input 2,1,3,4,5,13,120 there was bug
 	var counter uint
-	for index, country := range allCountries.CountryData {
+	for index, country := range sm.CountryData {
 		for _, ID := range IDS {
 			if country.ID == uint(ID) {
-				allCountries.CountryData = append((allCountries.CountryData)[:index], (allCountries.CountryData)[index+1:]...)
+				sm.CountryData = append((sm.CountryData)[:index], (sm.CountryData)[index+1:]...)
 				counter += 1
 			}
 		}
 	}
 	return counter
 }
-func (allCountries *storageMemory) FindCountryByChar(insertChar string) []*protocol.Country {
+func (sm *storageMemory) FindCountryByChar(insertChar string) []*protocol.Country {
 	var result []*protocol.Country
-	for _, country := range allCountries.CountryData {
+	for _, country := range sm.CountryData {
 		if strings.Contains(strings.ToLower(country.Name), strings.ToLower(insertChar)) {
 			result = append(result, country)
 		}

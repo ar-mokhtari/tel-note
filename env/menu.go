@@ -171,11 +171,11 @@ const (
 
 	AddCountry  = "ACOU"
 	AddCountryD = "new country"
-	AddCountryR = ""
+	AddCountryR = "/new-country"
 
 	EditCountry  = "ECOU"
 	EditCountryD = "edit country"
-	EditCountryR = ""
+	EditCountryR = "/edit-country"
 
 	DeleteCountry  = "DCOU"
 	DeleteCountryD = "delete country"
@@ -183,7 +183,7 @@ const (
 
 	FindCountryByChar  = "FCOUBC"
 	FindCountryByCharD = "find country by char"
-	FindCountryByCharR = ""
+	FindCountryByCharR = "/find-country-char"
 
 	CountriesList  = "COUL"
 	CountriesListD = "list of country(ies)"

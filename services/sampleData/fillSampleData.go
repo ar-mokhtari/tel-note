@@ -63,7 +63,7 @@ func (fd *fillData) FillSimpleData() (result [][]string, err error) {
 	//call api test for fill countries
 	countries := country.CallCountry.Do()
 	for _, data := range countries {
-		country.NewCountry(*data)
+		country.NewCountry.Do(country.NewRequest(*data))
 	}
 	return cities, err
 }

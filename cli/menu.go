@@ -804,7 +804,7 @@ func RunMenu() {
 				var capitalID uint
 				fmt.Println("insert new country capitalID")
 				fmt.Scanln(&capitalID)
-				country.NewCountry(protocol.Country{
+				country.NewCountry.Do(country.NewRequest{
 					Name:         newCountryName,
 					ShortName:    newShortName,
 					PrePhoneCode: prePhoneCode,
@@ -828,7 +828,7 @@ func RunMenu() {
 				var capitalID uint
 				fmt.Println("insert new country capitalID")
 				fmt.Scanln(&capitalID)
-				country.EditCountry(protocol.Country{
+				country.EditCountry.Do(country.EditRequest{
 					ID:           countryID,
 					Name:         newCountryName,
 					ShortName:    newShortName,
@@ -864,7 +864,7 @@ func RunMenu() {
 				fmt.Printf("%3v | %-45s | %-8v | %-10v | %-12v | %-19v  | %-19v   \n",
 					"Id", "CountryName", "ShName", "PrePhone", "CapID", "create@", "updated@")
 				fmt.Println()
-				for _, data := range country.FindCountryByChar(insertChar) {
+				for _, data := range country.FindCountryChar.Do(insertChar) {
 					fmt.Printf("%3v | %-45s | %-8v | %-10v | %-12v | %-19v  | %-19v   \n",
 						data.ID, data.Name, data.ShortName, data.PrePhoneCode, data.CapitalID, (data.CreatedAt).String()[0:16], (data.UpdatedAt).String()[0:16])
 				}
