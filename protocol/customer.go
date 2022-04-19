@@ -13,9 +13,9 @@ type (
 		CustomerData map[uint]*Customer
 	}
 	CustomerServices interface {
-		NewCustomer(newCustomer Customer)
+		NewCustomer(newCustomer Customer) error
 		EditCustomer(id uint, EditedCustomer Customer)
-		DeleteCustomerById(id uint)
+		DeleteCustomerById(id uint) error
 		FindCustomerByID(ID uint) Customer
 	}
 )

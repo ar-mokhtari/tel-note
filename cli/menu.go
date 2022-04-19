@@ -445,10 +445,11 @@ func RunMenu() {
 				fmt.Println("insert customer description")
 				scanner.Scan()
 				desc := scanner.Text()
-				customer.AddCustomer(protocol.Customer{
+				readyToFill := customer.NewRequest{
 					PersonID:    personID,
 					Description: desc,
-				})
+				}
+				customer.AddCustomer.Do(readyToFill)
 				fmt.Println(env.ShowMenuWarn)
 			case env.CustomerList:
 				fmt.Println(separator7)
@@ -489,8 +490,8 @@ func RunMenu() {
 					var idPackInt []uint
 					for _, i := range idPack {
 						_, j := convertor.StrToUint(i)
-						idPackInt = append(idPackInt, uint(j))
-						customer.DeleteCustomerById(uint(j))
+						idPackInt = append(idPackInt, j)
+						customer.DeleteCustomer.Do(idPackInt)
 					}
 					fmt.Printf("%v customer(s) has been deleted", idPackInt)
 				}

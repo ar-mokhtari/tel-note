@@ -3,6 +3,8 @@
 package customer
 
 import (
+	"errors"
+	"fmt"
 	"tel-note/protocol"
 	"tel-note/services/globalVars"
 	"time"
@@ -23,7 +25,7 @@ var (
 	_               protocol.CustomerGroupRelationServices = &storageRelation
 )
 
-func (allCustomers *storageMemory) NewCustomer(newCustomer protocol.Customer) {
+func (sm *storageMemory) NewCustomer(newCustomer protocol.Customer) error {
 	var LastID uint
 	for ID := range globalVars.CustomerMapStore {
 		if ID > LastID {
@@ -34,9 +36,10 @@ func (allCustomers *storageMemory) NewCustomer(newCustomer protocol.Customer) {
 	newCustomer.CreateAt = time.Now()
 	globalVars.CustomerMapStore[LastID] = &newCustomer
 	//allCustomers.Data[LastID] = &newCustomer
+	return nil
 }
 
-func (allCustomers *storageMemory) EditCustomer(id uint, EditedCustomer protocol.Customer) {
+func (sm *storageMemory) EditCustomer(id uint, EditedCustomer protocol.Customer) {
 	if EditedCustomer.PersonID != 0 {
 		globalVars.CustomerMapStore[id].PersonID = EditedCustomer.PersonID
 	}
@@ -48,11 +51,15 @@ func (allCustomers *storageMemory) EditCustomer(id uint, EditedCustomer protocol
 	}
 }
 
-func (allCustomers *storageMemory) DeleteCustomerById(id uint) {
+func (sm *storageMemory) DeleteCustomerById(id uint) error {
+	if _, ok := globalVars.CustomerMapStore[id]; !ok {
+		return errors.New(fmt.Sprintf("element #%v is missing", id))
+	}
 	delete(globalVars.CustomerMapStore, id)
+	return nil
 }
 
-func (allCustomers *storageMemory) FindCustomerByID(ID uint) protocol.Customer {
+func (sm *storageMemory) FindCustomerByID(ID uint) protocol.Customer {
 	for id, customer := range globalVars.CustomerMapStore {
 		if id == ID {
 			return *customer
@@ -61,26 +68,26 @@ func (allCustomers *storageMemory) FindCustomerByID(ID uint) protocol.Customer {
 	return protocol.Customer{}
 }
 
-func (AllGroup *group) GetCustomerGroup() protocol.CustomerGroupStorage {
-	return protocol.CustomerGroupStorage(*AllGroup)
+func (g *group) GetCustomerGroup() protocol.CustomerGroupStorage {
+	return protocol.CustomerGroupStorage(*g)
 }
 
-func (AllGroup *group) NewGroup(groupName string) {
+func (g *group) NewGroup(groupName string) {
 	var LastID uint
-	for _, group := range *AllGroup {
+	for _, group := range *g {
 		if group.GroupID > LastID {
 			LastID = group.GroupID
 		}
 	}
 	LastID += 1
-	*AllGroup = append(*AllGroup, &protocol.CustomerGroup{
+	*g = append(*g, &protocol.CustomerGroup{
 		GroupID:   LastID,
 		GroupName: groupName,
 	})
 }
 
-func (AllGroup *group) FindGroupByID(ID uint) protocol.CustomerGroup {
-	for _, group := range *AllGroup {
+func (g *group) FindGroupByID(ID uint) protocol.CustomerGroup {
+	for _, group := range *g {
 		if group.GroupID == ID {
 			return *group
 		}
@@ -88,28 +95,28 @@ func (AllGroup *group) FindGroupByID(ID uint) protocol.CustomerGroup {
 	return protocol.CustomerGroup{}
 }
 
-func (AllRelation *relation) NewRelation(customerID uint, groupID uint) {
+func (r *relation) NewRelation(customerID uint, groupID uint) {
 	var LastID uint
-	for _, relation := range *AllRelation {
+	for _, relation := range *r {
 		if relation.ID > LastID {
 			LastID = relation.ID
 		}
 	}
 	LastID += 1
-	*AllRelation = append(*AllRelation, &protocol.CustomerGroupRelation{
+	*r = append(*r, &protocol.CustomerGroupRelation{
 		ID:         LastID,
 		CustomerID: customerID,
 		GroupID:    groupID,
 	})
 }
 
-func (AllRelation *relation) GetCustomerGroupRelation() protocol.CustomerGRelationStorage {
-	return protocol.CustomerGRelationStorage(*AllRelation)
+func (r *relation) GetCustomerGroupRelation() protocol.CustomerGRelationStorage {
+	return protocol.CustomerGRelationStorage(*r)
 }
 
-func (AllRelation *relation) FindCustomerByGroupID(ID uint) protocol.CustomerStorage {
+func (r *relation) FindCustomerByGroupID(ID uint) protocol.CustomerStorage {
 	var result = protocol.CustomerStorage{CustomerData: make(map[uint]*protocol.Customer)}
-	for _, groupRelation := range *AllRelation {
+	for _, groupRelation := range *r {
 		if groupRelation.GroupID == ID {
 			findCustomer := FindCustomerByID(groupRelation.CustomerID)
 			result.CustomerData[groupRelation.CustomerID] = &findCustomer

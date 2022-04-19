@@ -80,7 +80,7 @@ const (
 
 	NewCustomer  = "NCU"
 	NewCustomerD = "new customer"
-	NewCustomerR = ""
+	NewCustomerR = "/new-customer"
 
 	CustomerList  = "LCU"
 	CustomerListD = "list of customers"
@@ -92,7 +92,7 @@ const (
 
 	DeleteCustomer  = "DCU"
 	DeleteCustomerD = "delete customer"
-	DeleteCustomerR = ""
+	DeleteCustomerR = "/delete-customer"
 
 	DeleteMultiCust  = "DMCU"
 	DeleteMultiCustD = "delete multi customer"

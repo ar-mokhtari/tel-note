@@ -54,7 +54,11 @@ func (fd *fillData) FillSimpleData() (result [][]string, err error) {
 		customer.NewRelation(data.CustomerID, data.GroupID)
 	}
 	for _, data := range env.CustomersDataTest.CustomerData {
-		customer.AddCustomer(*data)
+		readyToFill := customer.NewRequest{
+			PersonID:    data.PersonID,
+			Description: data.Description,
+		}
+		customer.AddCustomer.Do(readyToFill)
 	}
 	//contact have to locate in end list, because it's elements has dependent to upper steps (city/job/...)
 	for _, data := range env.ContactDataTest {
