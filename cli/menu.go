@@ -430,7 +430,7 @@ func RunMenu() {
 				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-25v | %-25v |  %-23v  \n",
 					"CID", "Customername", "CustomerFamily", "PID", "Creat@", "Update@", "Desc")
 				fmt.Println()
-				for ID, data := range customer.FindCustomerByGroupID(groupID).CustomerData {
+				for ID, data := range customer.FindCustomerGroupID.Do(groupID).CustomerData {
 					_, person := person.FindPersonID.Do(data.PersonID)
 					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-25v | %-25v | %-23v \n",
 						ID, person.FirstName, person.LastName, data.PersonID, (data.CreateAt).String()[0:19], (data.UpdatedAt).String()[0:19], data.Description)
@@ -472,10 +472,15 @@ func RunMenu() {
 				fmt.Scanln(&personID)
 				fmt.Println("insert new description")
 				fmt.Scanln(&description)
-				customer.EditCustomer(customerID, protocol.Customer{
+				err := customer.EditCustomer.Do(customerID, customer.EditRequest{
 					PersonID:    personID,
 					Description: description,
 				})
+				if err != nil {
+					fmt.Println("not edited")
+				} else {
+					fmt.Println("edit successful")
+				}
 				fmt.Println(env.ShowMenuWarn)
 			case env.DeleteCustomer:
 				var confirmDel string

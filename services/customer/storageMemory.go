@@ -39,7 +39,10 @@ func (sm *storageMemory) NewCustomer(newCustomer protocol.Customer) error {
 	return nil
 }
 
-func (sm *storageMemory) EditCustomer(id uint, EditedCustomer protocol.Customer) {
+func (sm *storageMemory) EditCustomer(id uint, EditedCustomer protocol.Customer) error {
+	if result := sm.FindCustomerByID(id); result == (protocol.Customer{}) {
+		return errors.New("customer not found")
+	}
 	if EditedCustomer.PersonID != 0 {
 		globalVars.CustomerMapStore[id].PersonID = EditedCustomer.PersonID
 	}
@@ -49,6 +52,7 @@ func (sm *storageMemory) EditCustomer(id uint, EditedCustomer protocol.Customer)
 	if EditedCustomer.PersonID != 0 || EditedCustomer.Description != "" {
 		globalVars.CustomerMapStore[id].UpdatedAt = time.Now()
 	}
+	return nil
 }
 
 func (sm *storageMemory) DeleteCustomerById(id uint) error {

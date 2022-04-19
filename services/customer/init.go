@@ -11,4 +11,6 @@ func Init() {
 	http.Handle(env.CustGRelationListR, &GetCustomerGroupRelation)
 	http.Handle(env.NewCustomerR, &AddCustomer)
 	http.Handle(env.DeleteCustomerR, &DeleteCustomer)
+	http.Handle(env.EditCustomerR, &EditCustomer)
+	http.Handle(env.FindCustGroupIDR, &FindCustomerGroupID)
 }

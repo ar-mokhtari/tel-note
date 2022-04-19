@@ -14,7 +14,7 @@ type (
 	}
 	CustomerServices interface {
 		NewCustomer(newCustomer Customer) error
-		EditCustomer(id uint, EditedCustomer Customer)
+		EditCustomer(id uint, EditedCustomer Customer) error
 		DeleteCustomerById(id uint) error
 		FindCustomerByID(ID uint) Customer
 	}

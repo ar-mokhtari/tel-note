@@ -76,7 +76,7 @@ const (
 
 	FindCustGroupID  = "FCUBG"
 	FindCustGroupIDD = "find customer by id"
-	FindCustGroupIDR = ""
+	FindCustGroupIDR = "/find-cust-grp-id"
 
 	NewCustomer  = "NCU"
 	NewCustomerD = "new customer"
@@ -88,7 +88,7 @@ const (
 
 	EditCustomer  = "ECU"
 	EditCustomerD = "edit customer"
-	EditCustomerR = ""
+	EditCustomerR = "/edit-customer"
 
 	DeleteCustomer  = "DCU"
 	DeleteCustomerD = "delete customer"
