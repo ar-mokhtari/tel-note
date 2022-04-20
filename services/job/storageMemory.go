@@ -3,6 +3,7 @@
 package job
 
 import (
+	"errors"
 	"strings"
 	"tel-note/protocol"
 )
@@ -16,12 +17,12 @@ var (
 	_       protocol.JobServices = &storage
 )
 
-func (allJob *storageMemory) GetJobs() []*protocol.Job {
-	return allJob.JobData
+func (sm *storageMemory) GetJobs() []*protocol.Job {
+	return sm.JobData
 }
 
-func (allJob *storageMemory) FindJobByChar(inputChar string) (status bool, res []uint) {
-	for _, data := range allJob.JobData {
+func (sm *storageMemory) FindJobByChar(inputChar string) (status bool, res []uint) {
+	for _, data := range sm.JobData {
 		if strings.Contains(data.Name, inputChar) {
 			res = append(res, data.Id)
 			status = true
@@ -30,18 +31,18 @@ func (allJob *storageMemory) FindJobByChar(inputChar string) (status bool, res [
 	return status, res
 }
 
-func (allJob *storageMemory) FindJobByID(inputID uint) (bool, protocol.Job) {
-	for _, data := range allJob.JobData {
+func (sm *storageMemory) FindJobByID(inputID uint) (error, protocol.Job) {
+	for _, data := range sm.JobData {
 		if data.Id == inputID {
-			return true, *data
+			return nil, *data
 		}
 	}
-	return false, protocol.Job{}
+	return errors.New("not found"), protocol.Job{}
 }
 
-func (allJob *storageMemory) NewJob(inputJob protocol.Job) bool {
+func (sm *storageMemory) NewJob(inputJob protocol.Job) bool {
 	var LastID uint
-	for _, data := range allJob.JobData {
+	for _, data := range sm.JobData {
 		if data.Id > LastID {
 			LastID = data.Id
 		}
@@ -54,36 +55,36 @@ func (allJob *storageMemory) NewJob(inputJob protocol.Job) bool {
 		Description:         inputJob.Description,
 		BasicPaymentPerHour: inputJob.BasicPaymentPerHour,
 	}
-	allJob.JobData = append(allJob.JobData, &result)
+	sm.JobData = append(sm.JobData, &result)
 	return true
 }
 
-func (allJob *storageMemory) EditJob(ID uint, newJob protocol.Job) bool {
-	for index, data := range allJob.JobData {
+func (sm *storageMemory) EditJob(ID uint, newJob protocol.Job) error {
+	for index, data := range sm.JobData {
 		if data.Id == ID {
 			if newJob.Name != "" {
-				(allJob.JobData)[index].Name = newJob.Name
+				(sm.JobData)[index].Name = newJob.Name
 			}
 			if newJob.LocationID != 0 {
-				(allJob.JobData)[index].LocationID = newJob.LocationID
+				(sm.JobData)[index].LocationID = newJob.LocationID
 			}
 			if newJob.Description != "" {
-				(allJob.JobData)[index].Description = newJob.Description
+				(sm.JobData)[index].Description = newJob.Description
 			}
 			if newJob.BasicPaymentPerHour != 0 {
-				(allJob.JobData)[index].BasicPaymentPerHour = newJob.BasicPaymentPerHour
+				(sm.JobData)[index].BasicPaymentPerHour = newJob.BasicPaymentPerHour
 			}
-			return true
+			return nil
 		}
 	}
-	return false
+	return errors.New("job not found")
 }
 
-func (allJob *storageMemory) DeleteJob(IDS []uint) (resDel []uint) {
+func (sm *storageMemory) DeleteJob(IDS []uint) (resDel []uint) {
 	for _, id := range IDS {
-		for index, data := range allJob.JobData {
+		for index, data := range sm.JobData {
 			if data.Id == id {
-				allJob.JobData = append((allJob.JobData)[:index], (allJob.JobData)[index+1:]...)
+				sm.JobData = append((sm.JobData)[:index], (sm.JobData)[index+1:]...)
 				resDel = append(resDel, id)
 			}
 		}

@@ -17,7 +17,7 @@ func (dc deleteCity) Do(IDS []uint) []uint {
 	return storage.DeleteCityByID(IDS)
 }
 
-func (dc deleteCity) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (dc *deleteCity) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	switch r.Method {
 	case env.DeleteMethod:

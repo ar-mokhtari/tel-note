@@ -2,10 +2,10 @@ package protocol
 
 type (
 	MenuDetail struct {
-		Title       string
-		Description string
-		Route       string
-		Type        uint
+		Title       string `json:"title"`
+		Description string `json:"description"`
+		Route       string `json:"route"`
+		Type        uint   `json:"type"`
 	}
 	MenuGroup struct {
 		GroupName string

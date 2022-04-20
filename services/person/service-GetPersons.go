@@ -14,7 +14,7 @@ func (gp *getPerson) Do() []*protocol.Person {
 	return storage.GetPersons()
 }
 
-func (gp getPerson) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (gp *getPerson) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	var result = gp.Do()

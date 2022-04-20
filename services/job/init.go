@@ -7,4 +7,7 @@ import (
 
 func Init() {
 	http.Handle(env.ListOfJobR, &GetJob)
+	http.Handle(env.DeleteJobByIdR, &DeleteJob)
+	http.Handle(env.EditJobByIdR, &EditJob)
+	http.Handle(env.FindJobR, &FindJobID)
 }

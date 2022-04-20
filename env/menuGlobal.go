@@ -65,6 +65,7 @@ var (
 			{EditJobById, EditJobByIdD, EditJobByIdR, DataEntryTypeForm},
 			{DeleteJobById, DeleteJobByIdD, DeleteJobByIdR, ActionType},
 			{ListOfJob, ListOfJobD, ListOfJobR, ListTypeForm},
+			{FindJob, FindJobD, FindJobR, ActionType},
 		}},
 		{Sex, []protocol.MenuDetail{
 			{InsertNewSex, InsertNewSexD, InsertNewSexR, DataEntryTypeForm},

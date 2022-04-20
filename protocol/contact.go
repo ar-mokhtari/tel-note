@@ -6,13 +6,13 @@ type (
 		Description string
 	}
 	Contact struct {
-		Id                  uint
-		PersonID            uint
-		JobID               uint
-		Tel                 string
-		CellphoneCollection []CellPhone
-		Address             string
-		Description         string
+		Id                  uint        `json:"id"`
+		PersonID            uint        `json:"person_id"`
+		JobID               uint        `json:"job_id"`
+		Tel                 string      `json:"tel"`
+		CellphoneCollection []CellPhone `json:"cellphone_collection"`
+		Address             string      `json:"address"`
+		Description         string      `json:"description"`
 	}
 	ContactServices interface {
 		GetContacts() []*Contact

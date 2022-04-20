@@ -15,7 +15,7 @@ func (fci *findCountryChar) Do(insertChar string) []*protocol.Country {
 	return storage.FindCountryByChar(insertChar)
 }
 
-func (fci findCountryChar) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (fci *findCountryChar) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case env.GetMethod:
 		w.Header().Set("Content-Type", "application/json")

@@ -42,9 +42,3 @@ func (ng *newGrpRelation) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}{400, "method not support"})
 	}
 }
-
-//package customer
-//
-//func NewRelation(customerID uint, groupID uint) {
-//	storageRelation.NewRelation(customerID, groupID)
-//}

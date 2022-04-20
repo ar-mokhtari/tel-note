@@ -17,7 +17,7 @@ func (gc getCustomer) Do() map[uint]*protocol.Customer {
 	return globalVars.CustomerMapStore
 }
 
-func (gc getCustomer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (gc *getCustomer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case env.GetMethod:
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")

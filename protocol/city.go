@@ -2,12 +2,12 @@ package protocol
 
 type (
 	City struct {
-		Id          uint
-		Name        string
-		EnglishName string
-		AriaCode    string
-		Lat         float64
-		Lng         float64
+		Id          uint    `json:"id"`
+		Name        string  `json:"name"`
+		EnglishName string  `json:"english_name"`
+		AriaCode    string  `json:"aria_code"`
+		Lat         float64 `json:"lat"`
+		Lng         float64 `json:"lng"`
 	}
 	CityServices interface {
 		//city methods

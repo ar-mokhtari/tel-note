@@ -41,7 +41,7 @@ func (cr *contactReport) Do() (result []resultReport, err error) {
 			contact.CellphoneCollection = []protocol.CellPhone{{CellPhone: "", Description: ""}}
 		}
 		if err, personInfo := person.FindPersonID.Do(contact.PersonID); err.State {
-			if err, jobInfo := job.FindJobByID(contact.JobID); err.State {
+			if err, jobInfo := job.FindJobID.Do(contact.JobID); err == nil {
 				if err, cityInfo := city.FindCityID.FindCityByID(jobInfo.LocationID); err.State {
 					if sexInfo, err := sex.FindSexByID(uint8(personInfo.GenderID)); err.State {
 						result = append(result, resultReport{

@@ -2,9 +2,9 @@ package protocol
 
 type (
 	CustomerGroupRelation struct {
-		ID         uint
-		CustomerID uint
-		GroupID    uint
+		ID         uint `json:"id"`
+		CustomerID uint `json:"customer_id"`
+		GroupID    uint `json:"group_id"`
 	}
 	CustomerGRelationStorage      []*CustomerGroupRelation
 	CustomerGroupRelationServices interface {

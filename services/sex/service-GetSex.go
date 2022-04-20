@@ -14,7 +14,7 @@ func (gs *getSex) Do() []*protocol.Sex {
 	return storage.GetSex()
 }
 
-func (gs getSex) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (gs *getSex) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	var result = gs.Do()

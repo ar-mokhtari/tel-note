@@ -4,10 +4,10 @@ import "time"
 
 type (
 	Customer struct {
-		PersonID    uint
-		Description string
-		CreateAt    time.Time
-		UpdatedAt   time.Time
+		PersonID    uint      `json:"person_id"`
+		Description string    `json:"description"`
+		CreateAt    time.Time `json:"create_at"`
+		UpdatedAt   time.Time `json:"updated_at"`
 	}
 	CustomerStorage struct {
 		CustomerData map[uint]*Customer

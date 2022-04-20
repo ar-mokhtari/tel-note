@@ -2,8 +2,8 @@ package protocol
 
 type (
 	CustomerGroup struct {
-		GroupID   uint
-		GroupName string
+		GroupID   uint   `json:"group_id"`
+		GroupName string `json:"group_name"`
 	}
 	CustomerGroupStorage  []*CustomerGroup
 	CustomerGroupServices interface {

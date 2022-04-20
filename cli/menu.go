@@ -67,7 +67,7 @@ func RunMenu() {
 					_, person := person.FindPersonID.Do(data.PersonID)
 					genderID := person.GenderID
 					gender, _ := sex.FindSexByID(uint8(genderID))
-					_, job := job.FindJobByID(data.JobID)
+					_, job := job.FindJobID.Do(data.JobID)
 					_, city := city.FindCityID.FindCityByID(job.LocationID)
 					if data.CellphoneCollection == nil {
 						data.CellphoneCollection = append(data.CellphoneCollection, protocol.CellPhone{})
@@ -210,7 +210,7 @@ func RunMenu() {
 					_, person := person.FindPersonID.Do(data.PersonID)
 					genderID := person.GenderID
 					gender, _ := sex.FindSexByID(uint8(genderID))
-					_, job := job.FindJobByID(data.JobID)
+					_, job := job.FindJobID.Do(data.JobID)
 					_, city := city.FindCityID.FindCityByID(job.LocationID)
 					if data.CellphoneCollection == nil {
 						data.CellphoneCollection = append(data.CellphoneCollection, protocol.CellPhone{})
@@ -233,7 +233,7 @@ func RunMenu() {
 					_, person := person.FindPersonID.Do(result.PersonID)
 					genderID := person.GenderID
 					gender, _ := sex.FindSexByID(uint8(genderID))
-					_, job := job.FindJobByID(result.JobID)
+					_, job := job.FindJobID.Do(result.JobID)
 					_, city := city.FindCityID.FindCityByID(job.LocationID)
 					fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-4v | %-12v | %-3v  \n",
 						result.Id, result.PersonID, person.FirstName, person.LastName, result.JobID, job.Name, gender.Name, result.CellphoneCollection, job.LocationID, city.Name, result.Description)
@@ -259,7 +259,7 @@ func RunMenu() {
 						_, person := person.FindPersonID.Do(data.PersonID)
 						genderID := person.GenderID
 						gender, _ := sex.FindSexByID(uint8(genderID))
-						_, job := job.FindJobByID(data.JobID)
+						_, job := job.FindJobID.Do(data.JobID)
 						_, city := city.FindCityID.FindCityByID(job.LocationID)
 						fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-4v | %-12v | %-3v  \n",
 							data.Id, data.PersonID, person.FirstName, person.LastName, data.JobID, job.Name, gender.Name, data.CellphoneCollection, job.LocationID, city.Name, data.Description)
@@ -283,7 +283,7 @@ func RunMenu() {
 					_, person := person.FindPersonID.Do(result.PersonID)
 					genderID := person.GenderID
 					gender, _ := sex.FindSexByID(uint8(genderID))
-					_, job := job.FindJobByID(result.JobID)
+					_, job := job.FindJobID.Do(result.JobID)
 					_, city := city.FindCityID.FindCityByID(job.LocationID)
 					fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-4v | %-12v | %-3v  \n",
 						result.Id, result.PersonID, person.FirstName, person.LastName, result.JobID, job.Name, gender.Name, result.CellphoneCollection, job.LocationID, city.Name, result.Description)
@@ -938,14 +938,12 @@ func RunMenu() {
 				fmt.Println("insert new BasicPaymentPerHour")
 				scanner.Scan()
 				BasicPaymentPerHour, _ = strconv.ParseUint(scanner.Text(), 10, 8)
-				if job.EditJobInfoByID(inputID, protocol.Job{
+				job.EditJob.Do(inputID, job.EditRequest{
 					Name:                Name,
 					LocationID:          uint(LocationID),
 					Description:         Description,
 					BasicPaymentPerHour: uint(BasicPaymentPerHour),
-				}).State {
-					fmt.Println("Job changed ...")
-				}
+				})
 				fmt.Println(env.ShowMenuWarn)
 			case env.DeleteJobById:
 				var confirmDel string
@@ -962,7 +960,7 @@ func RunMenu() {
 						_, j := convertor.StrToUint(i)
 						idPackInt = append(idPackInt, uint(j))
 					}
-					resNums := job.DeleteJobByID(idPackInt)
+					resNums := job.DeleteJob.Do(idPackInt)
 					fmt.Printf("%v job(s) has been deleted", resNums)
 				}
 				fmt.Println(env.ShowMenuWarn)

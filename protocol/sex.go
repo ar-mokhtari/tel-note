@@ -2,8 +2,8 @@ package protocol
 
 type (
 	Sex struct {
-		Id   uint8
-		Name string
+		Id   uint8  `json:"id"`
+		Name string `json:"name"`
 	}
 	SexServices interface {
 		GetSex() []*Sex

@@ -22,7 +22,7 @@ func (fcg *findCustGrpRelationByGrpID) Do(ID uint) protocol.CustomerStorage {
 	return storageRelation.FindCustomerGroupRelationByGroupID(ID)
 }
 
-func (fcg findCustGrpRelationByGrpID) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (fcg *findCustGrpRelationByGrpID) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	var res findResponse
 	switch r.Method {
 	case env.GetMethod:

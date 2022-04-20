@@ -18,7 +18,7 @@ func (fci *findCustomerByID) Do(ID uint) protocol.Customer {
 	return storage.FindCustomerByID(ID)
 }
 
-func (fci findCustomerByID) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (fci *findCustomerByID) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case env.GetMethod:
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")

@@ -210,15 +210,19 @@ const (
 
 	EditJobById  = "EJ"
 	EditJobByIdD = "edit job"
-	EditJobByIdR = ""
+	EditJobByIdR = "/edit-job"
 
 	DeleteJobById  = "DJ"
 	DeleteJobByIdD = "delete job"
-	DeleteJobByIdR = ""
+	DeleteJobByIdR = "/delete-job"
 
 	ListOfJob  = "LJ"
 	ListOfJobD = "list of job(s)"
 	ListOfJobR = "/get-job"
+
+	FindJob  = "FJ"
+	FindJobD = "find job by id"
+	FindJobR = "/find-job"
 
 	//sex
 	Sex           = "sex"
