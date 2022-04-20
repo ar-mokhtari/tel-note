@@ -1015,6 +1015,63 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "find-person-char",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:1212/find-person-char?char=ki",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"find-person-char"
+							],
+							"query": [
+								{
+									"key": "char",
+									"value": "ki"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "new-person",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"New name from back\",\n    \"last_name\": \"Last name from back\",\n    // \"dob\": \"2006-01-02T15:04:05.999999999Z07:00\",    \n    \"birth_location_id\": 13,\n    \"gender_id\": 1,\n    \"national_code\": \"123456789\",\n    \"description\": \"added by 127.0.0.1:1212/edit-person?personID=5\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:1212/new-person",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"new-person"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1244,6 +1301,126 @@
 							"port": "1212",
 							"path": [
 								"get-sex"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-sex",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:1212/delete-sex?sexID=1",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"delete-sex"
+							],
+							"query": [
+								{
+									"key": "sexID",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit-sex",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 2,\n    \"name\": \"edited name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:1212/edit-sex?",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"edit-sex"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find-sex",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:1212/find-sex?sexID=3",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"find-sex"
+							],
+							"query": [
+								{
+									"key": "sexID",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "new-sex",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"new name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:1212/new-sex",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"new-sex"
 							]
 						}
 					},

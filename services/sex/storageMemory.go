@@ -3,6 +3,7 @@
 package sex
 
 import (
+	"errors"
 	"tel-note/protocol"
 )
 
@@ -21,7 +22,7 @@ func (allSex *storageMemory) GetSex() []*protocol.Sex {
 	return allSex.SexData
 }
 
-func (allSex *storageMemory) NewSex(inputSex protocol.Sex) bool {
+func (allSex *storageMemory) NewSex(inputSex protocol.Sex) error {
 	var LastID uint8
 	for _, data := range allSex.SexData {
 		if data.Id > LastID {
@@ -34,36 +35,36 @@ func (allSex *storageMemory) NewSex(inputSex protocol.Sex) bool {
 		Name: inputSex.Name,
 	}
 	allSex.SexData = append(allSex.SexData, &result)
-	return true
+	return nil
 }
 
-func (allSex *storageMemory) EditSex(newSex protocol.Sex) bool {
+func (allSex *storageMemory) EditSex(newSex protocol.Sex) error {
 	for index, data := range allSex.SexData {
 		if data.Id == newSex.Id {
 			if newSex.Name != "" {
 				(allSex.SexData)[index].Name = newSex.Name
 			}
-			return true
+			return nil
 		}
 	}
-	return false
+	return errors.New("not found")
 }
 
-func (allSex *storageMemory) DeleteSex(ID uint8) bool {
+func (allSex *storageMemory) DeleteSex(ID uint8) error {
 	for index, data := range allSex.SexData {
 		if data.Id == ID {
 			allSex.SexData = append((allSex.SexData)[:index], (allSex.SexData)[index+1:]...)
-			return true
+			return nil
 		}
 	}
-	return false
+	return errors.New("not found")
 }
 
-func (allSex *storageMemory) FindSexByID(ID uint8) (bool, protocol.Sex) {
+func (allSex *storageMemory) FindSexByID(ID uint8) protocol.Sex {
 	for _, data := range allSex.SexData {
 		if data.Id == ID {
-			return true, *data
+			return *data
 		}
 	}
-	return false, protocol.Sex{}
+	return protocol.Sex{}
 }

@@ -56,16 +56,15 @@ func (allContact *storageMemory) FindContactByID(id uint) (bool, protocol.Contac
 }
 
 func (allContact *storageMemory) FindContactByChar(insertChar string) (status bool, result []*protocol.Contact) {
-	if state, res := person.FindPersonByChar(insertChar); state.State {
-		for _, data := range allContact.ContactData {
-			if len(res) == 0 {
-				break
-			}
-			if ((res)[0]).Id == data.PersonID {
-				status = true
-				result = append(result, data)
-				res = (res)[1:]
-			}
+	res := person.FindCharPerson.Do(insertChar)
+	for _, data := range allContact.ContactData {
+		if len(res) == 0 {
+			break
+		}
+		if ((res)[0]).Id == data.PersonID {
+			status = true
+			result = append(result, data)
+			res = (res)[1:]
 		}
 	}
 	return status, result

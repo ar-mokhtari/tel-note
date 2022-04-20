@@ -18,35 +18,34 @@ var (
 	_       protocol.PersonServices = &storage
 )
 
-func (allPerson *storageMemory) GetPersons() []*protocol.Person {
-	return allPerson.PersonData
+func (sm *storageMemory) GetPersons() []*protocol.Person {
+	return sm.PersonData
 }
 
-func (allPerson *storageMemory) FindPersonByChar(inputChar string) (status bool, res []*protocol.Person) {
-	for _, data := range allPerson.PersonData {
+func (sm *storageMemory) FindPersonByChar(inputChar string) (res []*protocol.Person) {
+	for _, data := range sm.PersonData {
 		if strings.Contains(
 			strings.ToLower(data.FirstName+data.LastName),
 			strings.ToLower(inputChar),
 		) {
 			res = append(res, data)
-			status = true
 		}
 	}
-	return status, res
+	return res
 }
 
-func (allPerson *storageMemory) FindPersonByID(inputID uint) (bool, protocol.Person) {
-	for _, data := range allPerson.PersonData {
+func (sm *storageMemory) FindPersonByID(inputID uint) protocol.Person {
+	for _, data := range sm.PersonData {
 		if data.Id == inputID {
-			return true, *data
+			return *data
 		}
 	}
-	return false, protocol.Person{}
+	return protocol.Person{}
 }
 
-func (allPerson *storageMemory) NewPerson(inputPerson protocol.Person) bool {
+func (sm *storageMemory) NewPerson(inputPerson protocol.Person) error {
 	var LastID uint
-	for _, data := range allPerson.PersonData {
+	for _, data := range sm.PersonData {
 		if data.Id > LastID {
 			LastID = data.Id
 		}
@@ -63,33 +62,33 @@ func (allPerson *storageMemory) NewPerson(inputPerson protocol.Person) bool {
 		Description:     inputPerson.Description,
 		CreateAt:        time.Now(),
 	}
-	allPerson.PersonData = append(allPerson.PersonData, &result)
-	return true
+	sm.PersonData = append(sm.PersonData, &result)
+	return nil
 }
 
-func (allPerson *storageMemory) EditPerson(ID uint, newPerson protocol.Person) error {
-	for index, data := range allPerson.PersonData {
+func (sm *storageMemory) EditPerson(ID uint, newPerson protocol.Person) error {
+	for index, data := range sm.PersonData {
 		if data.Id == ID {
 			if newPerson.FirstName != "" {
-				(allPerson.PersonData)[index].FirstName = newPerson.FirstName
+				(sm.PersonData)[index].FirstName = newPerson.FirstName
 			}
 			if newPerson.LastName != "" {
-				(allPerson.PersonData)[index].LastName = newPerson.LastName
+				(sm.PersonData)[index].LastName = newPerson.LastName
 			}
 			if newPerson.Description != "" {
-				(allPerson.PersonData)[index].Description = newPerson.Description
+				(sm.PersonData)[index].Description = newPerson.Description
 			}
 			if !(newPerson.DOB).IsZero() {
-				(allPerson.PersonData)[index].DOB = newPerson.DOB
+				(sm.PersonData)[index].DOB = newPerson.DOB
 			}
 			if newPerson.BirthLocationID != 0 {
-				(allPerson.PersonData)[index].BirthLocationID = newPerson.BirthLocationID
+				(sm.PersonData)[index].BirthLocationID = newPerson.BirthLocationID
 			}
 			if newPerson.NationalCode != "" {
-				(allPerson.PersonData)[index].NationalCode = newPerson.NationalCode
+				(sm.PersonData)[index].NationalCode = newPerson.NationalCode
 			}
 			if newPerson.GenderID != 0 {
-				(allPerson.PersonData)[index].GenderID = newPerson.GenderID
+				(sm.PersonData)[index].GenderID = newPerson.GenderID
 			}
 			if newPerson.FirstName != "" ||
 				newPerson.LastName != "" ||
@@ -98,7 +97,7 @@ func (allPerson *storageMemory) EditPerson(ID uint, newPerson protocol.Person) e
 				newPerson.BirthLocationID != 0 ||
 				newPerson.NationalCode != "" ||
 				newPerson.GenderID != 0 {
-				(allPerson.PersonData)[index].UpdateAt = time.Now()
+				(sm.PersonData)[index].UpdateAt = time.Now()
 			}
 			return nil
 		}
@@ -106,11 +105,11 @@ func (allPerson *storageMemory) EditPerson(ID uint, newPerson protocol.Person) e
 	return errors.New("not found")
 }
 
-func (allPerson *storageMemory) DeletePerson(IDS []uint) (resDel []uint) {
+func (sm *storageMemory) DeletePerson(IDS []uint) (resDel []uint) {
 	for _, id := range IDS {
-		for index, data := range allPerson.PersonData {
+		for index, data := range sm.PersonData {
 			if data.Id == id {
-				allPerson.PersonData = append((allPerson.PersonData)[:index], (allPerson.PersonData)[index+1:]...)
+				sm.PersonData = append((sm.PersonData)[:index], (sm.PersonData)[index+1:]...)
 				resDel = append(resDel, id)
 			}
 		}

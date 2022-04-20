@@ -17,9 +17,9 @@ type (
 	}
 	PersonServices interface {
 		GetPersons() []*Person
-		FindPersonByChar(inputChar string) (bool, []*Person)
-		FindPersonByID(inputID uint) (status bool, res Person)
-		NewPerson(person Person) bool
+		FindPersonByChar(inputChar string) []*Person
+		FindPersonByID(inputID uint) Person
+		NewPerson(person Person) error
 		EditPerson(ID uint, newPerson Person) error
 		DeletePerson(IDS []uint) (resDel []uint)
 	}

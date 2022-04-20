@@ -1,12 +1,37 @@
 package person
 
 import (
+	"encoding/json"
+	"net/http"
+	"tel-note/env"
 	"tel-note/protocol"
 )
 
-func FindPersonByChar(inputChar string) (state protocol.ResponseStatus, result []*protocol.Person) {
-	if status, res := storage.FindPersonByChar(inputChar); status {
-		return protocol.ResponseStatus{State: true}, res
+type (
+	findCharPerson struct{}
+)
+
+var FindCharPerson findCharPerson
+
+func (fpc *findCharPerson) Do(inputChar string) []*protocol.Person {
+	res := storage.FindPersonByChar(inputChar)
+	return res
+}
+
+func (fpc *findCharPerson) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case env.GetMethod:
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		inputChar := r.FormValue("char")
+		result := fpc.Do(inputChar)
+		json.NewEncoder(w).Encode(struct {
+			Status int
+			Data   []*protocol.Person
+		}{200, result})
+	default:
+		json.NewEncoder(w).Encode(struct {
+			Status int
+			Data   string
+		}{400, "method not support"})
 	}
-	return protocol.ResponseStatus{State: false}, []*protocol.Person{}
 }

@@ -2,9 +2,9 @@ package person
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
-	"strconv"
+	"tel-note/env"
+	"tel-note/lib/convertor"
 	"tel-note/protocol"
 )
 
@@ -12,20 +12,22 @@ type findPersonID struct{}
 
 var FindPersonID findPersonID
 
-func (fpi *findPersonID) Do(ID uint) (state protocol.ResponseStatus, result protocol.Person) {
-	if status, res := storage.FindPersonByID(ID); status {
-		return protocol.ResponseStatus{State: true}, res
-	}
-	return protocol.ResponseStatus{State: false}, protocol.Person{}
+func (fpi *findPersonID) Do(ID uint) protocol.Person {
+	return storage.FindPersonByID(ID)
 }
 
 func (fpi *findPersonID) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	personID := r.FormValue("pid")
-	personUID, _ := strconv.ParseUint(personID, 10, 8)
-	if status, data := fpi.Do(uint(personUID)); status.State {
+	switch r.Method {
+	case env.GetMethod:
+		w.Header().Set("Content-Type", "application/json")
+		personID := r.FormValue("pid")
+		_, personUID := convertor.StrToUint(personID)
+		data := fpi.Do(uint(personUID))
 		json.NewEncoder(w).Encode(data)
-	} else {
-		fmt.Fprintf(w, "not found")
+	default:
+		json.NewEncoder(w).Encode(struct {
+			Status int
+			Data   string
+		}{400, "method not support"})
 	}
 }

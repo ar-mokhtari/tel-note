@@ -72,6 +72,7 @@ var (
 			{ListOfSex, ListOfSexD, ListOfSexR, ListTypeForm},
 			{EditSex, EditSexD, EditSexR, DataEntryTypeForm},
 			{DeleteSex, DeleteSexD, DeleteSexR, ActionType},
+			{FindSex, FindSexD, FindSexR, ActionType},
 		}},
 		{SampleData, []protocol.MenuDetail{
 			{InsertData, InsertDataD, InsertDataR, DataEntryTypeForm},

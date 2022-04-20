@@ -7,9 +7,9 @@ type (
 	}
 	SexServices interface {
 		GetSex() []*Sex
-		NewSex(inputSex Sex) bool
-		EditSex(newSex Sex) bool
-		DeleteSex(ID uint8) bool
-		FindSexByID(ID uint8) (bool, Sex)
+		NewSex(inputSex Sex) error
+		EditSex(newSex Sex) error
+		DeleteSex(ID uint8) error
+		FindSexByID(ID uint8) Sex
 	}
 )

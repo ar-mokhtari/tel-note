@@ -114,7 +114,7 @@ const (
 	Person     = "Person"
 	NewPerson  = "NP"
 	NewPersonD = "new person"
-	NewPersonR = ""
+	NewPersonR = "/new-person"
 
 	ListOfPerson  = "LP"
 	ListOfPersonD = "list of person(s)"
@@ -122,11 +122,11 @@ const (
 
 	FindOnePersonById  = "FP"
 	FindOnePersonByIdD = "find person by id"
-	FindOnePersonByIdR = "find-person-id"
+	FindOnePersonByIdR = "/find-person-id"
 
 	FindPersonChar  = "FPC"
 	FindPersonCharD = "find person by char"
-	FindPersonCharR = ""
+	FindPersonCharR = "/find-person-char"
 
 	EditPerson  = "EP"
 	EditPersonD = "edit person"
@@ -225,10 +225,11 @@ const (
 	FindJobR = "/find-job"
 
 	//sex
-	Sex           = "sex"
+	Sex = "sex"
+
 	InsertNewSex  = "NS"
 	InsertNewSexD = "new sex"
-	InsertNewSexR = ""
+	InsertNewSexR = "/new-sex"
 
 	ListOfSex  = "LS"
 	ListOfSexD = "list of sex(s)"
@@ -236,11 +237,15 @@ const (
 
 	EditSex  = "ES"
 	EditSexD = "edit sex"
-	EditSexR = ""
+	EditSexR = "/edit-sex"
 
 	DeleteSex  = "DS"
 	DeleteSexD = "delete sex"
-	DeleteSexR = ""
+	DeleteSexR = "/delete-sex"
+
+	FindSex  = "FS"
+	FindSexD = "find sex by id"
+	FindSexR = "/find-sex"
 
 	//general
 	CheckIranNationalCode  = "ICNC"

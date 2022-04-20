@@ -64,9 +64,9 @@ func RunMenu() {
 					"Id", "PID", "PersonName", "PersonFamily", "JID", "JobName", "Gender", "Cellphone", "LoID", "jobCity", "Desc")
 				fmt.Println("")
 				for _, data := range contact.GetContact.Do() {
-					_, person := person.FindPersonID.Do(data.PersonID)
+					person := person.FindPersonID.Do(data.PersonID)
 					genderID := person.GenderID
-					gender, _ := sex.FindSexByID(uint8(genderID))
+					gender := sex.FindSexID.Do(genderID)
 					_, job := job.FindJobID.Do(data.JobID)
 					_, city := city.FindCityID.FindCityByID(job.LocationID)
 					if data.CellphoneCollection == nil {
@@ -122,7 +122,7 @@ func RunMenu() {
 				fmt.Println()
 				for _, relation := range customer.GetCustomerGroupRelation.Do() {
 					customerObject := customer.FindCustomerByID.Do(relation.CustomerID)
-					_, personObject := person.FindPersonID.Do(customerObject.PersonID)
+					personObject := person.FindPersonID.Do(customerObject.PersonID)
 					groupObject := customer.FindGroupByID.Do(relation.GroupID)
 					fmt.Printf("%3v | %-25s | %-13v | %-45s \n",
 						relation.ID, groupObject.GroupName, relation.CustomerID, personObject.FirstName+" "+personObject.LastName)
@@ -133,7 +133,7 @@ func RunMenu() {
 					"Id", "Customername", "CustomerFamily", "PID", "Creat@", "Update@", "Desc")
 				fmt.Println()
 				for ID, data := range globalVars.CustomerMapStore {
-					_, person := person.FindPersonID.Do(data.PersonID)
+					person := person.FindPersonID.Do(data.PersonID)
 					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-25v | %-25v | %-23v \n",
 						ID, person.FirstName, person.LastName, data.PersonID, (data.CreateAt).String()[0:19], (data.UpdatedAt).String()[0:19], data.Description)
 				}
@@ -207,9 +207,9 @@ func RunMenu() {
 					"Id", "PID", "PersonName", "PersonFamily", "JID", "JobName", "Gender", "Cellphone", "LoID", "jobCity", "Desc")
 				fmt.Println("")
 				for _, data := range contact.GetContact.Do() {
-					_, person := person.FindPersonID.Do(data.PersonID)
+					person := person.FindPersonID.Do(data.PersonID)
 					genderID := person.GenderID
-					gender, _ := sex.FindSexByID(uint8(genderID))
+					gender := sex.FindSexID.Do(genderID)
 					_, job := job.FindJobID.Do(data.JobID)
 					_, city := city.FindCityID.FindCityByID(job.LocationID)
 					if data.CellphoneCollection == nil {
@@ -230,9 +230,9 @@ func RunMenu() {
 					fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-v | %-12v | %-3v  \n",
 						"Id", "PID", "PersonName", "PersonFamily", "JID", "JobName", "Gender", "Cellphone", "LoID", "jobCity", "Desc")
 					fmt.Println("")
-					_, person := person.FindPersonID.Do(result.PersonID)
+					person := person.FindPersonID.Do(result.PersonID)
 					genderID := person.GenderID
-					gender, _ := sex.FindSexByID(uint8(genderID))
+					gender := sex.FindSexID.Do(genderID)
 					_, job := job.FindJobID.Do(result.JobID)
 					_, city := city.FindCityID.FindCityByID(job.LocationID)
 					fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-4v | %-12v | %-3v  \n",
@@ -256,9 +256,9 @@ func RunMenu() {
 						"Id", "PID", "PersonName", "PersonFamily", "JID", "JobName", "Gender", "Cellphone", "LoID", "jobCity", "Desc")
 					fmt.Println("")
 					for _, data := range resultData {
-						_, person := person.FindPersonID.Do(data.PersonID)
+						person := person.FindPersonID.Do(data.PersonID)
 						genderID := person.GenderID
-						gender, _ := sex.FindSexByID(uint8(genderID))
+						gender := sex.FindSexID.Do(genderID)
 						_, job := job.FindJobID.Do(data.JobID)
 						_, city := city.FindCityID.FindCityByID(job.LocationID)
 						fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-4v | %-12v | %-3v  \n",
@@ -280,9 +280,9 @@ func RunMenu() {
 					fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-v | %-12v | %-3v  \n",
 						"Id", "PID", "PersonName", "PersonFamily", "JID", "JobName", "Gender", "Cellphone", "LoID", "jobCity", "Desc")
 					fmt.Println("")
-					_, person := person.FindPersonID.Do(result.PersonID)
+					person := person.FindPersonID.Do(result.PersonID)
 					genderID := person.GenderID
-					gender, _ := sex.FindSexByID(uint8(genderID))
+					gender := sex.FindSexID.Do(genderID)
 					_, job := job.FindJobID.Do(result.JobID)
 					_, city := city.FindCityID.FindCityByID(job.LocationID)
 					fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-4v | %-12v | %-3v  \n",
@@ -414,7 +414,7 @@ func RunMenu() {
 				fmt.Println()
 				for _, relation := range customer.GetCustomerGroupRelation.Do() {
 					customerObject := customer.FindCustomerByID.Do(relation.CustomerID)
-					_, personObject := person.FindPersonID.Do(customerObject.PersonID)
+					personObject := person.FindPersonID.Do(customerObject.PersonID)
 					groupObject := customer.FindGroupByID.Do(relation.GroupID)
 					fmt.Printf("%3v | %-25s | %-13v | %-45s \n",
 						relation.ID, groupObject.GroupName, relation.CustomerID, personObject.FirstName+" "+personObject.LastName)
@@ -431,7 +431,7 @@ func RunMenu() {
 					"CID", "Customername", "CustomerFamily", "PID", "Creat@", "Update@", "Desc")
 				fmt.Println()
 				for ID, data := range customer.FindCustGrpRelationByGrpID.Do(groupID).CustomerData {
-					_, person := person.FindPersonID.Do(data.PersonID)
+					person := person.FindPersonID.Do(data.PersonID)
 					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-25v | %-25v | %-23v \n",
 						ID, person.FirstName, person.LastName, data.PersonID, (data.CreateAt).String()[0:19], (data.UpdatedAt).String()[0:19], data.Description)
 				}
@@ -458,7 +458,7 @@ func RunMenu() {
 					"Id", "Customername", "CustomerFamily", "PID", "Creat@", "Update@", "Desc")
 				fmt.Println()
 				for ID, data := range globalVars.CustomerMapStore {
-					_, person := person.FindPersonID.Do(data.PersonID)
+					person := person.FindPersonID.Do(data.PersonID)
 					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-25v | %-25v | %-23v \n",
 						ID, person.FirstName, person.LastName, data.PersonID, (data.CreateAt).String()[0:19], (data.UpdatedAt).String()[0:19], data.Description)
 				}
@@ -537,7 +537,7 @@ func RunMenu() {
 				fmt.Println("insert new Description")
 				scanner.Scan()
 				description = scanner.Text()
-				if person.NewPerson(protocol.Person{
+				person.AddPerson.Do(person.AddRequest{
 					FirstName:       FirstName,
 					LastName:        LastName,
 					DOB:             dboTime,
@@ -545,9 +545,7 @@ func RunMenu() {
 					GenderID:        GenderID,
 					NationalCode:    NationalCode,
 					Description:     description,
-				}).State {
-					fmt.Println("New person added")
-				}
+				})
 				//some code
 				fmt.Println(env.ShowMenuWarn)
 			case env.ListOfPerson:
@@ -558,7 +556,7 @@ func RunMenu() {
 				fmt.Println("")
 				for _, data := range person.GetPerson.Do() {
 					genderID := data.GenderID
-					gender, _ := sex.FindSexByID(uint8(genderID))
+					gender := sex.FindSexID.Do(genderID)
 					_, city := city.FindCityID.FindCityByID(data.BirthLocationID)
 					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
 						data.Id, data.FirstName, data.LastName, gender.Name, data.BirthLocationID, city.Name, (data.DOB).String()[0:10], data.Description)
@@ -568,97 +566,91 @@ func RunMenu() {
 				var personID uint
 				fmt.Println("insert person id")
 				fmt.Scanln(&personID)
-				if status, data := person.FindPersonID.Do(personID); status.State {
-					fmt.Println(separator7)
-					fmt.Println("Person Data:")
-					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
-						"Id", "PersonName", "PersonFamily", "Gender", "BLoID", "jobCity", "DOB", "Desc")
-					fmt.Println("")
-					genderID := data.GenderID
-					gender, _ := sex.FindSexByID(uint8(genderID))
-					_, city := city.FindCityID.FindCityByID(data.BirthLocationID)
-					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
-						data.Id, data.FirstName, data.LastName, gender.Name, data.BirthLocationID, city.Name, (data.DOB).String()[0:10], data.Description)
-				} else {
-					fmt.Println("not found")
-				}
+				data := person.FindPersonID.Do(personID)
+				fmt.Println(separator7)
+				fmt.Println("Person Data:")
+				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
+					"Id", "PersonName", "PersonFamily", "Gender", "BLoID", "jobCity", "DOB", "Desc")
+				fmt.Println("")
+				genderID := data.GenderID
+				gender := sex.FindSexID.Do(genderID)
+				_, city := city.FindCityID.FindCityByID(data.BirthLocationID)
+				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
+					data.Id, data.FirstName, data.LastName, gender.Name, data.BirthLocationID, city.Name, (data.DOB).String()[0:10], data.Description)
 				fmt.Println(env.ShowMenuWarn)
 			case env.FindPersonChar:
 				fmt.Println("insert character")
 				scanner.Scan()
-				if state, data := person.FindPersonByChar(scanner.Text()); state.State {
-					fmt.Println(separator7)
-					fmt.Println(len(data), "record(s) found")
-					fmt.Println("Person Data:")
+				data := person.FindCharPerson.Do(scanner.Text())
+				fmt.Println(separator7)
+				fmt.Println(len(data), "record(s) found")
+				fmt.Println("Person Data:")
+				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
+					"Id", "PersonName", "PersonFamily", "Gender", "BLoID", "jobCity", "DOB", "Desc")
+				fmt.Println("")
+				for _, personData := range data {
+					genderID := personData.GenderID
+					gender := sex.FindSexID.Do(genderID)
+					_, city := city.FindCityID.FindCityByID(personData.BirthLocationID)
 					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
-						"Id", "PersonName", "PersonFamily", "Gender", "BLoID", "jobCity", "DOB", "Desc")
-					fmt.Println("")
-					for _, personData := range data {
-						genderID := personData.GenderID
-						gender, _ := sex.FindSexByID(uint8(genderID))
-						_, city := city.FindCityID.FindCityByID(personData.BirthLocationID)
-						fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
-							personData.Id, personData.FirstName, personData.LastName, gender.Name, personData.BirthLocationID, city.Name, (personData.DOB).String()[0:10], personData.Description)
-					}
+						personData.Id, personData.FirstName, personData.LastName, gender.Name, personData.BirthLocationID, city.Name, (personData.DOB).String()[0:10], personData.Description)
+
 				}
 				fmt.Println(env.ShowMenuWarn)
 			case env.EditPerson:
 				fmt.Println("insert person id to (find and) edit")
 				var personID uint
 				fmt.Scanln(&personID)
-				if status, data := person.FindPersonID.Do(personID); status.State {
-					fmt.Println(separator7)
-					fmt.Println("Person Data:")
-					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
-						"Id", "PersonName", "PersonFamily", "Gender", "BLoID", "jobCity", "DOB", "Desc")
-					fmt.Println("")
-					genderID := data.GenderID
-					gender, _ := sex.FindSexByID(uint8(genderID))
-					_, city := city.FindCityID.FindCityByID(data.BirthLocationID)
-					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-4v | %-12v | %-13v |  %-3v  \n",
-						data.Id, data.FirstName, data.LastName, gender.Name, data.BirthLocationID, city.Name, (data.DOB).String()[0:10], data.Description)
-					fmt.Println("insert FirstName")
-					scanner.Scan()
-					FirstName := scanner.Text()
-					fmt.Println("insert LastName")
-					scanner.Scan()
-					LastName := scanner.Text()
-					fmt.Println("insert DOB")
-					scanner.Scan()
-					DOB := scanner.Text()
-					dboTime, _ := time.Parse("20060102", DOB)
-					fmt.Println("insert BirthLocationID")
-					scanner.Scan()
-					BirthLocationID := scanner.Text()
-					BirthLocationIDUINT, _ := strconv.ParseUint(BirthLocationID, 10, 8)
-					fmt.Println("insert GenderID")
-					scanner.Scan()
-					GenderID := scanner.Text()
-					GenderIDUINT, _ := strconv.ParseUint(GenderID, 10, 8)
-					fmt.Println("insert NationalCode")
-					scanner.Scan()
-					NationalCode := scanner.Text()
-					fmt.Println("insert Description")
-					scanner.Scan()
-					Description := scanner.Text()
-					newPerson := protocol.Person{
-						Id:              personID,
-						FirstName:       FirstName,
-						LastName:        LastName,
-						DOB:             dboTime,
-						BirthLocationID: uint(BirthLocationIDUINT),
-						GenderID:        uint(GenderIDUINT),
-						NationalCode:    NationalCode,
-						Description:     Description,
-					}
-					if err := person.EditPerson.Do(newPerson.Id, person.EditRequest(newPerson)); err == nil {
-						fmt.Printf("person no %v edited", personID)
-					} else {
-						fmt.Println("some thing wrong")
-					}
-					fmt.Println(env.ShowMenuWarn)
+				data := person.FindPersonID.Do(personID)
+				fmt.Println(separator7)
+				fmt.Println("Person Data:")
+				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
+					"Id", "PersonName", "PersonFamily", "Gender", "BLoID", "jobCity", "DOB", "Desc")
+				fmt.Println("")
+				genderID := data.GenderID
+				gender := sex.FindSexID.Do(genderID)
+				_, city := city.FindCityID.FindCityByID(data.BirthLocationID)
+				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-4v | %-12v | %-13v |  %-3v  \n",
+					data.Id, data.FirstName, data.LastName, gender.Name, data.BirthLocationID, city.Name, (data.DOB).String()[0:10], data.Description)
+				fmt.Println("insert FirstName")
+				scanner.Scan()
+				FirstName := scanner.Text()
+				fmt.Println("insert LastName")
+				scanner.Scan()
+				LastName := scanner.Text()
+				fmt.Println("insert DOB")
+				scanner.Scan()
+				DOB := scanner.Text()
+				dboTime, _ := time.Parse("20060102", DOB)
+				fmt.Println("insert BirthLocationID")
+				scanner.Scan()
+				BirthLocationID := scanner.Text()
+				BirthLocationIDUINT, _ := strconv.ParseUint(BirthLocationID, 10, 8)
+				fmt.Println("insert GenderID")
+				scanner.Scan()
+				GenderID := scanner.Text()
+				GenderIDUINT, _ := strconv.ParseUint(GenderID, 10, 8)
+				fmt.Println("insert NationalCode")
+				scanner.Scan()
+				NationalCode := scanner.Text()
+				fmt.Println("insert Description")
+				scanner.Scan()
+				Description := scanner.Text()
+				newPerson := protocol.Person{
+					Id:              personID,
+					FirstName:       FirstName,
+					LastName:        LastName,
+					DOB:             dboTime,
+					BirthLocationID: uint(BirthLocationIDUINT),
+					GenderID:        uint(GenderIDUINT),
+					NationalCode:    NationalCode,
+					Description:     Description,
 				}
-				fmt.Println("not found")
+				if err := person.EditPerson.Do(newPerson.Id, person.EditRequest(newPerson)); err == nil {
+					fmt.Printf("person no %v edited", personID)
+				} else {
+					fmt.Println("some thing wrong")
+				}
 				fmt.Println(env.ShowMenuWarn)
 			case env.DeletePerson:
 				var confirmDel string
@@ -957,11 +949,11 @@ func RunMenu() {
 				var insertName string
 				fmt.Println("Insert sex name")
 				fmt.Scanln(&insertName)
-				if sex.NewSex(
-					protocol.Sex{
+				if sex.AddSex.Do(
+					sex.AddRequest{
 						Name: insertName,
 					},
-				).State {
+				) == nil {
 					fmt.Println("New sex info added")
 				}
 				fmt.Println(env.ShowMenuWarn)
@@ -972,10 +964,10 @@ func RunMenu() {
 				fmt.Scanln(&insertID)
 				fmt.Println("Insert new name:")
 				fmt.Scanln(&insertName)
-				if sex.EditSexByID(protocol.Sex{
+				if sex.EditSex.Do(sex.EditRequest{
 					Id:   insertID,
 					Name: insertName,
-				}).State {
+				}) == nil {
 					fmt.Println("sex info updated")
 				} else {
 					fmt.Println("some thing wrong")
@@ -989,7 +981,7 @@ func RunMenu() {
 					var insertID uint8
 					fmt.Println("insert sex id to delete:")
 					fmt.Scanln(&insertID)
-					if sex.DeleteSexByID(insertID).State {
+					if sex.DeleteSexByID.Do(insertID) == nil {
 						fmt.Println("sex info deleted")
 					} else {
 						fmt.Println("some thing wrong")

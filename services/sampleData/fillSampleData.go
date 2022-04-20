@@ -23,7 +23,7 @@ var FillData fillData
 
 func (fd *fillData) FillSimpleData() (result [][]string, err error) {
 	for _, data := range env.SexDataTest {
-		sex.NewSex(*data)
+		sex.AddSex.Do(sex.AddRequest(*data))
 	}
 	//for _, data := range env.CityDataTest {
 	//	city.NewCity(*data)
@@ -45,7 +45,7 @@ func (fd *fillData) FillSimpleData() (result [][]string, err error) {
 		_ = job.NewJob.Do(job.NewRequest(*data))
 	}
 	for _, data := range env.PersonDataTest {
-		person.NewPerson(*data)
+		person.AddPerson.Do(person.AddRequest(*data))
 	}
 	for _, data := range env.CustomerGroupExm {
 		customer.NewGroup.Do(data.GroupName)

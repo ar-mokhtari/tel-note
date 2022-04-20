@@ -40,30 +40,28 @@ func (cr *contactReport) Do() (result []resultReport, err error) {
 		if contact.CellphoneCollection == nil {
 			contact.CellphoneCollection = []protocol.CellPhone{{CellPhone: "", Description: ""}}
 		}
-		if err, personInfo := person.FindPersonID.Do(contact.PersonID); err.State {
-			if err, jobInfo := job.FindJobID.Do(contact.JobID); err == nil {
-				if err, cityInfo := city.FindCityID.FindCityByID(jobInfo.LocationID); err.State {
-					if sexInfo, err := sex.FindSexByID(uint8(personInfo.GenderID)); err.State {
-						result = append(result, resultReport{
-							ID:           contact.Id,
-							PID:          contact.PersonID,
-							PersonName:   personInfo.FirstName,
-							PersonFamily: personInfo.LastName,
-							DOB:          personInfo.DOB,
-							JID:          jobInfo.Id,
-							JobName:      jobInfo.Name,
-							Gender:       sexInfo.Name,
-							Cellphone:    contact.CellphoneCollection[0].CellPhone,
-							LoID:         0,
-							JobCityName:  cityInfo.Name,
-							Address:      contact.Address,
-							Description:  contact.Description,
-						})
-					}
-				}
+		personInfo := person.FindPersonID.Do(contact.PersonID)
+		sexInfo := sex.FindSexID.Do(personInfo.GenderID)
+		if err, jobInfo := job.FindJobID.Do(contact.JobID); err == nil {
+			if err, cityInfo := city.FindCityID.FindCityByID(jobInfo.LocationID); err.State {
+				result = append(result, resultReport{
+					ID:           contact.Id,
+					PID:          contact.PersonID,
+					PersonName:   personInfo.FirstName,
+					PersonFamily: personInfo.LastName,
+					DOB:          personInfo.DOB,
+					JID:          jobInfo.Id,
+					JobName:      jobInfo.Name,
+					Gender:       sexInfo.Name,
+					Cellphone:    contact.CellphoneCollection[0].CellPhone,
+					LoID:         0,
+					JobCityName:  cityInfo.Name,
+					Address:      contact.Address,
+					Description:  contact.Description,
+				})
 			}
 		} else {
-			return []resultReport{}, errors.New(err.String)
+			return []resultReport{}, errors.New(err.Error())
 		}
 	}
 	return result, nil

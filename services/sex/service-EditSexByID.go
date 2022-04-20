@@ -1,12 +1,60 @@
 package sex
 
 import (
+	"encoding/json"
+	"fmt"
+	"net/http"
+	"tel-note/env"
 	"tel-note/protocol"
 )
 
-func EditSexByID(NewSex protocol.Sex) protocol.ResponseStatus {
-	if storage.EditSex(NewSex) {
-		return protocol.ResponseStatus{State: true}
+type (
+	editSex      struct{}
+	EditRequest  protocol.Sex
+	editResponse struct {
+		State   uint
+		Message string
 	}
-	return protocol.ResponseStatus{State: false}
+)
+
+var EditSex editSex
+
+func (ep *editSex) Do(NewSex EditRequest) error {
+	if err := storage.EditSex(protocol.Sex(NewSex)); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (ep *editSex) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	var (
+		req EditRequest
+		res editResponse
+	)
+	switch r.Method {
+	case env.PatchMethod:
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		if err := req.DecoderJson(*r); err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+		if err := ep.Do(req); err != nil {
+			res.EncoderJson(w, editResponse{400, err.Error()})
+		} else {
+			res.EncoderJson(w, editResponse{
+				200,
+				fmt.Sprintf("sex edited"),
+			})
+		}
+	default:
+		res.EncoderJson(w, editResponse{400, "method not support"})
+	}
+}
+
+func (epq *EditRequest) DecoderJson(r http.Request) error {
+	return json.NewDecoder(r.Body).Decode(&epq)
+}
+
+func (eps *editResponse) EncoderJson(w http.ResponseWriter, output editResponse) {
+	json.NewEncoder(w).Encode(output)
 }
