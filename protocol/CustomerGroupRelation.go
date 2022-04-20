@@ -10,6 +10,6 @@ type (
 	CustomerGroupRelationServices interface {
 		GetCustomerGroupRelation() CustomerGRelationStorage
 		NewRelation(customerID uint, groupID uint)
-		FindCustomerByGroupID(ID uint) CustomerStorage
+		FindCustomerGroupRelationByGroupID(ID uint) CustomerStorage
 	}
 )

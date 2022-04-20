@@ -7,9 +7,9 @@ import (
 	"errors"
 	"fmt"
 	"strings"
-	"tel-note/SDK/neshan"
 	"tel-note/lib/callAPI"
 	"tel-note/protocol"
+	"tel-note/sdk/neshan"
 )
 
 type storageMemory struct {

@@ -39,7 +39,7 @@ target="_blank"><img src="https://img.shields.io/badge/javascript-%23323330.svg?
 
 <h3>Requirements</h3>
 
-[Requirements for this project](Docs/Requirements)
+[Requirements for this project](docs/Requirements)
 
 > ---
 > - <h4>Under Developing:</h4>

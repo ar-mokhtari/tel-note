@@ -12,5 +12,9 @@ func Init() {
 	http.Handle(env.NewCustomerR, &AddCustomer)
 	http.Handle(env.DeleteCustomerR, &DeleteCustomer)
 	http.Handle(env.EditCustomerR, &EditCustomer)
-	http.Handle(env.FindCustGroupIDR, &FindCustomerGroupID)
+	http.Handle(env.FindCustGrpRelationByGrpIDR, &FindCustGrpRelationByGrpID)
+	http.Handle(env.FindCustIDR, &FindCustomerByID)
+	http.Handle(env.FindCustGrpIDR, &FindGroupByID)
+	http.Handle(env.NewCustomerGroupR, &NewGroup)
+	http.Handle(env.NewCustGRelationR, &NewGrpRelation)
 }

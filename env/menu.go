@@ -60,11 +60,11 @@ const (
 
 	NewCustomerGroup  = "NCUG"
 	NewCustomerGroupD = "new customer group"
-	NewCustomerGroupR = ""
+	NewCustomerGroupR = "/new-cust-group"
 
 	NewCustGRelation  = "NCUGR"
 	NewCustGRelationD = "new customer group relation"
-	NewCustGRelationR = ""
+	NewCustGRelationR = "/new-cust-grp-relation"
 
 	CustomerGroupList  = "CUGL"
 	CustomerGroupListD = "customer group list"
@@ -74,9 +74,17 @@ const (
 	CustGRelationListD = "customer group relation"
 	CustGRelationListR = "/get-cust-g-relation"
 
-	FindCustGroupID  = "FCUBG"
-	FindCustGroupIDD = "find customer by id"
-	FindCustGroupIDR = "/find-cust-grp-id"
+	FindCustID  = "FCI"
+	FindCustIDD = "find customer by id"
+	FindCustIDR = "/find-cust-id"
+
+	FindCustGrpID  = "FCGI"
+	FindCustGrpIDD = "find customer group by id"
+	FindCustGrpIDR = "/find-cust-grp-id"
+
+	FindCustGrpRelationByGrpID  = "FCUBG"
+	FindCustGrpRelationByGrpIDD = "find customer group by id"
+	FindCustGrpRelationByGrpIDR = "/find-cust-grp-relation-id"
 
 	NewCustomer  = "NCU"
 	NewCustomerD = "new customer"

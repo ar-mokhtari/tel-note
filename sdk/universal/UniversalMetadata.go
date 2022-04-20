@@ -1,4 +1,4 @@
-package Universal
+package universal
 
 const (
 	// Apply to get services from this site:

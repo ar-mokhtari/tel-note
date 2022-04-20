@@ -121,9 +121,9 @@ func RunMenu() {
 				fmt.Printf("%3v | %-25s | %-13v | %-45s   \n", "Id", "Groupname", "CustomerID", "FullName")
 				fmt.Println()
 				for _, relation := range customer.GetCustomerGroupRelation.Do() {
-					customerObject := customer.FindCustomerByID(relation.CustomerID)
+					customerObject := customer.FindCustomerByID.Do(relation.CustomerID)
 					_, personObject := person.FindPersonID.Do(customerObject.PersonID)
-					groupObject := customer.FindGroupByID(relation.GroupID)
+					groupObject := customer.FindGroupByID.Do(relation.GroupID)
 					fmt.Printf("%3v | %-25s | %-13v | %-45s \n",
 						relation.ID, groupObject.GroupName, relation.CustomerID, personObject.FirstName+" "+personObject.LastName)
 				}
@@ -387,7 +387,7 @@ func RunMenu() {
 				fmt.Println("insert group name:")
 				scanner.Scan()
 				groupName = scanner.Text()
-				customer.NewGroup(groupName)
+				customer.NewGroup.Do(groupName)
 				fmt.Println(env.ShowMenuWarn)
 			case env.NewCustGRelation:
 				var customerID, groupID uint
@@ -395,7 +395,7 @@ func RunMenu() {
 				fmt.Scanln(&customerID)
 				fmt.Println("insert groupID:")
 				fmt.Scanln(&groupID)
-				customer.NewRelation(customerID, groupID)
+				customer.NewGrpRelation.Do(customerID, groupID)
 				fmt.Println(env.ShowMenuWarn)
 			case env.CustomerGroupList:
 				fmt.Println(separator7)
@@ -413,24 +413,24 @@ func RunMenu() {
 				fmt.Printf("%3v | %-25s | %-13v | %-45s   \n", "Id", "Groupname", "CustomerID", "FullName")
 				fmt.Println()
 				for _, relation := range customer.GetCustomerGroupRelation.Do() {
-					customerObject := customer.FindCustomerByID(relation.CustomerID)
+					customerObject := customer.FindCustomerByID.Do(relation.CustomerID)
 					_, personObject := person.FindPersonID.Do(customerObject.PersonID)
-					groupObject := customer.FindGroupByID(relation.GroupID)
+					groupObject := customer.FindGroupByID.Do(relation.GroupID)
 					fmt.Printf("%3v | %-25s | %-13v | %-45s \n",
 						relation.ID, groupObject.GroupName, relation.CustomerID, personObject.FirstName+" "+personObject.LastName)
 				}
 				fmt.Println(env.ShowMenuWarn)
-			case env.FindCustGroupID:
+			case env.FindCustGrpRelationByGrpID:
 				var groupID uint
 				fmt.Println("insert group id:")
 				fmt.Scanln(&groupID)
 				fmt.Println(separator7)
 				fmt.Println("Customer Data:")
-				fmt.Println(">>> ", customer.FindGroupByID(groupID).GroupName, " <<<")
+				fmt.Println(">>> ", customer.FindGroupByID.Do(groupID).GroupName, " <<<")
 				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-25v | %-25v |  %-23v  \n",
 					"CID", "Customername", "CustomerFamily", "PID", "Creat@", "Update@", "Desc")
 				fmt.Println()
-				for ID, data := range customer.FindCustomerGroupID.Do(groupID).CustomerData {
+				for ID, data := range customer.FindCustGrpRelationByGrpID.Do(groupID).CustomerData {
 					_, person := person.FindPersonID.Do(data.PersonID)
 					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-25v | %-25v | %-23v \n",
 						ID, person.FirstName, person.LastName, data.PersonID, (data.CreateAt).String()[0:19], (data.UpdatedAt).String()[0:19], data.Description)

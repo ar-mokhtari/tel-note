@@ -6,11 +6,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"tel-note/SDK/neshan"
 	"tel-note/env"
 	"tel-note/lib/callAPI"
 	"tel-note/lib/convertor"
 	"tel-note/protocol"
+	"tel-note/sdk/neshan"
 )
 
 type distanceTimeService struct{}

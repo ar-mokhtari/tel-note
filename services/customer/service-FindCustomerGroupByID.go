@@ -9,25 +9,26 @@ import (
 )
 
 type (
-	findCustomerGroupID struct{}
-	findResponse        struct {
+	findCustGrpRelationByGrpID struct{}
+	findResponse               struct {
 		State   uint
 		Message string
 	}
 )
 
-var FindCustomerGroupID findCustomerGroupID
+var FindCustGrpRelationByGrpID findCustGrpRelationByGrpID
 
-func (fcg *findCustomerGroupID) Do(ID uint) protocol.CustomerStorage {
-	return storageRelation.FindCustomerByGroupID(ID)
+func (fcg *findCustGrpRelationByGrpID) Do(ID uint) protocol.CustomerStorage {
+	return storageRelation.FindCustomerGroupRelationByGroupID(ID)
 }
 
-func (fcg findCustomerGroupID) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (fcg findCustGrpRelationByGrpID) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	var res findResponse
 	switch r.Method {
 	case env.GetMethod:
-		if err, id := convertor.StrToUint(r.FormValue("custID")); err != nil {
-			res.EncoderJson(w, editResponse{400, "customer id not found"})
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		if err, id := convertor.StrToUint(r.FormValue("groupID")); err != nil {
+			res.EncoderJson(w, editResponse{400, "cust id format wrong"})
 		} else {
 			result := fcg.Do(id)
 			json.NewEncoder(w).Encode(struct {

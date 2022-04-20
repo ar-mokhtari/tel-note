@@ -48,10 +48,10 @@ func (fd *fillData) FillSimpleData() (result [][]string, err error) {
 		person.NewPerson(*data)
 	}
 	for _, data := range env.CustomerGroupExm {
-		customer.NewGroup(data.GroupName)
+		customer.NewGroup.Do(data.GroupName)
 	}
 	for _, data := range env.CustomerRelation {
-		customer.NewRelation(data.CustomerID, data.GroupID)
+		customer.NewGrpRelation.Do(data.CustomerID, data.GroupID)
 	}
 	for _, data := range env.CustomersDataTest.CustomerData {
 		readyToFill := customer.NewRequest{

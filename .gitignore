@@ -17,8 +17,9 @@
 *.idea
 
 # external entity(ies)
-/SDK/neshan/material.go
-/SDK/Universal/material.go
+/sdk/neshan/material.go
+/sdk/universal/material.go
+/sdk/openWeather/material.go
 
 # build file(s)
 main

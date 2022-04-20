@@ -596,6 +596,310 @@
 			]
 		},
 		{
+			"name": "customer",
+			"item": [
+				{
+					"name": "get-customer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:1212/get-customer",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"get-customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-customer-group",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:1212/get-customer-group",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"get-customer-group"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-cust-g-relation",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:1212//get-cust-g-relation",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"",
+								"get-cust-g-relation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "new-customer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"PersonID\": 4,\n    \"Description\": \"add by local/new-customer\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:1212/new-customer",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"new-customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-customer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[1,6,122,4,100,1,2,3]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:1212/delete-customer",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"delete-customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit-customer",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"PersonID\": 4,\n    \"Description\": \"edited by local/edit-customer\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "127.0.0.1:1212/edit-customer?custID=5",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"edit-customer"
+							],
+							"query": [
+								{
+									"key": "custID",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find-cust-grp-relation-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:1212/find-cust-grp-relation-id?groupID=1",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"find-cust-grp-relation-id"
+							],
+							"query": [
+								{
+									"key": "groupID",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find-cust-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:1212/find-cust-id?custID=4",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"find-cust-id"
+							],
+							"query": [
+								{
+									"key": "custID",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find-cust-grp-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:1212/find-cust-grp-id?groupID=1",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"find-cust-grp-id"
+							],
+							"query": [
+								{
+									"key": "groupID",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "new-cust-group",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:1212/new-cust-group?groupName=new customer group 3",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"new-cust-group"
+							],
+							"query": [
+								{
+									"key": "groupName",
+									"value": "new customer group 3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "new-cust-grp-relation",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:1212/new-cust-grp-relation?customerID=1&groupID=2",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "1212",
+							"path": [
+								"new-cust-grp-relation"
+							],
+							"query": [
+								{
+									"key": "customerID",
+									"value": "1"
+								},
+								{
+									"key": "groupID",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "person",
 			"item": [
 				{
@@ -699,75 +1003,6 @@
 							"port": "1212",
 							"path": [
 								"report-contact"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "customer",
-			"item": [
-				{
-					"name": "get-customer",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:1212/get-customer",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "1212",
-							"path": [
-								"get-customer"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get-customer-group",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:1212/get-customer-group",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "1212",
-							"path": [
-								"get-customer-group"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get-cust-g-relation",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "127.0.0.1:1212//get-cust-g-relation",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "1212",
-							"path": [
-								"",
-								"get-cust-g-relation"
 							]
 						}
 					},

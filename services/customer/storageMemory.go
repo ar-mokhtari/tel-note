@@ -118,11 +118,11 @@ func (r *relation) GetCustomerGroupRelation() protocol.CustomerGRelationStorage 
 	return protocol.CustomerGRelationStorage(*r)
 }
 
-func (r *relation) FindCustomerByGroupID(ID uint) protocol.CustomerStorage {
+func (r *relation) FindCustomerGroupRelationByGroupID(ID uint) protocol.CustomerStorage {
 	var result = protocol.CustomerStorage{CustomerData: make(map[uint]*protocol.Customer)}
 	for _, groupRelation := range *r {
 		if groupRelation.GroupID == ID {
-			findCustomer := FindCustomerByID(groupRelation.CustomerID)
+			findCustomer := FindCustomerByID.Do(groupRelation.CustomerID)
 			result.CustomerData[groupRelation.CustomerID] = &findCustomer
 		}
 	}
