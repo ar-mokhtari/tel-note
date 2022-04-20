@@ -13,7 +13,7 @@ type (
 		GetJobs() []*Job
 		FindJobByChar(inputChar string) (status bool, res []uint)
 		FindJobByID(inputID uint) (error, Job)
-		NewJob(inputJob Job) bool
+		NewJob(inputJob Job) error
 		EditJob(ID uint, newJob Job) error
 		DeleteJob(IDS []uint) (resDel []uint)
 	}

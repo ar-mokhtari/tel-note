@@ -70,26 +70,34 @@ func (cr *contactReport) Do() (result []resultReport, err error) {
 }
 
 func (cr *contactReport) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json; charset=utf-8")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "GET")
-	w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
-	if r.Method != env.GetMethod {
+	switch r.Method {
+	case env.GetMethod:
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "GET")
+		w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+		if r.Method != env.GetMethod {
+			json.NewEncoder(w).Encode(struct {
+				State   uint
+				Message string
+			}{400, "method not support"})
+		} else {
+			if result, err := cr.Do(); err != nil {
+				json.NewEncoder(w).Encode(struct {
+					State   uint
+					Message string
+				}{400, err.Error()})
+			} else {
+				json.NewEncoder(w).Encode(struct {
+					State uint
+					Data  []resultReport
+				}{200, result})
+			}
+		}
+	default:
 		json.NewEncoder(w).Encode(struct {
 			State   uint
 			Message string
 		}{400, "method not support"})
-	} else {
-		if result, err := cr.Do(); err != nil {
-			json.NewEncoder(w).Encode(struct {
-				State   uint
-				Message string
-			}{400, err.Error()})
-		} else {
-			json.NewEncoder(w).Encode(struct {
-				State uint
-				Data  []resultReport
-			}{200, result})
-		}
 	}
 }

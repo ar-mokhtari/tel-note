@@ -40,7 +40,7 @@ func (sm *storageMemory) FindJobByID(inputID uint) (error, protocol.Job) {
 	return errors.New("not found"), protocol.Job{}
 }
 
-func (sm *storageMemory) NewJob(inputJob protocol.Job) bool {
+func (sm *storageMemory) NewJob(inputJob protocol.Job) error {
 	var LastID uint
 	for _, data := range sm.JobData {
 		if data.Id > LastID {
@@ -56,7 +56,7 @@ func (sm *storageMemory) NewJob(inputJob protocol.Job) bool {
 		BasicPaymentPerHour: inputJob.BasicPaymentPerHour,
 	}
 	sm.JobData = append(sm.JobData, &result)
-	return true
+	return nil
 }
 
 func (sm *storageMemory) EditJob(ID uint, newJob protocol.Job) error {

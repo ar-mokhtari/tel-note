@@ -3,6 +3,7 @@
 package person
 
 import (
+	"errors"
 	"strings"
 	"tel-note/protocol"
 	"time"
@@ -66,7 +67,7 @@ func (allPerson *storageMemory) NewPerson(inputPerson protocol.Person) bool {
 	return true
 }
 
-func (allPerson *storageMemory) EditPerson(ID uint, newPerson protocol.Person) bool {
+func (allPerson *storageMemory) EditPerson(ID uint, newPerson protocol.Person) error {
 	for index, data := range allPerson.PersonData {
 		if data.Id == ID {
 			if newPerson.FirstName != "" {
@@ -99,10 +100,10 @@ func (allPerson *storageMemory) EditPerson(ID uint, newPerson protocol.Person) b
 				newPerson.GenderID != 0 {
 				(allPerson.PersonData)[index].UpdateAt = time.Now()
 			}
-			return true
+			return nil
 		}
 	}
-	return false
+	return errors.New("not found")
 }
 
 func (allPerson *storageMemory) DeletePerson(IDS []uint) (resDel []uint) {

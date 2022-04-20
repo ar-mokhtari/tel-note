@@ -632,24 +632,6 @@ func RunMenu() {
 					BirthLocationID := scanner.Text()
 					BirthLocationIDUINT, _ := strconv.ParseUint(BirthLocationID, 10, 8)
 					fmt.Println("insert GenderID")
-					var confirmDel string
-					fmt.Println("*** important, be careful, you are deleting person(s) ***")
-					fmt.Println("do you want to continue? (yes or no)")
-					fmt.Scanln(&confirmDel)
-					if strings.ToLower(confirmDel) == env.YES {
-						var deleteIDS string
-						fmt.Println("insert your person id(s) that you want to delete, separate id's by ',':")
-						fmt.Scanln(&deleteIDS)
-						idPack := convertor.StrToSlice(deleteIDS)
-						var idPackInt []uint
-						for _, i := range idPack {
-							_, j := convertor.StrToUint(i)
-							idPackInt = append(idPackInt, uint(j))
-						}
-						resNums := person.DeletePerson(idPackInt)
-						fmt.Printf("%v person(s) has been deleted", resNums)
-					}
-					fmt.Println(env.ShowMenuWarn)
 					scanner.Scan()
 					GenderID := scanner.Text()
 					GenderIDUINT, _ := strconv.ParseUint(GenderID, 10, 8)
@@ -669,7 +651,7 @@ func RunMenu() {
 						NationalCode:    NationalCode,
 						Description:     Description,
 					}
-					if person.EditPerson(newPerson.Id, newPerson).State {
+					if err := person.EditPerson.Do(newPerson.Id, person.EditRequest(newPerson)); err == nil {
 						fmt.Printf("person no %v edited", personID)
 					} else {
 						fmt.Println("some thing wrong")
@@ -693,7 +675,7 @@ func RunMenu() {
 						_, j := convertor.StrToUint(i)
 						idPackInt = append(idPackInt, uint(j))
 					}
-					resNums := person.DeletePerson(idPackInt)
+					resNums := person.DeletePerson.Do(idPackInt)
 					fmt.Printf("%v person(s) has been deleted", resNums)
 				}
 				fmt.Println(env.ShowMenuWarn)
@@ -907,14 +889,13 @@ func RunMenu() {
 				fmt.Println("insert new BasicPaymentPerHour")
 				scanner.Scan()
 				BasicPaymentPerHour, _ = strconv.ParseUint(scanner.Text(), 10, 8)
-				if job.NewJob(protocol.Job{
+				job.NewJob.Do(job.NewRequest{
 					Name:                Name,
 					LocationID:          uint(LocationID),
 					Description:         Description,
 					BasicPaymentPerHour: uint(BasicPaymentPerHour),
-				}).State {
-					fmt.Println("New job added")
-				}
+				})
+				fmt.Println("New job added")
 				fmt.Println(env.ShowMenuWarn)
 			case env.EditJobById:
 				var (

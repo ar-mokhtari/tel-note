@@ -130,11 +130,11 @@ const (
 
 	EditPerson  = "EP"
 	EditPersonD = "edit person"
-	EditPersonR = ""
+	EditPersonR = "/edit-person"
 
 	DeletePerson  = "DP"
 	DeletePersonD = "delete person"
-	DeletePersonR = ""
+	DeletePersonR = "/delete-person"
 
 	DeleteMultiPerson  = "DMP"
 	DeleteMultiPersonD = "delete multi person(s)"
@@ -206,7 +206,7 @@ const (
 
 	InsertNewJob  = "NJ"
 	InsertNewJobD = "new job"
-	InsertNewJobR = ""
+	InsertNewJobR = "/new-job"
 
 	EditJobById  = "EJ"
 	EditJobByIdD = "edit job"

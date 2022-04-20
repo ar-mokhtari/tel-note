@@ -20,7 +20,7 @@ type (
 		FindPersonByChar(inputChar string) (bool, []*Person)
 		FindPersonByID(inputID uint) (status bool, res Person)
 		NewPerson(person Person) bool
-		EditPerson(ID uint, newPerson Person) bool
+		EditPerson(ID uint, newPerson Person) error
 		DeletePerson(IDS []uint) (resDel []uint)
 	}
 )

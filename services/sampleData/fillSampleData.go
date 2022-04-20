@@ -42,7 +42,7 @@ func (fd *fillData) FillSimpleData() (result [][]string, err error) {
 		})
 	}
 	for _, data := range env.JobDataTest {
-		job.NewJob(*data)
+		_ = job.NewJob.Do(job.NewRequest(*data))
 	}
 	for _, data := range env.PersonDataTest {
 		person.NewPerson(*data)

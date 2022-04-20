@@ -1,12 +1,60 @@
 package job
 
 import (
+	"encoding/json"
+	"fmt"
+	"net/http"
+	"tel-note/env"
 	"tel-note/protocol"
 )
 
-func NewJob(job protocol.Job) (status protocol.ResponseStatus) {
-	if status.State = storage.NewJob(job); status.State {
-		return protocol.ResponseStatus{State: true}
+type (
+	newJob      struct{}
+	NewRequest  protocol.Job
+	newResponse struct {
+		State   uint
+		Message string
 	}
-	return protocol.ResponseStatus{State: false}
+)
+
+var NewJob newJob
+
+func (nj *newJob) Do(NewJob NewRequest) error {
+	if err := storage.NewJob(protocol.Job(NewJob)); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (nj *newJob) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	var (
+		req NewRequest
+		res newResponse
+	)
+	switch r.Method {
+	case env.PostMethod:
+		if err := req.DecoderJson(*r); err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+		if err := nj.Do(req); err != nil {
+			res.EncoderJson(w, newResponse{400, err.Error()})
+		} else {
+			res.EncoderJson(w, newResponse{
+				200,
+				fmt.Sprintf("job added"),
+			})
+		}
+
+	default:
+		res.EncoderJson(w, newResponse{400, "method not support"})
+	}
+}
+
+func (njq *NewRequest) DecoderJson(r http.Request) error {
+	return json.NewDecoder(r.Body).Decode(&njq)
+}
+
+func (njs *newResponse) EncoderJson(w http.ResponseWriter, output newResponse) {
+	json.NewEncoder(w).Encode(output)
 }
