@@ -23,6 +23,20 @@ function mask(value, pattern) {
     return pattern.replace(/\*/g, () => value[count++] || '')
 }
 
+//TODO::: handle this func for show Persian dates
+function PersianData() {
+    const date = new Date()
+    const option = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    }
+    console.log(date.toLocaleDateString("fa-IR", option))
+}
+
+PersianData()
+
 //menu click
 $(document).on("click", "#MainSidebarAccordion div.menuItems", function () {
     let subMenu = $(this).text();
