@@ -23,7 +23,7 @@ func (allSex *storageMemory) GetSex() []*protocol.Sex {
 }
 
 func (allSex *storageMemory) NewSex(inputSex protocol.Sex) error {
-	var LastID uint8
+	var LastID byte
 	for _, data := range allSex.SexData {
 		if data.Id > LastID {
 			LastID = data.Id
@@ -50,7 +50,7 @@ func (allSex *storageMemory) EditSex(newSex protocol.Sex) error {
 	return errors.New("not found")
 }
 
-func (allSex *storageMemory) DeleteSex(ID uint8) error {
+func (allSex *storageMemory) DeleteSex(ID byte) error {
 	for index, data := range allSex.SexData {
 		if data.Id == ID {
 			allSex.SexData = append((allSex.SexData)[:index], (allSex.SexData)[index+1:]...)
@@ -60,7 +60,7 @@ func (allSex *storageMemory) DeleteSex(ID uint8) error {
 	return errors.New("not found")
 }
 
-func (allSex *storageMemory) FindSexByID(ID uint8) protocol.Sex {
+func (allSex *storageMemory) FindSexByID(ID byte) protocol.Sex {
 	for _, data := range allSex.SexData {
 		if data.Id == ID {
 			return *data

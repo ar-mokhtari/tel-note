@@ -13,7 +13,7 @@ type findSexID struct{}
 var FindSexID findSexID
 
 func (fpi *findSexID) Do(ID uint) protocol.Sex {
-	return storage.FindSexByID(uint8(ID))
+	return storage.FindSexByID(byte(ID))
 }
 
 func (fpi *findSexID) ServeHTTP(w http.ResponseWriter, r *http.Request) {
