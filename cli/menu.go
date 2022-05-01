@@ -958,7 +958,7 @@ func RunMenu() {
 				}
 				fmt.Println(env.ShowMenuWarn)
 			case env.EditSex:
-				var insertID uint8
+				var insertID byte
 				var insertName string
 				fmt.Println("Insert sex id:")
 				fmt.Scanln(&insertID)
@@ -978,7 +978,7 @@ func RunMenu() {
 				var confirmInsert string
 				fmt.Scanln(&confirmInsert)
 				if strings.ToLower(confirmInsert) == env.YES {
-					var insertID uint8
+					var insertID byte
 					fmt.Println("insert sex id to delete:")
 					fmt.Scanln(&insertID)
 					if sex.DeleteSexByID.Do(insertID) == nil {
