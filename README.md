@@ -111,13 +111,13 @@ $ service telnote stop
 <li>UniversalTutorial(for get countries)
 <div style="margin-left: 2em">	Apply to get services from this site:
 	<a href="https://www.universal-tutorial.com/">universal-tutorial</a>
-SDK/Universal/UniversalMetadata.go
+sdk/Universal/UniversalMetadata.go
 </div>
 </li>
 <li>Neshan(for get cities service(s))
 <div style="margin-left: 2em">	Apply to get services from this site:
 	<a href="https://platform.neshan.org/api/getting-started">platform.neshan.org/api/</a>
-SDK/Universal/NeshanMetadata.go
+sdk/Universal/NeshanMetadata.go
 </div>
 </li>
 </ul>
@@ -159,7 +159,7 @@ Create examples of all available entities for testing:
 </ul>
 
 <p>
-    <img src="https://github.com/ar-mokhtari/tel-note/blob/main/Docs/Entity.png" width="220" height="240" />
+    <img src="https://github.com/ar-mokhtari/tel-note/blob/main/docs/Entity.png" width="220" height="240" />
 </p>
 <h3> Run application </h3>
 <ul>
@@ -203,7 +203,7 @@ Create examples of all available entities for testing:
 To use and call from API platform like "Postman":
 
 ````
-/Docs/tel-note.postman_collection.json
+/docs/tel-note.postman_collection.json
 ````
 
 <h3>User Interface [web]</h3>
