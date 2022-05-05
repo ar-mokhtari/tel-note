@@ -2,9 +2,9 @@ package convertor
 
 import (
 	"errors"
+	"github.com/ar-mokhtari/tel-note/lib/validator"
 	"strconv"
 	"strings"
-	"tel-note/lib/validator"
 )
 
 func StrToUint(input string) (err error, output uint) {

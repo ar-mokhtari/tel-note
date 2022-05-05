@@ -2,8 +2,8 @@ package cli
 
 import (
 	"fmt"
-	"tel-note/env"
-	"tel-note/services/identity"
+	"github.com/ar-mokhtari/tel-note/env"
+	"github.com/ar-mokhtari/tel-note/services/identity"
 )
 
 func Identity() {

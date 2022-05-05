@@ -2,14 +2,14 @@ package sampleData
 
 import (
 	"encoding/json"
+	"github.com/ar-mokhtari/tel-note/protocol"
+	"github.com/ar-mokhtari/tel-note/services/city"
+	"github.com/ar-mokhtari/tel-note/services/contact"
+	"github.com/ar-mokhtari/tel-note/services/country"
+	"github.com/ar-mokhtari/tel-note/services/customer"
+	"github.com/ar-mokhtari/tel-note/services/globalVars"
+	"github.com/ar-mokhtari/tel-note/services/person"
 	"net/http"
-	"tel-note/protocol"
-	"tel-note/services/city"
-	"tel-note/services/contact"
-	"tel-note/services/country"
-	"tel-note/services/customer"
-	"tel-note/services/globalVars"
-	"tel-note/services/person"
 )
 
 type AllDataCollection struct {

@@ -2,10 +2,10 @@ package contact
 
 import (
 	"encoding/json"
+	"github.com/ar-mokhtari/tel-note/env"
+	"github.com/ar-mokhtari/tel-note/lib/convertor"
+	"github.com/ar-mokhtari/tel-note/protocol"
 	"net/http"
-	"tel-note/env"
-	"tel-note/lib/convertor"
-	"tel-note/protocol"
 )
 
 type deleteContactByID struct{}

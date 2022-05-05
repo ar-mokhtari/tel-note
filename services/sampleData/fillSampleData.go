@@ -3,18 +3,18 @@ package sampleData
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/ar-mokhtari/tel-note/config"
+	"github.com/ar-mokhtari/tel-note/env"
+	"github.com/ar-mokhtari/tel-note/lib/convertor"
+	"github.com/ar-mokhtari/tel-note/services/city"
+	"github.com/ar-mokhtari/tel-note/services/contact"
+	"github.com/ar-mokhtari/tel-note/services/country"
+	"github.com/ar-mokhtari/tel-note/services/customer"
+	"github.com/ar-mokhtari/tel-note/services/job"
+	"github.com/ar-mokhtari/tel-note/services/person"
+	"github.com/ar-mokhtari/tel-note/services/sex"
 	"net/http"
 	"strconv"
-	"tel-note/config"
-	"tel-note/env"
-	"tel-note/lib/convertor"
-	"tel-note/services/city"
-	"tel-note/services/contact"
-	"tel-note/services/country"
-	"tel-note/services/customer"
-	"tel-note/services/job"
-	"tel-note/services/person"
-	"tel-note/services/sex"
 )
 
 type fillData struct{}

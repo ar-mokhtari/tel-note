@@ -1,9 +1,9 @@
 package contact
 
 import (
+	"github.com/ar-mokhtari/tel-note/env"
+	"github.com/ar-mokhtari/tel-note/protocol"
 	"reflect"
-	"tel-note/env"
-	"tel-note/protocol"
 	"testing"
 )
 
@@ -19,7 +19,7 @@ func TestNewContact(t *testing.T) {
 			PersonID: 1,
 			JobID:    5,
 			Tel:      "",
-			CellphoneCollection: []protocol.CellPhone{protocol.CellPhone{
+			CellphoneCollection: []protocol.CellPhone{{
 				CellPhone:   "None",
 				Description: "09121234567",
 			}},

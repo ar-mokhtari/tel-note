@@ -2,10 +2,10 @@ package customer
 
 import (
 	"encoding/json"
+	"github.com/ar-mokhtari/tel-note/env"
+	"github.com/ar-mokhtari/tel-note/protocol"
+	"github.com/ar-mokhtari/tel-note/services/globalVars"
 	"net/http"
-	"tel-note/env"
-	"tel-note/protocol"
-	"tel-note/services/globalVars"
 	"time"
 )
 

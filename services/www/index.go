@@ -1,12 +1,12 @@
 package www
 
 import (
+	"github.com/ar-mokhtari/tel-note/config"
 	"html/template"
 	"log"
 	"net/http"
 	"os"
 	"path/filepath"
-	"tel-note/config"
 )
 
 type www struct{}

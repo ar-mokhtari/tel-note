@@ -1,18 +1,18 @@
 package services
 
 import (
-	"tel-note/services/city"
-	"tel-note/services/contact"
-	"tel-note/services/country"
-	"tel-note/services/customer"
-	"tel-note/services/general"
-	"tel-note/services/job"
-	"tel-note/services/menu"
-	"tel-note/services/person"
-	"tel-note/services/reporter"
-	"tel-note/services/sampleData"
-	"tel-note/services/sex"
-	"tel-note/services/www"
+	"github.com/ar-mokhtari/tel-note/services/city"
+	"github.com/ar-mokhtari/tel-note/services/contact"
+	"github.com/ar-mokhtari/tel-note/services/country"
+	"github.com/ar-mokhtari/tel-note/services/customer"
+	"github.com/ar-mokhtari/tel-note/services/general"
+	"github.com/ar-mokhtari/tel-note/services/job"
+	"github.com/ar-mokhtari/tel-note/services/menu"
+	"github.com/ar-mokhtari/tel-note/services/person"
+	"github.com/ar-mokhtari/tel-note/services/reporter"
+	"github.com/ar-mokhtari/tel-note/services/sampleData"
+	"github.com/ar-mokhtari/tel-note/services/sex"
+	"github.com/ar-mokhtari/tel-note/services/www"
 )
 
 func Init() {

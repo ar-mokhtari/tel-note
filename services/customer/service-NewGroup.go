@@ -2,8 +2,8 @@ package customer
 
 import (
 	"encoding/json"
+	"github.com/ar-mokhtari/tel-note/env"
 	"net/http"
-	"tel-note/env"
 )
 
 type (

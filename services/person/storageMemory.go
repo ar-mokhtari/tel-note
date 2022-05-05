@@ -4,8 +4,8 @@ package person
 
 import (
 	"errors"
+	"github.com/ar-mokhtari/tel-note/protocol"
 	"strings"
-	"tel-note/protocol"
 	"time"
 )
 

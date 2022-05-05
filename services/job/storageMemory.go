@@ -4,8 +4,8 @@ package job
 
 import (
 	"errors"
+	"github.com/ar-mokhtari/tel-note/protocol"
 	"strings"
-	"tel-note/protocol"
 )
 
 type storageMemory struct {

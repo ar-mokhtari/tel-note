@@ -4,8 +4,8 @@ package contact
 
 import (
 	"errors"
-	"tel-note/protocol"
-	"tel-note/services/person"
+	"github.com/ar-mokhtari/tel-note/protocol"
+	"github.com/ar-mokhtari/tel-note/services/person"
 )
 
 type (

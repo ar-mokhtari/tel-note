@@ -1,7 +1,7 @@
 package env
 
 import (
-	"tel-note/protocol"
+	"github.com/ar-mokhtari/tel-note/protocol"
 )
 
 var (

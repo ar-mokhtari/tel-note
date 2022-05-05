@@ -3,8 +3,8 @@ package person
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/ar-mokhtari/tel-note/env"
 	"net/http"
-	"tel-note/env"
 )
 
 type (

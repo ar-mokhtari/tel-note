@@ -1,11 +1,11 @@
 package main
 
 import (
+	"github.com/ar-mokhtari/tel-note/cli"
+	"github.com/ar-mokhtari/tel-note/config"
+	"github.com/ar-mokhtari/tel-note/services"
 	"log"
 	"net/http"
-	"tel-note/cli"
-	"tel-note/config"
-	"tel-note/services"
 	"time"
 )
 

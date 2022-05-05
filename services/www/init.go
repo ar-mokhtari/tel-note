@@ -1,8 +1,8 @@
 package www
 
 import (
+	"github.com/ar-mokhtari/tel-note/config"
 	"net/http"
-	"tel-note/config"
 )
 
 func Init() {

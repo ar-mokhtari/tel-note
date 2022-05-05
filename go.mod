@@ -1,4 +1,4 @@
-module tel-note
+module github.com/ar-mokhtari/tel-note
 
-go 1.17
+go 1.18
 

@@ -3,14 +3,14 @@ package reporter
 import (
 	"encoding/json"
 	"errors"
+	"github.com/ar-mokhtari/tel-note/env"
+	"github.com/ar-mokhtari/tel-note/protocol"
+	"github.com/ar-mokhtari/tel-note/services/city"
+	"github.com/ar-mokhtari/tel-note/services/contact"
+	"github.com/ar-mokhtari/tel-note/services/job"
+	"github.com/ar-mokhtari/tel-note/services/person"
+	"github.com/ar-mokhtari/tel-note/services/sex"
 	"net/http"
-	"tel-note/env"
-	"tel-note/protocol"
-	"tel-note/services/city"
-	"tel-note/services/contact"
-	"tel-note/services/job"
-	"tel-note/services/person"
-	"tel-note/services/sex"
 	"time"
 )
 

@@ -2,8 +2,8 @@ package greeting
 
 import (
 	"encoding/json"
+	"github.com/ar-mokhtari/tel-note/protocol"
 	"os"
-	"tel-note/protocol"
 )
 
 func ReadGreetingNote() (string, string) {

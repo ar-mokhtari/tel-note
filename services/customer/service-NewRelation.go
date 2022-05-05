@@ -2,9 +2,9 @@ package customer
 
 import (
 	"encoding/json"
+	"github.com/ar-mokhtari/tel-note/env"
+	"github.com/ar-mokhtari/tel-note/lib/convertor"
 	"net/http"
-	"tel-note/env"
-	"tel-note/lib/convertor"
 )
 
 type (

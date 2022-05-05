@@ -5,8 +5,8 @@ package customer
 import (
 	"errors"
 	"fmt"
-	"tel-note/protocol"
-	"tel-note/services/globalVars"
+	"github.com/ar-mokhtari/tel-note/protocol"
+	"github.com/ar-mokhtari/tel-note/services/globalVars"
 	"time"
 )
 

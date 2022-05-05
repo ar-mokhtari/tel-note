@@ -4,7 +4,7 @@ package sex
 
 import (
 	"errors"
-	"tel-note/protocol"
+	"github.com/ar-mokhtari/tel-note/protocol"
 )
 
 type (

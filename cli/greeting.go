@@ -3,11 +3,11 @@ package cli
 import (
 	"bufio"
 	"fmt"
+	"github.com/ar-mokhtari/tel-note/env"
+	"github.com/ar-mokhtari/tel-note/services/greeting"
+	"github.com/ar-mokhtari/tel-note/services/identity"
 	"os"
 	"strings"
-	"tel-note/env"
-	"tel-note/services/greeting"
-	"tel-note/services/identity"
 )
 
 func ShowGreeting() {

@@ -5,10 +5,10 @@ package country
 import (
 	"encoding/json"
 	"errors"
+	"github.com/ar-mokhtari/tel-note/lib/callAPI"
+	"github.com/ar-mokhtari/tel-note/protocol"
+	"github.com/ar-mokhtari/tel-note/sdk/universal"
 	"strings"
-	"tel-note/lib/callAPI"
-	"tel-note/protocol"
-	"tel-note/sdk/universal"
 	"time"
 )
 
