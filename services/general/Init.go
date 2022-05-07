@@ -5,6 +5,6 @@ import (
 	"net/http"
 )
 
-func Init() {
-	http.Handle(env.CheckIranNationalCodeR, &CheckIranNational)
+func Init(mux *http.ServeMux) {
+	mux.Handle(env.CheckIranNationalCodeR, &CheckIranNational)
 }

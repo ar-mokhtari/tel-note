@@ -5,6 +5,6 @@ import (
 	"net/http"
 )
 
-func Init() {
-	http.Handle(env.ContactReportR, &ContactReport)
+func Init(mux *http.ServeMux) {
+	mux.Handle(env.ContactReportR, &ContactReport)
 }

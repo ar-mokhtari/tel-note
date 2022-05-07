@@ -5,8 +5,8 @@ import (
 	"net/http"
 )
 
-func Init() {
+func Init(mux *http.ServeMux) {
 	fs := http.FileServer(http.Dir(config.MainPath + "/UI"))
-	http.Handle("/UI/", http.StripPrefix("/UI/", fs))
-	http.HandleFunc("/", WWW.serveTemplate)
+	mux.Handle("/UI/", http.StripPrefix("/UI/", fs))
+	mux.HandleFunc("/", WWW.serveTemplate)
 }

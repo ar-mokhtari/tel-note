@@ -10,17 +10,14 @@ import (
 )
 
 func init() {
+	mux := *http.NewServeMux()
 	//create global services
-	services.Init()
-}
-
-func main() {
-
+	services.Init(&mux)
 	switch config.RunAppType {
 	case "serv":
 		srv := &http.Server{
-			Handler:      nil,
-			Addr:         "127.0.0.1:1212",
+			Handler:      &mux,
+			Addr:         ":1212",
 			WriteTimeout: 5 * time.Second,
 			ReadTimeout:  10 * time.Second,
 		}
@@ -30,4 +27,8 @@ func main() {
 	default:
 		cli.RunCli()
 	}
+}
+
+func main() {
+
 }

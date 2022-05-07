@@ -5,11 +5,11 @@ import (
 	"net/http"
 )
 
-func Init() {
-	http.Handle(env.CountriesListR, &GetCountry)
-	http.Handle(env.CountriesCallR, &CallCountry)
-	http.Handle(env.DeleteCountryR, &DeleteCountry)
-	http.Handle(env.EditCountryR, &EditCountry)
-	http.Handle(env.FindCountryByCharR, &FindCountryChar)
-	http.Handle(env.AddCountryR, &NewCountry)
+func Init(mux *http.ServeMux) {
+	mux.Handle(env.CountriesListR, &GetCountry)
+	mux.Handle(env.CountriesCallR, &CallCountry)
+	mux.Handle(env.DeleteCountryR, &DeleteCountry)
+	mux.Handle(env.EditCountryR, &EditCountry)
+	mux.Handle(env.FindCountryByCharR, &FindCountryChar)
+	mux.Handle(env.AddCountryR, &NewCountry)
 }

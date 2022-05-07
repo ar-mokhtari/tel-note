@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func Init() {
-	http.Handle(env.InsertDataR, &FillData)
-	http.Handle(env.GetDataR, &GetData)
+func Init(mux *http.ServeMux) {
+	mux.Handle(env.InsertDataR, &FillData)
+	mux.Handle(env.GetDataR, &GetData)
 }

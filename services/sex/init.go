@@ -5,10 +5,10 @@ import (
 	"net/http"
 )
 
-func Init() {
-	http.Handle(env.ListOfSexR, &GetSex)
-	http.Handle(env.DeleteSexR, &DeleteSexByID)
-	http.Handle(env.EditSexR, &EditSex)
-	http.Handle(env.FindSexR, &FindSexID)
-	http.Handle(env.InsertNewSexR, &AddSex)
+func Init(mux *http.ServeMux) {
+	mux.Handle(env.ListOfSexR, &GetSex)
+	mux.Handle(env.DeleteSexR, &DeleteSexByID)
+	mux.Handle(env.EditSexR, &EditSex)
+	mux.Handle(env.FindSexR, &FindSexID)
+	mux.Handle(env.InsertNewSexR, &AddSex)
 }

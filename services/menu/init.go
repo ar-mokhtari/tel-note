@@ -5,6 +5,6 @@ import (
 	"net/http"
 )
 
-func Init() {
-	http.Handle(env.MenuR, &Duty)
+func Init(mux *http.ServeMux) {
+	mux.Handle(env.MenuR, &Duty)
 }

@@ -5,11 +5,11 @@ import (
 	"net/http"
 )
 
-func Init() {
-	http.Handle(env.FindOnePersonByIdR, &FindPersonID)
-	http.Handle(env.ListOfPersonR, &GetPerson)
-	http.Handle(env.DeletePersonR, &DeletePerson)
-	http.Handle(env.EditPersonR, &EditPerson)
-	http.Handle(env.FindPersonCharR, &FindCharPerson)
-	http.Handle(env.NewPersonR, &AddPerson)
+func Init(mux *http.ServeMux) {
+	mux.Handle(env.FindOnePersonByIdR, &FindPersonID)
+	mux.Handle(env.ListOfPersonR, &GetPerson)
+	mux.Handle(env.DeletePersonR, &DeletePerson)
+	mux.Handle(env.EditPersonR, &EditPerson)
+	mux.Handle(env.FindPersonCharR, &FindCharPerson)
+	mux.Handle(env.NewPersonR, &AddPerson)
 }

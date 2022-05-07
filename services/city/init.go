@@ -5,12 +5,12 @@ import (
 	"net/http"
 )
 
-func Init() {
-	http.Handle(env.CallDistanceTimeTwoCitiesR, &DistanceTimeService)
-	http.Handle(env.FindCityByCharR, &FindByCharService)
-	http.Handle(env.DeleteCityByIdR, &DeleteCity)
-	http.Handle(env.EditCityByIdR, &EditCity)
-	http.Handle(env.FindCityByIdR, &FindCityID)
-	http.Handle(env.ListOfCitiesR, &GetCity)
-	http.Handle(env.InsertNewCityR, &NewCity)
+func Init(mux *http.ServeMux) {
+	mux.Handle(env.CallDistanceTimeTwoCitiesR, &DistanceTimeService)
+	mux.Handle(env.FindCityByCharR, &FindByCharService)
+	mux.Handle(env.DeleteCityByIdR, &DeleteCity)
+	mux.Handle(env.EditCityByIdR, &EditCity)
+	mux.Handle(env.FindCityByIdR, &FindCityID)
+	mux.Handle(env.ListOfCitiesR, &GetCity)
+	mux.Handle(env.InsertNewCityR, &NewCity)
 }

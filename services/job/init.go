@@ -5,10 +5,10 @@ import (
 	"net/http"
 )
 
-func Init() {
-	http.Handle(env.ListOfJobR, &GetJob)
-	http.Handle(env.DeleteJobByIdR, &DeleteJob)
-	http.Handle(env.EditJobByIdR, &EditJob)
-	http.Handle(env.FindJobR, &FindJobID)
-	http.Handle(env.InsertNewJobR, &NewJob)
+func Init(mux *http.ServeMux) {
+	mux.Handle(env.ListOfJobR, &GetJob)
+	mux.Handle(env.DeleteJobByIdR, &DeleteJob)
+	mux.Handle(env.EditJobByIdR, &EditJob)
+	mux.Handle(env.FindJobR, &FindJobID)
+	mux.Handle(env.InsertNewJobR, &NewJob)
 }

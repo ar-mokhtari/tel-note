@@ -5,12 +5,12 @@ import (
 	"net/http"
 )
 
-func Init() {
-	http.Handle(env.ContactNewR, &NewContact)
-	http.Handle(env.ContactListR, &GetContact)
-	http.Handle(env.EditContactIdR, &NewContact)
-	http.Handle(env.ContactFindIdR, &FindContactID)
-	http.Handle(env.FindContactCharR, &FindContactChar)
-	http.Handle(env.DeleteContactIdR, &DelContactID)
-	http.Handle(env.DeleteAllContactsR, &DelAllContact)
+func Init(mux *http.ServeMux) {
+	mux.Handle(env.ContactNewR, &NewContact)
+	mux.Handle(env.ContactListR, &GetContact)
+	mux.Handle(env.EditContactIdR, &NewContact)
+	mux.Handle(env.ContactFindIdR, &FindContactID)
+	mux.Handle(env.FindContactCharR, &FindContactChar)
+	mux.Handle(env.DeleteContactIdR, &DelContactID)
+	mux.Handle(env.DeleteAllContactsR, &DelAllContact)
 }

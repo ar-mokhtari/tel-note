@@ -13,42 +13,43 @@ import (
 	"github.com/ar-mokhtari/tel-note/services/sampleData"
 	"github.com/ar-mokhtari/tel-note/services/sex"
 	"github.com/ar-mokhtari/tel-note/services/www"
+	"net/http"
 )
 
-func Init() {
+func Init(mux *http.ServeMux) {
 	//init general services
-	general.Init()
+	general.Init(mux)
 
 	//init sex services
-	sex.Init()
+	sex.Init(mux)
 
 	//init city services
-	city.Init()
+	city.Init(mux)
 
 	//init country services
-	country.Init()
+	country.Init(mux)
 
 	//init job services
-	job.Init()
+	job.Init(mux)
 
 	//init person services
-	person.Init()
+	person.Init(mux)
 
 	//init customer services
-	customer.Init()
+	customer.Init(mux)
 
 	//init contact services
-	contact.Init()
+	contact.Init(mux)
 
 	//init fill data
-	sampleData.Init()
+	sampleData.Init(mux)
 
 	//init fill data
-	reporter.Init()
+	reporter.Init(mux)
 
 	//serv handle menu
-	menu.Init()
+	menu.Init(mux)
 
 	//serv www
-	www.Init()
+	www.Init(mux)
 }
