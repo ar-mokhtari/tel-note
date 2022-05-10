@@ -50,9 +50,10 @@ target="_blank"><img src="https://img.shields.io/badge/javascript-%23323330.svg?
 > - [ ] Send email for different service(s)
 > - [ ] Create and develop internal database to "data service(ing)"
 > - [ ] Create reports, listen and export official data(s) by api(s) [b2e]
+> - [ ] Call SepehrAPI for flight ticket attribute
 > - [ ] Build with storage(s) type tags
 > - [ ] Use general packages (lib)s
-> - [ ] Multi language service(s) 
+> - [ ] Multi language service(s)
 > - [ ] Create product wiki
 > - [ ] Create UI web application
 > - [ ] Create Mobile application (Android)
