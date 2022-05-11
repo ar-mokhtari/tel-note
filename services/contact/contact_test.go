@@ -1,31 +1,33 @@
 package contact
 
 import (
-	"github.com/ar-mokhtari/tel-note/env"
-	"github.com/ar-mokhtari/tel-note/protocol"
+	"gitlab.com/gocastsian/globalApp/entity"
+	"gitlab.com/gocastsian/globalApp/env"
+	"net/http"
 	"reflect"
 	"testing"
 )
 
 func TestNewContact(t *testing.T) {
-	assertCorrectMessage := func(t testing.TB, got, want []*protocol.Contact) {
+	assertCorrectMessage := func(t testing.TB, got, want []*entity.Contact) {
 		t.Helper()
 		if !reflect.DeepEqual(got, want) {
 			t.Errorf("got %p want %p", got, want)
 		}
 	}
 	t.Run("fill new contact", func(t *testing.T) {
-		contactTest := protocol.Contact{
+		contactTest := entity.Contact{
 			PersonID: 1,
 			JobID:    5,
 			Tel:      "",
-			CellphoneCollection: []protocol.CellPhone{{
-				CellPhone:   "None",
-				Description: "09121234567",
-			}},
+			CellphoneCollection: []entity.CellPhone{{
+				CellPhone:   "0912",
+				Description: "king",
+			}, {CellPhone: "0912912", Description: "Home"}},
 			Description: "none",
 		}
-		Init()
+		mux := *http.NewServeMux()
+		Init(&mux)
 		storage.AddContact(contactTest)
 		got := storage.GetContacts()
 		want := env.ContactDataTest
