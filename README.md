@@ -53,6 +53,7 @@ target="_blank"><img src="https://img.shields.io/badge/javascript-%23323330.svg?
 > - [ ] Call SepehrAPI for flight ticket attribute
 > - [ ] Call GRS for hotel reservation
 > - [ ] Call Safar724 bus ticket
+> - [ ] Call varan CIP, airport services
 > - [ ] Build with storage(s) type tags
 > - [ ] Use general packages (lib)s
 > - [ ] Multi language service(s)
