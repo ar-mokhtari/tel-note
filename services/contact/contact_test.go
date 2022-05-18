@@ -1,8 +1,7 @@
 package contact
 
 import (
-	"gitlab.com/gocastsian/globalApp/entity"
-	"gitlab.com/gocastsian/globalApp/env"
+	"github.com/ar-mokhtari/tel-note/env"
 	"net/http"
 	"reflect"
 	"testing"
