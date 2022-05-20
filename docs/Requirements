@@ -10,7 +10,6 @@
 > - [ ] Call Safar724 bus ticket
 > - [ ] Call varan CIP, airport services
 > - [ ] Build with storage(s) type tags
-> - [ ] Use general packages (lib)s
 > - [ ] Multi language service(s)
 > - [ ] Create product wiki
 > - [ ] Create UI web application
@@ -23,7 +22,7 @@
 > - [x] Call Some Api(s) [b2b]
 >> - [x] Insert and update country(ies) and its property(ies)
 >> - [x] Send some data and receive processed data from provider, (lat and lng of a city and publish online traffic duration and distance[neshan.org])
-
+> - [x] Use general packages (lib)s
 −−−−−−−−−−−−−−−−−−−−−−−−−−
 This note is modified and added
 −−−−−−−−−−−−−−−−−−−−−−−−−−

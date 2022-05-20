@@ -55,7 +55,6 @@ target="_blank"><img src="https://img.shields.io/badge/javascript-%23323330.svg?
 > - [ ] Call Safar724 bus ticket
 > - [ ] Call varan CIP, airport services
 > - [ ] Build with storage(s) type tags
-> - [ ] Use general packages (lib)s
 > - [ ] Multi language service(s)
 > - [ ] Create product wiki
 > - [ ] Create UI web application
@@ -71,8 +70,8 @@ target="_blank"><img src="https://img.shields.io/badge/javascript-%23323330.svg?
 > - [x] Call Some Api(s) [b2b]
 >> - [x] Insert and update country(ies) and its property(ies)
 >> - [x] Send some data and receive processed data from provider, (lat and lng of a city and publish online traffic duration and distance[neshan.org])
-
-<h3> To build:</h3>
+> - [x] Use general packages (lib)s
+    <h3> To build:</h3>
 
 ````
 $ go build -tags storageType(exmp: memory) -o bin/telnote
