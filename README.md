@@ -50,6 +50,7 @@ target="_blank"><img src="https://img.shields.io/badge/javascript-%23323330.svg?
 > - [ ] Send email for different service(s)
 > - [ ] Create and develop internal database to "data service(ing)"
 > - [ ] Create reports, listen and export official data(s) by api(s) [b2e]
+> - [ ] implement alert like (sweetAlert and nprogress) [b2e]
 > - [ ] Call SepehrAPI for flight ticket attribute
 > - [ ] Call GRS for hotel reservation
 > - [ ] Call Safar724 bus ticket
