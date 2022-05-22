@@ -16,7 +16,7 @@ func (cc *callCountry) Do() []*protocol.Country {
 }
 func (cc *callCountry) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
-	case env.PostMethod:
+	case env.GetMethod:
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(cc.Do())
 	default:
