@@ -1,4 +1,4 @@
-> - [ ] Identification, Authentication, Authorization to control user services
+> - [ ] Identification, Authentication, Authorization to control user services (JWT)
 > - [ ] Create Validation service
 > - [ ] Export data to csv file
 > - [ ] Send sms for different service(s)

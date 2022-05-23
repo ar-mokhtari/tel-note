@@ -43,7 +43,7 @@ target="_blank"><img src="https://img.shields.io/badge/javascript-%23323330.svg?
 
 > ---
 > - <h4>Under Developing:</h4>
-> - [ ] Identification, Authentication, Authorization to control user services
+> - [ ] Identification, Authentication, Authorization to control user services(JWT)
 > - [ ] Create Validation service
 > - [ ] Export data to csv file
 > - [ ] Send sms for different service(s)
