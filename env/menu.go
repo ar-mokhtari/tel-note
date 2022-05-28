@@ -193,6 +193,10 @@ const (
 	FindCountryByCharD = "find country by char"
 	FindCountryByCharR = "/find-country-char"
 
+	FindCountryByID  = "FCOUBI"
+	FindCountryByIDD = "find country by id"
+	FindCountryByIDR = "/find-country-ID"
+
 	CountriesList  = "COUL"
 	CountriesListD = "list of country(ies)"
 	CountriesListR = "/get-country"

@@ -11,8 +11,13 @@ type getCountry struct{}
 
 var GetCountry getCountry
 
-func (gc *getCountry) Do() []*protocol.Country {
-	return storage.GetCountry()
+func (gc *getCountry) Do() (res []*protocol.Country) {
+	for _, data := range storage.ListCountries() {
+		if country := storage.FindCountryByID(data); country != nil {
+			res = append(res, country)
+		}
+	}
+	return res
 }
 
 func (gc *getCountry) ServeHTTP(w http.ResponseWriter, r *http.Request) {

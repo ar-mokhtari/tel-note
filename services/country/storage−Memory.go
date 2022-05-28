@@ -3,11 +3,8 @@
 package country
 
 import (
-	"encoding/json"
 	"errors"
-	"github.com/ar-mokhtari/tel-note/lib/callAPI"
 	"github.com/ar-mokhtari/tel-note/protocol"
-	"github.com/ar-mokhtari/tel-note/sdk/universal"
 	"strings"
 	"time"
 )
@@ -23,42 +20,11 @@ var (
 	_       protocol.CountryServices = &storage
 )
 
-func (sm *storageMemory) GetCountry() []*protocol.Country {
-	return sm.CountryData
-}
-
-func (sm *storageMemory) CallCountry() []*protocol.Country {
-	//generate new token
-	MapTokenHeaders := map[string]string{
-		"Accept":     "application/json",
-		"api-token":  universal.UniversaltutorialToken,
-		"user-email": universal.Email,
+func (sm *storageMemory) ListCountries() (res []uint) {
+	for _, data := range sm.CountryData {
+		res = append(res, data.ID)
 	}
-	responseTokenData := callAPI.CallGetAPIs(
-		universal.GetTokenURL,
-		map[string]string{},
-		MapTokenHeaders,
-	)
-	//var token struct {
-	//	authToken string `json:"auth_token"`
-	//}
-	token := map[string]string{
-		"auth_token": "",
-	}
-	json.Unmarshal(responseTokenData, &token)
-	//call api with new token
-	MapHeaders := map[string]string{
-		"Accept":        "application/json",
-		"Authorization": "Bearer " + string(token["auth_token"]),
-	}
-	responseData := callAPI.CallGetAPIs(
-		universal.GetCountryURL,
-		map[string]string{},
-		MapHeaders,
-	)
-	var AllResult []*protocol.Country
-	json.Unmarshal(responseData, &AllResult)
-	return AllResult
+	return res
 }
 
 func (sm *storageMemory) NewCountry(newCountry protocol.Country) error {
@@ -127,4 +93,12 @@ func (sm *storageMemory) FindCountryByChar(insertChar string) []*protocol.Countr
 		}
 	}
 	return result
+}
+func (sm *storageMemory) FindCountryByID(insertID uint) *protocol.Country {
+	for _, country := range sm.CountryData {
+		if country.ID == insertID {
+			return country
+		}
+	}
+	return nil
 }

@@ -13,11 +13,11 @@ type (
 		UpdatedAt    time.Time `json:"updated_at"`
 	}
 	CountryServices interface {
-		GetCountry() []*Country
-		CallCountry() []*Country
+		ListCountries() []uint
 		NewCountry(newCountry Country) error
 		EditCountry(editedCountry Country) error
 		DeleteCountry(IDS []uint) uint
 		FindCountryByChar(insertChar string) []*Country
+		FindCountryByID(insertID uint) *Country
 	}
 )

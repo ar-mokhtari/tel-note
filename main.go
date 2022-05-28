@@ -10,13 +10,13 @@ import (
 )
 
 func init() {
-	mux := *http.NewServeMux()
+	mux := http.NewServeMux()
 	//create global services
-	services.Init(&mux)
+	services.Init(mux)
 	switch config.RunAppType {
 	case "serv":
 		srv := &http.Server{
-			Handler:      &mux,
+			Handler:      mux,
 			Addr:         ":1212",
 			WriteTimeout: 5 * time.Second,
 			ReadTimeout:  10 * time.Second,
