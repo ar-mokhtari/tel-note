@@ -13,7 +13,7 @@ type getCity struct{}
 
 var GetCity getCity
 
-func (gc *getCity) Do() []*protocol.City {
+func (gc *getCity) Do() []protocol.City {
 	return storage.GetCities()
 }
 
@@ -27,7 +27,7 @@ func (gc *getCity) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(struct {
 			State       uint
 			CountResult uint
-			Data        []*protocol.City
+			Data        []protocol.City
 		}{200, uint(len(result)), result})
 	default:
 		json.NewEncoder(w).Encode(struct {

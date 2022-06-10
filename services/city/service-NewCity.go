@@ -6,13 +6,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/ar-mokhtari/tel-note/env"
-	"github.com/ar-mokhtari/tel-note/protocol"
 	"net/http"
 )
 
 type (
 	newCity         struct{}
-	NewCityRequest  protocol.City
+	NewCityRequest  City
 	newCityResponse struct {
 		State   uint
 		Message string
@@ -22,7 +21,7 @@ type (
 var NewCity newCity
 
 func (nc *newCity) Do(inputCity NewCityRequest) (err error) {
-	err = storage.NewCity(protocol.City(inputCity))
+	err = storage.NewCity(City(inputCity))
 	return err
 }
 

@@ -1,22 +1,23 @@
 package protocol
 
 type (
-	City struct {
-		Id          uint    `json:"id"`
-		Name        string  `json:"name"`
-		EnglishName string  `json:"english_name"`
-		AriaCode    string  `json:"aria_code"`
-		Lat         float64 `json:"lat"`
-		Lng         float64 `json:"lng"`
+	//City []byte
+	City interface {
+		ID() uint
+		Name() string
+		EnglishName() string
+		AriaCode() string
+		Lat() float64
+		Lng() float64
 	}
-	CityServices interface {
+	CityStorageServices interface {
 		//city methods
-		GetCities() []*City
-		FindCityByChar(inputChar string) (status bool, res []uint)
-		FindCityByID(inputID uint) (bool, City)
-		NewCity(inputCity City) error
+		GetCities() []City
+		//FindCityByChar(inputChar string) (status bool, res []uint) //return error
+		FindCityByID(inputID uint) (error, uint) //return by ids //get:primary key find:secondary key list filter
+		//NewCity(inputCity City) error
 		EditCity(newCity City) error
-		DeleteCityByID(IDS []uint) (resDel []uint)
-		CallTimeDistanceTwoCities(cityNoOne, cityNoTwo City) ([]uint, bool)
+		//DeleteCityByID(IDS []uint) (resDel []uint)
+		//CallTimeDistanceTwoCities(cityNoOne, cityNoTwo City) ([]uint, bool)
 	}
 )

@@ -6,13 +6,14 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/ar-mokhtari/tel-note/env"
-	"github.com/ar-mokhtari/tel-note/protocol"
 	"net/http"
 )
 
 type (
-	editCity         struct{}
-	EditCityRequest  protocol.City
+	editCity        struct{}
+	EditCityRequest struct {
+		city
+	}
 	editCityResponse struct {
 		State   uint
 		Message string
@@ -23,8 +24,8 @@ var (
 	EditCity editCity
 )
 
-func (ec *editCity) Do(inputCity EditCityRequest) (err error) {
-	if err = storage.EditCity(protocol.City(inputCity)); err != nil {
+func (ec *editCity) Do(req EditCityRequest) (err error) {
+	if err = storage.EditCity(&req); err != nil {
 		return err
 	}
 	return nil
@@ -46,7 +47,7 @@ func (ec *editCity) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		} else {
 			res.EncoderJson(w, editCityResponse{
 				200,
-				fmt.Sprintf("City #%v edited", req.Id),
+				fmt.Sprintf("City #%v edited", req.id),
 			})
 		}
 	default:
