@@ -14,11 +14,11 @@ type findCityID struct{}
 
 var FindCityID findCityID
 
-func (fci *findCityID) FindCityByID(inputID uint) (protocol.ResponseStatus, protocol.City) {
-	if state, data := storage.FindCityByID(inputID); state {
-		return protocol.ResponseStatus{State: true}, data
+func (fci *findCityID) FindCityByID(inputID uint) protocol.City {
+	if _, data := storage.GetCity(inputID); data != nil {
+		return data
 	}
-	return protocol.ResponseStatus{State: false}, protocol.City{}
+	return nil
 }
 
 func (fci *findCityID) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -27,7 +27,7 @@ func (fci *findCityID) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	case env.GetMethod:
 		err, cityID := convertor.StrToUint(r.FormValue("cityID"))
 		if err == nil {
-			if status, city := fci.FindCityByID(cityID); status.State {
+			if city := fci.FindCityByID(cityID); city != nil {
 				json.NewEncoder(w).Encode(struct {
 					Status uint
 					Data   protocol.City

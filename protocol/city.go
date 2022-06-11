@@ -12,12 +12,12 @@ type (
 	}
 	CityStorageServices interface {
 		//city methods
+		//return by ids //get:primary key find:secondary key list filter
 		GetCities() []City
-		//FindCityByChar(inputChar string) (status bool, res []uint) //return error
-		FindCityByID(inputID uint) (error, uint) //return by ids //get:primary key find:secondary key list filter
-		//NewCity(inputCity City) error
+		FindCityByChar(inputChar string) (status bool, res []uint) //return error
+		NewCity(inputCity City) error
 		EditCity(newCity City) error
-		//DeleteCityByID(IDS []uint) (resDel []uint)
-		//CallTimeDistanceTwoCities(cityNoOne, cityNoTwo City) ([]uint, bool)
+		DeleteCityByID(IDS []uint) (resDel []uint)
+		CallTimeDistanceTwoCities(cityNoOne, cityNoTwo City) ([]uint, bool)
 	}
 )

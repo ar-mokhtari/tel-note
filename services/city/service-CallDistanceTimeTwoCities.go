@@ -23,11 +23,11 @@ func (sts *distanceTimeService) ServeHTTP(w http.ResponseWriter, r *http.Request
 	case env.GetMethod:
 		firstCity := r.FormValue("firstCity")
 		secondCity := r.FormValue("secondCity")
-		_, uintFirstCity := convertor.StrToUint(firstCity)
-		_, uintSecondCity := convertor.StrToUint(secondCity)
-		firstStatus, dataFirstCity := FindCityID.FindCityByID(uintFirstCity)
-		secondStatus, dataSecondCity := FindCityID.FindCityByID(uintSecondCity)
-		if firstStatus.State && secondStatus.State {
+		firstStatus, uintFirstCity := convertor.StrToUint(firstCity)
+		secondStatus, uintSecondCity := convertor.StrToUint(secondCity)
+		dataFirstCity := FindCityID.FindCityByID(uintFirstCity)
+		dataSecondCity := FindCityID.FindCityByID(uintSecondCity)
+		if dataFirstCity != nil && dataSecondCity != nil {
 			result, state := sts.Do(dataFirstCity, dataSecondCity)
 			if state.State {
 				json.NewEncoder(w).Encode(
@@ -40,7 +40,7 @@ func (sts *distanceTimeService) ServeHTTP(w http.ResponseWriter, r *http.Request
 							Minute float32
 						}
 						Distance uint
-					}{200, dataFirstCity.Name, dataSecondCity.Name,
+					}{200, dataFirstCity.Name(), dataSecondCity.Name(),
 						struct {
 							Hour   float32
 							Minute float32
@@ -59,13 +59,13 @@ func (sts *distanceTimeService) ServeHTTP(w http.ResponseWriter, r *http.Request
 				struct {
 					Status           uint
 					Massage          string
-					FirstCityStatus  bool
-					SecondCityStatus bool
+					FirstCityStatus  error
+					SecondCityStatus error
 				}{
 					401,
 					"city(ies) not found",
-					firstStatus.State,
-					secondStatus.State,
+					firstStatus,
+					secondStatus,
 				})
 		}
 	default:

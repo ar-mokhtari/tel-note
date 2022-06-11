@@ -68,7 +68,7 @@ func RunMenu() {
 					genderID := person.GenderID
 					gender := sex.FindSexID.Do(genderID)
 					_, job := job.FindJobID.Do(data.JobID)
-					_, city := city.FindCityID.FindCityByID(job.LocationID)
+					city := city.FindCityID.FindCityByID(job.LocationID)
 					if data.CellphoneCollection == nil {
 						data.CellphoneCollection = append(data.CellphoneCollection, protocol.CellPhone{})
 					}
@@ -79,7 +79,7 @@ func RunMenu() {
 				fmt.Println("Top 10 City Data:")
 				if cityCollection := city.GetCity.Do(); cityCollection != nil {
 					for _, data := range cityCollection[:10] {
-						fmt.Printf("%3v | %-15v \n", data.Id, data.Name)
+						fmt.Printf("%3v | %-15v \n", data.ID(), data.Name)
 					}
 					fmt.Println(separator7)
 					fmt.Println("Top 10 Country Data:")
@@ -211,7 +211,7 @@ func RunMenu() {
 					genderID := person.GenderID
 					gender := sex.FindSexID.Do(genderID)
 					_, job := job.FindJobID.Do(data.JobID)
-					_, city := city.FindCityID.FindCityByID(job.LocationID)
+					city := city.FindCityID.FindCityByID(job.LocationID)
 					if data.CellphoneCollection == nil {
 						data.CellphoneCollection = append(data.CellphoneCollection, protocol.CellPhone{})
 					}
@@ -234,7 +234,7 @@ func RunMenu() {
 					genderID := person.GenderID
 					gender := sex.FindSexID.Do(genderID)
 					_, job := job.FindJobID.Do(result.JobID)
-					_, city := city.FindCityID.FindCityByID(job.LocationID)
+					city := city.FindCityID.FindCityByID(job.LocationID)
 					fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-4v | %-12v | %-3v  \n",
 						result.Id, result.PersonID, person.FirstName, person.LastName, result.JobID, job.Name, gender.Name, result.CellphoneCollection, job.LocationID, city.Name, result.Description)
 				} else {
@@ -260,7 +260,7 @@ func RunMenu() {
 						genderID := person.GenderID
 						gender := sex.FindSexID.Do(genderID)
 						_, job := job.FindJobID.Do(data.JobID)
-						_, city := city.FindCityID.FindCityByID(job.LocationID)
+						city := city.FindCityID.FindCityByID(job.LocationID)
 						fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-4v | %-12v | %-3v  \n",
 							data.Id, data.PersonID, person.FirstName, person.LastName, data.JobID, job.Name, gender.Name, data.CellphoneCollection, job.LocationID, city.Name, data.Description)
 					}
@@ -284,7 +284,7 @@ func RunMenu() {
 					genderID := person.GenderID
 					gender := sex.FindSexID.Do(genderID)
 					_, job := job.FindJobID.Do(result.JobID)
-					_, city := city.FindCityID.FindCityByID(job.LocationID)
+					city := city.FindCityID.FindCityByID(job.LocationID)
 					fmt.Printf("%3v | %-3v | %-15s | %-20v | %-3v | %-20s | %-8v | %-12v | %-4v | %-12v | %-3v  \n",
 						result.Id, result.PersonID, person.FirstName, person.LastName, result.JobID, job.Name, gender.Name, result.CellphoneCollection, job.LocationID, city.Name, result.Description)
 				} else {
@@ -557,7 +557,7 @@ func RunMenu() {
 				for _, data := range person.GetPerson.Do() {
 					genderID := data.GenderID
 					gender := sex.FindSexID.Do(genderID)
-					_, city := city.FindCityID.FindCityByID(data.BirthLocationID)
+					city := city.FindCityID.FindCityByID(data.BirthLocationID)
 					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
 						data.Id, data.FirstName, data.LastName, gender.Name, data.BirthLocationID, city.Name, (data.DOB).String()[0:10], data.Description)
 				}
@@ -574,7 +574,7 @@ func RunMenu() {
 				fmt.Println("")
 				genderID := data.GenderID
 				gender := sex.FindSexID.Do(genderID)
-				_, city := city.FindCityID.FindCityByID(data.BirthLocationID)
+				city := city.FindCityID.FindCityByID(data.BirthLocationID)
 				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
 					data.Id, data.FirstName, data.LastName, gender.Name, data.BirthLocationID, city.Name, (data.DOB).String()[0:10], data.Description)
 				fmt.Println(env.ShowMenuWarn)
@@ -591,7 +591,7 @@ func RunMenu() {
 				for _, personData := range data {
 					genderID := personData.GenderID
 					gender := sex.FindSexID.Do(genderID)
-					_, city := city.FindCityID.FindCityByID(personData.BirthLocationID)
+					city := city.FindCityID.FindCityByID(personData.BirthLocationID)
 					fmt.Printf("%3v | %-15s | %-20v | %-8v | %-5v | %-12v | %-13v | %-3v  \n",
 						personData.Id, personData.FirstName, personData.LastName, gender.Name, personData.BirthLocationID, city.Name, (personData.DOB).String()[0:10], personData.Description)
 
@@ -609,7 +609,7 @@ func RunMenu() {
 				fmt.Println("")
 				genderID := data.GenderID
 				gender := sex.FindSexID.Do(genderID)
-				_, city := city.FindCityID.FindCityByID(data.BirthLocationID)
+				city := city.FindCityID.FindCityByID(data.BirthLocationID)
 				fmt.Printf("%3v | %-15s | %-20v | %-8v | %-4v | %-12v | %-13v |  %-3v  \n",
 					data.Id, data.FirstName, data.LastName, gender.Name, data.BirthLocationID, city.Name, (data.DOB).String()[0:10], data.Description)
 				fmt.Println("insert FirstName")

@@ -10,8 +10,10 @@ import (
 )
 
 type (
-	newCity         struct{}
-	NewCityRequest  City
+	newCity        struct{}
+	NewCityRequest struct {
+		city
+	}
 	newCityResponse struct {
 		State   uint
 		Message string
@@ -20,8 +22,8 @@ type (
 
 var NewCity newCity
 
-func (nc *newCity) Do(inputCity NewCityRequest) (err error) {
-	err = storage.NewCity(City(inputCity))
+func (nc *newCity) Do(req NewCityRequest) (err error) {
+	err = storage.NewCity(&req)
 	return err
 }
 

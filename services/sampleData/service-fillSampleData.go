@@ -30,16 +30,12 @@ func (fd *fillData) FillSimpleData() (result [][]string, err error) {
 	//}
 	var cities [][]string
 	cities, err = convertor.GetDataFromExcel(config.MainPath+"/env/IranCities.csv", true)
+	var newCityTransfer city.NewCityRequest
 	for _, cityPack := range cities {
 		lat, _ := strconv.ParseFloat(cityPack[6], 64)
 		lng, _ := strconv.ParseFloat(cityPack[7], 64)
-		city.NewCity.Do(city.NewCityRequest{
-			Name:        cityPack[3],
-			EnglishName: "",
-			AriaCode:    "",
-			Lat:         lat,
-			Lng:         lng,
-		})
+		newCityTransfer.Name()
+		city.NewCity.Do(newCityTransfer)
 	}
 	for _, data := range env.JobDataTest {
 		_ = job.NewJob.Do(job.NewRequest(*data))
