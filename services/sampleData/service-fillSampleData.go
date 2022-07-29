@@ -18,6 +18,24 @@ import (
 )
 
 type fillData struct{}
+type cityStruct struct {
+	cityInput
+}
+type cityInput struct {
+	id          uint
+	name        string  `json:"id"`
+	englishName string  `json:"name"`
+	ariaCode    string  `json:"english_name"`
+	lat         float64 `json:"aria_code"`
+	lng         float64 `json:"lat"`
+}
+
+func (c *cityInput) ID() uint            { return c.id }
+func (c *cityInput) Name() string        { return c.name }
+func (c *cityInput) EnglishName() string { return c.englishName }
+func (c *cityInput) AriaCode() string    { return c.ariaCode }
+func (c *cityInput) Lat() float64        { return c.lat }
+func (c *cityInput) Lng() float64        { return c.lng }
 
 var FillData fillData
 
@@ -30,12 +48,19 @@ func (fd *fillData) FillSimpleData() (result [][]string, err error) {
 	//}
 	var cities [][]string
 	cities, err = convertor.GetDataFromExcel(config.MainPath+"/env/IranCities.csv", true)
-	var newCityTransfer city.NewCityRequest
 	for _, cityPack := range cities {
 		lat, _ := strconv.ParseFloat(cityPack[6], 64)
 		lng, _ := strconv.ParseFloat(cityPack[7], 64)
-		newCityTransfer.Name()
-		city.NewCity.Do(newCityTransfer)
+		var inputData *city.City
+		inputData.id = 0
+		inputData.name = cityPack[0]
+		inputData.englishName = cityPack[1]
+		inputData.ariaCode = cityPack[2]
+		inputData.lat = lat
+		inputData.lng = lng
+		temp := city.SetCity(inputData)
+
+		city.NewCity.Do(temp)
 	}
 	for _, data := range env.JobDataTest {
 		_ = job.NewJob.Do(job.NewRequest(*data))

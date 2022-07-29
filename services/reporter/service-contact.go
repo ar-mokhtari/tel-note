@@ -43,7 +43,7 @@ func (cr *contactReport) Do() (result []resultReport, err error) {
 		personInfo := person.FindPersonID.Do(contact.PersonID)
 		sexInfo := sex.FindSexID.Do(personInfo.GenderID)
 		if err, jobInfo := job.FindJobID.Do(contact.JobID); err == nil {
-			if err, cityInfo := city.FindCityID.FindCityByID(jobInfo.LocationID); err.State {
+			if cityInfo := city.FindCityID.FindCityByID(jobInfo.LocationID); cityInfo != nil {
 				result = append(result, resultReport{
 					ID:           contact.Id,
 					PID:          contact.PersonID,
@@ -55,7 +55,7 @@ func (cr *contactReport) Do() (result []resultReport, err error) {
 					Gender:       sexInfo.Name,
 					Cellphone:    contact.CellphoneCollection[0].CellPhone,
 					LoID:         0,
-					JobCityName:  cityInfo.Name,
+					JobCityName:  cityInfo.Name(),
 					Address:      contact.Address,
 					Description:  contact.Description,
 				})

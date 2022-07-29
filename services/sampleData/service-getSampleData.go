@@ -20,7 +20,7 @@ type AllDataCollection struct {
 	customerRelation      protocol.CustomerGRelationStorage
 	person                []*protocol.Person
 	countries             []*protocol.Country
-	cities                []*protocol.City
+	cities                []protocol.City
 }
 type getData struct{}
 
@@ -45,7 +45,7 @@ func (fd *getData) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	result := fd.Do()
 	json.NewEncoder(w).Encode(struct {
 		State                     uint
-		CityData                  []*protocol.City
+		CityData                  []protocol.City
 		ContactData               []*protocol.Contact
 		CustomerData              map[uint]*protocol.Customer
 		CustomerGroupData         []*protocol.CustomerGroup

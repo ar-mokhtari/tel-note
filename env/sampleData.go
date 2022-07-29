@@ -5,6 +5,25 @@ import (
 	"time"
 )
 
+type cityStruct struct {
+	city
+}
+type city struct {
+	id          uint
+	name        string
+	englishName string
+	ariaCode    string
+	lat         float64
+	lng         float64
+}
+
+func (c city) ID() uint            { return c.id }
+func (c city) Name() string        { return c.name }
+func (c city) EnglishName() string { return c.englishName }
+func (c city) AriaCode() string    { return c.ariaCode }
+func (c city) Lat() float64        { return c.lat }
+func (c city) Lng() float64        { return c.lng }
+
 var (
 	//  contact variables:
 	Alireza  = protocol.Contact{PersonID: 1, CellphoneCollection: []protocol.CellPhone{{CellPhone: "09121234567", Description: ""}, {CellPhone: "09121", Description: "Home"}}, Description: "none", JobID: 5}
@@ -38,7 +57,7 @@ var (
 		MasterChef,
 	}
 
-	CityDataTest = []*protocol.City{
+	CityDataTest = []protocol.City{
 		&Tehran,
 		&Shiraz,
 		&Tabriz,
@@ -79,16 +98,16 @@ var (
 	//----------- Test Vars -----------------
 
 	// cities variable
-	//Tehran     = {1, "", ",", 0.0, 0.0}
-	Shiraz     = protocol.City{Name: "Shiraz", AriaCode: "061", Lat: 29.6655016, Lng: 52.3929325}
-	Tabriz     = protocol.City{Name: "Tabriz", AriaCode: "041", Lat: 38.0802852, Lng: 46.1536431}
-	Karaj      = protocol.City{Name: "Karaj", AriaCode: "026", Lat: 35.8109689, Lng: 50.8772975}
-	Mahabad    = protocol.City{Name: "Mahabad", AriaCode: "051", Lat: 36.7659726, Lng: 45.6948439}
-	Noshahr    = protocol.City{Name: "Noshahr", AriaCode: "011", Lat: 36.6502418, Lng: 51.4693375}
-	LostHeaven = protocol.City{Name: "LostHeaven", AriaCode: "+1"}
-	Rasht      = protocol.City{Name: "Rasht", AriaCode: "013", Lat: 37.244096, Lng: 49.5163231}
-	Abadan     = protocol.City{Name: "Abadan", AriaCode: "0631", Lat: 30.3902492, Lng: 48.1193191}
-	Kish       = protocol.City{Name: "Kish", AriaCode: "0764442", Lat: 26.5360317, Lng: 53.9043458}
+	Tehran     = city{name: "Tehran", englishName: "THR", ariaCode: "021", lat: 0, lng: 0}
+	Shiraz     = city{name: "Shiraz", ariaCode: "061", lat: 29.6655016, lng: 52.3929325}
+	Tabriz     = city{name: "Tabriz", ariaCode: "041", lat: 38.0802852, lng: 46.1536431}
+	Karaj      = city{name: "Karaj", ariaCode: "026", lat: 35.8109689, lng: 50.8772975}
+	Mahabad    = city{name: "Mahabad", ariaCode: "051", lat: 36.7659726, lng: 45.6948439}
+	Noshahr    = city{name: "Noshahr", ariaCode: "011", lat: 36.6502418, lng: 51.4693375}
+	LostHeaven = city{name: "LostHeaven", ariaCode: "+1"}
+	Rasht      = city{name: "Rasht", ariaCode: "013", lat: 37.244096, lng: 49.5163231}
+	Abadan     = city{name: "Abadan", ariaCode: "0631", lat: 30.3902492, lng: 48.1193191}
+	Kish       = city{name: "Kish", ariaCode: "0764442", lat: 26.5360317, lng: 53.9043458}
 
 	// Person variable
 	AlirezaPerson = protocol.Person{
