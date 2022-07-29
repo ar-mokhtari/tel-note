@@ -13,7 +13,7 @@ import (
 )
 
 type storageMemory struct {
-	CityData []city
+	CityData []DTO
 	//PoolByID map[uint]*protocol.City
 }
 
@@ -28,8 +28,8 @@ func (sm *storageMemory) GetCities() []protocol.City {
 
 func (sm *storageMemory) FindCityByChar(inputChar string) (status bool, res []uint) {
 	for _, data := range sm.CityData {
-		if strings.Contains(data.name, inputChar) {
-			res = append(res, data.id)
+		if strings.Contains(data.NameF, inputChar) {
+			res = append(res, data.IDF)
 			status = true
 		}
 	}
@@ -38,7 +38,7 @@ func (sm *storageMemory) FindCityByChar(inputChar string) (status bool, res []ui
 
 func (sm *storageMemory) GetCity(ID uint) (cityIndex int, city protocol.City) {
 	for index, data := range sm.CityData {
-		if data.id == ID {
+		if data.IDF == ID {
 			return index, &data
 		}
 	}
@@ -48,18 +48,18 @@ func (sm *storageMemory) GetCity(ID uint) (cityIndex int, city protocol.City) {
 func (sm *storageMemory) NewCity(inputCity protocol.City) (err error) {
 	var LastID uint
 	for _, data := range sm.CityData {
-		if data.id > LastID {
-			LastID = data.id
+		if data.IDF > LastID {
+			LastID = data.IDF
 		}
 	}
 	LastID += 1
-	result := city{
-		id:          LastID,
-		name:        inputCity.Name(),
-		englishName: inputCity.EnglishName(),
-		ariaCode:    inputCity.AriaCode(),
-		lat:         inputCity.Lat(),
-		lng:         inputCity.Lng(),
+	result := DTO{
+		IDF:          LastID,
+		NameF:        inputCity.Name(),
+		EnglishNameF: inputCity.EnglishName(),
+		AriaCodeF:    inputCity.AriaCode(),
+		LatF:         inputCity.Lat(),
+		LngF:         inputCity.Lng(),
 	}
 	sm.CityData = append(sm.CityData, result)
 	return nil
@@ -73,19 +73,19 @@ func (sm *storageMemory) EditCity(newCity protocol.City) error {
 	}
 	// try to edit
 	if newCity.Name() != "" {
-		sm.CityData[index].name = newCity.Name()
+		sm.CityData[index].NameF = newCity.Name()
 	}
 	if newCity.EnglishName() != "" {
-		(sm.CityData)[index].englishName = newCity.EnglishName()
+		(sm.CityData)[index].EnglishNameF = newCity.EnglishName()
 	}
 	if newCity.AriaCode() != "" {
-		(sm.CityData)[index].ariaCode = newCity.AriaCode()
+		(sm.CityData)[index].AriaCodeF = newCity.AriaCode()
 	}
 	if newCity.Lat() != 0.0 {
-		(sm.CityData)[index].lat = newCity.Lat()
+		(sm.CityData)[index].LatF = newCity.Lat()
 	}
 	if newCity.Lng() != 0.0 {
-		(sm.CityData)[index].lng = newCity.Lng()
+		(sm.CityData)[index].LngF = newCity.Lng()
 	}
 	return nil
 }
@@ -93,7 +93,7 @@ func (sm *storageMemory) EditCity(newCity protocol.City) error {
 func (sm *storageMemory) DeleteCityByID(IDS []uint) (resDel []uint) {
 	for _, id := range IDS {
 		for index, data := range sm.CityData {
-			if data.id == id {
+			if data.IDF == id {
 				sm.CityData = append((sm.CityData)[:index], (sm.CityData)[index+1:]...)
 				resDel = append(resDel, id)
 			}

@@ -12,7 +12,7 @@ import (
 type (
 	newCity        struct{}
 	NewCityRequest struct {
-		city
+		DTO
 	}
 	newCityResponse struct {
 		State   uint

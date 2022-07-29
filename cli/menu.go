@@ -689,13 +689,18 @@ func RunMenu() {
 				fmt.Scanln(&lat)
 				fmt.Println("insert lng:")
 				fmt.Scanln(&lng)
-				err := city.NewCity.Do(city.NewCityRequest{
-					Name:        inputCity,
-					EnglishName: "",
-					AriaCode:    ariaCode,
-					Lat:         lat,
-					Lng:         lng,
-				})
+				var inputData city.DTO
+				inputData.IDF = 0
+				inputData.NameF = inputCity
+				inputData.EnglishNameF = ""
+				inputData.AriaCodeF = ariaCode
+				inputData.LatF = lat
+				inputData.LngF = lng
+				temp := struct {
+					city.DTO
+				}{inputData}
+				city.NewCity.Do(temp)
+				err := city.NewCity.Do(temp)
 				if err != nil {
 					fmt.Println("New city added")
 				} else {
@@ -707,7 +712,7 @@ func RunMenu() {
 				fmt.Println(string(dataJSON))
 				fmt.Println(separator7)
 				for _, data := range city.GetCity.Do() {
-					fmt.Printf("%3v | %-15s \n", data.Id, data.Name)
+					fmt.Printf("%3v | %-15s \n", data.ID(), data.Name)
 				}
 				fmt.Println(env.ShowMenuWarn)
 			case env.EditCityById:
@@ -721,7 +726,7 @@ func RunMenu() {
 				fmt.Println("insert new aria code:")
 				fmt.Scanln(&ariaCode)
 				var result city.EditCityRequest
-				result.Id, result.Name, result.AriaCode =
+				result.IDF, result.NameF, result.AriaCodeF =
 					inputID, inputName, ariaCode
 				if err := city.EditCity.Do(result); err == nil {
 					fmt.Println("City changed ...")
@@ -752,9 +757,9 @@ func RunMenu() {
 				fmt.Scanln(&firstCityCode)
 				fmt.Println("insert second city id:")
 				fmt.Scanln(&secondCityCode)
-				firstStatus, dataFirstCity := city.FindCityID.FindCityByID(firstCityCode)
-				secondStatus, dataSecondCity := city.FindCityID.FindCityByID(secondCityCode)
-				if firstStatus.State && secondStatus.State {
+				dataFirstCity := city.FindCityID.FindCityByID(firstCityCode)
+				dataSecondCity := city.FindCityID.FindCityByID(secondCityCode)
+				if dataFirstCity != nil && dataSecondCity != nil {
 					result, state := city.DistanceTimeService.Do(dataFirstCity, dataSecondCity)
 					if state.State {
 						fmt.Printf(

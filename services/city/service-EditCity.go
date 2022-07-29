@@ -12,7 +12,7 @@ import (
 type (
 	editCity        struct{}
 	EditCityRequest struct {
-		city
+		DTO
 	}
 	editCityResponse struct {
 		State   uint
@@ -47,7 +47,7 @@ func (ec *editCity) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		} else {
 			res.EncoderJson(w, editCityResponse{
 				200,
-				fmt.Sprintf("City #%v edited", req.id),
+				fmt.Sprintf("City #%v edited", req.IDF),
 			})
 		}
 	default:
