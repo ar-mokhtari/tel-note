@@ -9,6 +9,7 @@ import (
 var (
 	regexNationalID = regexp.MustCompile("^[\\d]{10}$")
 	regexNumber     = regexp.MustCompile("[0-9]+")
+	complexRexexp   = `^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$`
 )
 
 func IsLuhnAlgorithm(input string) bool {
@@ -45,4 +46,8 @@ func RegexRule(pattern string) func(interface{}) bool {
 			return false
 		}
 	}
+}
+
+func CheckIsComplex(input interface{}) bool {
+	return RegexRule(complexRexexp)(input)
 }
