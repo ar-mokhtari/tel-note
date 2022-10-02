@@ -1,6 +1,10 @@
 package validator
 
-import "regexp"
+import (
+	"github.com/dlclark/regexp2"
+	"reflect"
+	"regexp"
+)
 
 var (
 	regexNationalID = regexp.MustCompile("^[\\d]{10}$")
@@ -26,4 +30,19 @@ func ISNil(input []string) interface{} {
 		return []string{""}
 	}
 	return input
+}
+
+// Returns true if input matches the passed pattern
+func RegexRule(pattern string) func(interface{}) bool {
+	regex := regexp2.MustCompile(pattern, regexp2.None)
+	return func(input interface{}) bool {
+		inputValue := reflect.ValueOf(input)
+		switch inputValue.Kind() {
+		case reflect.String:
+			output, _ := regex.MatchString(input.(string))
+			return output
+		default:
+			return false
+		}
+	}
 }

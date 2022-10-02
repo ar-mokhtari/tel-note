@@ -1,7 +1,6 @@
 package services
 
 import (
-	"github.com/ar-mokhtari/tel-note/services/city"
 	"github.com/ar-mokhtari/tel-note/services/contact"
 	"github.com/ar-mokhtari/tel-note/services/country"
 	"github.com/ar-mokhtari/tel-note/services/customer"
@@ -24,7 +23,7 @@ func Init(mux *http.ServeMux) {
 	sex.Init(mux)
 
 	//init city services
-	city.Init(mux)
+	//city.Init(mux)
 
 	//init country services
 	country.Init(mux)

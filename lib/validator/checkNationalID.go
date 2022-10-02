@@ -4,6 +4,10 @@ import (
 	"strconv"
 )
 
+func CheckIsComplex(input interface{}) bool {
+	return RegexRule(`^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$`)(input)
+}
+
 func CheckNationalID(inputChar string) bool {
 	IsLuhnAlgorithm(inputChar)
 	var (

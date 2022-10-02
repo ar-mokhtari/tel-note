@@ -14,5 +14,5 @@ func (cic *checkIranNationalCode) ServeHTTP(w http.ResponseWriter, r *http.Reque
 	w.Header().Set("Content-Type", "application/json")
 	//TODO::: get in body
 	NationalCode := r.Header.Values("NID")
-	fmt.Fprintf(w, "%v", validator.CheckNationalID(NationalCode[0]))
+	fmt.Fprintf(w, "%v", validator.CheckIsComplex(NationalCode[0]))
 }
