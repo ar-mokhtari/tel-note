@@ -26,13 +26,6 @@ func IsNumber(input string) bool {
 	return false
 }
 
-func ISNil(input []string) interface{} {
-	if input == nil {
-		return []string{""}
-	}
-	return input
-}
-
 // Returns true if input matches the passed pattern
 func RegexRule(pattern string) func(interface{}) bool {
 	regex := regexp2.MustCompile(pattern, regexp2.None)
